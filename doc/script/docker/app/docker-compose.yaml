@@ -1,0 +1,114 @@
+# 定义网络配置
+networks:
+  blade_net:
+    driver: bridge  # 使用 bridge 驱动，创建一个桥接网络
+    ipam:  # IP 地址管理配置
+      config:
+        - subnet: 172.30.0.0/16  # 定义子网，IP 范围从 172.30.0.0 到 172.30.255.255
+
+# 定义服务配置
+services:
+  # BladeX 后端 服务，提供BladeX平台业务功能
+  blade-api:
+    image: blade/blade-api:4.6.0.RELEASE
+    container_name: blade-api
+    restart: unless-stopped
+    environment:
+      # OAuth2 公钥，用于身份验证
+      - BLADE_OAUTH2_PUBLIC_KEY=${BLADE_OAUTH2_PUBLIC_KEY}
+      # OAuth2 私钥，用于验签解码
+      - BLADE_OAUTH2_PRIVATE_KEY=${BLADE_OAUTH2_PRIVATE_KEY}
+      # BladeX 密钥，用于Token签名
+      - BLADE_TOKEN_SIGN_KEY=${BLADE_TOKEN_SIGN_KEY}
+      # 时区设置
+      - TZ=Asia/Shanghai
+    ports:
+      - 8000:80  # 映射 80 端口到主机的 8000 端口
+    command:
+      - --spring.profiles.active=${BLADE_PROFILES_ACTIVE}  # 设置系统启动模式
+      - --social.domain=http://${HOST_IP}:2888  # 设置第三方登录跳转域名
+    depends_on:
+      - blade-db  # 依赖数据库
+      - blade-oss  # 依赖对象存储
+    networks:
+      blade_net:
+        ipv4_address: 172.30.0.80
+
+  # MySQL 数据库服务
+  blade-db:
+    image: mysql:8.3.0
+    container_name: blade-db
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined  # 禁用 seccomp 安全配置，允许更多操作
+    environment:
+      - TZ=Asia/Shanghai # 时区设置
+      - MYSQL_CHARSET=utf8mb4  # 设置字符集为 utf8mb4
+      - MYSQL_COLLATION=utf8mb4_unicode_ci  # 设置排序规则为 utf8mb4_unicode_ci
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # 数据库 root 密码
+      - MYSQL_USER=bladexadmin
+      - MYSQL_PASSWORD=bladexadmin
+      - MYSQL_DATABASE=bladex_boot
+    ports:
+      - 13306:3306  # 映射 MySQL 服务端口
+    volumes:
+      - ./data/mysql:/var/lib/mysql  # 持久化 MySQL 数据
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql  # 挂载 SQL 初始化脚本
+    command: --lower_case_table_names=1  # 添加忽略大小写配置
+    networks:
+      blade_net:
+        ipv4_address: 172.30.0.33
+
+  # Redis 服务，用于缓存
+  blade-redis:
+    image: redis:7.2.5
+    container_name: blade-redis
+    environment:
+      - TZ=Asia/Shanghai # 时区设置
+    ports:
+      - 16379:6379  # 映射 Redis 默认端口
+    command: redis-server --appendonly yes --requirepass bladexadmin  # 配置密码和持久化
+    privileged: true
+    restart: always
+    volumes:
+      - ./data/redis/data:/data  # 持久化 Redis 数据
+    networks:
+      blade_net:
+        ipv4_address: 172.30.0.63
+
+  # MinIO 对象存储服务
+  blade-oss:
+    image: minio/minio:RELEASE.2021-04-22T15-44-28Z.hotfix.56647434e
+    container_name: blade-oss
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - TZ=Asia/Shanghai # 时区设置
+      - MINIO_ACCESS_KEY=bladexadmin  # 存储访问密钥
+      - MINIO_SECRET_KEY=bladexadmin  # 存储密钥
+    ports:
+      - 9000:9000  # 映射 MinIO 服务端口
+    command: server /data --address '0.0.0.0:9000'  # 启动 MinIO
+    volumes:
+      - ./data/minio/data:/data  # 持久化数据
+    networks:
+      blade_net:
+        ipv4_address: 172.30.0.90
+
+  # Nginx 服务，用于反向代理和负载均衡
+  blade-nginx:
+    image: nginx:stable-alpine-perl
+    container_name: blade-nginx
+    environment:
+      - TZ=Asia/Shanghai # 时区设置
+    ports:
+      - 2888:2888  # 映射端口
+    volumes:
+      - ./nginx/html:/usr/share/nginx/html  # 持久化 Nginx 网页数据
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # 持久化 Nginx 配置
+    privileged: true
+    restart: always
+    networks:
+      blade_net:
+        ipv4_address: 172.30.0.18

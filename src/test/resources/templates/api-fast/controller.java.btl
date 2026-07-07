@@ -1,0 +1,187 @@
+package ${package.Controller};
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
+
+import org.springblade.core.secure.BladeUser;
+import org.springblade.core.secure.annotation.IsAdmin;
+import org.springblade.core.mp.support.Condition;
+import org.springblade.core.mp.support.Query;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.utils.Func;
+import org.springframework.web.bind.annotation.*;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import ${packageName!}.pojo.entity.${entityKey!}Entity;
+import ${packageName!}.pojo.vo.${entityKey!}VO;
+import ${packageName!}.excel.${entityKey!}Excel;
+#if(hasWrapper) {
+import ${packageName!}.wrapper.${entityKey!}Wrapper;
+#}
+import ${packageName!}.service.${table.serviceName!};
+#if(isNotEmpty(superControllerClassPackage)){
+import ${superControllerClassPackage!};
+#}
+import org.springblade.core.tool.utils.DateUtil;
+import org.springblade.core.excel.util.ExcelUtil;
+import org.springblade.core.tool.constant.BladeConstant;
+import java.util.Map;
+import java.util.List;
+import jakarta.servlet.http.HttpServletResponse;
+
+/**
+ * ${table.comment!} 控制器
+ *
+ * @author ${author!}
+ * @since ${date!}
+ */
+@RestController
+@AllArgsConstructor
+#if(hasServiceName) {
+@RequestMapping("${serviceName!}/${entityKeyPath!}")
+#}else{
+@RequestMapping("/${entityKeyPath!}")
+#}
+@Tag(name = "${table.comment!}", description = "${table.comment!}接口")
+#if(isNotEmpty(superControllerClass)){
+public class ${table.controllerName!} extends ${superControllerClass!} {
+#}
+#else{
+public class ${table.controllerName!} {
+#}
+
+	private final ${table.serviceName!} ${entityKeyPath!}Service;
+
+#if(hasWrapper){
+	/**
+	 * ${table.comment!} 详情
+	 */
+	@GetMapping("/detail")
+	@ApiOperationSupport(order = 1)
+	@Operation(summary = "详情", description  = "传入${entityKeyPath!}")
+	public R<${entityKey!}VO> detail(${entityKey!}Entity ${entityKeyPath!}) {
+		${entityKey!}Entity detail = ${entityKeyPath!}Service.getOne(Condition.getQueryWrapper(${entityKeyPath!}));
+		return R.data(${entityKey!}Wrapper.build().entityVO(detail));
+	}
+
+	/**
+	 * ${table.comment!} 分页
+	 */
+	@GetMapping("/list")
+	@ApiOperationSupport(order = 2)
+	@Operation(summary = "分页", description  = "传入${entityKeyPath!}")
+	public R<IPage<${entityKey!}VO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> ${entityKeyPath!}, Query query) {
+		IPage<${entityKey!}Entity> pages = ${entityKeyPath!}Service.page(Condition.getPage(query), Condition.getQueryWrapper(${entityKeyPath!}, ${entityKey!}Entity.class));
+		return R.data(${entityKey!}Wrapper.build().pageVO(pages));
+	}
+
+#}else{
+	/**
+	 * ${table.comment!} 详情
+	 */
+	@GetMapping("/detail")
+	@ApiOperationSupport(order = 1)
+	@Operation(summary = "详情", description  = "传入${entityKeyPath!}")
+	public R<${entityKey!}Entity> detail(${entityKey!}Entity ${entityKeyPath!}) {
+		${entityKey!}Entity detail = ${entityKeyPath!}Service.getOne(Condition.getQueryWrapper(${entityKeyPath!}));
+		return R.data(detail);
+	}
+
+	/**
+	 * ${table.comment!} 分页
+	 */
+	@GetMapping("/list")
+	@ApiOperationSupport(order = 2)
+	@Operation(summary = "分页", description  = "传入${entityKeyPath!}")
+	public R<IPage<${entityKey!}Entity>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> ${entityKeyPath!}, Query query) {
+		IPage<${entityKey!}Entity> pages = ${entityKeyPath!}Service.page(Condition.getPage(query), Condition.getQueryWrapper(${entityKeyPath!}, ${entityKey!}Entity.class));
+		return R.data(pages);
+	}
+
+#}
+
+	/**
+	 * ${table.comment!} 自定义分页
+	 */
+	@GetMapping("/page")
+	@ApiOperationSupport(order = 3)
+	@Operation(summary = "分页", description  = "传入${entityKeyPath!}")
+	public R<IPage<${entityKey!}VO>> page(${entityKey!}VO ${entityKeyPath!}, Query query) {
+		IPage<${entityKey!}VO> pages = ${entityKeyPath!}Service.select${entityKey!}Page(Condition.getPage(query), ${entityKeyPath!});
+		return R.data(pages);
+	}
+
+	/**
+	 * ${table.comment!} 新增
+	 */
+	@PostMapping("/save")
+	@ApiOperationSupport(order = 4)
+	@Operation(summary = "新增", description  = "传入${entityKeyPath!}")
+	public R save(@Valid @RequestBody ${entityKey!}Entity ${entityKeyPath!}) {
+		return R.status(${entityKeyPath!}Service.save(${entityKeyPath!}));
+	}
+
+	/**
+	 * ${table.comment!} 修改
+	 */
+	@PostMapping("/update")
+	@ApiOperationSupport(order = 5)
+	@Operation(summary = "修改", description  = "传入${entityKeyPath!}")
+	public R update(@Valid @RequestBody ${entityKey!}Entity ${entityKeyPath!}) {
+		return R.status(${entityKeyPath!}Service.updateById(${entityKeyPath!}));
+	}
+
+	/**
+	 * ${table.comment!} 新增或修改
+	 */
+	@PostMapping("/submit")
+	@ApiOperationSupport(order = 6)
+	@Operation(summary = "新增或修改", description  = "传入${entityKeyPath!}")
+	public R submit(@Valid @RequestBody ${entityKey!}Entity ${entityKeyPath!}) {
+		return R.status(${entityKeyPath!}Service.saveOrUpdate(${entityKeyPath!}));
+	}
+
+#if(hasSuperEntity){
+	/**
+	 * ${table.comment!} 删除
+	 */
+	@PostMapping("/remove")
+	@ApiOperationSupport(order = 7)
+	@Operation(summary = "逻辑删除", description  = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+		return R.status(${entityKeyPath!}Service.deleteLogic(Func.toLongList(ids)));
+	}
+#}else{
+	/**
+	 * ${table.comment!} 删除
+	 */
+	@PostMapping("/remove")
+	@ApiOperationSupport(order = 7)
+	@Operation(summary = "删除", description  = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+		return R.status(${entityKeyPath!}Service.removeByIds(Func.toLongList(ids)));
+	}
+#}
+
+	/**
+	 * 导出数据
+	 */
+	@IsAdmin
+	@GetMapping("/export-${entityKeyPath!}")
+	@ApiOperationSupport(order = 8)
+	@Operation(summary = "导出数据", description  = "传入${entityKeyPath!}")
+	public void export${entityKey!}(@Parameter(hidden = true) @RequestParam Map<String, Object> ${entityKeyPath!}, BladeUser bladeUser, HttpServletResponse response) {
+		QueryWrapper<${entityKey!}Entity> queryWrapper = Condition.getQueryWrapper(${entityKeyPath!}, ${entityKey!}Entity.class);
+		//if (!AuthUtil.isAdministrator()) {
+		//	queryWrapper.lambda().eq(${entity!}::getTenantId, bladeUser.getTenantId());
+		//}
+		//queryWrapper.lambda().eq(${entityKey!}Entity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
+		List<${entityKey!}Excel> list = ${entityKeyPath!}Service.export${entityKey!}(queryWrapper);
+		ExcelUtil.export(response, "${table.comment!}数据" + DateUtil.time(), "${table.comment!}数据表", list, ${entityKey!}Excel.class);
+	}
+
+}

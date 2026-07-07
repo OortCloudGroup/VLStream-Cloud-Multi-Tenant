@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.job.mapper.JobInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="jobInfoResultMap" type="org.springblade.job.pojo.entity.JobInfo">
+        <result column="id" property="id"/>
+        <result column="business_id" property="businessId"/>
+        <result column="job_server_id" property="jobServerId"/>
+        <result column="job_id" property="jobId"/>
+        <result column="job_name" property="jobName"/>
+        <result column="job_description" property="jobDescription"/>
+        <result column="job_params" property="jobParams"/>
+        <result column="time_expression_type" property="timeExpressionType"/>
+        <result column="time_expression" property="timeExpression"/>
+        <result column="execute_type" property="executeType"/>
+        <result column="processor_type" property="processorType"/>
+        <result column="processor_info" property="processorInfo"/>
+        <result column="max_instance_num" property="maxInstanceNum"/>
+        <result column="concurrency" property="concurrency"/>
+        <result column="instance_time_limit" property="instanceTimeLimit"/>
+        <result column="instance_retry_num" property="instanceRetryNum"/>
+        <result column="task_retry_num" property="taskRetryNum"/>
+        <result column="min_cpu_cores" property="minCpuCores"/>
+        <result column="min_memory_space" property="minMemorySpace"/>
+        <result column="min_disk_space" property="minDiskSpace"/>
+        <result column="designated_workers" property="designatedWorkers"/>
+        <result column="max_worker_count" property="maxWorkerCount"/>
+        <result column="notify_user_ids" property="notifyUserIds"/>
+        <result column="enable" property="enable"/>
+        <result column="dispatch_strategy" property="dispatchStrategy"/>
+        <result column="lifecycle" property="lifecycle"/>
+        <result column="alert_threshold" property="alertThreshold"/>
+        <result column="statistic_window_len" property="statisticWindowLen"/>
+        <result column="silence_window_len" property="silenceWindowLen"/>
+        <result column="log_type" property="logType"/>
+        <result column="log_level" property="logLevel"/>
+        <result column="extra" property="extra"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectJobInfoPage" resultMap="jobInfoResultMap">
+        select * from blade_job_info where is_deleted = 0
+    </select>
+
+</mapper>

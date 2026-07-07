@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.archive.internet.publicArchiveApplication.mapper.PublicArchiveApplicationMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="org.springblade.archive.internet.publicArchiveApplication.pojo.entity.PublicArchiveApplicationEntity">
+		<id column="id" property="id" />
+		<result column="create_user" property="createUser" />
+		<result column="create_dept" property="createDept" />
+		<result column="create_time" property="createTime" />
+		<result column="update_user" property="updateUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="status" property="status" />
+		<result column="is_deleted" property="isDeleted" />
+		<result column="tenant_id" property="tenantId" />
+		<result column="applicant_type" property="applicantType" />
+		<result column="natural_person_name" property="naturalPersonName" />
+		<result column="natural_person_id_card" property="naturalPersonIdCard" />
+		<result column="natural_person_phone" property="naturalPersonPhone" />
+		<result column="natural_person_address" property="naturalPersonAddress" />
+		<result column="natural_person_email" property="naturalPersonEmail" />
+		<result column="legal_person_name" property="legalPersonName" />
+		<result column="legal_person_unified_code" property="legalPersonUnifiedCode" />
+		<result column="legal_person_representative" property="legalPersonRepresentative" />
+		<result column="legal_person_phone" property="legalPersonPhone" />
+		<result column="legal_person_address" property="legalPersonAddress" />
+		<result column="legal_person_email" property="legalPersonEmail" />
+		<result column="application_no" property="applicationNo" />
+		<result column="application_reason" property="applicationReason" />
+		<result column="application_content" property="applicationContent" />
+		<result column="document_no" property="documentNo" />
+		<result column="file_name" property="fileName" />
+		<result column="other_description" property="otherDescription" />
+		<result column="identity_proof_attachment" property="identityProofAttachment" />
+		<result column="provide_method" property="provideMethod" />
+		<result column="obtain_method" property="obtainMethod" />
+		<result column="application_time" property="applicationTime" />
+		<result column="application_status" property="applicationStatus" />
+		<result column="audit_user" property="auditUser" />
+		<result column="audit_time" property="auditTime" />
+		<result column="audit_remark" property="auditRemark" />
+		<result column="remark" property="remark" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, create_user, create_dept, create_time, update_user, update_time, status, is_deleted, tenant_id,
+		applicant_type, natural_person_name, natural_person_id_card, natural_person_phone, natural_person_address, natural_person_email,
+		legal_person_name, legal_person_unified_code, legal_person_representative, legal_person_phone, legal_person_address, legal_person_email,
+		application_no, application_reason, application_content, document_no, file_name, other_description, identity_proof_attachment, provide_method, obtain_method,
+		application_time, application_status, audit_user, audit_time, audit_remark, remark
+	</sql>
+
+	<!-- 自定义分页 -->
+	<select id="selectPublicArchiveApplicationPage" resultType="org.springblade.archive.internet.publicArchiveApplication.pojo.vo.PublicArchiveApplicationVO">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM biz_public_archive_application
+		<where>
+			<if test="vo.applicantType != null">
+				AND applicant_type = #{vo.applicantType}
+			</if>
+			<if test="vo.naturalPersonName != null and vo.naturalPersonName != ''">
+				AND natural_person_name LIKE CONCAT('%', #{vo.naturalPersonName}, '%')
+			</if>
+			<if test="vo.naturalPersonIdCard != null and vo.naturalPersonIdCard != ''">
+				AND natural_person_id_card = #{vo.naturalPersonIdCard}
+			</if>
+			<if test="vo.legalPersonName != null and vo.legalPersonName != ''">
+				AND legal_person_name LIKE CONCAT('%', #{vo.legalPersonName}, '%')
+			</if>
+			<if test="vo.legalPersonUnifiedCode != null and vo.legalPersonUnifiedCode != ''">
+				AND legal_person_unified_code = #{vo.legalPersonUnifiedCode}
+			</if>
+			<if test="vo.applicationNo != null and vo.applicationNo != ''">
+				AND application_no LIKE CONCAT('%', #{vo.applicationNo}, '%')
+			</if>
+			<if test="vo.documentNo != null and vo.documentNo != ''">
+				AND document_no LIKE CONCAT('%', #{vo.documentNo}, '%')
+			</if>
+			<if test="vo.fileName != null and vo.fileName != ''">
+				AND file_name LIKE CONCAT('%', #{vo.fileName}, '%')
+			</if>
+			<if test="vo.provideMethod != null and vo.provideMethod != ''">
+				AND provide_method = #{vo.provideMethod}
+			</if>
+			<if test="vo.obtainMethod != null and vo.obtainMethod != ''">
+				AND obtain_method = #{vo.obtainMethod}
+			</if>
+			<if test="vo.applicationStatus != null">
+				AND application_status = #{vo.applicationStatus}
+			</if>
+			<if test="vo.applicationTime != null">
+				AND application_time >= #{vo.applicationTime}
+			</if>
+			AND is_deleted = 0
+		</where>
+		ORDER BY create_time DESC
+	</select>
+
+	<!-- 导出数据 -->
+	<select id="exportPublicArchiveApplication" resultType="org.springblade.archive.internet.publicArchiveApplication.excel.PublicArchiveApplicationExcel">
+		SELECT
+		application_no,
+		CASE applicant_type
+			WHEN 1 THEN '自然人'
+			WHEN 2 THEN '法人其他组织'
+			ELSE '未知'
+		END AS applicant_type_name,
+		CASE applicant_type
+			WHEN 1 THEN natural_person_name
+			WHEN 2 THEN legal_person_name
+			ELSE ''
+		END AS applicant_name,
+		CASE applicant_type
+			WHEN 1 THEN natural_person_id_card
+			WHEN 2 THEN legal_person_unified_code
+			ELSE ''
+		END AS id_card_or_code,
+		CASE applicant_type
+			WHEN 1 THEN natural_person_phone
+			WHEN 2 THEN legal_person_phone
+			ELSE ''
+		END AS phone,
+		CASE applicant_type
+			WHEN 1 THEN natural_person_address
+			WHEN 2 THEN legal_person_address
+			ELSE ''
+		END AS address,
+		application_reason,
+		application_content,
+		document_no,
+		file_name,
+		other_description,
+		identity_proof_attachment,
+		provide_method,
+		obtain_method,
+		application_time,
+		CASE application_status
+			WHEN 0 THEN '待审核'
+			WHEN 1 THEN '已通过'
+			WHEN 2 THEN '已拒绝'
+			WHEN 3 THEN '已撤回'
+			ELSE '未知'
+		END AS application_status_name,
+		CAST(audit_user AS CHAR) AS audit_user_name,
+		audit_time,
+		audit_remark,
+		remark
+		FROM biz_public_archive_application
+		${ew.customSqlSegment}
+	</select>
+
+</mapper>
+

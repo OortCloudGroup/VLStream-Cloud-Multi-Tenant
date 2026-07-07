@@ -1,0 +1,307 @@
+#服务器配置
+server:
+  port: 8080
+  undertow:
+    threads:
+      # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+      io: 16
+      # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+      worker: 400
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    buffer-size: 1024
+    # 是否分配的直接内存
+    direct-buffers: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #driver-class-name: org.postgresql.Driver
+    #driver-class-name: oracle.jdbc.OracleDriver
+    #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    #driver-class-name: dm.jdbc.driver.DmDriver
+    #driver-class-name: com.yashandb.jdbc.Driver
+    #driver-class-name: com.kingbase8.Driver
+    druid:
+      # MySql、PostgreSQL、SqlServer、DaMeng校验
+      validation-query: select 1
+      # Oracle、YashanDB校验
+      #oracle: true
+      #validation-query: select 1 from dual
+      validation-query-timeout: 2000
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      stat-view-servlet:
+        enabled: true
+        login-username: blade
+        login-password: 1qaz@WSX
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+        session-stat-enable: true
+        session-stat-max-count: 10
+#配置日志地址
+logging:
+  config: classpath:log/logback-${blade.env}.xml
+# mybatis
+mybatis-plus:
+  mapper-locations: classpath:org/springblade/**/mapper/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: org.springblade.**.entity
+  #typeEnumsPackage: org.springblade.dashboard.entity.enums
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    db-config:
+      #主键类型  0:"数据库ID自增", 1:"不操作", 2:"用户输入ID",3:"数字型snowflake", 4:"全局唯一ID UUID", 5:"字符串型snowflake";
+      id-type: assign_id
+      #字段策略
+      insert-strategy: not_null
+      update-strategy: not_null
+      where-strategy: not_null
+      #驼峰下划线转换
+      table-underline: true
+      # 逻辑删除配置
+      # 逻辑删除全局值（1表示已删除，这也是Mybatis Plus的默认配置）
+      logic-delete-value: 1
+      # 逻辑未删除全局值（0表示未删除，这也是Mybatis Plus的默认配置）
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    jdbc-type-for-null: 'null'
+
+#springdoc-openapi配置
+springdoc:
+  default-flat-param-object: false
+
+#knife4j配置
+knife4j:
+  #基础认证
+  basic:
+    enable: false
+    username: blade
+    password: blade
+  #增强配置
+  setting:
+    enable-swagger-models: true
+    enable-document-manage: true
+    enable-host: false
+    enable-host-text: http://localhost
+    enable-request-cache: true
+    enable-filter-multipart-apis: false
+    enable-filter-multipart-api-method-type: POST
+    enable-footer: false
+    enable-footer-custom: true
+    language: zh_cn
+    footer-custom-content: Copyright © 2025 Oort All Rights Reserved
+
+#swagger公共信息
+swagger:
+  title: VLStream Cloud 视频流管理系统接口文档系统
+  description: VLStream Cloud 视频流管理系统接口文档系统(服务名apaas-vls-server)
+  version: 4.7.0.RELEASE
+  license: Powered By OORT
+  license-url:
+  contact:
+    name:
+    email:
+    url:
+
+#第三方登陆配置
+social:
+  oauth:
+    GITHUB:
+      client-id: 233************
+      client-secret: 233************************************
+      redirect-uri: ${social.domain}/oauth/redirect/github
+    GITEE:
+      client-id: 233************
+      client-secret: 233************************************
+      redirect-uri: ${social.domain}/oauth/redirect/gitee
+    WECHAT_OPEN:
+      client-id: 233************
+      client-secret: 233************************************
+      redirect-uri: ${social.domain}/oauth/redirect/wechat
+    QQ:
+      client-id: 233************
+      client-secret: 233************************************
+      redirect-uri: ${social.domain}/oauth/redirect/qq
+    DINGTALK:
+      client-id: 233************
+      client-secret: 233************************************
+      redirect-uri: ${social.domain}/oauth/redirect/dingtalk
+
+#报表配置
+report:
+  enabled: false
+  auth: false
+  database:
+    provider:
+      prefix: blade-
+
+#blade配置
+blade:
+  #oauth2配置
+  oauth2:
+    #启用 oauth2
+    enabled: true
+    #使用 @org.springblade.test.Sm2KeyGenerator 获取,用于国密sm2验签,需和前端保持一致
+    public-key: ${BLADE_OAUTH2_PUBLIC_KEY:04bf94e3539e093211b73b2dc3f5900ed8933ddb58c6e14272a7d0a4e19564065300a2276bd621e742ecb176b7f352cd133484d66a759b50c9e3a6fedb447917cc}
+    #使用 @org.springblade.test.Sm2KeyGenerator 获取,用于国密sm2解密,前端无需配置
+    private-key: ${BLADE_OAUTH2_PRIVATE_KEY:17d796ad64f197f9031ae27e44839ba5496519e787639d7df28747f3e01ebe22}
+  #token配置
+  token:
+    #是否有状态
+    state: false
+    #是否单用户登录
+    single: false
+    #单用户登录范围
+    single-level: all
+    #token签名 使用 @org.springblade.test.SignKeyGenerator 获取
+    sign-key: ${BLADE_TOKEN_SIGN_KEY:xvMyVPb2hPR0zFoXjVKzlfkDD2JUyEX0}
+    #token加密 使用 @org.springblade.test.CryptoKeyGenerator 获取
+    crypto-key: ${BLADE_TOKEN_CRYPTO_KEY:wnUjLO3eoQLFpk6soVfh2O1EBbaDvFSX}
+  #超级密钥配置
+  key:
+    #启用超级密钥
+    enabled: false
+    #密钥加密 使用 @org.springblade.test.CryptoKeyGenerator 获取
+    crypto-key: ${BLADE_KEY_CRYPTO_KEY}
+  #接口配置
+  api:
+    #报文加密配置
+    crypto:
+      #启用报文加密配置
+      enabled: false
+      #使用 @org.springblade.test.CryptoKeyGenerator 获取,需和前端保持一致
+      aes-key: ${BLADE_API_CRYPTO_AES_KEY}
+      #使用 @org.springblade.test.CryptoKeyGenerator 获取,需和前端保持一致
+      des-key: ${BLADE_API_CRYPTO_DES_KEY}
+  #jackson配置
+  jackson:
+    #null自动转空值
+    null-to-empty: false
+    #大数字自动转字符串
+    big-num-to-string: false
+    #支持text文本请求,与报文加密同时开启
+    support-text-plain: false
+  #redis序列化方式
+  redis:
+    serializer-type: json
+  #日志配置
+  log:
+    request:
+      #开启控制台请求日志
+      enabled: true
+      #控制台请求日志忽略
+      skip-url:
+      #开启错误日志入库
+      error-log: true
+  #xss配置
+  xss:
+    enabled: true
+    skip-url:
+      - /blade-chat/wechat
+      - /blade-chat/qq
+  #安全框架配置
+  secure:
+    #严格模式
+    #缺失令牌字段则取消授权
+    strict-token: false
+    #缺失请求头则取消授权
+    strict-header: false
+    #接口放行
+    skip-url:
+      - /swagger/api-docs.json
+    #授权认证配置
+    auth:
+      - method: ALL
+        pattern: /blade-chat/wechat/**
+        expression: "hasAuth()"
+      - method: ALL
+        pattern: /blade-chat/qq/**
+        expression: "hasStrictToken()"
+      - method: ALL
+        pattern: /blade-chat/ding/**
+        expression: "hasStrictHeader()"
+      - method: ALL
+        pattern: /blade-chat/blog/**
+        expression: "hasMenu('blog')"
+      - method: POST
+        pattern: /blade-desk/dashboard/upload
+        expression: "hasTimeAuth(9, 17)"
+      - method: POST
+        pattern: /blade-desk/dashboard/submit
+        expression: "hasAnyRole('administrator', 'admin', 'user')"
+    #基础认证配置
+    basic:
+      - method: ALL
+        pattern: /blade-desk/dashboard/info
+        username: "blade"
+        password: "blade"
+    #动态签名认证配置
+    sign:
+      - method: ALL
+        pattern: /blade-desk/dashboard/sign
+        crypto: "sha1"
+    #多终端认证配置
+    client:
+      - client-id: sword
+        path-patterns:
+          - /blade-sword/**
+      - client-id: saber
+        path-patterns:
+          - /blade-saber/**
+  #多租户配置
+  tenant:
+    #多租户增强
+    enhance: true
+    #多租户授权保护
+    license: false
+    #动态数据库隔离功能
+    dynamic-datasource: false
+    #动态数据库隔离全局扫描
+    dynamic-global: false
+    #多租户字段名
+    column: tenant_id
+    #排除多租户逻辑
+    exclude-tables:
+      - blade_user
+  #分库分表配置
+  sharding:
+    enabled: false
+
+vlstream:
+  rtsp-recording:
+    enabled: true
+    ffmpeg-path: ffmpeg
+    default-storage-path: ./recordings
+    segment-seconds: 60
+    process-stop-wait-seconds: 5
+    stale-file-seconds: 5
+    refresh-interval-millis: 10000
+  mqtt:
+    host: ${VLSTREAM_MQTT_HOST:146.56.220.167}
+    port: ${VLSTREAM_MQTT_PORT:1883}
+    username: ${VLSTREAM_MQTT_USERNAME:oort2}
+    password: ${VLSTREAM_MQTT_PASSWORD:kdo.2028}
+    topic-prefix: ${VLSTREAM_MQTT_TOPIC_PREFIX:oortcloud}
+    client-id-prefix: ${VLSTREAM_MQTT_CLIENT_ID_PREFIX:vls-dispatch}
+    qos: ${VLSTREAM_MQTT_QOS:1}
+    keep-alive-seconds: ${VLSTREAM_MQTT_KEEP_ALIVE_SECONDS:60}
+    connection-timeout-seconds: ${VLSTREAM_MQTT_CONNECTION_TIMEOUT_SECONDS:10}
+    vls-camera-display-setting-topic: ${VLSTREAM_MQTT_TOPIC_CAMERA_DISPLAY:oortcloud/vlsCameraDisplaySetting}
+    vls-camera-osd-setting-topic: ${VLSTREAM_MQTT_TOPIC_CAMERA_OSD:oortcloud/vlsCameraOsdSetting}
+    vls-audio-anomaly-detection-setting-topic: ${VLSTREAM_MQTT_TOPIC_AUDIO_ANOMALY:oortcloud/vlsAudioAnomalyDetectionSetting}
+    vls-audio-defense-time-setting-topic: ${VLSTREAM_MQTT_TOPIC_AUDIO_DEFENSE:oortcloud/vlsAudioDefenseTimeSetting}
+    vls-audio-linkage-mode-setting-topic: ${VLSTREAM_MQTT_TOPIC_AUDIO_LINKAGE:oortcloud/vlsAudioLinkageModeSetting}
+    vls-time-strategy-topic: ${VLSTREAM_MQTT_TOPIC_TIME_STRATEGY:oortcloud/vlsTimeStrategy}
+    vls-record-event-strategy-topic: ${VLSTREAM_MQTT_TOPIC_RECORD_EVENT:oortcloud/vlsRecordEventStrategy}

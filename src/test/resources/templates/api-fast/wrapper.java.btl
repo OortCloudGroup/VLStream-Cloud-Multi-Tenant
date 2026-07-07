@@ -1,0 +1,33 @@
+package ${strutil.replace(package.Entity,"pojo.entity","wrapper")};
+
+import org.springblade.core.mp.support.BaseEntityWrapper;
+import org.springblade.core.tool.utils.BeanUtil;
+import ${packageName!}.pojo.entity.${entityKey!}Entity;
+import ${packageName!}.pojo.vo.${entityKey!}VO;
+import java.util.Objects;
+
+/**
+ * ${table.comment!} 包装类,返回视图层所需的字段
+ *
+ * @author ${author!}
+ * @since ${date!}
+ */
+public class ${entityKey!}Wrapper extends BaseEntityWrapper<${entityKey!}Entity, ${entityKey!}VO>  {
+
+	public static ${entityKey!}Wrapper build() {
+		return new ${entityKey!}Wrapper();
+ 	}
+
+	@Override
+	public ${entityKey!}VO entityVO(${entityKey!}Entity ${entityKeyPath!}) {
+		${entityKey!}VO ${entityKeyPath!}VO = Objects.requireNonNull(BeanUtil.copyProperties(${entityKeyPath!}, ${entityKey!}VO.class));
+
+		//User createUser = UserCache.getUser(${entityKeyPath!}.getCreateUser());
+		//User updateUser = UserCache.getUser(${entityKeyPath!}.getUpdateUser());
+		//${entityKeyPath!}VO.setCreateUserName(createUser.getName());
+		//${entityKeyPath!}VO.setUpdateUserName(updateUser.getName());
+
+		return ${entityKeyPath!}VO;
+	}
+
+}

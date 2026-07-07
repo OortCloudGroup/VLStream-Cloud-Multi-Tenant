@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.system.mapper.OortDeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="oortDeptResultMap" type="org.springblade.modules.system.pojo.entity.OortDeptEntity">
+        <result column="oort_udid" property="oortUdid"/>
+        <result column="oort_dname" property="oortDname"/>
+        <result column="oort_dnamefl" property="oortDnamefl"/>
+        <result column="oort_dcode" property="oortDcode"/>
+        <result column="oort_pdname" property="oortPdname"/>
+        <result column="oort_pdcode" property="oortPdcode"/>
+        <result column="oort_dtype" property="oortDtype"/>
+        <result column="oort_dpost" property="oortDpost"/>
+        <result column="oort_status" property="oortStatus"/>
+        <result column="oort_dsort" property="oortDsort"/>
+        <result column="oort_dtel" property="oortDtel"/>
+        <result column="oort_daddr" property="oortDaddr"/>
+        <result column="oort_dlevel" property="oortDlevel"/>
+        <result column="oort_dpath" property="oortDpath"/>
+        <result column="oort_dcodepath" property="oortDcodepath"/>
+        <result column="oort_duupdate" property="oortDuupdate"/>
+        <result column="oort_dremark" property="oortDremark"/>
+        <result column="oort_dtcreate" property="oortDtcreate"/>
+        <result column="oort_dupdate" property="oortDupdate"/>
+        <result column="oort_tdelete" property="oortTdelete"/>
+        <result column="uptag" property="uptag"/>
+        <result column="oort_dept_photo" property="oortDeptPhoto"/>
+        <result column="ishidden" property="ishidden"/>
+        <result column="exfield1" property="exfield1"/>
+        <result column="exfield2" property="exfield2"/>
+        <result column="exfield3" property="exfield3"/>
+        <result column="exfield4" property="exfield4"/>
+        <result column="exfield5" property="exfield5"/>
+        <result column="exfield6" property="exfield6"/>
+        <result column="exfield7" property="exfield7"/>
+        <result column="exfield8" property="exfield8"/>
+        <result column="exfield9" property="exfield9"/>
+        <result column="exfield10" property="exfield10"/>
+    </resultMap>
+
+    <select id="selectOortDeptPage" resultMap="oortDeptResultMap">
+        select * from oort_dept where is_deleted = 0
+    </select>
+
+    <select id="selectDeptAndChildrenByDeptCode" resultType="org.springblade.modules.system.pojo.entity.OortDeptEntity">
+        SELECT * FROM oort_dept
+        WHERE oort_dcodepath LIKE (
+            SELECT CONCAT(oort_dcodepath, '%')
+            FROM oort_dept
+            WHERE dept_code = #{oort_dcode}
+        )
+    </select>
+
+    <select id="getDeptNames" resultType="java.lang.String">
+        SELECT
+        oort_dname
+        FROM
+        oort_dept
+        WHERE
+        oort_udid IN
+        <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+        and is_deleted = 0
+    </select>
+
+</mapper>

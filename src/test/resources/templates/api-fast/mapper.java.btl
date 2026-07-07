@@ -1,0 +1,37 @@
+package ${package.Mapper!};
+
+import ${packageName!}.pojo.entity.${entityKey!}Entity;
+import ${packageName!}.pojo.vo.${entityKey!}VO;
+import ${packageName!}.excel.${entityKey!}Excel;
+import ${superMapperClassPackage!};
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+
+/**
+ * ${table.comment!} Mapper 接口
+ *
+ * @author ${author!}
+ * @since ${date!}
+ */
+public interface ${table.mapperName!} extends ${superMapperClass!}<${entityKey!}Entity> {
+
+	/**
+	 * 自定义分页
+	 *
+	 * @param page 分页参数
+	 * @param ${entityKeyPath!} 查询参数
+	 * @return List<${entityKey!}VO>
+	 */
+	List<${entityKey!}VO> select${entityKey!}Page(IPage page, ${entityKey!}VO ${entityKeyPath!});
+
+	/**
+	 * 获取导出数据
+	 *
+	 * @param queryWrapper 查询条件
+	 * @return List<${entityKey!}Excel>
+	 */
+	List<${entityKey!}Excel> export${entityKey!}(@Param("ew") Wrapper<${entityKey!}Entity> queryWrapper);
+
+}

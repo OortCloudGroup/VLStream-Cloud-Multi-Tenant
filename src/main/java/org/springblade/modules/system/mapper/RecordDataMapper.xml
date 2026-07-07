@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.system.mapper.RecordDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="recordDataResultMap" type="org.springblade.modules.system.pojo.entity.RecordData">
+        <result column="service_id" property="serviceId"/>
+        <result column="server_host" property="serverHost"/>
+        <result column="server_ip" property="serverIp"/>
+        <result column="env" property="env"/>
+        <result column="level" property="recordLevel"/>
+        <result column="method" property="method"/>
+        <result column="request_uri" property="requestUri"/>
+        <result column="user_agent" property="userAgent"/>
+        <result column="remote_ip" property="remoteIp"/>
+        <result column="operation" property="operation"/>
+        <result column="table_name" property="tableName"/>
+        <result column="old_data" property="oldData"/>
+        <result column="new_data" property="newData"/>
+        <result column="record_message" property="recordMessage"/>
+        <result column="record_result" property="recordResult"/>
+        <result column="record_cost" property="recordCost"/>
+        <result column="record_time" property="recordTime"/>
+        <result column="record_user" property="recordUser"/>
+    </resultMap>
+</mapper>

@@ -1,0 +1,44 @@
+package ${strutil.replace(package.Entity,"pojo.entity","excel")};
+
+
+import lombok.Data;
+
+#for(x in table.importPackages){
+#if(isNotEmpty(x)&&!strutil.contain(x,"TableName")&&!strutil.contain(x,"TenantEntity")){
+import ${x!};
+#}
+#}
+import cn.idev.excel.annotation.ExcelProperty;
+import cn.idev.excel.annotation.write.style.ColumnWidth;
+import cn.idev.excel.annotation.write.style.ContentRowHeight;
+import cn.idev.excel.annotation.write.style.HeadRowHeight;
+import java.io.Serial;
+
+
+/**
+ * ${table.comment!} Excel实体类
+ *
+ * @author ${author!}
+ * @since ${date!}
+ */
+@Data
+@ColumnWidth(25)
+@HeadRowHeight(20)
+@ContentRowHeight(18)
+public class ${entityKey!}Excel implements Serializable {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+#for(x in table.fields) {
+	#if(x.propertyName!="createUser"&&x.propertyName!="createDept"&&x.propertyName!="createTime"&&x.propertyName!="updateUser"&&x.propertyName!="updateTime"){
+	/**
+	 * ${x.comment!}
+	 */
+	@ColumnWidth(20)
+	@ExcelProperty("${x.comment!}")
+	private ${x.propertyType!} ${x.propertyName!};
+	#}
+#}
+
+}

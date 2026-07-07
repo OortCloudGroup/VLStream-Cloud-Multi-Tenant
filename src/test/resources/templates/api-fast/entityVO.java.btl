@@ -1,0 +1,20 @@
+package ${strutil.replace(package.Entity,"entity","vo")};
+
+import ${packageName!}.pojo.entity.${entityKey!}Entity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import java.io.Serial;
+
+/**
+ * ${table.comment!} 视图实体类
+ *
+ * @author ${author!}
+ * @since ${date!}
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ${entityKey!}VO extends ${entityKey!}Entity {
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+}

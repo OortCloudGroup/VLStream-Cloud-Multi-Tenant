@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.system.mapper.ApDeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="apDeptResultMap" type="org.springblade.modules.system.pojo.entity.ApDeptEntity">
+        <result column="dept_id" property="deptId"/>
+        <result column="dept_code" property="deptCode"/>
+        <result column="parent_dept_id" property="parentDeptId"/>
+        <result column="dept_type" property="deptType"/>
+        <result column="dept_name" property="deptName"/>
+        <result column="dept_code_path" property="deptCodePath"/>
+        <result column="dept_name_path" property="deptNamePath"/>
+        <result column="dept_level" property="deptLevel"/>
+        <result column="sort" property="sort"/>
+        <result column="data" property="data"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="deleted_at" property="deletedAt"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="check_id" property="checkId"/>
+    </resultMap>
+
+    <select id="selectApDeptPage" resultMap="apDeptResultMap">
+        select * from ap_dept where is_deleted = 0
+    </select>
+
+    <select id="exportApDept" resultType="org.springblade.modules.system.excel.ApDeptExcel">
+        SELECT * FROM ap_dept ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectDeptAndChildrenByDeptCode" resultType="org.springblade.modules.system.pojo.entity.ApDeptEntity">
+        SELECT * FROM ap_dept
+        WHERE dept_code_path LIKE (
+            SELECT CONCAT(dept_code_path, '%')
+            FROM ap_dept
+            WHERE dept_code = #{deptCode}
+        )
+    </select>
+
+    <select id="getDeptNames" resultType="java.lang.String">
+        SELECT
+        dept_name
+        FROM
+        ap_dept
+        WHERE
+        dept_id IN
+        <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+        and is_deleted = 0
+    </select>
+
+</mapper>

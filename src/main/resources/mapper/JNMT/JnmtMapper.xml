@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.archive.common.importData.JNMT.mapper.JnmtMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="jnmtResultMap" type="org.springblade.archive.common.importData.JNMT.pojo.entity.JnmtEntity">
+        <result column="WG00" property="wg00"/>
+        <result column="WG01" property="wg01"/>
+        <result column="WG02" property="wg02"/>
+        <result column="WG03" property="wg03"/>
+        <result column="WG04" property="wg04"/>
+        <result column="WG05" property="wg05"/>
+        <result column="WG06" property="wg06"/>
+        <result column="WG07" property="wg07"/>
+        <result column="WG08" property="wg08"/>
+        <result column="WG09" property="wg09"/>
+        <result column="WG10" property="wg10"/>
+        <result column="WG11" property="wg11"/>
+        <result column="WG15" property="wg15"/>
+        <result column="WG16" property="wg16"/>
+        <result column="WG17" property="wg17"/>
+        <result column="WG18" property="wg18"/>
+        <result column="WG19" property="wg19"/>
+        <result column="WG22" property="wg22"/>
+        <result column="WG23" property="wg23"/>
+        <result column="WG24" property="wg24"/>
+        <result column="WG25" property="wg25"/>
+        <result column="WG32" property="wg32"/>
+        <result column="WG33" property="wg33"/>
+        <result column="WG34" property="wg34"/>
+        <result column="WG35" property="wg35"/>
+        <result column="WG36" property="wg36"/>
+        <result column="WG37" property="wg37"/>
+        <result column="WG38" property="wg38"/>
+        <result column="WG39" property="wg39"/>
+        <result column="WG40" property="wg40"/>
+        <result column="WG41" property="wg41"/>
+        <result column="WG42" property="wg42"/>
+        <result column="WG43" property="wg43"/>
+        <result column="WG44" property="wg44"/>
+        <result column="WG45" property="wg45"/>
+        <result column="WG46" property="wg46"/>
+        <result column="WG47" property="wg47"/>
+        <result column="WG48" property="wg48"/>
+        <result column="WG49" property="wg49"/>
+        <result column="WG55" property="wg55"/>
+        <result column="WG56" property="wg56"/>
+        <result column="WG57" property="wg57"/>
+        <result column="WG58" property="wg58"/>
+        <result column="WG59" property="wg59"/>
+        <result column="WG73" property="wg73"/>
+        <result column="WG74" property="wg74"/>
+        <result column="WG75" property="wg75"/>
+        <result column="WG76" property="wg76"/>
+        <result column="WG77" property="wg77"/>
+        <result column="WG78" property="wg78"/>
+        <result column="WG79" property="wg79"/>
+        <result column="WG80" property="wg80"/>
+        <result column="WG81" property="wg81"/>
+        <result column="WG82" property="wg82"/>
+        <result column="WG83" property="wg83"/>
+        <result column="WG84" property="wg84"/>
+        <result column="WG85" property="wg85"/>
+        <result column="WG86" property="wg86"/>
+        <result column="WG87" property="wg87"/>
+        <result column="WG88" property="wg88"/>
+        <result column="WG89" property="wg89"/>
+        <result column="WG90" property="wg90"/>
+        <result column="JYBZ" property="jybz"/>
+        <result column="JYRT" property="jyrt"/>
+        <result column="WGMZ" property="wgmz"/>
+        <result column="WJBZ" property="wjbz"/>
+        <result column="XHBZ" property="xhbz"/>
+        <result column="KFBZ" property="kfbz"/>
+        <result column="WGMJ" property="wgmj"/>
+        <result column="KCFS" property="kcfs"/>
+    </resultMap>
+
+    <!-- 查询去重的WG02字段值 -->
+    <select id="selectDistinctWg02" resultType="java.lang.String">
+        SELECT DISTINCT WG02 FROM JNMT WHERE WG02 IS NOT NULL AND WG02 != ''
+    </select>
+
+</mapper>
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.develop.mapper.CodeSettingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="codeSettingResultMap" type="org.springblade.modules.develop.pojo.entity.CodeSetting">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="category" property="category"/>
+        <result column="settings" property="settings"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+</mapper>

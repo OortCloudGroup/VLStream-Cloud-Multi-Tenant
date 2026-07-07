@@ -1,0 +1,200 @@
+#数据源配置
+spring:
+  data:
+    redis:
+      ##redis 单机环境配置
+      host: ${REDIS_HOST:192.168.60.77}
+      port: ${REDIS_PORT:32576}
+      database: 1
+      password: ${REDIS_PASSWORD:redis@pass}
+      ssl:
+        enabled: false
+      ##redis 集群环境配置
+      #cluster:
+      #  nodes: 127.0.0.1:7001,127.0.0.1:7002,127.0.0.1:7003
+      #  commandTimeout: 5000
+  #排除DruidDataSourceAutoConfigure
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure
+  datasource:
+    # MySql 主数据源信息
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:192.168.60.77}:${DB_PORT:32443}/${DB_NAME:apaas_vlstream}?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:mysql@pass}
+    dynamic:
+      druid:
+        #通用校验配置
+        validation-query: select 1
+        #启用sql日志拦截器
+        proxy-filters: sqlLogInterceptor
+      #设置默认的数据源或者数据源组,默认值即为master
+      primary: master
+      datasource:
+        apaasUser:
+          druid:
+            validation-query: select 1
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          #    url: jdbc:mysql://${DB_HOST:192.168.50.108}:${DB_PORT:32443}/apaas_user?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+          #    url: jdbc:mysql://${DB_HOST:192.168.50.109}:${DB_PORT:32443}/apaas_user?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+          url: jdbc:mysql://${DB_HOST:192.168.60.77}:${DB_PORT:32443}/${USER_DB_NAME:apaas_user}?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+          username: ${DB_USERNAME:root}
+          password: ${DB_PASSWORD:mysql@pass}
+        apaasReport:
+          druid:
+            validation-query: select 1
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          #    url: jdbc:mysql://${DB_HOST:192.168.50.108}:${DB_PORT:32443}/apaas_user?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+          #    url: jdbc:mysql://${DB_HOST:192.168.50.109}:${DB_PORT:32443}/apaas_user?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+          url: jdbc:mysql://${DB_HOST:192.168.60.77}:${DB_PORT:32443}/${REPORT_DB_NAME:apaas_report_designer}?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+          username: ${DB_USERNAME:root}
+          password: ${DB_PASSWORD:mysql@pass}
+#第三方登陆
+social:
+  enabled: true
+  domain: http://127.0.0.1:2888
+
+#oss默认配置
+oss:
+  #开启oss配置
+  enabled: true
+  #开启oss类型
+  #minio、s3、qiniu、alioss、huaweiobs、tencentcos
+  name: minio
+  #租户模式
+  tenant-mode: true
+  #oss服务地址
+  endpoint: http://172.30.0.90:9000
+  #oss转换服务地址，用于内网上传后将返回地址改为转换的外网地址
+  #transform-endpoint: http://172.30.0.90:9000
+  #访问key
+  access-key: bladexadmin
+  #密钥key
+  secret-key: bladexadmin
+  #存储桶
+  bucket-name: bladex
+#job服务配置
+powerjob:
+  worker:
+    enabled: false
+    app-name: vls-job
+    port: 37777
+    server-address: 192.168.60.75:30260
+#blade配置
+blade:
+  #分布式锁配置
+  lock:
+    ##是否启用分布式锁
+    enabled: true
+    address: redis://${REDIS_HOST:192.168.60.77}:${REDIS_PORT:32576}
+    password: ${REDIS_PASSWORD:redis@pass}
+    database: 1
+  token:
+    #租户类型配置 单租户还是多租户 single multi
+    tenant-type: ${SSO_TENANT_TYPE:multi}
+    #多租户校验token地址 局域网192.168.60.77 政务网192.168.50.109 互联网192.168.50.108
+    multi-tenant-verify-token-address: ${SSO_MULTI_TENANT_VERIFY_TOKEN:http://oort.oortcloudsmart.com:21410/bus/apaas-sso/sso/v1/verifyToken}
+    #获取多租户用户信息
+    multi-tenant-admin-user-url: ${GET_MULTI_TENANT_ADMIN_USER_URL:http://oort.oortcloudsmart.com:21410/bus/apaas-user/user/v1/userInfo}
+    #单租户校验token地址
+    single-tenant-verify-token-address: ${SSO_SINGLE_TENANT_VERIFY_TOKEN:http://oort.oortcloudsmart.com:21310/oort/oortcloud-sso/sso/v1/verifyToken}
+    #获取单租户用户信息
+    single-tenant-admin-user-url: ${GET_SINGLE_TENANT_ADMIN_USER_URL:http://oort.oortcloudsmart.com:21310/oort/oortcloud-sso/sso/v1/getUserInfo}
+  #ai大模型对接
+  dify:
+    baseUrl: ${DIFY_BASE_URL:http://192.168.88.172/v1}
+    chatApi: ${DIFY_CHAT_API:app-hJSSV772FDkXY2ZEebBdIMF6}
+    completionApi: ${DIFY_COMPLETION_API:}
+    workflowApi: ${DIFY_WORKFLOW_API:app-r1GmS7KJ1FPDXUJVeJhhLNGE}
+    chatFlowApi: ${DIFY_CHATFLOW_API:}
+    datasetsApi: ${DIFY_DATASETS_API:}
+#多租户文件上传
+apaas:
+  #文件上传方法路径
+  fileUpload: ${FILE_UPLOAD:http://oort.oortcloudsmart.com:21410/bus/apaas-fastdfsservice/fastdfs/v1/uploadFile}
+
+# 业务配置
+vlstream:
+  person-detection:
+    enabled: false
+  face-detection:
+    enabled: false
+  object-detection:
+    enabled: false
+  classify-detection:
+    enabled: false
+  instance-seg-detection:
+    enabled: false
+  obb-detection:
+    enabled: false
+  pose-detection:
+    enabled: false
+  semseg-detection:
+    enabled: false
+  ssh:
+    host: ${VLSTREAM_SSH_HOST:192.168.88.173}
+    port: ${VLSTREAM_SSH_PORT:22}
+    username: ${VLSTREAM_SSH_USERNAME:oort}
+    password: ${VLSTREAM_SSH_PASSWORD:oort301}
+  rtsp-recording:
+    enabled: ${VLSTREAM_RTSP_RECORDING_ENABLED:true}
+    ffmpeg-path: ${VLSTREAM_RTSP_FFMPEG_PATH:ffmpeg}
+    default-storage-path: ${VLSTREAM_RTSP_STORAGE_PATH:recordings}
+    segment-seconds: ${VLSTREAM_RTSP_SEGMENT_SECONDS:300}
+    process-stop-wait-seconds: ${VLSTREAM_RTSP_PROCESS_STOP_WAIT_SECONDS:5}
+    stale-file-seconds: ${VLSTREAM_RTSP_STALE_FILE_SECONDS:5}
+    refresh-interval-millis: ${VLSTREAM_RTSP_REFRESH_INTERVAL_MILLIS:10000}
+  reportUrl: ${REPORT_URL:http://oort.oortcloudsmart.com:21410/bus/apaas-location-service/task/v1/event_report_cameras}
+# 录制配置
+recording:
+  storage:
+    path: recordings
+  enabled: true
+  default:
+    duration: 60
+    quality: medium
+  base:
+    path: recordings
+  max:
+    concurrent: 5
+# 流转换配置
+stream:
+  # 首选转换模式 (webrtc | hls)
+  preferred-mode: webrtc
+
+  # HLS输出配置
+  hls:
+    output-dir: static/hls/
+    segment-time: 2
+    list-size: 5
+    delete-segments: true
+
+  # FFmpeg配置
+  ffmpeg:
+    path: ffmpeg
+    timeout: 30000
+    max-concurrent-streams: 5
+
+  # 资源清理配置
+  cleanup:
+    enabled: true
+    interval: 3600000  # 1小时
+    max-idle-time: 600000  # 10分钟无活动自动清理
+
+# WebRTC配置
+webrtc:
+  streamer:
+    # WebRTC-streamer服务器地址
+    url: ${WEBRTC_STREAMER_URL:http://webrtc-streamer-server.zglt-1742612481:8000}
+    internetUrl: ${WEBRTC_STREAMER__INTERNET_URL:http://oort.oortcloudsmart.com:21410/bus/webrtc-streamer-server}
+    # 是否启用WebRTC功能
+    enabled: true
+    # 连接超时时间（毫秒）
+    timeout: 30000
+    # 重试次数
+    retry-count: 3
+    # STUN服务器配置
+    stun-server: stun.l.google.com:19302
+    # 是否启用日志
+    verbose: true
+

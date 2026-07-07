@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.springblade</groupId>
+    <artifactId>apaas-vls-server</artifactId>
+    <packaging>jar</packaging>
+    <version>4.8.0.RELEASE</version>
+
+    <properties>
+        <bladex.project.id>apaas-vls-server</bladex.project.id>
+        <bladex.project.version>4.8.1.OORT.RELEASE</bladex.project.version>
+
+        <java.version>17</java.version>
+        <maven.plugin.version>3.11.0</maven.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <hutool-5.version>5.8.35</hutool-5.version>
+
+        <!-- Docker仓库服务配置 -->
+        <docker.registry.url>hhb.oortcloudsmart.com</docker.registry.url>
+        <docker.username>code1</docker.username>
+        <docker.password>Oort202505</docker.password>
+        <docker.namespace>zglt-1742612481</docker.namespace>
+        <docker.fabric.version>0.42.0</docker.fabric.version>
+
+        <javacv.version>1.5.10</javacv.version>
+
+        <javacv.platform.macosx-arm64>macosx-arm64</javacv.platform.macosx-arm64>
+        <javacv.platform.linux-x86_64>linux-x86_64</javacv.platform.linux-x86_64>
+        <javacv.platform.linux-arm64>linux-arm64</javacv.platform.linux-arm64>
+        <javacv.platform.windows-x86_64>windows-x86_64</javacv.platform.windows-x86_64>
+
+        <djl.platform.windows-x86_64>win-x86_64</djl.platform.windows-x86_64>
+        <djl.platform.linux-x86_64>linux-x86_64</djl.platform.linux-x86_64>
+        <djl.platform.linux-aarch64>linux-aarch64</djl.platform.linux-aarch64>
+        <djl.platform.osx-aarch64>osx-aarch64</djl.platform.osx-aarch64>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Blade -->
+            <dependency>
+                <groupId>org.springblade.platform</groupId>
+                <artifactId>blade-bom</artifactId>
+                <version>${bladex.project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-boot</artifactId>
+                <version>${bladex.project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springblade</groupId>
+                        <artifactId>blade-core-cloud</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- ↓ BladeX依赖库 ↓ -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-oauth2</artifactId>
+        </dependency>
+        <!-- 多租户字段隔离模式 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-tenant</artifactId>
+        </dependency>
+        <!-- 多租户数据库隔离模式则引入此配置 -->
+        <!--<dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-tenant-dynamic</artifactId>
+        </dependency>-->
+        <!-- 集成sharding功能则引入此配置 -->
+        <!--<dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-sharding</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-api-crypto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-data-record</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-data-scope</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-develop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-swagger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-excel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-social</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- 报表 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-report</artifactId>
+        </dependency>
+        <!-- 验证码 -->
+<!--        <dependency>-->
+<!--            <groupId>com.github.whvcse</groupId>-->
+<!--            <artifactId>easy-captcha</artifactId>-->
+<!--        </dependency>-->
+        <!-- Mybatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+<!--        &lt;!&ndash;Oss&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springblade</groupId>-->
+<!--            <artifactId>blade-starter-oss</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;Sms&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springblade</groupId>-->
+<!--            <artifactId>blade-starter-sms</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;Aws S3&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.amazonaws</groupId>-->
+<!--            <artifactId>aws-java-sdk-s3</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;MinIO&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.minio</groupId>-->
+<!--            <artifactId>minio</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;Alioss&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.aliyun.oss</groupId>-->
+<!--            <artifactId>aliyun-sdk-oss</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;AliSms&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.aliyun</groupId>-->
+<!--            <artifactId>aliyun-java-sdk-core</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;华为云Obs&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.huaweicloud</groupId>-->
+<!--            <artifactId>esdk-obs-java</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;腾讯COS&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.qcloud</groupId>-->
+<!--            <artifactId>cos_api</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;腾讯SMS&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.tencentcloudapi</groupId>-->
+<!--            <artifactId>tencentcloud-sdk-java-sms</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;QiNiu&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.qiniu</groupId>-->
+<!--            <artifactId>qiniu-java-sdk</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;YunPian&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.yunpian.sdk</groupId>-->
+<!--            <artifactId>yunpian-java-sdk</artifactId>-->
+<!--        </dependency>-->
+        <!-- literule -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-literule</artifactId>
+        </dependency>
+        <!-- Oracle -->
+        <!--<dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc17</artifactId>
+        </dependency>-->
+        <!-- PostgreSql -->
+        <!--<dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>-->
+        <!-- SqlServer -->
+        <!--<dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+        </dependency>-->
+        <!-- DaMeng -->
+        <!--<dependency>
+            <groupId>com.dameng</groupId>
+            <artifactId>DmJdbcDriver18</artifactId>
+        </dependency>-->
+        <!--YashanDB-->
+        <!--<dependency>
+            <groupId>com.yashandb.jdbc</groupId>
+            <artifactId>yasdb-jdbc</artifactId>
+        </dependency>-->
+        <!--KingbaseES-->
+        <!--<dependency>
+            <groupId>cn.com.kingbase</groupId>
+            <artifactId>kingbase8</artifactId>
+        </dependency>-->
+        <!-- 任务调度 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-powerjob</artifactId>
+        </dependency>
+        <!-- 工作流 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springblade</groupId>-->
+<!--            <artifactId>blade-starter-flowable</artifactId>-->
+<!--        </dependency>-->
+        <!-- 工作流 -->
+<!--        <dependency>-->
+<!--            <groupId>org.flowable</groupId>-->
+<!--            <artifactId>flowable-spring-boot-starter</artifactId>-->
+<!--            <version>7.1.0</version>-->
+<!--        </dependency>-->
+        <!-- auto -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-auto</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-db-dynamic</artifactId>
+        </dependency>
+
+        <!-- hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-5.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.biezhi</groupId>
+            <artifactId>TinyPinyin</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+
+        <!-- dify client-->
+        <dependency>
+            <groupId>io.github.imfangs</groupId>
+            <artifactId>dify-java-client</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <!-- JSch SSH连接依赖 -->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
+        <!--人脸识别模块-->
+        <dependency>
+            <groupId>cn.smartjavaai</groupId>
+            <artifactId>face</artifactId>
+            <version>1.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.microsoft.onnxruntime</groupId>
+                    <artifactId>onnxruntime</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--目标检测模块-->
+        <dependency>
+            <groupId>cn.smartjavaai</groupId>
+            <artifactId>vision</artifactId>
+            <version>1.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.microsoft.onnxruntime</groupId>
+                    <artifactId>onnxruntime</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.onnxruntime</groupId>
+            <artifactId>onnxruntime</artifactId>
+            <version>1.20.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-jni</artifactId>
+            <version>2.7.1-0.34.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- windows平台 (保留对应平台的配置，可以减小包大小)-->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacpp</artifactId>
+            <version>${javacv.version}</version>
+            <classifier>${javacv.platform.windows-x86_64}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>ffmpeg</artifactId>
+            <version>6.1.1-1.5.10</version>
+            <classifier>${javacv.platform.windows-x86_64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>openblas</artifactId>
+            <version>0.3.26-1.5.10</version>
+            <classifier>${javacv.platform.windows-x86_64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.9.0-1.5.10</version>
+            <classifier>${javacv.platform.windows-x86_64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-native-cpu</artifactId>
+            <classifier>${djl.platform.windows-x86_64}</classifier>
+            <version>2.7.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.tensorflow</groupId>
+            <artifactId>tensorflow-native-cpu</artifactId>
+            <classifier>${djl.platform.windows-x86_64}</classifier>
+            <scope>runtime</scope>
+            <version>2.16.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.mxnet</groupId>
+            <artifactId>mxnet-native-mkl</artifactId>
+            <classifier>${djl.platform.windows-x86_64}</classifier>
+            <scope>runtime</scope>
+            <version>1.9.1</version>
+        </dependency>
+
+
+
+        <!-- linux x86 平台 (保留对应平台的配置，可以减小包大小)-->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacpp</artifactId>
+            <version>${javacv.version}</version>
+            <classifier>${javacv.platform.linux-x86_64}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>ffmpeg</artifactId>
+            <version>6.1.1-1.5.10</version>
+            <classifier>${javacv.platform.linux-x86_64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>openblas</artifactId>
+            <version>0.3.26-1.5.10</version>
+            <classifier>${javacv.platform.linux-x86_64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.9.0-1.5.10</version>
+            <classifier>${javacv.platform.linux-x86_64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-native-cpu</artifactId>
+            <classifier>${djl.platform.linux-x86_64}</classifier>
+            <version>2.7.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.tensorflow</groupId>
+            <artifactId>tensorflow-native-cpu</artifactId>
+            <classifier>${djl.platform.linux-x86_64}</classifier>
+            <scope>runtime</scope>
+            <version>2.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.mxnet</groupId>
+            <artifactId>mxnet-native-mkl</artifactId>
+            <classifier>${djl.platform.linux-x86_64}</classifier>
+            <scope>runtime</scope>
+            <version>1.9.1</version>
+        </dependency>
+
+        <!-- linux aarch64 平台 (保留对应平台的配置，可以减小包大小)-->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacpp</artifactId>
+            <version>${javacv.version}</version>
+            <classifier>${javacv.platform.linux-arm64}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>ffmpeg</artifactId>
+            <version>6.1.1-1.5.10</version>
+            <classifier>${javacv.platform.linux-arm64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>openblas</artifactId>
+            <version>0.3.26-1.5.10</version>
+            <classifier>${javacv.platform.linux-arm64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.9.0-1.5.10</version>
+            <classifier>${javacv.platform.linux-arm64}</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-native-cpu</artifactId>
+            <classifier>${djl.platform.linux-aarch64}</classifier>
+            <version>2.7.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.tensorflow</groupId>
+            <artifactId>tensorflow-native-cpu</artifactId>
+            <classifier>${djl.platform.linux-aarch64}</classifier>
+            <scope>runtime</scope>
+            <version>2.16.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser</artifactId>
+            <version>2.1.35</version>
+        </dependency>
+        <!-- ↑ BladeX依赖库 ↑ -->
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${bladex.project.id}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>3.2.10</version>
+                    <configuration>
+                        <finalName>${project.build.finalName}</finalName>
+                        <excludes>
+                            <!-- 打包的 jar 中排除 lombok -->
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.fabric.version}</version>
+                    <configuration>
+                        <authConfig>
+                            <username>${docker.username}</username>
+                            <password>${docker.password}</password>
+                        </authConfig>
+                        <registry>${docker.registry.url}</registry>
+                        <images>
+                            <image>
+                                <name>${docker.namespace}/${project.build.finalName}:${project.version}</name>
+                                <alias>${project.name}</alias>
+                                <build>
+                                    <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                </build>
+                            </image>
+                        </images>
+                        <buildArgs>
+                            <JAR_FILE>${basedir}/target/${project.build.finalName}.jar</JAR_FILE>
+                        </buildArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>nexus</name>
+            <url>http://192.168.88.218:8403/repository/maven-public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-plugin</id>
+            <name>Aliyun Public Plugin</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>nexus-snapshots</name>
+            <url>http://192.168.88.218:8403/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>nexus-releases</name>
+            <url>http://192.168.88.218:8403/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
+</project>

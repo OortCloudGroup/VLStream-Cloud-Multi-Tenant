@@ -1,0 +1,75 @@
+package ${package.Entity!};
+
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+#for(x in table.importPackages){
+#if(isNotEmpty(x)){
+#if(hasSuperEntity&&!strutil.contain(x,"Serializable")){
+import ${x!};
+#}
+#if(!hasSuperEntity&&!strutil.contain(x,"TenantEntity")){
+import ${x!};
+#}
+#}
+#}
+#if(hasSuperEntity){
+import lombok.EqualsAndHashCode;
+#}else{
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+#}
+import java.io.Serial;
+
+/**
+ * ${table.comment!} 实体类
+ *
+ * @author ${author!}
+ * @since ${date!}
+ */
+@Data
+@TableName("${table.name!}")
+@Schema(description = "${entity!}对象")
+#if(hasSuperEntity){
+@EqualsAndHashCode(callSuper = true)
+public class ${entityKey!}Entity extends TenantEntity {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+#}else{
+public class ${entityKey!}Entity implements Serializable {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 主键
+	 */
+	@JsonSerialize(using = ToStringSerializer.class)
+	@Schema(description = "主键")
+	@TableId(value = "id", type = IdType.ASSIGN_ID)
+	private Long id;
+#}
+
+#for(x in table.fields) {
+	#if(hasSuperEntity){
+	#if(x.propertyName!="id"&&x.propertyName!="createUser"&&x.propertyName!="createDept"&&x.propertyName!="createTime"&&x.propertyName!="updateUser"&&x.propertyName!="updateTime"&&x.propertyName!="status"&&x.propertyName!="isDeleted"&&x.propertyName!="tenantId"){
+	/**
+	 * ${x.comment!}
+	 */
+	@Schema(description = "${x.comment!}")
+	private ${x.propertyType!} ${x.propertyName!};
+	#}
+	#}else{
+	#if(x.propertyName!="id"){
+	/**
+	 * ${x.comment!}
+	 */
+	@Schema(description = "${x.comment!}")
+	private ${x.propertyType!} ${x.propertyName!};
+	#}
+	#}
+#}
+
+}

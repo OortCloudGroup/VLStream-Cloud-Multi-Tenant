@@ -1,0 +1,43 @@
+package ${package.Service!};
+
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import ${packageName!}.pojo.entity.${entityKey!}Entity;
+import ${packageName!}.pojo.vo.${entityKey!}VO;
+import ${packageName!}.excel.${entityKey!}Excel;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+#if(hasSuperEntity){
+import ${superServiceClassPackage!};
+#}else{
+import com.baomidou.mybatisplus.extension.service.IService;
+#}
+import java.util.List;
+
+/**
+ * ${table.comment!} 服务类
+ *
+ * @author ${author!}
+ * @since ${date!}
+ */
+#if(hasSuperEntity){
+public interface ${table.serviceName!} extends ${superServiceClass!}<${entity!}> {
+#}else{
+public interface ${table.serviceName!} extends IService<${entity!}> {
+#}
+	/**
+	 * 自定义分页
+	 *
+	 * @param page 分页参数
+	 * @param ${entityKeyPath!} 查询参数
+	 * @return IPage<${entityKey!}VO>
+	 */
+	IPage<${entityKey!}VO> select${entityKey!}Page(IPage<${entityKey!}VO> page, ${entityKey!}VO ${entityKeyPath!});
+
+	/**
+	 * 导出数据
+	 *
+	 * @param queryWrapper 查询条件
+	 * @return List<${entityKey!}Excel>
+	 */
+	List<${entityKey!}Excel> export${entityKey!}(Wrapper<${entityKey!}Entity> queryWrapper);
+
+}

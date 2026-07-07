@@ -21,3 +21,44 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
+### Java/Maven ###
+target/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+### IDE ###
+.idea/
+*.iml
+*.iws
+*.ipr
+.settings/
+.project
+.classpath
+.factorypath
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Logs ###
+*.log
+logs/
+
+### Large Files ###
+*.so
+*.dll
+*.dylib
+*.bin
+*.dat
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+### AI/ML Cache ###
+doc/smartjavaai_cache/
+smartjavaai_cache/
