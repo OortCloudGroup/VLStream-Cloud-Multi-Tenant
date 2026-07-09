@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * RTSP录制配置
+ * RTSPRecording configuration
  */
 @Data
 @Component

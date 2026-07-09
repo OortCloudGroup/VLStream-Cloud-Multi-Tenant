@@ -17,19 +17,19 @@ public class GrantVO implements Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "roleIds集合")
+	@Schema(description = "roleIdsgather")
 	private List<Long> roleIds;
 
-	@Schema(description = "menuIds集合")
+	@Schema(description = "menuIdsgather")
 	private List<Long> menuIds;
 
-	@Schema(description = "topMenuIds集合")
+	@Schema(description = "topMenuIdsgather")
 	private List<Long> topMenuIds;
 
-	@Schema(description = "dataScopeIds集合")
+	@Schema(description = "dataScopeIdsgather")
 	private List<Long> dataScopeIds;
 
-	@Schema(description = "apiScopeIds集合")
+	@Schema(description = "apiScopeIdsgather")
 	private List<Long> apiScopeIds;
 
 }

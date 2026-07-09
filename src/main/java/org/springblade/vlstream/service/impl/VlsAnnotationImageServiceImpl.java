@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * 标注图片信息表 服务实现类
+ * Label image information table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23
@@ -63,7 +63,7 @@ public class VlsAnnotationImageServiceImpl extends BaseServiceImpl<VlsAnnotation
 			try {
 				String originalName = file.getOriginalFilename();
 				if (originalName == null || originalName.trim().isEmpty()) {
-					throw new RuntimeException("文件名不能为空");
+					throw new RuntimeException("File name cannot be empty");
 				}
 				Long fileSize = file.getSize();
 				FileResponseDto fileResponse = fileUploadService.uploadFile("818301f0e77f4cd8a117414cbeb32d9e", "5f0de11687d744bc95e84e207d319493", fileUploadService.multipartFileToFile(file));
@@ -88,11 +88,11 @@ public class VlsAnnotationImageServiceImpl extends BaseServiceImpl<VlsAnnotation
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new RuntimeException("文件上传失败: " + e.getMessage(), e);
+				throw new RuntimeException("File upload failed: " + e.getMessage(), e);
 			}
 		}
 
-		// 更新标注 totalCount
+		// Update callouts totalCount
 		try {
 			if (addedCount > 0) {
 				AlgorithmAnnotation annotation = algorithmAnnotationMapper.selectById(annotationId);
@@ -103,7 +103,7 @@ public class VlsAnnotationImageServiceImpl extends BaseServiceImpl<VlsAnnotation
 				}
 			}
 		} catch (Exception e) {
-			log.warn("上传图片后更新标注总数失败: annotationId={}, error={}", annotationId, e.getMessage());
+			log.warn("Failed to update the total number of annotations after uploading the image: annotationId={}, error={}", annotationId, e.getMessage());
 		}
 
 		return uploadedImages;
@@ -166,10 +166,10 @@ public class VlsAnnotationImageServiceImpl extends BaseServiceImpl<VlsAnnotation
 	public boolean saveImage(AnnotationImage annotationImage) {
 		try {
 			if (annotationImage.getImageName() == null || annotationImage.getImageName().trim().isEmpty()) {
-				throw new IllegalArgumentException("文件名不能为空");
+				throw new IllegalArgumentException("File name cannot be empty");
 			}
 			if (annotationImage.getAnnotationId() == null) {
-				throw new IllegalArgumentException("数据集ID不能为空");
+				throw new IllegalArgumentException("DatasetIDcannot be empty");
 			}
 
 			if (annotationImage.getOriginalName() == null || annotationImage.getOriginalName().trim().isEmpty()) {
@@ -184,7 +184,7 @@ public class VlsAnnotationImageServiceImpl extends BaseServiceImpl<VlsAnnotation
 		} catch (Exception e) {
 			log.error("Failed to save annotation image: datasetId={}, fileName={}",
 				annotationImage.getAnnotationId(), annotationImage.getImageName(), e);
-			throw new RuntimeException("保存标注图片失败: " + e.getMessage(), e);
+			throw new RuntimeException("Failed to save annotated image: " + e.getMessage(), e);
 		}
 	}
 
@@ -200,7 +200,7 @@ public class VlsAnnotationImageServiceImpl extends BaseServiceImpl<VlsAnnotation
 
 			return true;
 		} catch (Exception e) {
-			throw new RuntimeException("批量保存标注图片失败: " + e.getMessage(), e);
+			throw new RuntimeException("Failed to save annotated images in batches: " + e.getMessage(), e);
 		}
 	}
 

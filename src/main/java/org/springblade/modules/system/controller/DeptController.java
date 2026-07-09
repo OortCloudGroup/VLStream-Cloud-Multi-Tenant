@@ -42,7 +42,7 @@ import java.util.Map;
 import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 
 /**
- * 控制器
+ * controller
  *
  * @author Chill
  */
@@ -50,34 +50,34 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @RestController
 @AllArgsConstructor
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/dept")
-@Tag(name = "部门", description = "部门")
+@Tag(name = "department", description = "department")
 public class DeptController extends BladeController {
 
 	private final IDeptService deptService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@PreAuth(menu = "dept")
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入dept")
+	@Operation(summary = "Details", description = "incomingdept")
 	public R<DeptVO> detail(Dept dept) {
 		Dept detail = deptService.getOne(Condition.getQueryWrapper(dept));
 		return R.data(DeptWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 列表
+	 * list
 	 */
 	@PreAuth(menu = "dept")
 	@GetMapping("/list")
 	@Parameters({
-		@Parameter(name = "deptName", description = "部门名称", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "fullName", description = "部门全称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
+		@Parameter(name = "deptName", description = "Department name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "fullName", description = "Full name of department", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "列表", description = "传入dept")
+	@Operation(summary = "list", description = "incomingdept")
 	public R<List<DeptVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> dept, BladeUser bladeUser) {
 		QueryWrapper<Dept> queryWrapper = Condition.getQueryWrapper(dept, Dept.class);
 		List<Dept> list = deptService.list((!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Dept::getTenantId, bladeUser.getTenantId()) : queryWrapper);
@@ -85,84 +85,84 @@ public class DeptController extends BladeController {
 	}
 
 	/**
-	 * 懒加载列表
+	 * Lazy loading list
 	 */
 	@PreAuth(menu = "dept")
 	@GetMapping("/lazy-list")
 	@Parameters({
-		@Parameter(name = "deptName", description = "部门名称", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "fullName", description = "部门全称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
+		@Parameter(name = "deptName", description = "Department name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "fullName", description = "Full name of department", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "懒加载列表", description = "传入dept")
+	@Operation(summary = "Lazy loading list", description = "incomingdept")
 	public R<List<DeptVO>> lazyList(@Parameter(hidden = true) @RequestParam Map<String, Object> dept, Long parentId, BladeUser bladeUser) {
 		List<DeptVO> list = deptService.lazyList(bladeUser.getTenantId(), parentId, dept);
 		return R.data(DeptWrapper.build().listNodeLazyVO(list));
 	}
 
 	/**
-	 * 获取部门树形结构
+	 * Get department tree structure
 	 */
 	@PreAuth(menu = "dept")
 	@GetMapping("/tree")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "树形结构", description = "树形结构")
+	@Operation(summary = "tree structure", description = "tree structure")
 	public R<List<DeptVO>> tree(String tenantId, BladeUser bladeUser) {
 		List<DeptVO> tree = deptService.tree(Func.toStrWithEmpty(tenantId, bladeUser.getTenantId()));
 		return R.data(tree);
 	}
 
 	/**
-	 * 懒加载获取部门树形结构
+	 * Lazy loading to obtain department tree structure
 	 */
 	@PreAuth(menu = "dept")
 	@GetMapping("/lazy-tree")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "懒加载树形结构", description = "树形结构")
+	@Operation(summary = "Lazy loading tree structure", description = "tree structure")
 	public R<List<DeptVO>> lazyTree(String tenantId, Long parentId, BladeUser bladeUser) {
 		List<DeptVO> tree = deptService.lazyTree(Func.toStrWithEmpty(tenantId, bladeUser.getTenantId()), parentId);
 		return R.data(tree);
 	}
 
 	/**
-	 * 新增或修改
+	 * Add or modify
 	 */
 	@IsAdmin
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入dept")
+	@Operation(summary = "Add or modify", description = "incomingdept")
 	public R submit(@Valid @RequestBody Dept dept) {
 		if (deptService.submit(dept)) {
 			CacheUtil.clear(SYS_CACHE);
 			CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
-			// 返回懒加载树更新节点所需字段
+			// Return fields required for lazy loading tree update nodes
 			Kv kv = Kv.create().set("id", String.valueOf(dept.getId())).set("tenantId", dept.getTenantId())
 				.set("deptCategoryName", DictCache.getValue(DictEnum.ORG_CATEGORY, dept.getDeptCategory()));
 			return R.data(kv);
 		}
-		return R.fail("操作失败");
+		return R.fail("Operation failed");
 	}
 
 	/**
-	 * 删除
+	 * delete
 	 */
 	@IsAdmin
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "delete", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		CacheUtil.clear(SYS_CACHE);
 		CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
 		return R.status(deptService.removeDept(ids));
 	}
 
 	/**
-	 * 下拉数据源
+	 * Drop down data source
 	 */
 	@PreAuth(AuthConstant.PERMIT_ALL)
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "下拉数据源", description = "传入id集合")
+	@Operation(summary = "Drop down data source", description = "incomingidgather")
 	public R<List<Dept>> select(Long userId, String deptId) {
 		if (Func.isNotEmpty(userId)) {
 			User user = UserCache.getUser(userId);
@@ -173,13 +173,13 @@ public class DeptController extends BladeController {
 	}
 
 	/**
-	 * 获取部门的主管信息
+	 * Get department manager information
 	 */
 	@IsAdmin
 	@GetMapping("/dept-leader-info")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "获取部门的主管信息", description = "传入deptId")
-	public R<List<UserVO>> deptLeaderInfo(@Parameter(description = "部门id", required = true) @RequestParam Long deptId) {
+	@Operation(summary = "Get department manager information", description = "incomingdeptId")
+	public R<List<UserVO>> deptLeaderInfo(@Parameter(description = "departmentid", required = true) @RequestParam Long deptId) {
 		List<UserVO> list = deptService.deptLeaderInfo(deptId);
 		return R.data(list);
 	}

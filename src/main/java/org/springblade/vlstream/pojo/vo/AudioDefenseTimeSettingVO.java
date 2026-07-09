@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.AudioDefenseTimeSetting;
 import java.io.Serial;
 
 /**
- * 音频布防时间设置表 视图实体类
+ * Audio arming time setting table View entity class
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

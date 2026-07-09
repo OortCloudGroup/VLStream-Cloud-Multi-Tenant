@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.TimeStrategy;
 import java.io.Serial;
 
 /**
- * 时间策略表 视图实体类
+ * time strategy table View entity class
  *
  * @author Oort
  * @since 2025-12-23

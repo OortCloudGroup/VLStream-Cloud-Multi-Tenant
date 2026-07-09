@@ -6,7 +6,7 @@ import org.springblade.vlstream.pojo.entity.AudioDefenseTimeSetting;
 import org.springblade.vlstream.pojo.vo.AudioDefenseTimeSettingVO;
 
 /**
- * 音频布防时间设置表 包装类
+ * Audio arming time setting table Packaging
  */
 public class VlsAudioDefenseTimeSettingWrapper extends BaseEntityWrapper<AudioDefenseTimeSetting, AudioDefenseTimeSettingVO> {
 

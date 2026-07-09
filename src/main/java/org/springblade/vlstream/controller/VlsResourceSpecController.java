@@ -21,19 +21,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * 资源规格配置表 控制器
+ * Resource specification configuration table controller
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsResourceSpec")
-@Tag(name = "资源规格配置", description = "资源规格配置接口")
+@Tag(name = "Resource specification configuration", description = "Resource specification configuration interface")
 public class VlsResourceSpecController extends BladeController {
 
 	private final IVlsResourceSpecService vlsResourceSpecService;
 
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入resourceSpec")
+	@Operation(summary = "Details", description = "incomingresourceSpec")
 	public R<ResourceSpecVO> detail(ResourceSpec resourceSpec) {
 		ResourceSpec detail = vlsResourceSpecService.getOne(Condition.getQueryWrapper(resourceSpec));
 		return R.data(VlsResourceSpecWrapper.build().entityVO(detail));
@@ -41,7 +41,7 @@ public class VlsResourceSpecController extends BladeController {
 
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入resourceSpec")
+	@Operation(summary = "Pagination", description = "incomingresourceSpec")
 	public R<IPage<ResourceSpecVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> resourceSpec, Query query) {
 		IPage<ResourceSpec> pages = vlsResourceSpecService.page(Condition.getPage(query), Condition.getQueryWrapper(resourceSpec, ResourceSpec.class));
 		return R.data(VlsResourceSpecWrapper.build().pageVO(pages));
@@ -49,29 +49,29 @@ public class VlsResourceSpecController extends BladeController {
 
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增", description = "传入resourceSpec")
+	@Operation(summary = "New", description = "incomingresourceSpec")
 	public R save(@Valid @RequestBody ResourceSpec resourceSpec) {
 		return R.status(vlsResourceSpecService.save(resourceSpec));
 	}
 
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "修改", description = "传入resourceSpec")
+	@Operation(summary = "Revise", description = "incomingresourceSpec")
 	public R update(@Valid @RequestBody ResourceSpec resourceSpec) {
 		return R.status(vlsResourceSpecService.updateById(resourceSpec));
 	}
 
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "新增或修改", description = "传入resourceSpec")
+	@Operation(summary = "Add or modify", description = "incomingresourceSpec")
 	public R submit(@Valid @RequestBody ResourceSpec resourceSpec) {
 		return R.status(vlsResourceSpecService.saveOrUpdate(resourceSpec));
 	}
 
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsResourceSpecService.deleteLogic(Func.toLongList(ids)));
 	}
 }

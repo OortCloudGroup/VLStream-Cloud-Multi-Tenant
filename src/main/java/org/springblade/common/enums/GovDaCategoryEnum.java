@@ -7,29 +7,29 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 档案分类枚举
+ * File classification enumeration
  */
 public enum GovDaCategoryEnum {
 
 	/**
-	 * 未归档文件分类
+	 * Unfiled file classification
 	 */
-	WGWJFL("WGWJFL", "未归档文件分类"),
+	WGWJFL("WGWJFL", "Unfiled file classification"),
 
 	/**
-	 * 归档文件分类
+	 * Archive file classification
 	 */
-	GDWJFL("GDWJFL", "归档文件分类"),
+	GDWJFL("GDWJFL", "Archive file classification"),
 
 	/**
-	 * 案卷分类
+	 * Case file classification
 	 */
-	AJFL("AJFL", "案卷分类"),
+	AJFL("AJFL", "Case file classification"),
 
 	/**
-	 * 资料分类
+	 * Data classification
 	 */
-	ZLFL("ZLFL", "资料分类");
+	ZLFL("ZLFL", "Data classification");
 
 	@EnumValue
 	private final String code;
@@ -49,10 +49,10 @@ public enum GovDaCategoryEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 分类code
-	 * @return 对应的枚举值，如果未找到则返回null
+	 * @param code Classificationcode
+	 * @return The corresponding enumeration value, Return if not foundnull
 	 */
 	public static GovDaCategoryEnum fromCode(String code) {
 		for (GovDaCategoryEnum category : values()) {
@@ -64,9 +64,9 @@ public enum GovDaCategoryEnum {
 	}
 
 	/**
-	 * 获取枚举map，key为code，value为枚举实例
+	 * Get enumerationmap, keyforcode, valuefor an enumeration instance
 	 *
-	 * @return 枚举map
+	 * @return enumeratemap
 	 */
 	public static Map<String, String> toMap() {
 		return Arrays.stream(values())

@@ -49,7 +49,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 数据源配置表 控制器
+ * Data source configuration table controller
  *
  * @author Chill
  */
@@ -58,60 +58,60 @@ import java.util.List;
 @AllArgsConstructor
 @IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_DEVELOP_NAME + "/datasource")
-@Tag(name = "数据源配置表", description = "数据源配置表接口")
+@Tag(name = "Data source configuration table", description = "Data source configuration table interface")
 public class DatasourceController extends BladeController {
 
 	private final IDatasourceService datasourceService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入datasource")
+	@Operation(summary = "Details", description = "incomingdatasource")
 	public R<Datasource> detail(Datasource datasource) {
 		Datasource detail = datasourceService.getOne(Condition.getQueryWrapper(datasource));
 		return R.data(detail);
 	}
 
 	/**
-	 * 分页 数据源配置表
+	 * Pagination Data source configuration table
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入datasource")
+	@Operation(summary = "Pagination", description = "incomingdatasource")
 	public R<IPage<Datasource>> list(Datasource datasource, Query query) {
 		IPage<Datasource> pages = datasourceService.page(Condition.getPage(query), Condition.getQueryWrapper(datasource));
 		return R.data(pages);
 	}
 
 	/**
-	 * 新增 数据源配置表
+	 * New Data source configuration table
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入datasource")
+	@Operation(summary = "New", description = "incomingdatasource")
 	public R save(@Valid @RequestBody Datasource datasource) {
 		return R.status(datasourceService.save(datasource));
 	}
 
 	/**
-	 * 修改 数据源配置表
+	 * Revise Data source configuration table
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入datasource")
+	@Operation(summary = "Revise", description = "incomingdatasource")
 	public R update(@Valid @RequestBody Datasource datasource) {
 		return R.status(datasourceService.updateById(datasource));
 	}
 
 	/**
-	 * 新增或修改 数据源配置表
+	 * Add or modify Data source configuration table
 	 */
 	@XssIgnore
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入datasource")
+	@Operation(summary = "Add or modify", description = "incomingdatasource")
 	public R submit(@Valid @RequestBody Datasource datasource) {
 		if (StringUtil.isNotBlank(datasource.getUrl())) {
 			datasource.setUrl(datasource.getUrl().replace("&amp;", "&"));
@@ -121,21 +121,21 @@ public class DatasourceController extends BladeController {
 
 
 	/**
-	 * 删除 数据源配置表
+	 * delete Data source configuration table
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(datasourceService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 数据源列表
+	 * Data source list
 	 */
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "下拉数据源", description = "查询列表")
+	@Operation(summary = "Drop down data source", description = "query list")
 	public R<List<Datasource>> select() {
 		List<Datasource> list = datasourceService.list();
 		return R.data(list);

@@ -8,7 +8,7 @@ import org.springblade.vlstream.pojo.vo.AlgorithmModelVO;
 import java.util.Objects;
 
 /**
- * 算法模型表 包装类,返回视图层所需的字段
+ * Algorithm model table Packaging,Returns the fields required by the view layer
  *
  * @author Oort
  * @since 2025-12-23

@@ -4,20 +4,20 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * 主键策略枚举
+ * Primary key strategy enumeration
  *
  * @author zhonghuixiong
  */
-@Schema(description = "主键策略枚举")
+@Schema(description = "Primary key strategy enumeration")
 public enum IdStrategyEnum {
 
-	@Schema(description = "SEQ序列")
-	SEQ("SEQ", "序列"),
+	@Schema(description = "SEQsequence")
+	SEQ("SEQ", "sequence"),
 
-	@Schema(description = "AUTO自增")
-	AUTO("AUTO", "自增"),
+	@Schema(description = "AUTOself-increasing")
+	AUTO("AUTO", "self-increasing"),
 
-	@Schema(description = "UUID自增UID")
+	@Schema(description = "UUIDself-increasingUID")
 	UUID("UUID", "UUID");
 
 	@EnumValue

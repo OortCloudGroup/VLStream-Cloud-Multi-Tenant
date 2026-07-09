@@ -35,21 +35,21 @@ public class OnvifUtil {
 	public static void setPreset(OnvifPresetsDTO preset) {
 		HttpResponse response = postSoapRequest(preset.getIp(), SetPresetRequest(preset));
 		if (response.getStatus() != 200) {
-			throw new RuntimeException("添加预置点失败");
+			throw new RuntimeException("Failed to add preset point");
 		}
 	}
 
 	public static void removePreset(OnvifPresetsDTO preset) {
 		HttpResponse response = postSoapRequest(preset.getIp(), RemovePresetRequest(preset));
 		if (response.getStatus() != 200) {
-			throw new RuntimeException("删除预置点失败");
+			throw new RuntimeException("Failed to delete preset point");
 		}
 	}
 
 	public static void gotoPreset(OnvifPresetsDTO preset) {
 		HttpResponse response = postSoapRequest(preset.getIp(), GotoPresetsStopRequest(preset));
 		if (response.getStatus() != 200) {
-			throw new RuntimeException("gotoPreset失败");
+			throw new RuntimeException("gotoPresetfail");
 		}
 	}
 
@@ -59,10 +59,10 @@ public class OnvifUtil {
 			try {
 				return parseSoapResponseGetPresets(response.body());
 			} catch (Exception exception) {
-				log.error("解析预置点失败", exception);
+				log.error("Failed to parse preset points", exception);
 			}
 		}
-		throw new RuntimeException("获取预置点列表失败");
+		throw new RuntimeException("Failed to obtain preset point list");
 	}
 
 	public static Set<String> getDigitalChannel(OnvifFetchStreamUrisDTO deviceInfo) {
@@ -75,10 +75,10 @@ public class OnvifUtil {
 				}
 				return parseSoapResponseDigitalChannelHikvision(response.body());
 			} catch (Exception exception) {
-				log.error("解析数字通道失败", exception);
+				log.error("Failed to parse digital channel", exception);
 			}
 		}
-		throw new RuntimeException("获取数字通道失败");
+		throw new RuntimeException("Failed to get digital channel");
 	}
 
 	public static R<Void> continuousMoveStop(OnvifAbsoluteMoveDTO moveDTO) {
@@ -87,9 +87,9 @@ public class OnvifUtil {
 			return R.success("OK");
 		}
 		if (response.getStatus() == 500) {
-			throw new RuntimeException("该命名空间设备不支持");
+			throw new RuntimeException("This namespace device does not support");
 		}
-		throw new RuntimeException("鉴权失败");
+		throw new RuntimeException("Authentication failed");
 	}
 
 	public static R<Void> continuousMove(OnvifAbsoluteMoveDTO moveDTO) {
@@ -98,9 +98,9 @@ public class OnvifUtil {
 			return R.success("OK");
 		}
 		if (response.getStatus() == 500) {
-			throw new RuntimeException("该命名空间设备不支持");
+			throw new RuntimeException("This namespace device does not support");
 		}
-		throw new RuntimeException("鉴权失败");
+		throw new RuntimeException("Authentication failed");
 	}
 
 	public static R<Void> absoluteMove(OnvifAbsoluteMoveDTO moveDTO) {
@@ -109,9 +109,9 @@ public class OnvifUtil {
 			return R.success("OK");
 		}
 		if (response.getStatus() == 500) {
-			throw new RuntimeException("该命名空间设备不支持");
+			throw new RuntimeException("This namespace device does not support");
 		}
-		throw new RuntimeException("鉴权失败");
+		throw new RuntimeException("Authentication failed");
 	}
 
 	public static OnvifStreamUrisVO getOnvifDeviceInfo(OnvifFetchStreamUrisDTO deviceInfo) {
@@ -131,14 +131,14 @@ public class OnvifUtil {
 			try {
 				return parseSoapResponseProfilesUrlByToken(response.body());
 			} catch (Exception exception) {
-				log.error("解析流地址失败", exception);
+				log.error("Failed to parse stream address", exception);
 			}
 		} else if (response.getStatus() == 500) {
-			throw new RuntimeException("该命名空间设备不支持");
+			throw new RuntimeException("This namespace device does not support");
 		} else if (response.getStatus() == 401) {
-			throw new RuntimeException("鉴权失败");
+			throw new RuntimeException("Authentication failed");
 		}
-		throw new RuntimeException("获取视频流地址失败");
+		throw new RuntimeException("Failed to obtain video stream address");
 	}
 
 	public static List<String> getProfileToken(OnvifFetchStreamUrisDTO deviceInfo) {
@@ -147,14 +147,14 @@ public class OnvifUtil {
 			try {
 				return parseSoapResponseProfileToken(response.body());
 			} catch (Exception exception) {
-				log.error("解析ProfileToken失败", exception);
+				log.error("parseProfileTokenfail", exception);
 			}
 		} else if (response.getStatus() == 500) {
-			throw new RuntimeException("该命名空间设备不支持");
+			throw new RuntimeException("This namespace device does not support");
 		} else if (response.getStatus() == 401) {
-			throw new RuntimeException("鉴权失败");
+			throw new RuntimeException("Authentication failed");
 		}
-		throw new RuntimeException("获取流token失败");
+		throw new RuntimeException("Get streamtokenfail");
 	}
 
 	private static OnvifStreamUrisVO getBasicDeviceInfo(OnvifFetchStreamUrisDTO deviceInfo) {
@@ -163,14 +163,14 @@ public class OnvifUtil {
 			try {
 				return parseSoapResponseDeviceInfo(response.body());
 			} catch (Exception exception) {
-				log.error("解析设备信息失败", exception);
+				log.error("Failed to parse device information", exception);
 			}
 		} else if (response.getStatus() == 500) {
-			throw new RuntimeException("该命名空间设备不支持");
+			throw new RuntimeException("This namespace device does not support");
 		} else if (response.getStatus() == 401) {
-			throw new RuntimeException("鉴权失败");
+			throw new RuntimeException("Authentication failed");
 		}
-		throw new RuntimeException("获取基本信息失败");
+		throw new RuntimeException("Failed to obtain basic information");
 	}
 
 	private static HttpResponse postSoapRequest(String ip, String body) {

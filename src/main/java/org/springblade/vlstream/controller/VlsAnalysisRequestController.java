@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 智能分析请求表 控制器
+ * Intelligent analysis request form controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -45,18 +45,18 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAnalysisRequest")
-@Tag(name = "智能分析请求表", description = "智能分析请求表接口")
+@Tag(name = "Intelligent analysis request form", description = "Intelligent analysis request table interface")
 public class VlsAnalysisRequestController extends BladeController {
 
 	private final IVlsAnalysisRequestService vlsAnalysisRequestService;
 	private final IVlsDeviceInfoService vlsDeviceInfoService;
 
 	/**
-	 * 智能分析申请
+	 * Intelligent analysis application
 	 */
 	@PostMapping("/apply")
 	@ApiOperationSupport(order = 0)
-	@Operation(summary = "申请", description = "提交智能分析申请")
+	@Operation(summary = "Apply", description = "Submit intelligent analysis application")
 	public R<Boolean> apply(@Valid @RequestBody AnalysisRequest vlsAnalysisRequest) {
 		vlsAnalysisRequest.setRequestStatus(AnalysisRequestStatusEnum.processing);
 		if (vlsAnalysisRequest.getProgress() == null) {
@@ -70,18 +70,18 @@ public class VlsAnalysisRequestController extends BladeController {
 	}
 
 	/**
-	 * 取消智能分析申请
+	 * Cancel smart analysis application
 	 */
 	@GetMapping("/cancel")
 	@ApiOperationSupport(order = 0)
-	@Operation(summary = "取消申请", description = "根据id取消智能分析申请")
-	public R<Boolean> cancel(@Parameter(description = "申请ID", required = true) @RequestParam Long id) {
+	@Operation(summary = "Cancel application", description = "according toidCancel smart analysis application")
+	public R<Boolean> cancel(@Parameter(description = "ApplyID", required = true) @RequestParam Long id) {
 		AnalysisRequest analysisRequest = vlsAnalysisRequestService.getById(id);
 		if (analysisRequest == null) {
-			return R.fail("申请不存在");
+			return R.fail("Application does not exist");
 		}
 		if (analysisRequest.getRequestStatus() != AnalysisRequestStatusEnum.processing) {
-			return R.fail("当前状态不支持取消");
+			return R.fail("Cancellation is not supported in the current status");
 		}
 		AnalysisRequest updateAnalysisRequest = new AnalysisRequest();
 		updateAnalysisRequest.setId(id);
@@ -90,11 +90,11 @@ public class VlsAnalysisRequestController extends BladeController {
 	}
 
 	/**
-	 * 智能分析请求表 详情
+	 * Intelligent analysis request form Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description  = "传入vlsAnalysisRequest")
+	@Operation(summary = "Details", description  = "incomingvlsAnalysisRequest")
 	public R<AnalysisRequestVO> detail(AnalysisRequest vlsAnalysisRequest) {
 		AnalysisRequest detail = vlsAnalysisRequestService.getOne(Condition.getQueryWrapper(vlsAnalysisRequest));
 		AnalysisRequestVO analysisRequestVO = VlsAnalysisRequestWrapper.build().entityVO(detail);
@@ -103,11 +103,11 @@ public class VlsAnalysisRequestController extends BladeController {
 	}
 
 	/**
-	 * 智能分析请求表 分页
+	 * Intelligent analysis request form Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description  = "传入vlsAnalysisRequest")
+	@Operation(summary = "Pagination", description  = "incomingvlsAnalysisRequest")
 	public R<IPage<AnalysisRequestVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAnalysisRequest, Query query) {
 		IPage<AnalysisRequest> pages = vlsAnalysisRequestService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAnalysisRequest, AnalysisRequest.class));
 		IPage<AnalysisRequestVO> pageVO = VlsAnalysisRequestWrapper.build().pageVO(pages);
@@ -182,52 +182,52 @@ public class VlsAnalysisRequestController extends BladeController {
 	}
 
 	/**
-	 * 智能分析请求表 新增
+	 * Intelligent analysis request form New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description  = "传入vlsAnalysisRequest")
+	@Operation(summary = "New", description  = "incomingvlsAnalysisRequest")
 	public R save(@Valid @RequestBody AnalysisRequest vlsAnalysisRequest) {
 		return R.status(vlsAnalysisRequestService.save(vlsAnalysisRequest));
 	}
 
 	/**
-	 * 智能分析请求表 修改
+	 * Intelligent analysis request form Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description  = "传入vlsAnalysisRequest")
+	@Operation(summary = "Revise", description  = "incomingvlsAnalysisRequest")
 	public R update(@Valid @RequestBody AnalysisRequest vlsAnalysisRequest) {
 		return R.status(vlsAnalysisRequestService.updateById(vlsAnalysisRequest));
 	}
 
 	/**
-	 * 智能分析请求表 新增或修改
+	 * Intelligent analysis request form Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description  = "传入vlsAnalysisRequest")
+	@Operation(summary = "Add or modify", description  = "incomingvlsAnalysisRequest")
 	public R submit(@Valid @RequestBody AnalysisRequest vlsAnalysisRequest) {
 		return R.status(vlsAnalysisRequestService.saveOrUpdate(vlsAnalysisRequest));
 	}
 
 	/**
-	 * 智能分析请求表 删除
+	 * Intelligent analysis request form delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description  = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description  = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsAnalysisRequestService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAnalysisRequest")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description  = "传入vlsAnalysisRequest")
+	@Operation(summary = "Export data", description  = "incomingvlsAnalysisRequest")
 	public void exportVlsAnalysisRequest(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAnalysisRequest, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<AnalysisRequest> queryWrapper = Condition.getQueryWrapper(vlsAnalysisRequest, AnalysisRequest.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -235,7 +235,7 @@ public class VlsAnalysisRequestController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsAnalysisRequestEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAnalysisRequestExcel> list = vlsAnalysisRequestService.exportVlsAnalysisRequest(queryWrapper);
-		ExcelUtil.export(response, "智能分析请求表数据" + DateUtil.time(), "智能分析请求表数据表", list, VlsAnalysisRequestExcel.class);
+		ExcelUtil.export(response, "Intelligent analysis of request table data" + DateUtil.time(), "Intelligent analysis request form data table", list, VlsAnalysisRequestExcel.class);
 	}
 
 }

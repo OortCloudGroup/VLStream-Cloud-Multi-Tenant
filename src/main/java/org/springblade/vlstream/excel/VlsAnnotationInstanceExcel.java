@@ -13,7 +13,7 @@ import java.io.Serial;
 
 
 /**
- * 标注实例实体类 Excel实体类
+ * Label instance entity class ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -28,46 +28,46 @@ public class VlsAnnotationInstanceExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 关联的标注项目ID
+	 * Associated annotation itemsID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("关联的标注项目ID")
+	@ExcelProperty("Associated annotation itemsID")
 	private Long annotationId;
 	/**
-	 * 标签ID
+	 * LabelID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标签ID")
+	@ExcelProperty("LabelID")
 	private Long labelId;
 	/**
-	 * 图片id
+	 * pictureid
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("图片id")
+	@ExcelProperty("pictureid")
 	private Long imageId;
 	/**
-	 * 标注类型：rect-矩形,circle-圆形,polygon-多边形
+	 * Dimension type: rect-rectangle,circle-round,polygon-polygon
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标注类型：rect-矩形,circle-圆形,polygon-多边形")
+	@ExcelProperty("Dimension type: rect-rectangle,circle-round,polygon-polygon")
 	private String annotationType;
 	/**
-	 * 标注坐标数据(JSON格式)
+	 * Label coordinate data(JSONFormat)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标注坐标数据(JSON格式)")
+	@ExcelProperty("Label coordinate data(JSONFormat)")
 	private String annotationData;
 	/**
-	 * 置信度
+	 * Confidence
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("置信度")
+	@ExcelProperty("Confidence")
 	private BigDecimal confidence;
 	/**
-	 * 是否已验证
+	 * Is it verified
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("是否已验证")
+	@ExcelProperty("Is it verified")
 	private Byte verified;
 
 }

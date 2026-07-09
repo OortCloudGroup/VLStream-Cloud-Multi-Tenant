@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * 标签管理表 服务实现类
+ * Tag management table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23
@@ -70,29 +70,29 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public TagManagement createTag(TagManagement tagManagement) {
-		// 验证标签名称是否重复
+		// Verify if tag names are duplicates
 		if (isTagNameDuplicate(tagManagement.getTagName(), tagManagement.getParentId(), null)) {
-			throw new RuntimeException("标签名称已存在");
+			throw new RuntimeException("Tag name already exists");
 		}
 
-		// 设置排序号
+		// Set sort number
 		if (tagManagement.getSortOrder() == null) {
 			Integer maxSort = tagManagementMapper.getMaxSortOrder(tagManagement.getParentId());
 			tagManagement.setSortOrder(maxSort + 1);
 		}
 
-		// 设置层级
+		// Set level
 		if (tagManagement.getParentId() == null) {
-			tagManagement.setLevel(0); // 根级
+			tagManagement.setLevel(0); // root level
 		} else {
 			TagManagement parent = getById(tagManagement.getParentId());
 			if (parent != null) {
 				tagManagement.setLevel(parent.getLevel() + 1);
-				tagManagement.setCategoryType(parent.getCategoryType()); // 继承父级的类型
+				tagManagement.setCategoryType(parent.getCategoryType()); // Inherit type from parent
 			}
 		}
 
-		// 设置默认值
+		// Set default value
 		if (tagManagement.getIsActive() == null) {
 			tagManagement.setIsActive(1);
 		}
@@ -109,15 +109,15 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 	public TagManagement updateTag(TagManagement tagManagement) {
 		TagManagement existingTag = getById(tagManagement.getId());
 		if (existingTag == null) {
-			throw new RuntimeException("标签不存在");
+			throw new RuntimeException("Tag does not exist");
 		}
 
-		// 验证标签名称是否重复
+		// Verify if tag names are duplicates
 		if (isTagNameDuplicate(tagManagement.getTagName(), existingTag.getParentId(), tagManagement.getId())) {
-			throw new RuntimeException("标签名称已存在");
+			throw new RuntimeException("Tag name already exists");
 		}
 
-		// 更新字段
+		// Update field
 		existingTag.setTagName(tagManagement.getTagName());
 		existingTag.setTagColor(tagManagement.getTagColor());
 		existingTag.setTagIcon(tagManagement.getTagIcon());
@@ -136,24 +136,24 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 			return false;
 		}
 
-		// 如果是根级标签，不允许删除
+		// If it is a root-level tag, Delete not allowed
 		if (tag.getLevel() == 0) {
-			throw new RuntimeException("不能删除根级标签分类");
+			throw new RuntimeException("Root-level tag categories cannot be deleted");
 		}
 
-		// 递归删除子标签
+		// Recursively delete subtags
 		List<TagManagement> children = tagManagementMapper.selectChildrenByParentId(tagId);
 		for (TagManagement child : children) {
 			deleteTag(child.getId());
 		}
 
-		// 删除设备标签关联
+		// Remove device label association
 		deviceTagRelationMapper.deleteByTagId(tagId);
 
-		// 删除标签
+		// Delete tag
 		removeById(tagId);
 
-		log.info("删除标签成功，标签ID: {}, 标签名称: {}", tagId, tag.getTagName());
+		log.info("Tag deleted successfully, LabelID: {}, Tag name: {}", tagId, tag.getTagName());
 		return true;
 	}
 
@@ -178,7 +178,7 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 			return false;
 		}
 
-		// 更新父级和层级
+		// Update parent and hierarchy
 		if (!Objects.equals(tag.getParentId(), targetParentId)) {
 			tag.setParentId(targetParentId);
 
@@ -193,7 +193,7 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 			}
 		}
 
-		// 更新排序
+		// Update sort
 		if (targetPosition != null) {
 			tag.setSortOrder(targetPosition);
 		}
@@ -230,7 +230,7 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 	public TagManagement getTagUsageStats(Long tagId) {
 		TagManagement tag = getById(tagId);
 		if (tag != null) {
-			// 可以在这里添加更多统计信息
+			// More statistics can be added here
 			int deviceCount = deviceTagRelationMapper.selectByTagId(tagId).size();
 			tag.setUsageCount(deviceCount);
 		}
@@ -238,30 +238,30 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 	}
 
 	/**
-	 * 构建树形结构
+	 * Build a tree structure
 	 *
-	 * @param allTags 所有标签
-	 * @return 树形结构
+	 * @param allTags All tags
+	 * @return tree structure
 	 */
 	private List<TagManagementDTO> buildTree(List<TagManagement> allTags) {
 		if (allTags == null || allTags.isEmpty()) {
 			return new ArrayList<>();
 		}
 
-		// 按父级ID分组
+		// by parentIDGroup
 		Map<Long, List<TagManagement>> parentMap = allTags.stream()
 			.collect(Collectors.groupingBy(tag -> tag.getParentId() == null ? 0L : tag.getParentId()));
 
-		// 递归构建树
+		// Recursively build tree
 		return buildTreeRecursive(parentMap, 0L);
 	}
 
 	/**
-	 * 递归构建树形结构
+	 * Recursively build a tree structure
 	 *
-	 * @param parentMap 父级分组
-	 * @param parentId 父级ID
-	 * @return 子节点列表
+	 * @param parentMap Parent grouping
+	 * @param parentId parentID
+	 * @return List of child nodes
 	 */
 	private List<TagManagementDTO> buildTreeRecursive(Map<Long, List<TagManagement>> parentMap, Long parentId) {
 		List<TagManagement> children = parentMap.get(parentId);
@@ -296,13 +296,13 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 	public IPage<TagManagement> getTagManagementPage(Page<TagManagement> page, String keyword, String categoryType, Integer level, Long parentId, Long tagId) {
 		LambdaQueryWrapper<TagManagement> queryWrapper = new LambdaQueryWrapper<>();
 
-		// 按ID精确查询（优先级最高）
+		// according toIDPrecise query(highest priority)
 		if (tagId != null) {
 			queryWrapper.eq(TagManagement::getId, tagId);
 			return page(page, queryWrapper);
 		}
 
-		// 关键字搜索 - 支持标签名称和描述
+		// keyword search - Supports tag names and descriptions
 		if (keyword != null && !keyword.trim().isEmpty()) {
 			queryWrapper.and(wrapper -> wrapper
 				.like(TagManagement::getTagName, keyword.trim())
@@ -311,22 +311,22 @@ public class VlsTagManagementServiceImpl extends BaseServiceImpl<VlsTagManagemen
 			);
 		}
 
-		// 按标签大类过滤
+		// Filter by tag category
 		if (categoryType != null && !categoryType.trim().isEmpty()) {
 			queryWrapper.eq(TagManagement::getCategoryType, categoryType);
 		}
 
-		// 按层级过滤
+		// Filter by level
 		if (level != null) {
 			queryWrapper.eq(TagManagement::getLevel, level);
 		}
 
-		// 按父级ID过滤
+		// by parentIDfilter
 		if (parentId != null) {
 			queryWrapper.eq(TagManagement::getParentId, parentId);
 		}
 
-		// 排序
+		// sort
 		queryWrapper.orderByAsc(TagManagement::getCategoryType)
 			.orderByAsc(TagManagement::getLevel)
 			.orderByAsc(TagManagement::getSortOrder)

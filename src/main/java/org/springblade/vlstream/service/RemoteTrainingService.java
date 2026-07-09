@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * 远程训练服务类
+ * Remote training services
  */
 @Slf4j
 @Service
@@ -41,7 +41,7 @@ public class RemoteTrainingService {
 	private static final String DEFAULT_LOG_DIR = "logs";
 
 	/**
-	 * 启动远端YOLO训练（后台运行，日志落盘）
+	 * Start remoteYOLOtrain(Running in the background, Log placement)
 	 */
 	public StartResult startTraining(String taskType,
 									 Long taskId,
@@ -55,7 +55,7 @@ public class RemoteTrainingService {
 		try {
 			RemoteServers server = remoteServerMapper.selectActiveServer();
 			if (server == null) {
-				startResult.setMessage("未找到可用的训练服务器");
+				startResult.setMessage("No available training server found");
 				return startResult;
 			}
 
@@ -96,8 +96,8 @@ public class RemoteTrainingService {
 
 			submitTrainingAsync(taskId, server, wrappedCmd);
 		} catch (Exception e) {
-			log.error("启动远端训练失败: {}", e.getMessage(), e);
-			startResult.setMessage("启动远端训练失败: " + e.getMessage());
+			log.error("Failed to start remote training: {}", e.getMessage(), e);
+			startResult.setMessage("Failed to start remote training: " + e.getMessage());
 		}
 		return startResult;
 	}
@@ -146,7 +146,7 @@ public class RemoteTrainingService {
 	}
 
 	/**
-	 * 执行SSH命令，如果认证失败则使用默认配置的SSH账号重试一次。
+	 * implementSSHOrder, If authentication fails, the default configuration is usedSSHAccount retry. 
 	 */
 	private SSHService.SSHExecutionResult executeWithFallback(RemoteServers server, String command) {
 		String host = server != null ? server.getServerIp() : sshProperties.getHost();
@@ -181,7 +181,7 @@ public class RemoteTrainingService {
 	}
 
 	/**
-	 * 处理训练完成后的模型文件
+	 * Process the model file after training is completed
 	 */
 	private String processTrainingResult(Long taskId, RemoteServers server, String trainType, String taskName) {
 		try {
@@ -197,7 +197,7 @@ public class RemoteTrainingService {
 
 			if (findResult.isSuccess() && findResult.getOutput() != null && !findResult.getOutput().trim().isEmpty()) {
 				String resultDir = findResult.getOutput().trim();
-				log.info("找到最新训练结果目录: {}", resultDir);
+				log.info("Find the latest training results directory: {}", resultDir);
 
 				String finalTaskName = (taskName != null && !taskName.isEmpty()) ? taskName : ("training_" + taskId);
 
@@ -225,33 +225,33 @@ public class RemoteTrainingService {
 					updateTraining.setProgress(100);
 					updateTraining.setEndTime(new Date());
 					algorithmTrainingService.updateAlgorithmTraining(updateTraining);
-					log.info("模型已就绪，路径: {}", modelPath);
+					log.info("Model is ready, path: {}", modelPath);
 					return modelPath;
 				} else {
-					log.error("模型处理失败: {}", processResult.getErrorMsg());
+					log.error("Model processing failed: {}", processResult.getErrorMsg());
 					return null;
 				}
 
 			} else {
-				log.warn("未找到训练输出目录");
+				log.warn("Training output directory not found");
 				return null;
 			}
 
 		} catch (Exception e) {
-			log.error("处理训练结果失败: {}", e.getMessage(), e);
+			log.error("Failed to process training results: {}", e.getMessage(), e);
 			return null;
 		}
 	}
 
 	/**
-	 * 获取训练进度
+	 * Get training progress
 	 */
 	public LogResult getTrainingLogs(Long taskId, String logPath, String trainType, String taskName, int lines) {
 		LogResult logResult = new LogResult();
 		try {
 			RemoteServers server = remoteServerMapper.selectActiveServer();
 			if (server == null) {
-				logResult.setMessage("未找到可用的训练服务器");
+				logResult.setMessage("No available training server found");
 				return logResult;
 			}
 
@@ -290,12 +290,12 @@ public class RemoteTrainingService {
 					algorithmTrainingService.updateAlgorithmTraining(update);
 				}
 			} else {
-				logResult.setMessage("读取日志失败: " + result.getErrorMsg());
+				logResult.setMessage("Failed to read log: " + result.getErrorMsg());
 				logResult.setLogContent(result.getErrorMsg());
 			}
 		} catch (Exception e) {
-			log.error("处理训练结果失败: {}", e.getMessage(), e);
-			logResult.setMessage("处理训练结果失败：" + e.getMessage());
+			log.error("Failed to process training results: {}", e.getMessage(), e);
+			logResult.setMessage("Failed to process training results: " + e.getMessage());
 		}
 		return logResult;
 	}
@@ -536,22 +536,22 @@ public class RemoteTrainingService {
 				"ps -ef | grep '" + resolvedLogPath + "' | grep -v grep | awk '{print $2}' | xargs -r kill -9"
 			);
 			SSHService.SSHExecutionResult result = executeWithFallback(server, stopCmd);
-			log.info("停止训练任务{}: {}", taskId, result.getOutput());
+			log.info("Stop training task{}: {}", taskId, result.getOutput());
 			return result.isSuccess();
 		} catch (Exception e) {
-			log.error("处理训练结果失败: {}", e.getMessage(), e);
+			log.error("Failed to process training results: {}", e.getMessage(), e);
 			return false;
 		}
 	}
 
 	/**
-	 * 获取训练进度
+	 * Get training progress
 	 */
 	public TrainingProgress getProgress(Long taskId, String logPath) {
 		try {
 			RemoteServers server = remoteServerMapper.selectActiveServer();
 			if (server == null) {
-				log.error("未找到训练服务器");
+				log.error("Training server not found");
 				return null;
 			}
 			String resolvedLogPath = (logPath == null || logPath.isEmpty())
@@ -563,11 +563,11 @@ public class RemoteTrainingService {
 			if (result.isSuccess()) {
 				return parseTrainingLog(result.getOutput(), taskId);
 			} else {
-				log.error("获取训练进度失败: {}", result.getErrorMsg());
+				log.error("Failed to obtain training progress: {}", result.getErrorMsg());
 				return null;
 			}
 		} catch (Exception e) {
-			log.error("处理训练结果失败: {}", e.getMessage(), e);
+			log.error("Failed to process training results: {}", e.getMessage(), e);
 			return null;
 		}
 	}
@@ -606,18 +606,18 @@ public class RemoteTrainingService {
 	@PostConstruct
 	public void initDefaultServer() {
 		try {
-			// 先尝试创建表（如果不存在）
+			// Try creating the table first(if does not exist)
 			try {
 				remoteServerMapper.createTableIfNotExists();
-				log.info("远程服务器配置表检查完成");
+				log.info("Remote server configuration table check completed");
 			} catch (Exception e) {
-				log.warn("创建远程服务器配置表失败: {}", e.getMessage());
+				log.warn("Failed to create remote server configuration table: {}", e.getMessage());
 			}
 
-			// 如果没有配置服务器，则添加默认服务器配置
+			// If the server is not configured, Then add the default server configuration
 			if (remoteServerMapper.count() == 0) {
 				RemoteServers server = new RemoteServers();
-				server.setServerName("YOLOv8训练服务器");
+				server.setServerName("YOLOv8training server");
 				server.setServerIp(sshProperties.getHost());
 				server.setServerPort(sshProperties.getPort());
 				server.setUsername(sshProperties.getUsername());
@@ -626,25 +626,25 @@ public class RemoteTrainingService {
 				server.setWorkDir("/data/work/ultralytics_yolov8-main/datasets");
 				server.setStatus(1);
 				remoteServerMapper.insertRemoteServer(server);
-				log.info("初始化默认服务器配置成功");
+				log.info("Initialization of default server configuration successful");
 			} else {
-				log.info("远程服务器配置已存在，跳过初始化");
+				log.info("Remote server configuration already exists, Skip initialization");
 			}
 		} catch (Exception e) {
-			// 不阻止应用启动，只记录警告
-			log.warn("初始化默认服务器配置失败，跳过此步骤: {}", e.getMessage());
+			// Don't block apps from launching, Only log warnings
+			log.warn("Failed to initialize default server configuration, Skip this step: {}", e.getMessage());
 		}
 	}
 
 	/**
-	 * 加密密码(实际实现中应使用更安全的加密方式)
+	 * Encrypted password(More secure encryption methods should be used in actual implementations)
 	 */
 	private String encryptPassword(String password) {
 		return Base64.getEncoder().encodeToString(password.getBytes());
 	}
 
 	/**
-	 * 解密密码
+	 * Decrypt password
 	 */
 	private String decryptPassword(String encryptedPassword) {
 		if (encryptedPassword == null) {
@@ -653,14 +653,14 @@ public class RemoteTrainingService {
 		try {
 			return new String(Base64.getDecoder().decode(encryptedPassword));
 		} catch (IllegalArgumentException e) {
-			// 如果不是Base64编码，则直接返回原始值，避免因格式问题导致认证失败
+			// if notBase64coding, then directly return the original value, Avoid authentication failures due to format issues
 			log.warn("Remote server password is not Base64 encoded, using raw value.");
 			return encryptedPassword;
 		}
 	}
 
 	/**
-	 * 训练进度类
+	 * Training progress class
 	 */
 	@Data
 	public static class StartResult {
@@ -674,7 +674,7 @@ public class RemoteTrainingService {
 	}
 
 	/**
-	 * 训练进度类
+	 * Training progress class
 	 */
 	@Data
 	public static class LogResult {

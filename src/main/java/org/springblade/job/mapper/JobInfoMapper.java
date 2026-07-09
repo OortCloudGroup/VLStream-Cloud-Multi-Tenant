@@ -8,14 +8,14 @@ import org.springblade.job.pojo.vo.JobInfoVO;
 import java.util.List;
 
 /**
- * 任务信息表 Mapper 接口
+ * Task information sheet Mapper interface
  *
  * @author Oort
  */
 public interface JobInfoMapper extends BaseMapper<JobInfo> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param jobInfo

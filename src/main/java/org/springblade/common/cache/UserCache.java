@@ -12,7 +12,7 @@ import static org.springblade.core.cache.constant.CacheConstant.USER_CACHE;
 import static org.springblade.core.launch.constant.FlowConstant.TASK_USR_PREFIX;
 
 /**
- * 系统缓存
+ * System cache
  *
  * @author Chill
  */
@@ -27,9 +27,9 @@ public class UserCache {
 	}
 
 	/**
-	 * 根据任务用户id获取用户信息
+	 * According to task useridGet user information
 	 *
-	 * @param taskUserId 任务用户id
+	 * @param taskUserId task userid
 	 * @return
 	 */
 	public static User getUserByTaskUser(String taskUserId) {
@@ -38,9 +38,9 @@ public class UserCache {
 	}
 
 	/**
-	 * 获取用户
+	 * Get user
 	 *
-	 * @param userId 用户id
+	 * @param userId userid
 	 * @return
 	 */
 	public static User getUser(Long userId) {
@@ -48,10 +48,10 @@ public class UserCache {
 	}
 
 	/**
-	 * 获取用户
+	 * Get user
 	 *
-	 * @param tenantId 租户id
-	 * @param account  账号名
+	 * @param tenantId tenantid
+	 * @param account  Account name
 	 * @return
 	 */
 	public static User getUser(String tenantId, String account) {

@@ -6,19 +6,19 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 摄像头申请完结参数
+ * Camera application completion parameters
  */
 @Data
 public class CameraApplyCompleteDTO {
 
-	@Schema(description = "申请记录ID", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotNull(message = "申请记录ID不能为空")
+	@Schema(description = "Application recordID", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotNull(message = "Application recordIDcannot be empty")
 	private Long id;
 
-	@Schema(description = "完结人", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotBlank(message = "完结人不能为空")
+	@Schema(description = "finisher", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotBlank(message = "The finisher cannot be empty")
 	private String completeUserName;
 
-	@Schema(description = "完结备注")
+	@Schema(description = "Final remarks")
 	private String completeRemark;
 }

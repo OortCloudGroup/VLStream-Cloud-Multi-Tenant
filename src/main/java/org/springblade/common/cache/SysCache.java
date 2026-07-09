@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 
 /**
- * 系统缓存
+ * System cache
  *
  * @author Chill
  */
@@ -65,7 +65,7 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取配置类
+	 * Get configuration class
 	 *
 	 * @return jwtProperties
 	 */
@@ -77,21 +77,21 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取菜单
+	 * Get menu
 	 *
-	 * @param id 主键
-	 * @return 菜单
+	 * @param id primary key
+	 * @return menu
 	 */
 	public static Menu getMenu(Long id) {
 		return CacheUtil.get(SYS_CACHE, MENU_ID, id, () -> menuService.getById(id));
 	}
 
 	/**
-	 * 获取部门id
+	 * Get departmentid
 	 *
-	 * @param tenantId  租户id
-	 * @param deptNames 部门名
-	 * @return 部门id
+	 * @param tenantId  tenantid
+	 * @param deptNames Department name
+	 * @return departmentid
 	 */
 	public static String getDeptIds(String tenantId, String deptNames) {
 		if (getJwtProperties().getTenantType().equals(TenantType.MULTI_TENANT.getType())) {
@@ -105,11 +105,11 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取部门id
+	 * Get departmentid
 	 *
-	 * @param tenantId  租户id
-	 * @param deptNames 部门名模糊查询
-	 * @return 部门id
+	 * @param tenantId  tenantid
+	 * @param deptNames Department name fuzzy query
+	 * @return departmentid
 	 */
 	public static String getDeptIdsByFuzzy(String tenantId, String deptNames) {
 		if (getJwtProperties().getTenantType().equals(TenantType.MULTI_TENANT.getType())) {
@@ -120,10 +120,10 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取部门名
+	 * Get department name
 	 *
-	 * @param id 主键
-	 * @return 部门名
+	 * @param id primary key
+	 * @return Department name
 	 */
 	public static String getDeptName(String id) {
 		if (getJwtProperties().getTenantType().equals(TenantType.MULTI_TENANT.getType())) {
@@ -141,10 +141,10 @@ public class SysCache {
 
 
 	/**
-	 * 获取部门名集合
+	 * Get the department name collection
 	 *
-	 * @param deptIds 主键集合
-	 * @return 部门名
+	 * @param deptIds primary key set
+	 * @return Department name
 	 */
 	public static List<String> getDeptNames(String deptIds) {
 		if (getJwtProperties().getTenantType().equals(TenantType.MULTI_TENANT.getType())) {
@@ -161,10 +161,10 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取子部门ID集合
+	 * Get subdepartmentIDgather
 	 *
-	 * @param deptId 主键
-	 * @return 子部门ID
+	 * @param deptId primary key
+	 * @return subdepartmentID
 	 */
 	public static List<String> getDeptChildIds(String deptId) {
 		if (deptId == null) {
@@ -199,9 +199,9 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取岗位
+	 * Get a job
 	 *
-	 * @param id 主键
+	 * @param id primary key
 	 * @return
 	 */
 	public static Post getPost(Long id) {
@@ -209,10 +209,10 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取岗位id
+	 * Get a jobid
 	 *
-	 * @param tenantId  租户id
-	 * @param postNames 岗位名
+	 * @param tenantId  tenantid
+	 * @param postNames Position name
 	 * @return
 	 */
 	public static String getPostIds(String tenantId, String postNames) {
@@ -220,10 +220,10 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取岗位id
+	 * Get a jobid
 	 *
-	 * @param tenantId  租户id
-	 * @param postNames 岗位名模糊查询
+	 * @param tenantId  tenantid
+	 * @param postNames Position name fuzzy query
 	 * @return
 	 */
 	public static String getPostIdsByFuzzy(String tenantId, String postNames) {
@@ -231,29 +231,29 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取岗位名
+	 * Get job title
 	 *
-	 * @param id 主键
-	 * @return 岗位名
+	 * @param id primary key
+	 * @return Position name
 	 */
 	public static String getPostName(Long id) {
 		return CacheUtil.get(SYS_CACHE, POST_NAME_ID, id, () -> postService.getById(id).getPostName());
 	}
 
 	/**
-	 * 获取岗位名集合
+	 * Get a collection of job titles
 	 *
-	 * @param postIds 主键集合
-	 * @return 岗位名
+	 * @param postIds primary key set
+	 * @return Position name
 	 */
 	public static List<String> getPostNames(String postIds) {
 		return CacheUtil.get(SYS_CACHE, POST_NAMES_ID, postIds, () -> postService.getPostNames(postIds));
 	}
 
 	/**
-	 * 获取角色
+	 * Get role
 	 *
-	 * @param id 主键
+	 * @param id primary key
 	 * @return Role
 	 */
 	public static Role getRole(Long id) {
@@ -261,10 +261,10 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取角色id
+	 * Get roleid
 	 *
-	 * @param tenantId  租户id
-	 * @param roleNames 角色名
+	 * @param tenantId  tenantid
+	 * @param roleNames Character name
 	 * @return
 	 */
 	public static String getRoleIds(String tenantId, String roleNames) {
@@ -272,49 +272,49 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取角色名
+	 * Get character name
 	 *
-	 * @param id 主键
-	 * @return 角色名
+	 * @param id primary key
+	 * @return Character name
 	 */
 	public static String getRoleName(Long id) {
 		return CacheUtil.get(SYS_CACHE, ROLE_NAME_ID, id, () -> roleService.getById(id).getRoleName());
 	}
 
 	/**
-	 * 获取角色名集合
+	 * Get the character name collection
 	 *
-	 * @param roleIds 主键集合
-	 * @return 角色名
+	 * @param roleIds primary key set
+	 * @return Character name
 	 */
 	public static List<String> getRoleNames(String roleIds) {
 		return CacheUtil.get(SYS_CACHE, ROLE_NAMES_ID, roleIds, () -> roleService.getRoleNames(roleIds));
 	}
 
 	/**
-	 * 获取角色别名
+	 * Get role alias
 	 *
-	 * @param id 主键
-	 * @return 角色别名
+	 * @param id primary key
+	 * @return role alias
 	 */
 	public static String getRoleAlias(Long id) {
 		return CacheUtil.get(SYS_CACHE, ROLE_ALIAS_ID, id, () -> roleService.getById(id).getRoleAlias());
 	}
 
 	/**
-	 * 获取角色别名集合
+	 * Get the role alias collection
 	 *
-	 * @param roleIds 主键集合
-	 * @return 角色别名
+	 * @param roleIds primary key set
+	 * @return role alias
 	 */
 	public static List<String> getRoleAliases(String roleIds) {
 		return CacheUtil.get(SYS_CACHE, ROLE_ALIASES_ID, roleIds, () -> roleService.getRoleAliases(roleIds));
 	}
 
 	/**
-	 * 获取租户
+	 * Get tenants
 	 *
-	 * @param id 主键
+	 * @param id primary key
 	 * @return Tenant
 	 */
 	public static Tenant getTenant(Long id) {
@@ -325,9 +325,9 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取租户
+	 * Get tenants
 	 *
-	 * @param tenantId 租户id
+	 * @param tenantId tenantid
 	 * @return Tenant
 	 */
 	public static Tenant getTenant(String tenantId) {
@@ -338,9 +338,9 @@ public class SysCache {
 	}
 
 	/**
-	 * 获取租户产品包
+	 * Get the tenant product package
 	 *
-	 * @param tenantId 租户id
+	 * @param tenantId tenantid
 	 * @return Tenant
 	 */
 	public static TenantPackage getTenantPackage(String tenantId) {

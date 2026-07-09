@@ -8,73 +8,73 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 /**
- * 容器实例更新DTO
+ * Container instance updateDTO
  *
  * @author VLStream Team
  * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "ContainerInstanceUpdateDTO", description = "容器实例更新参数")
+@ApiModel(value = "ContainerInstanceUpdateDTO", description = "Container instance update parameters")
 public class ContainerInstanceUpdateDTO {
 
-    @ApiModelProperty(value = "容器实例ID", required = true)
+    @ApiModelProperty(value = "Container instanceID", required = true)
     private Long id;
 
-    @ApiModelProperty(value = "实例名称")
+    @ApiModelProperty(value = "Instance name")
     private String instanceName;
 
-    @ApiModelProperty(value = "镜像类型：base-基础镜像,app-应用镜像,custom-自定义镜像,url-镜像地址")
+    @ApiModelProperty(value = "Image type: base-base image,app-Application image,custom-Custom image,url-Mirror address")
     private String imageType;
 
-    @ApiModelProperty(value = "容器ID")
+    @ApiModelProperty(value = "containerID")
     private String containerId;
 
-    @ApiModelProperty(value = "实例状态：running-运行中,stopped-已停止,error-错误,starting-启动中,stopping-停止中")
+    @ApiModelProperty(value = "Instance status: running-Running,stopped-Stopped,error-mistake,starting-Starting,stopping-Stopping")
     private String instanceStatus;
 
-    @ApiModelProperty(value = "资源类型ID")
+    @ApiModelProperty(value = "Resource typeID")
     private Long resourceTypeId;
 
-    @ApiModelProperty(value = "资源规格ID")
+    @ApiModelProperty(value = "Resource specificationID")
     private Long resourceSpecId;
 
-    @ApiModelProperty(value = "实例数量")
+    @ApiModelProperty(value = "Number of instances")
     private Integer instanceCount;
 
-    @ApiModelProperty(value = "健康状态：healthy-健康,unhealthy-不健康,unknown-未知")
+    @ApiModelProperty(value = "health status: healthy-healthy,unhealthy-unhealthy,unknown-unknown")
     private String healthStatus;
 
-    @ApiModelProperty(value = "重启次数")
+    @ApiModelProperty(value = "Number of restarts")
     private Integer restartCount;
 
-    @ApiModelProperty(value = "CPU使用率")
+    @ApiModelProperty(value = "CPUUsage rate")
     private BigDecimal cpuUsage;
 
-    @ApiModelProperty(value = "内存使用率")
+    @ApiModelProperty(value = "memory usage")
     private BigDecimal memoryUsage;
 
-    @ApiModelProperty(value = "GPU使用率")
+    @ApiModelProperty(value = "GPUUsage rate")
     private BigDecimal gpuUsage;
 
-    @ApiModelProperty(value = "CPU限制")
+    @ApiModelProperty(value = "CPUlimit")
     private String cpuLimit;
 
-    @ApiModelProperty(value = "内存限制")
+    @ApiModelProperty(value = "memory limit")
     private String memoryLimit;
 
-    @ApiModelProperty(value = "GPU限制")
+    @ApiModelProperty(value = "GPUlimit")
     private String gpuLimit;
 
-    @ApiModelProperty(value = "端口配置（JSON格式）")
+    @ApiModelProperty(value = "Port configuration(JSONFormat)")
     private String portConfig;
 
-    @ApiModelProperty(value = "环境变量配置（JSON格式）")
+    @ApiModelProperty(value = "Environment variable configuration(JSONFormat)")
     private String envConfig;
 
-    @ApiModelProperty(value = "存储卷配置（JSON格式）")
+    @ApiModelProperty(value = "Storage volume configuration(JSONFormat)")
     private String volumeConfig;
 
-    @ApiModelProperty(value = "日志路径")
+    @ApiModelProperty(value = "Log path")
     private String logsPath;
 }

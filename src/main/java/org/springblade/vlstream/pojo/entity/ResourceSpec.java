@@ -11,50 +11,50 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * 资源规格配置表 实体类
+ * Resource specification configuration table Entity class
  *
  * @author Oort
  */
 @Data
 @TableName("vls_resource_spec")
-@Schema(description = "ResourceSpec对象")
+@Schema(description = "ResourceSpecobject")
 @EqualsAndHashCode(callSuper = true)
 public class ResourceSpec extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "资源类型ID")
+	@Schema(description = "Resource typeID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long resourceTypeId;
 
-	@Schema(description = "规格名称")
+	@Schema(description = "Specification name")
 	private String specName;
 
-	@Schema(description = "CPU型号")
+	@Schema(description = "CPUmodel")
 	private String cpuModel;
 
-	@Schema(description = "vCPU核数")
+	@Schema(description = "vCPUNumber of cores")
 	private Integer vcpu;
 
-	@Schema(description = "内存(GB)")
+	@Schema(description = "Memory(GB)")
 	private Integer memoryGb;
 
-	@Schema(description = "GPU描述")
+	@Schema(description = "GPUdescribe")
 	private String gpuDesc;
 
-	@Schema(description = "系统盘(GB)")
+	@Schema(description = "system disk(GB)")
 	private Integer systemDiskGb;
 
-	@Schema(description = "数据盘(GB)")
+	@Schema(description = "data disk(GB)")
 	private Integer dataDiskGb;
 
-	@Schema(description = "是否启用：1-启用，0-禁用")
+	@Schema(description = "Whether to enable: 1-enable, 0-Disable")
 	private Integer isActive;
 
-	@Schema(description = "排序顺序")
+	@Schema(description = "sort order")
 	private Integer sortOrder;
 
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String remark;
 }

@@ -8,13 +8,13 @@ import org.springblade.modules.system.pojo.entity.Param;
 import java.io.Serial;
 
 /**
- * 视图实体类
+ * View entity class
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "ParamVO对象")
+@Schema(description = "ParamVOobject")
 public class ParamVO extends Param {
 	@Serial
 	private static final long serialVersionUID = 1L;

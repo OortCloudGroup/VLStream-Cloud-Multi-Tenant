@@ -3,53 +3,53 @@ package org.springblade.vlstream.pojo.dto;
 import lombok.Data;
 
 /**
- * 用户同步请求DTO
+ * User synchronization requestDTO
  */
 @Data
 public class UserSyncRequest {
 
     /**
-     * 用户ID
+     * userID
      */
     private String userId;
 
     /**
-     * 租户ID
+     * tenantID
      */
     private String tenantId;
 
     /**
-     * 登录账号
+     * Login account
      */
     private String loginId;
 
     /**
-     * 用户姓名
+     * Username
      */
     private String userName;
 
     /**
-     * 登录时间
+     * Login time
      */
     private String loginTime;
 
     /**
-     * 登录IP
+     * Log inIP
      */
     private String loginIP;
 
     /**
-     * 登录类型
+     * Login type
      */
     private Integer loginType;
 
     /**
-     * 客户端类型
+     * client type
      */
     private String client;
 
     /**
-     * 访问令牌
+     * access token
      */
     private String accessToken;
 }

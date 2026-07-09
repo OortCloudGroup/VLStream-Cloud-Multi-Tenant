@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.vlstream.pojo.entity.AudioAnomalyDetectionSetting;
 
 /**
- * 音频异常侦测设置表 Mapper 接口
+ * Audio anomaly detection setting table Mapper interface
  */
 public interface VlsAudioAnomalyDetectionSettingMapper extends BaseMapper<AudioAnomalyDetectionSetting> {
 }

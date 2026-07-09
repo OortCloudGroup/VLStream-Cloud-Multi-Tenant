@@ -38,7 +38,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 单设备目标检测会话：加载模型并对视频流进行目标检测，在产生结果时截图上传并创建事件；支持异常重启与资源清理。
+ * Single device target detection session: Load the model and perform object detection on the video stream, Upload screenshots and create events when results are generated; Support abnormal restart and resource cleanup. 
  */
 @Slf4j
 public class DeviceObjectDetectionSession implements DeviceDetectionSession {
@@ -109,7 +109,7 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
 
     public void stop(String reason) {
         stopRequested.set(true);
-        log.info("停止目标检测: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+        log.info("Stop target detection: deviceId={}, deviceName={}, algorithmId={}, reason={}",
             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
         stopDetector();
         cleanupTempModelDirectory();
@@ -138,12 +138,12 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
             this.detector = streamDetector;
             try {
                 streamDetector.startDetection();
-                log.info("开始目标检测: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
+                log.info("Start target detection: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, streamUrl);
                 return;
             } catch (Exception startException) {
                 retryTimes++;
-                log.error("启动目标检测器失败: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
+                log.error("Failed to start object detector: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, retryTimes, startException.getMessage(), startException);
                 stopDetector();
                 if (retryTimes > MAX_START_RETRY_TIMES) {
@@ -181,7 +181,7 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
                         }
                         snapshotImage = DetectionSessionSupport.copyForSnapshot(image, log);
                         if (snapshotImage == null) {
-                            log.warn("设备 {} 复制截图失败，跳过", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to copy screenshot, jump over", deviceInfo.getDeviceName());
                             return;
                         }
                         ImageUtils.drawRectAndText(snapshotImage, detectionInfoList);
@@ -191,23 +191,23 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
                         File snapFile = snapshot.toFile();
                         try {
                             ImageUtils.save(snapshotImage, snapFile.getName(), snapFile.getParent());
-                            log.info("目标检测截图已保存: deviceId={}, deviceName={}, time={}, path={}",
+                            log.info("Target detection screenshot saved: deviceId={}, deviceName={}, time={}, path={}",
                                 deviceInfo.getId(), deviceInfo.getDeviceName(), now, snapshot.toAbsolutePath());
                         } catch (Exception saveException) {
-                            log.warn("设备 {} 保存截图失败", deviceInfo.getDeviceName(), saveException);
+                            log.warn("equipment {} Failed to save screenshot", deviceInfo.getDeviceName(), saveException);
                             return;
                         }
 
                         FileResponseDto fileResponseDto = DetectionSessionSupport.uploadSnapshot(fileUploadService, snapFile);
                         if (fileResponseDto == null || StringUtils.isBlank(fileResponseDto.getUrl())) {
-                            log.warn("设备 {} 上传截图失败，跳过事件创建", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to upload screenshot, Skip event creation", deviceInfo.getDeviceName());
                             return;
                         }
                         createEvent(deviceInfo, algorithm, detectionInfoList, fileResponseDto.getUrl());
-                        log.info("目标检测事件已创建: deviceId={}, deviceName={}, algorithmId={}, detections={}",
+                        log.info("Target detection event created: deviceId={}, deviceName={}, algorithmId={}, detections={}",
                             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, detectionInfoList.size());
                     } catch (Exception detectException) {
-                        log.warn("设备 {} 目标检测回调处理失败", deviceInfo.getDeviceName(), detectException);
+                        log.warn("equipment {} Target detection callback processing failed", deviceInfo.getDeviceName(), detectException);
                         scheduleDetectorRestart("detectException");
                     } finally {
                         detectionInProgress.set(false);
@@ -217,14 +217,14 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
 
                 @Override
                 public void onStreamEnded() {
-                    log.info("目标检测视频流结束: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("Object detection video stream ends: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamEnded");
                 }
 
                 @Override
                 public void onStreamDisconnected() {
-                    log.info("目标检测视频流断开: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("Target detection video stream disconnected: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamDisconnected");
                 }
@@ -244,7 +244,7 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
                 if (stopRequested.get()) {
                     return;
                 }
-                log.info("已触发重启目标检测: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+                log.info("Restart target detection triggered: deviceId={}, deviceName={}, algorithmId={}, reason={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
                 stopDetector();
                 Thread.sleep(START_RETRY_DELAY_MILLIS);
@@ -279,12 +279,12 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
         try {
             currentDetector.stopDetection();
         } catch (Exception stopException) {
-            log.warn("停止目标检测器失败", stopException);
+            log.warn("Stopping object detector failed", stopException);
         }
         try {
             currentDetector.close();
         } catch (Exception closeException) {
-            log.warn("关闭目标检测器失败", closeException);
+            log.warn("Failed to turn off object detector", closeException);
         }
     }
 
@@ -320,7 +320,7 @@ public class DeviceObjectDetectionSession implements DeviceDetectionSession {
                              Algorithm algorithm,
                              List<DetectionInfo> detectionInfos,
                              String snapshotPath) {
-        String eventDesc = "设备 " + deviceInfo.getDeviceName() + " 检测到 " + detectionInfos.size() + " 个目标";
+        String eventDesc = "equipment " + deviceInfo.getDeviceName() + " detected " + detectionInfos.size() + " goals";
         DetectionSessionSupport.createEvent(eventManagementService, deviceInfo, algorithm, eventDesc, detectionInfos, snapshotPath);
     }
 }

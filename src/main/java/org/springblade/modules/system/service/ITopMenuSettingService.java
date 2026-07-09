@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springblade.modules.system.pojo.entity.TopMenuSetting;
 
 /**
- * 服务类
+ * Service category
  *
  * @author Chill
  */

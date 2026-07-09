@@ -9,68 +9,68 @@ import lombok.EqualsAndHashCode;
 
 
 /**
- * 容器实例创建DTO
+ * Container instance creationDTO
  *
  * @author VLStream Team
  * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "ContainerInstanceCreateDTO", description = "容器实例创建参数")
+@ApiModel(value = "ContainerInstanceCreateDTO", description = "Container instance creation parameters")
 public class ContainerInstanceCreateDTO {
 
-    @ApiModelProperty(value = "实例名称", required = true)
-    @NotBlank(message = "实例名称不能为空")
+    @ApiModelProperty(value = "Instance name", required = true)
+    @NotBlank(message = "Instance name cannot be empty")
     private String instanceName;
 
-    @ApiModelProperty(value = "镜像名称", required = true)
-    @NotBlank(message = "镜像名称不能为空")
+    @ApiModelProperty(value = "Image name", required = true)
+    @NotBlank(message = "Image name cannot be empty")
     private String imageName;
 
-    @ApiModelProperty(value = "镜像类型：base-基础镜像,app-应用镜像,custom-自定义镜像,url-镜像地址", required = true)
-    @NotBlank(message = "镜像类型不能为空")
+    @ApiModelProperty(value = "Image type: base-base image,app-Application image,custom-Custom image,url-Mirror address", required = true)
+    @NotBlank(message = "Image type cannot be empty")
     private String imageType;
 
-    @ApiModelProperty(value = "镜像标签")
+    @ApiModelProperty(value = "Mirror tag")
     private String imageTag = "latest";
 
-    @ApiModelProperty(value = "算法ID")
+    @ApiModelProperty(value = "algorithmID")
     private Long algorithmId;
 
-    @ApiModelProperty(value = "实例类型", required = true)
-    @NotBlank(message = "实例类型不能为空")
+    @ApiModelProperty(value = "Instance type", required = true)
+    @NotBlank(message = "Instance type cannot be empty")
     private String instanceType;
 
-    @ApiModelProperty(value = "资源类型ID", required = true)
-    @NotNull(message = "资源类型不能为空")
+    @ApiModelProperty(value = "Resource typeID", required = true)
+    @NotNull(message = "Resource type cannot be empty")
     private Long resourceTypeId;
 
-    @ApiModelProperty(value = "资源规格ID", required = true)
-    @NotNull(message = "资源规格不能为空")
+    @ApiModelProperty(value = "Resource specificationID", required = true)
+    @NotNull(message = "Resource specification cannot be empty")
     private Long resourceSpecId;
 
-    @ApiModelProperty(value = "实例数量", required = true)
-    @NotNull(message = "实例数量不能为空")
+    @ApiModelProperty(value = "Number of instances", required = true)
+    @NotNull(message = "The number of instances cannot be empty")
     private Integer instanceCount;
 
-    @ApiModelProperty(value = "CPU限制")
+    @ApiModelProperty(value = "CPUlimit")
     private String cpuLimit;
 
-    @ApiModelProperty(value = "内存限制")
+    @ApiModelProperty(value = "memory limit")
     private String memoryLimit;
 
-    @ApiModelProperty(value = "GPU限制")
+    @ApiModelProperty(value = "GPUlimit")
     private String gpuLimit;
 
-    @ApiModelProperty(value = "端口配置（JSON格式）")
+    @ApiModelProperty(value = "Port configuration(JSONFormat)")
     private String portConfig;
 
-    @ApiModelProperty(value = "环境变量配置（JSON格式）")
+    @ApiModelProperty(value = "Environment variable configuration(JSONFormat)")
     private String envConfig;
 
-    @ApiModelProperty(value = "存储卷配置（JSON格式）")
+    @ApiModelProperty(value = "Storage volume configuration(JSONFormat)")
     private String volumeConfig;
 
-    @ApiModelProperty(value = "日志路径")
+    @ApiModelProperty(value = "Log path")
     private String logsPath;
 }

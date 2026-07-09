@@ -10,61 +10,61 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 /**
- * 算法训练任务更新DTO
+ * Algorithm training task updateDTO
  *
  * @author VLStream Team
  * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "AlgorithmTrainingUpdateDTO", description = "算法训练任务更新参数")
+@ApiModel(value = "AlgorithmTrainingUpdateDTO", description = "Algorithm training task update parameters")
 public class AlgorithmTrainingUpdateDTO {
 
-    @ApiModelProperty(value = "训练任务ID", required = true)
+    @ApiModelProperty(value = "training tasksID", required = true)
     private Long id;
 
-    @ApiModelProperty(value = "训练状态")
+    @ApiModelProperty(value = "training status")
     private String trainStatus;
 
-    @ApiModelProperty(value = "训练进度百分比")
-    @Min(value = 0, message = "训练进度不能小于0")
-    @Max(value = 100, message = "训练进度不能大于100")
+    @ApiModelProperty(value = "Training progress percentage")
+    @Min(value = 0, message = "The training progress cannot be less than0")
+    @Max(value = 100, message = "The training progress cannot be greater than100")
     private Integer progress;
 
-    @ApiModelProperty(value = "当前轮次")
-    @Min(value = 0, message = "当前轮次不能小于0")
+    @ApiModelProperty(value = "current round")
+    @Min(value = 0, message = "The current round cannot be less than0")
     private Integer epochCurrent;
 
-    @ApiModelProperty(value = "准确率")
+    @ApiModelProperty(value = "Accuracy")
     private BigDecimal accuracy;
 
-    @ApiModelProperty(value = "精确率")
+    @ApiModelProperty(value = "Accuracy")
     private BigDecimal precisionValue;
 
-    @ApiModelProperty(value = "召回率")
+    @ApiModelProperty(value = "Recall")
     private BigDecimal recallValue;
 
-    @ApiModelProperty(value = "mAP值")
+    @ApiModelProperty(value = "mAPvalue")
     private BigDecimal mapValue;
 
-    @ApiModelProperty(value = "损失值")
+    @ApiModelProperty(value = "loss value")
     private BigDecimal lossValue;
 
-    @ApiModelProperty(value = "GPU使用率")
+    @ApiModelProperty(value = "GPUUsage rate")
     private String gpuUsage;
 
-    @ApiModelProperty(value = "预计时间")
+    @ApiModelProperty(value = "Estimated time")
     private String estimatedTime;
 
-    @ApiModelProperty(value = "模型输出路径")
+    @ApiModelProperty(value = "Model output path")
     private String modelOutputPath;
 
-    @ApiModelProperty(value = "日志路径")
+    @ApiModelProperty(value = "Log path")
     private String logPath;
 
-    @ApiModelProperty(value = "训练参数(JSON格式)")
+    @ApiModelProperty(value = "training parameters(JSONFormat)")
     private String configParams;
 
-    @ApiModelProperty(value = "错误信息")
+    @ApiModelProperty(value = "error message")
     private String errorMessage;
 }

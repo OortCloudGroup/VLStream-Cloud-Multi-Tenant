@@ -8,19 +8,19 @@ import org.springblade.modules.system.pojo.entity.ApiScope;
 import java.io.Serial;
 
 /**
- * 视图实体类
+ * View entity class
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "ApiScopeVO对象")
+@Schema(description = "ApiScopeVOobject")
 public class ApiScopeVO extends ApiScope {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 规则类型名
+	 * Rule type name
 	 */
 	private String scopeTypeName;
 }

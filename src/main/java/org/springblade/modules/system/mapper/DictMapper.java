@@ -8,14 +8,14 @@ import org.springblade.modules.system.pojo.vo.DictVO;
 import java.util.List;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */
 public interface DictMapper extends BaseMapper<Dict> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param dict
@@ -24,31 +24,31 @@ public interface DictMapper extends BaseMapper<Dict> {
 	List<DictVO> selectDictPage(IPage page, DictVO dict);
 
 	/**
-	 * 获取字典表对应中文
+	 * Get the dictionary table corresponding to Chinese
 	 *
-	 * @param code    字典编号
-	 * @param dictKey 字典序号
+	 * @param code    dictionary number
+	 * @param dictKey Dictionary number
 	 * @return
 	 */
 	String getValue(String code, String dictKey);
 
 	/**
-	 * 获取字典表
+	 * Get dictionary table
 	 *
-	 * @param code 字典编号
+	 * @param code dictionary number
 	 * @return
 	 */
 	List<Dict> getList(String code);
 
 	/**
-	 * 获取树形节点
+	 * Get tree nodes
 	 *
 	 * @return
 	 */
 	List<DictVO> tree();
 
 	/**
-	 * 获取树形节点
+	 * Get tree nodes
 	 *
 	 * @return
 	 */

@@ -43,7 +43,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 单设备人体检测会话：加载模型并对视频流进行人体检测与结果过滤，在产生结果时截图上传并创建事件。
+ * Single-device human detection session: Load the model and perform human detection and result filtering on the video stream, Upload screenshots and create events when results are generated. 
  */
 @Slf4j
 public class DevicePersonDetectionSession implements DeviceDetectionSession {
@@ -123,7 +123,7 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
     }
 
     public void stop(String reason) {
-        log.info("停止设备检测: deviceId={}, deviceName={}, reason={}", deviceInfo.getId(), deviceInfo.getDeviceName(), reason);
+        log.info("Stop device detection: deviceId={}, deviceName={}, reason={}", deviceInfo.getId(), deviceInfo.getDeviceName(), reason);
         stopDetector();
         cleanupTempModelFile();
     }
@@ -172,11 +172,11 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
             this.detector = streamDetector;
             try {
                 streamDetector.startDetection();
-                log.info("开始检测视频流: deviceId={}, deviceName={}", deviceInfo.getId(), deviceInfo.getDeviceName());
+                log.info("Start detecting video stream: deviceId={}, deviceName={}", deviceInfo.getId(), deviceInfo.getDeviceName());
                 return;
             } catch (Exception startException) {
                 retryTimes++;
-                log.error("启动检测器失败: deviceId={}, deviceName={}, retryTimes={}, error={}",
+                log.error("Failed to start detector: deviceId={}, deviceName={}, retryTimes={}, error={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), retryTimes, startException.getMessage(), startException);
                 stopDetector();
                 if (retryTimes > MAX_START_RETRY_TIMES) {
@@ -211,7 +211,7 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
                     try {
                         LocalDateTime now = LocalDateTimeUtil.now();
                         if (isNightTime(now)) {
-                            log.info("夜间时段跳过检测: deviceId={}, deviceName={}, time={}", deviceInfo.getId(), deviceInfo.getDeviceName(), now);
+                            log.info("Skip detection during night time period: deviceId={}, deviceName={}, time={}", deviceInfo.getId(), deviceInfo.getDeviceName(), now);
                             return;
                         }
                         if (image == null) {
@@ -219,22 +219,22 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
                         }
                         double brightness = estimateBrightness(image);
                         if (isTooDark(brightness)) {
-                            log.info("亮度过低，跳过检测: deviceId={}, deviceName={}, brightness={}", deviceInfo.getId(), deviceInfo.getDeviceName(), brightness);
+                            log.info("Brightness is too low, Skip detection: deviceId={}, deviceName={}, brightness={}", deviceInfo.getId(), deviceInfo.getDeviceName(), brightness);
                             return;
                         }
                         float minScore = resolveMinScore(brightness);
                         List<DetectionInfo> filteredDetections = filterDetections(detectionInfoList, image, minScore);
                         if (filteredDetections.isEmpty()) {
-                            log.info("检测结果被过滤: deviceId={}, deviceName={}, rawSize={}, brightness={}, minScore={}",
+                            log.info("Test results are filtered: deviceId={}, deviceName={}, rawSize={}, brightness={}, minScore={}",
                                 deviceInfo.getId(), deviceInfo.getDeviceName(), detectionInfoList.size(), brightness, minScore);
                             return;
                         }
-                        log.info("检测时间: {}", LocalDateTimeUtil.now());
-                        log.info("检测结果: {}", JsonUtils.toJson(filteredDetections));
+                        log.info("Detection time: {}", LocalDateTimeUtil.now());
+                        log.info("Test results: {}", JsonUtils.toJson(filteredDetections));
 
                         snapshotImage = DetectionSessionSupport.copyForSnapshot(image, log);
                         if (snapshotImage == null) {
-                            log.warn("设备 {} 复制截图失败，跳过", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to copy screenshot, jump over", deviceInfo.getDeviceName());
                             return;
                         }
                         ImageUtils.drawRectAndText(snapshotImage, filteredDetections);
@@ -244,20 +244,20 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
                         try {
                             ImageUtils.save(snapshotImage, snapFile.getName(), snapFile.getParent());
                         } catch (Exception saveException) {
-                            log.warn("设备 {} 保存截图失败", deviceInfo.getDeviceName(), saveException);
+                            log.warn("equipment {} Failed to save screenshot", deviceInfo.getDeviceName(), saveException);
                             return;
                         }
 
                         FileResponseDto fileResponseDto = DetectionSessionSupport.uploadSnapshot(fileUploadService, snapFile);
                         if (fileResponseDto == null || StringUtils.isBlank(fileResponseDto.getUrl())) {
-                            log.warn("设备 {} 上传截图失败，跳过事件创建", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to upload screenshot, Skip event creation", deviceInfo.getDeviceName());
                             return;
                         }
 
                         createEvent(deviceInfo, algorithm, filteredDetections, fileResponseDto.getUrl());
-                        log.info("设备 {} 事件已创建，检测到 {} 个目标", deviceInfo.getDeviceName(), filteredDetections.size());
+                        log.info("equipment {} event created, detected {} goals", deviceInfo.getDeviceName(), filteredDetections.size());
                     } catch (Exception detectException) {
-                        log.warn("设备 {} 检测处理失败", deviceInfo.getDeviceName(), detectException);
+                        log.warn("equipment {} Detection processing failed", deviceInfo.getDeviceName(), detectException);
                         scheduleDetectorRestart("detectException");
                     } finally {
                         detectionInProgress.set(false);
@@ -267,13 +267,13 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
 
                 @Override
                 public void onStreamEnded() {
-                    log.info("视频流检测结束: deviceId={}, deviceName={}", deviceInfo.getId(), deviceInfo.getDeviceName());
+                    log.info("Video stream detection ends: deviceId={}, deviceName={}", deviceInfo.getId(), deviceInfo.getDeviceName());
                     stopDetector();
                 }
 
                 @Override
                 public void onStreamDisconnected() {
-                    log.info("视频流断开连接: deviceId={}, deviceName={}", deviceInfo.getId(), deviceInfo.getDeviceName());
+                    log.info("Video stream disconnected: deviceId={}, deviceName={}", deviceInfo.getId(), deviceInfo.getDeviceName());
                     stopDetector();
                 }
             })
@@ -286,7 +286,7 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
         }
         Thread restartThread = new Thread(() -> {
             try {
-                log.info("已触发重启检测: deviceId={}, deviceName={}, reason={}", deviceInfo.getId(), deviceInfo.getDeviceName(), reason);
+                log.info("Restart detection triggered: deviceId={}, deviceName={}, reason={}", deviceInfo.getId(), deviceInfo.getDeviceName(), reason);
                 stopDetector();
                 Thread.sleep(START_RETRY_DELAY_MILLIS);
                 PersonDetModel model = this.detectorModel;
@@ -315,12 +315,12 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
         try {
             currentDetector.stopDetection();
         } catch (Exception stopException) {
-            log.warn("停止检测器失败", stopException);
+            log.warn("Stop detector failed", stopException);
         }
         try {
             currentDetector.close();
         } catch (Exception closeException) {
-            log.warn("关闭检测器失败", closeException);
+            log.warn("Failed to close detector", closeException);
         }
     }
 
@@ -416,7 +416,7 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
             NDArray mean = array.toType(DataType.FLOAT32, false).mean();
             return mean.getFloat();
         } catch (Exception exception) {
-            log.warn("计算图像亮度失败", exception);
+            log.warn("Calculating image brightness failed", exception);
             return -1d;
         }
     }
@@ -433,7 +433,7 @@ public class DevicePersonDetectionSession implements DeviceDetectionSession {
                              Algorithm algorithm,
                              List<DetectionInfo> detectionInfos,
                              String snapshotPath) {
-        String eventDesc = "设备 " + deviceInfo.getDeviceName() + " 检测到 " + detectionInfos.size() + " 个目标";
+        String eventDesc = "equipment " + deviceInfo.getDeviceName() + " detected " + detectionInfos.size() + " goals";
         DetectionSessionSupport.createEvent(eventManagementService, deviceInfo, algorithm, eventDesc, detectionInfos, snapshotPath);
     }
 }

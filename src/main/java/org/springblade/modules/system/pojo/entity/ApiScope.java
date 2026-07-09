@@ -11,49 +11,49 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Oort
  */
 @Data
 @TableName("blade_scope_api")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "ApiScope对象")
+@Schema(description = "ApiScopeobject")
 public class ApiScope extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 菜单主键
+	 * Menu main key
 	 */
-	@Schema(description = "菜单主键")
+	@Schema(description = "Menu main key")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long menuId;
 	/**
-	 * 资源编号
+	 * Resource number
 	 */
-	@Schema(description = "资源编号")
+	@Schema(description = "Resource number")
 	private String resourceCode;
 	/**
-	 * 接口权限名称
+	 * Interface permission name
 	 */
-	@Schema(description = "接口权限名称")
+	@Schema(description = "Interface permission name")
 	private String scopeName;
 	/**
-	 * 接口权限字段
+	 * Interface permission field
 	 */
-	@Schema(description = "接口权限字段")
+	@Schema(description = "Interface permission field")
 	private String scopePath;
 	/**
-	 * 接口权限类型
+	 * Interface permission type
 	 */
-	@Schema(description = "接口权限类型")
+	@Schema(description = "Interface permission type")
 	private Integer scopeType;
 	/**
-	 * 接口权限备注
+	 * Interface permission remarks
 	 */
-	@Schema(description = "接口权限备注")
+	@Schema(description = "Interface permission remarks")
 	private String remark;
 
 

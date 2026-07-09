@@ -8,55 +8,55 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 /**
- * 算法训练任务统计DTO
+ * Algorithm training task statisticsDTO
  *
  * @author VLStream Team
  * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "AlgorithmTrainingStatisticsDTO", description = "算法训练任务统计信息")
+@ApiModel(value = "AlgorithmTrainingStatisticsDTO", description = "Algorithm training task statistics")
 public class AlgorithmTrainingStatisticsDTO {
 
-    @ApiModelProperty(value = "总任务数")
+    @ApiModelProperty(value = "Total number of tasks")
     private Long totalTasks;
 
-    @ApiModelProperty(value = "等待中的任务数")
+    @ApiModelProperty(value = "Number of waiting tasks")
     private Long pendingTasks;
 
-    @ApiModelProperty(value = "训练中的任务数")
+    @ApiModelProperty(value = "Number of tasks in training")
     private Long trainingTasks;
 
-    @ApiModelProperty(value = "已完成的任务数")
+    @ApiModelProperty(value = "Number of tasks completed")
     private Long completedTasks;
 
-    @ApiModelProperty(value = "失败的任务数")
+    @ApiModelProperty(value = "Number of failed tasks")
     private Long failedTasks;
 
-    @ApiModelProperty(value = "成功率")
+    @ApiModelProperty(value = "success rate")
     private BigDecimal successRate;
 
-    @ApiModelProperty(value = "平均准确率")
+    @ApiModelProperty(value = "average accuracy")
     private BigDecimal averageAccuracy;
 
-    @ApiModelProperty(value = "平均精确率")
+    @ApiModelProperty(value = "average precision")
     private BigDecimal averagePrecision;
 
-    @ApiModelProperty(value = "平均召回率")
+    @ApiModelProperty(value = "average recall")
     private BigDecimal averageRecall;
 
-    @ApiModelProperty(value = "平均mAP值")
+    @ApiModelProperty(value = "averagemAPvalue")
     private BigDecimal averageMap;
 
-    @ApiModelProperty(value = "平均训练时长（分钟）")
+    @ApiModelProperty(value = "average training time(minute)")
     private BigDecimal averageDuration;
 
-    @ApiModelProperty(value = "今日新增任务数")
+    @ApiModelProperty(value = "Number of new tasks today")
     private Long todayNewTasks;
 
-    @ApiModelProperty(value = "本周新增任务数")
+    @ApiModelProperty(value = "Number of new tasks this week")
     private Long weeklyNewTasks;
 
-    @ApiModelProperty(value = "本月新增任务数")
+    @ApiModelProperty(value = "Number of new tasks this month")
     private Long monthlyNewTasks;
 }

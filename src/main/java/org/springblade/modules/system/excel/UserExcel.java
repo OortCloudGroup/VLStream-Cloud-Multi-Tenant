@@ -25,59 +25,59 @@ public class UserExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ColumnWidth(15)
-	@ExcelProperty("租户编号")
+	@ExcelProperty("Tenant number")
 	private String tenantId;
 
 	@ExcelIgnore
-	@ExcelProperty("用户平台")
+	@ExcelProperty("User platform")
 	private String userType;
 
 	@ColumnWidth(20)
-	@ExcelProperty("用户平台名称")
+	@ExcelProperty("User platform name")
 	private String userTypeName;
 
 	@ColumnWidth(15)
-	@ExcelProperty("账户")
+	@ExcelProperty("Account")
 	private String account;
 
 	@ColumnWidth(10)
-	@ExcelProperty("昵称")
+	@ExcelProperty("Nick name")
 	private String name;
 
 	@ColumnWidth(10)
-	@ExcelProperty("姓名")
+	@ExcelProperty("Name")
 	private String realName;
 
-	@ExcelProperty("邮箱")
+	@ExcelProperty("Mail")
 	private String email;
 
 	@ColumnWidth(15)
-	@ExcelProperty("手机")
+	@ExcelProperty("cell phone")
 	private String phone;
 
 	@ExcelIgnore
-	@ExcelProperty("角色ID")
+	@ExcelProperty("RoleID")
 	private String roleId;
 
 	@ExcelIgnore
-	@ExcelProperty("部门ID")
+	@ExcelProperty("departmentID")
 	private String deptId;
 
 	@ExcelIgnore
-	@ExcelProperty("岗位ID")
+	@ExcelProperty("postID")
 	private String postId;
 
-	@ExcelProperty("角色名称")
+	@ExcelProperty("Character name")
 	private String roleName;
 
-	@ExcelProperty("部门名称")
+	@ExcelProperty("Department name")
 	private String deptName;
 
-	@ExcelProperty("岗位名称")
+	@ExcelProperty("Job title")
 	private String postName;
 
 	@ColumnWidth(20)
-	@ExcelProperty("生日")
+	@ExcelProperty("Birthday")
 	private Date birthday;
 
 }

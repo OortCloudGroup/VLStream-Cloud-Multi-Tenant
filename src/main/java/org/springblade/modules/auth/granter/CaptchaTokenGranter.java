@@ -34,12 +34,12 @@ public class CaptchaTokenGranter extends PasswordTokenGranter {
 
 	@Override
 	public OAuth2User user(OAuth2Request request) {
-		// 获取验证码信息
+		// Get verification code information
 		String key = request.getCaptchaKey();
 		String code = request.getCaptchaCode();
-		// 获取验证码
+		// Get verification code
 		String redisCode = bladeRedis.getAndDel(OAuth2TokenConstant.CAPTCHA_CACHE_KEY + key);
-		// 判断验证码
+		// Determine verification code
 		if (code == null || !StringUtil.equalsIgnoreCase(redisCode, code)) {
 			throw new UserInvalidException(OAuth2TokenConstant.CAPTCHA_NOT_CORRECT);
 		}

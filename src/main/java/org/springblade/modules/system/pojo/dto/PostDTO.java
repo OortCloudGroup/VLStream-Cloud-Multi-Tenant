@@ -7,7 +7,7 @@ import org.springblade.modules.system.pojo.entity.Post;
 import java.io.Serial;
 
 /**
- * 岗位表数据传输对象实体类
+ * Position table data transfer object entity class
  *
  * @author Chill
  */

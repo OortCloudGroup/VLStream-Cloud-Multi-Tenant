@@ -9,58 +9,58 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * 多租户数据源表实体类
+ * Multi-tenant data source table entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_tenant_datasource")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "多租户数据源表")
+@Schema(description = "Multi-tenant data source table")
 public class TenantDatasource extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 数据源类型
+	 * Data source type
 	 */
-	@Schema(description = "数据源类型")
+	@Schema(description = "Data source type")
 	private Integer category;
 	/**
-	 * 名称
+	 * name
 	 */
-	@Schema(description = "名称")
+	@Schema(description = "name")
 	private String name;
 	/**
-	 * 驱动类
+	 * Driver class
 	 */
-	@Schema(description = "驱动类")
+	@Schema(description = "Driver class")
 	private String driverClass;
 	/**
-	 * 连接地址
+	 * connection address
 	 */
-	@Schema(description = "连接地址")
+	@Schema(description = "connection address")
 	private String url;
 	/**
-	 * 用户名
+	 * username
 	 */
-	@Schema(description = "用户名")
+	@Schema(description = "username")
 	private String username;
 	/**
-	 * 密码
+	 * password
 	 */
-	@Schema(description = "密码")
+	@Schema(description = "password")
 	private String password;
 	/**
-	 * 分库分表配置
+	 * Sub-database and sub-table configuration
 	 */
-	@Schema(description = "分库分表配置")
+	@Schema(description = "Sub-database and sub-table configuration")
 	private String shardingConfig;
 	/**
-	 * 备注
+	 * Remark
 	 */
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String remark;
 
 

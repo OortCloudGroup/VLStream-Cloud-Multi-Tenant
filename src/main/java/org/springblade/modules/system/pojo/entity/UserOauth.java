@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
@@ -28,76 +28,76 @@ public class UserOauth extends Model<UserOauth> {
 
 
 	/**
-	 * 主键
+	 * primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "主键")
+	@Schema(description = "primary key")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * 租户ID
+	 * tenantID
 	 */
 	private String tenantId;
 
 	/**
-	 * 第三方系统用户ID
+	 * Third party system usersID
 	 */
 	private String uuid;
 
 	/**
-	 * 用户ID
+	 * userID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "用户主键")
+	@Schema(description = "userprimary key")
 	private Long userId;
 
 	/**
-	 * 用户名
+	 * username
 	 */
 	private String username;
 	/**
-	 * 用户昵称
+	 * User nickname
 	 */
 	private String nickname;
 	/**
-	 * 用户头像
+	 * User avatar
 	 */
 	private String avatar;
 	/**
-	 * 用户网址
+	 * user网址
 	 */
 	private String blog;
 	/**
-	 * 所在公司
+	 * company
 	 */
 	private String company;
 	/**
-	 * 位置
+	 * Location
 	 */
 	private String location;
 	/**
-	 * 用户邮箱
+	 * User email
 	 */
 	private String email;
 	/**
-	 * 用户备注（各平台中的用户个人介绍）
+	 * User remarks(User profiles on each platform)
 	 */
 	private String remark;
 	/**
-	 * 性别
+	 * gender
 	 */
 	private String gender;
 	/**
-	 * 用户来源
+	 * User source
 	 */
 	private String source;
 	/**
-	 * 业务状态
+	 * business status
 	 */
 	private Integer status;
 	/**
-	 * 是否已删除
+	 * Has it been deleted?
 	 */
 	@TableLogic
 	private Integer isDeleted;

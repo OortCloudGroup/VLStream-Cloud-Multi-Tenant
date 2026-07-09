@@ -37,7 +37,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 单设备语义分割会话：周期性拉取图片（URL/本地路径）并执行语义分割，在产生结果时输出分割图并创建事件。
+ * Single-device semantic segmentation session: Pull pictures periodically(URL/local path)and perform semantic segmentation, Output segmentation plots and create events when results are produced. 
  */
 @Slf4j
 public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
@@ -106,7 +106,7 @@ public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
 
     public void stop(String reason) {
         stopRequested.set(true);
-        log.info("停止语义分割: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+        log.info("Stop semantic segmentation: deviceId={}, deviceName={}, algorithmId={}, reason={}",
             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
         Thread runningThread = this.detectionThread;
         if (runningThread != null) {
@@ -129,7 +129,7 @@ public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
                 try {
                     runDetectionOnce();
                 } catch (Exception exception) {
-                    log.warn("设备 {} 语义分割处理失败", deviceInfo.getDeviceName(), exception);
+                    log.warn("equipment {} Semantic segmentation processing failed", deviceInfo.getDeviceName(), exception);
                 }
                 if (stopRequested.get()) {
                     return;
@@ -165,7 +165,7 @@ public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
             R<CategoryMask> result = model.detect(image);
             if (result == null || !result.isSuccess() || result.getData() == null) {
                 String message = result == null ? null : result.getMessage();
-                log.warn("设备 {} 语义分割失败: {}", deviceInfo.getDeviceName(), message);
+                log.warn("equipment {} Semantic segmentation failed: {}", deviceInfo.getDeviceName(), message);
                 return;
             }
             CategoryMask mask = result.getData();
@@ -176,20 +176,20 @@ public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
             File snapFile = snapshot.toFile();
             try {
                 ImageUtils.save(image, snapFile.getName(), snapFile.getParent());
-                log.info("语义分割截图已保存: deviceId={}, deviceName={}, time={}, path={}",
+                log.info("Semantic segmentation screenshot saved: deviceId={}, deviceName={}, time={}, path={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), now, snapshot.toAbsolutePath());
             } catch (Exception saveException) {
-                log.warn("设备 {} 保存截图失败", deviceInfo.getDeviceName(), saveException);
+                log.warn("equipment {} Failed to save screenshot", deviceInfo.getDeviceName(), saveException);
                 return;
             }
 
             FileResponseDto fileResponseDto = DetectionSessionSupport.uploadSnapshot(fileUploadService, snapFile);
             if (fileResponseDto == null || StringUtils.isBlank(fileResponseDto.getUrl())) {
-                log.warn("设备 {} 上传截图失败，跳过事件创建", deviceInfo.getDeviceName());
+                log.warn("equipment {} Failed to upload screenshot, Skip event creation", deviceInfo.getDeviceName());
                 return;
             }
             createEvent(deviceInfo, algorithm, mask, fileResponseDto.getUrl());
-            log.info("语义分割事件已创建: deviceId={}, deviceName={}, algorithmId={}",
+            log.info("Semantic segmentation event created: deviceId={}, deviceName={}, algorithmId={}",
                 deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
         } finally {
             detectionInProgress.set(false);
@@ -205,7 +205,7 @@ public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
         if (isHttpUrl(streamUrl)) {
             return loadImageFromPath(streamUrl);
         }
-        log.warn("设备 {} 未配置可用图片地址，停止语义分割", deviceInfo.getDeviceName());
+        log.warn("equipment {} Available image address is not configured, Stop semantic segmentation", deviceInfo.getDeviceName());
         stopRequested.set(true);
         return null;
     }
@@ -220,7 +220,7 @@ public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
             }
             return SmartImageFactory.getInstance().fromFile(Paths.get(imagePath));
         } catch (Exception exception) {
-            log.warn("设备 {} 加载图片失败: path={}", deviceInfo.getDeviceName(), imagePath, exception);
+            log.warn("equipment {} Failed to load image: path={}", deviceInfo.getDeviceName(), imagePath, exception);
             return null;
         }
     }
@@ -263,7 +263,7 @@ public class DeviceSemSegDetectionSession implements DeviceDetectionSession {
                              Algorithm algorithm,
                              CategoryMask mask,
                              String snapshotPath) {
-        String eventDesc = "设备 " + deviceInfo.getDeviceName() + " 完成语义分割";
+        String eventDesc = "equipment " + deviceInfo.getDeviceName() + " Complete semantic segmentation";
         DetectionSessionSupport.createEvent(eventManagementService, deviceInfo, algorithm, eventDesc, mask, snapshotPath);
     }
 }

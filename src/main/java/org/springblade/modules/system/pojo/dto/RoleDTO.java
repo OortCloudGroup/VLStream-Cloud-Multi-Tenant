@@ -7,7 +7,7 @@ import org.springblade.modules.system.pojo.entity.Role;
 import java.io.Serial;
 
 /**
- * 数据传输对象实体类
+ * Data transfer object entity class
  *
  * @author Chill
  */

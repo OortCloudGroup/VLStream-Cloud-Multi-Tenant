@@ -10,19 +10,19 @@ import org.springblade.modules.system.rule.context.TenantContext;
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_DEPT_RULE;
 
 /**
- * 租户机构构建
+ * Tenant organization construction
  *
  * @author Chill
  */
-@LiteRuleComponent(id = TENANT_DEPT_RULE, name = "租户机构构建")
+@LiteRuleComponent(id = TENANT_DEPT_RULE, name = "Tenant organization construction")
 public class TenantDeptRule extends RuleComponent {
 	@Override
 	public void process() {
-		// 获取上下文
+		// Get context
 		TenantContext contextBean = this.getContextBean(TenantContext.class);
 		Tenant tenant = contextBean.getTenant();
 
-		// 新建租户对应的默认部门
+		// The default department corresponding to the new tenant
 		Dept dept = new Dept();
 		dept.setTenantId(tenant.getTenantId());
 		dept.setParentId(BladeConstant.TOP_PARENT_ID);
@@ -33,7 +33,7 @@ public class TenantDeptRule extends RuleComponent {
 		dept.setSort(2);
 		dept.setIsDeleted(BladeConstant.DB_NOT_DELETED);
 
-		// 设置上下文
+		// Set context
 		contextBean.setDept(dept);
 
 	}

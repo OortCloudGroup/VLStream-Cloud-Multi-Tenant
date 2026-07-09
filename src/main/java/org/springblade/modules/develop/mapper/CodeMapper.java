@@ -29,7 +29,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.develop.pojo.entity.Code;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */

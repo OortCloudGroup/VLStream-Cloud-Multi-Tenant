@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */
 public interface MenuMapper extends BaseMapper<Menu> {
 
 	/**
-	 * 懒加载列表
+	 * Lazy loading list
 	 *
 	 * @param parentId
 	 * @param param
@@ -26,7 +26,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<MenuVO> lazyList(Long parentId, Map<String, Object> param);
 
 	/**
-	 * 懒加载菜单列表
+	 * Lazy loading menu list
 	 *
 	 * @param parentId
 	 * @param param
@@ -35,21 +35,21 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<MenuVO> lazyMenuList(Long parentId, Map<String, Object> param);
 
 	/**
-	 * 树形结构
+	 * tree structure
 	 *
 	 * @return
 	 */
 	List<TreeNode> tree();
 
 	/**
-	 * 授权树形结构
+	 * Authorization tree structure
 	 *
 	 * @return
 	 */
 	List<TreeNode> grantTree();
 
 	/**
-	 * 授权树形结构
+	 * Authorization tree structure
 	 *
 	 * @param roleId
 	 * @return
@@ -57,14 +57,14 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<TreeNode> grantTreeByRole(List<Long> roleId);
 
 	/**
-	 * 顶部菜单树形结构
+	 * Top menu tree structure
 	 *
 	 * @return
 	 */
 	List<TreeNode> grantTopTree();
 
 	/**
-	 * 顶部菜单树形结构
+	 * Top menu tree structure
 	 *
 	 * @param roleId
 	 * @return
@@ -72,21 +72,21 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<TreeNode> grantTopTreeByRole(List<Long> roleId);
 
 	/**
-	 * 数据权限授权树形结构
+	 * Data permission authorization tree structure
 	 *
 	 * @return
 	 */
 	List<TreeNode> grantDataScopeTree();
 
 	/**
-	 * 接口权限授权树形结构
+	 * Interface permission authorization tree structure
 	 *
 	 * @return
 	 */
 	List<TreeNode> grantApiScopeTree();
 
 	/**
-	 * 数据权限授权树形结构
+	 * Data permission authorization tree structure
 	 *
 	 * @param roleId
 	 * @return
@@ -94,7 +94,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<TreeNode> grantDataScopeTreeByRole(List<Long> roleId);
 
 	/**
-	 * 接口权限授权树形结构
+	 * Interface permission authorization tree structure
 	 *
 	 * @param roleId
 	 * @return
@@ -102,14 +102,14 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<TreeNode> grantApiScopeTreeByRole(List<Long> roleId);
 
 	/**
-	 * 所有菜单
+	 * All menus
 	 *
 	 * @return
 	 */
 	List<Menu> allMenu();
 
 	/**
-	 * 权限配置菜单
+	 * Permission configuration menu
 	 *
 	 * @param roleId
 	 * @param topMenuId
@@ -118,7 +118,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<Menu> roleMenu(List<Long> roleId, Long topMenuId);
 
 	/**
-	 * 权限配置菜单
+	 * Permission configuration menu
 	 *
 	 * @param roleId
 	 * @return
@@ -126,7 +126,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<Menu> roleMenuByRoleId(List<Long> roleId);
 
 	/**
-	 * 权限配置菜单
+	 * Permission configuration menu
 	 *
 	 * @param topMenuId
 	 * @return
@@ -134,14 +134,14 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<Menu> roleMenuByTopMenuId(Long topMenuId);
 
 	/**
-	 * 所有菜单
+	 * All menus
 	 *
 	 * @return
 	 */
 	List<Menu> allMenuExt();
 
 	/**
-	 * 权限配置菜单
+	 * Permission configuration menu
 	 *
 	 * @param roleId
 	 * @param topMenuId
@@ -150,7 +150,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<Menu> roleMenuExt(List<Long> roleId, Long topMenuId);
 
 	/**
-	 * 菜单树形结构
+	 * Menu tree structure
 	 *
 	 * @param roleId
 	 * @return
@@ -158,14 +158,14 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<Menu> routes(List<Long> roleId);
 
 	/**
-	 * 按钮树形结构
+	 * Button tree structure
 	 *
 	 * @return
 	 */
 	List<Menu> allButtons();
 
 	/**
-	 * 按钮树形结构
+	 * Button tree structure
 	 *
 	 * @param roleId
 	 * @return
@@ -173,7 +173,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	List<Menu> buttons(List<Long> roleId);
 
 	/**
-	 * 获取配置的角色权限
+	 * Get configured role permissions
 	 *
 	 * @param roleIds
 	 * @return

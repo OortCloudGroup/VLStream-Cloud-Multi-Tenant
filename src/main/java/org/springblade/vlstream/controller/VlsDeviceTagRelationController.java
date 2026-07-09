@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 设备标签关联表 控制器
+ * Device tag association table controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -41,28 +41,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsDeviceTagRelation")
-@Tag(name = "设备标签关联表", description = "设备标签关联表接口")
+@Tag(name = "Device tag association table", description = "Device tag association table interface")
 public class VlsDeviceTagRelationController extends BladeController {
 
 	private final IVlsDeviceTagRelationService vlsDeviceTagRelationService;
 
 	/**
-	 * 设备标签关联表 详情
+	 * Device tag association table Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入vlsDeviceTagRelation")
+	@Operation(summary = "Details", description = "incomingvlsDeviceTagRelation")
 	public R<DeviceTagRelationVO> detail(DeviceTagRelation vlsDeviceTagRelation) {
 		DeviceTagRelation detail = vlsDeviceTagRelationService.getOne(Condition.getQueryWrapper(vlsDeviceTagRelation));
 		return R.data(VlsDeviceTagRelationWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 设备标签关联表 分页
+	 * Device tag association table Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入vlsDeviceTagRelation")
+	@Operation(summary = "Pagination", description = "incomingvlsDeviceTagRelation")
 	public R<IPage<DeviceTagRelationVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsDeviceTagRelation, Query query) {
 		IPage<DeviceTagRelation> pages = vlsDeviceTagRelationService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsDeviceTagRelation, DeviceTagRelation.class));
 		return R.data(VlsDeviceTagRelationWrapper.build().pageVO(pages));
@@ -70,63 +70,63 @@ public class VlsDeviceTagRelationController extends BladeController {
 
 
 	/**
-	 * 设备标签关联表 自定义分页
+	 * Device tag association table Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description = "传入vlsDeviceTagRelation")
+	@Operation(summary = "Pagination", description = "incomingvlsDeviceTagRelation")
 	public R<IPage<DeviceTagRelationVO>> page(DeviceTagRelationVO vlsDeviceTagRelation, Query query) {
 		IPage<DeviceTagRelationVO> pages = vlsDeviceTagRelationService.selectVlsDeviceTagRelationPage(Condition.getPage(query), vlsDeviceTagRelation);
 		return R.data(pages);
 	}
 
 	/**
-	 * 设备标签关联表 新增
+	 * Device tag association table New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入vlsDeviceTagRelation")
+	@Operation(summary = "New", description = "incomingvlsDeviceTagRelation")
 	public R save(@Valid @RequestBody DeviceTagRelation vlsDeviceTagRelation) {
 		return R.status(vlsDeviceTagRelationService.save(vlsDeviceTagRelation));
 	}
 
 	/**
-	 * 设备标签关联表 修改
+	 * Device tag association table Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入vlsDeviceTagRelation")
+	@Operation(summary = "Revise", description = "incomingvlsDeviceTagRelation")
 	public R update(@Valid @RequestBody DeviceTagRelation vlsDeviceTagRelation) {
 		return R.status(vlsDeviceTagRelationService.updateById(vlsDeviceTagRelation));
 	}
 
 	/**
-	 * 设备标签关联表 新增或修改
+	 * Device tag association table Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入vlsDeviceTagRelation")
+	@Operation(summary = "Add or modify", description = "incomingvlsDeviceTagRelation")
 	public R submit(@Valid @RequestBody DeviceTagRelation vlsDeviceTagRelation) {
 		return R.status(vlsDeviceTagRelationService.saveOrUpdate(vlsDeviceTagRelation));
 	}
 
 	/**
-	 * 设备标签关联表 删除
+	 * Device tag association table delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsDeviceTagRelationService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsDeviceTagRelation")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description = "传入vlsDeviceTagRelation")
+	@Operation(summary = "Export data", description = "incomingvlsDeviceTagRelation")
 	public void exportVlsDeviceTagRelation(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsDeviceTagRelation, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<DeviceTagRelation> queryWrapper = Condition.getQueryWrapper(vlsDeviceTagRelation, DeviceTagRelation.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -134,177 +134,177 @@ public class VlsDeviceTagRelationController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsDeviceTagRelationEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsDeviceTagRelationExcel> list = vlsDeviceTagRelationService.exportVlsDeviceTagRelation(queryWrapper);
-		ExcelUtil.export(response, "设备标签关联表数据" + DateUtil.time(), "设备标签关联表数据表", list, VlsDeviceTagRelationExcel.class);
+		ExcelUtil.export(response, "Device tag association table data" + DateUtil.time(), "Device tag association table data table", list, VlsDeviceTagRelationExcel.class);
 	}
 
 	/**
-	 * 设置设备标签（覆盖原有标签）
+	 * Set device label(Overwrite original label)
 	 */
-	@ApiOperation("设置设备标签")
+	@ApiOperation("Set device label")
 	@PutMapping("/device/{deviceId}/tags")
 	public R<String> setDeviceTags(
-		@ApiParam("设备ID") @PathVariable Long deviceId,
-		@ApiParam("标签ID列表") @RequestBody List<Long> tagIds) {
+		@ApiParam("equipmentID") @PathVariable Long deviceId,
+		@ApiParam("LabelIDlist") @RequestBody List<Long> tagIds) {
 
 		boolean success = vlsDeviceTagRelationService.setDeviceTags(deviceId, tagIds, "admin");
 		if (success) {
-			return R.success("设备标签设置成功");
+			return R.success("Device label set successfully");
 		} else {
-			return R.fail("设备标签设置失败");
+			return R.fail("Device label setting failed");
 		}
 	}
 
 	/**
-	 * 添加设备标签（追加到现有标签）
+	 * Add device label(Append to existing tag)
 	 */
-	@ApiOperation("添加设备标签")
+	@ApiOperation("Add device label")
 	@PostMapping("/device/{deviceId}/tags")
 	public R<String> addDeviceTags(
-		@ApiParam("设备ID") @PathVariable Long deviceId,
-		@ApiParam("标签ID列表") @RequestBody List<Long> tagIds) {
+		@ApiParam("equipmentID") @PathVariable Long deviceId,
+		@ApiParam("LabelIDlist") @RequestBody List<Long> tagIds) {
 
 		boolean success = vlsDeviceTagRelationService.addDeviceTags(deviceId, tagIds, "admin");
 		if (success) {
-			return R.success("设备标签添加成功");
+			return R.success("Device label added successfully");
 		} else {
-			return R.fail("设备标签添加失败");
+			return R.fail("Failed to add device label");
 		}
 	}
 
 	/**
-	 * 移除设备标签
+	 * Remove device label
 	 */
-	@ApiOperation("移除设备标签")
+	@ApiOperation("Remove device label")
 	@DeleteMapping("/device/{deviceId}/tags")
 	public R<String> removeDeviceTags(
-		@ApiParam("设备ID") @PathVariable Long deviceId,
-		@ApiParam("标签ID列表") @RequestBody List<Long> tagIds) {
+		@ApiParam("equipmentID") @PathVariable Long deviceId,
+		@ApiParam("LabelIDlist") @RequestBody List<Long> tagIds) {
 
 		boolean success = vlsDeviceTagRelationService.removeDeviceTags(deviceId, tagIds);
 		if (success) {
-			return R.success("设备标签移除成功");
+			return R.success("Device label removed successfully");
 		} else {
-			return R.fail("设备标签移除失败");
+			return R.fail("Device label removal failed");
 		}
 	}
 
 	/**
-	 * 清除设备的所有标签
+	 * Clear all tags from device
 	 */
-	@ApiOperation("清除设备的所有标签")
+	@ApiOperation("Clear all tags from device")
 	@DeleteMapping("/device/{deviceId}/tags/all")
 	public R<String> clearDeviceTags(
-		@ApiParam("设备ID") @PathVariable Long deviceId) {
+		@ApiParam("equipmentID") @PathVariable Long deviceId) {
 
 		boolean success = vlsDeviceTagRelationService.clearDeviceTags(deviceId);
 		if (success) {
-			return R.success("设备标签清除成功");
+			return R.success("Device label cleared successfully");
 		} else {
-			return R.fail("设备标签清除失败");
+			return R.fail("Device label clearing failed");
 		}
 	}
 
 	/**
-	 * 获取设备的所有标签
+	 * Get all tags of the device
 	 */
-	@ApiOperation("获取设备的所有标签")
+	@ApiOperation("Get all tags of the device")
 	@GetMapping("/device/{deviceId}/tags")
-	public R<List<DeviceTagRelationDTO>> getDeviceTags(@ApiParam("设备ID") @PathVariable Long deviceId) {
+	public R<List<DeviceTagRelationDTO>> getDeviceTags(@ApiParam("equipmentID") @PathVariable Long deviceId) {
 		List<DeviceTagRelationDTO> tags = vlsDeviceTagRelationService.getDeviceTags(deviceId);
 		return R.data(tags);
 	}
 
 	/**
-	 * 获取设备的标签ID列表
+	 * Get the label of the deviceIDlist
 	 */
-	@ApiOperation("获取设备的标签ID列表")
+	@ApiOperation("Get the label of the deviceIDlist")
 	@GetMapping("/device/{deviceId}/tag-ids")
-	public R<List<Long>> getDeviceTagIds(@ApiParam("设备ID") @PathVariable Long deviceId) {
+	public R<List<Long>> getDeviceTagIds(@ApiParam("equipmentID") @PathVariable Long deviceId) {
 		List<Long> tagIds = vlsDeviceTagRelationService.getDeviceTagIds(deviceId);
 		return R.data(tagIds);
 	}
 
 	/**
-	 * 获取设备标签的详细信息
+	 * Get device tag details
 	 */
-	@ApiOperation("获取设备标签的详细信息")
+	@ApiOperation("Get device tag details")
 	@GetMapping("/device/{deviceId}/tag-details")
 	public R<Map<String, Object>> getDeviceTagDetails(
-		@ApiParam("设备ID") @PathVariable Long deviceId) {
+		@ApiParam("equipmentID") @PathVariable Long deviceId) {
 
 		Map<String, Object> details = vlsDeviceTagRelationService.getDeviceTagDetails(deviceId);
 		return R.data(details);
 	}
 
 	/**
-	 * 获取带有指定标签的设备列表
+	 * Get a list of devices with a specified label
 	 */
-	@ApiOperation("获取带有指定标签的设备列表")
+	@ApiOperation("Get a list of devices with a specified label")
 	@GetMapping("/tag/{tagId}/devices")
 	public R<List<Map<String, Object>>> getDevicesByTag(
-		@ApiParam("标签ID") @PathVariable Long tagId) {
+		@ApiParam("LabelID") @PathVariable Long tagId) {
 
 		List<Map<String, Object>> devices = vlsDeviceTagRelationService.getDevicesByTag(tagId);
 		return R.data(devices);
 	}
 
 	/**
-	 * 根据多个标签查询设备（交集）
+	 * Query devices based on multiple tags(intersection)
 	 */
-	@ApiOperation("根据多个标签查询设备（交集）")
+	@ApiOperation("Query devices based on multiple tags(intersection)")
 	@PostMapping("/devices/by-all-tags")
 	public R<List<Long>> findDevicesByAllTags(
-		@ApiParam("标签ID列表") @RequestBody List<Long> tagIds) {
+		@ApiParam("LabelIDlist") @RequestBody List<Long> tagIds) {
 
 		List<Long> deviceIds = vlsDeviceTagRelationService.findDevicesByAllTags(tagIds);
 		return R.data(deviceIds);
 	}
 
 	/**
-	 * 根据多个标签查询设备（并集）
+	 * Query devices based on multiple tags(union)
 	 */
-	@ApiOperation("根据多个标签查询设备（并集）")
+	@ApiOperation("Query devices based on multiple tags(union)")
 	@PostMapping("/devices/by-any-tags")
 	public R<List<Long>> findDevicesByAnyTags(
-		@ApiParam("标签ID列表") @RequestBody List<Long> tagIds) {
+		@ApiParam("LabelIDlist") @RequestBody List<Long> tagIds) {
 
 		List<Long> deviceIds = vlsDeviceTagRelationService.findDevicesByAnyTags(tagIds);
 		return R.data(deviceIds);
 	}
 
 	/**
-	 * 批量设置设备标签
+	 * Set device labels in batches
 	 */
-	@ApiOperation("批量设置设备标签")
+	@ApiOperation("Set device labels in batches")
 	@PutMapping("/devices/batch-tags")
 	public R<String> batchSetDeviceTags(
-		@ApiParam("设备标签映射") @RequestBody Map<Long, List<Long>> deviceTagMap) {
+		@ApiParam("Device tag mapping") @RequestBody Map<Long, List<Long>> deviceTagMap) {
 
 		int successCount = vlsDeviceTagRelationService.batchSetDeviceTags(deviceTagMap, "admin");
-		return R.success("批量设置成功，成功设置 " + successCount + " 个设备的标签");
+		return R.success("Batch setup successful, Successfully set up " + successCount + " device tags");
 	}
 
 	/**
-	 * 复制设备标签到其他设备
+	 * Copy device labels to other devices
 	 */
-	@ApiOperation("复制设备标签到其他设备")
+	@ApiOperation("Copy device labels to other devices")
 	@PostMapping("/device/{sourceDeviceId}/copy-tags")
 	public R<String> copyDeviceTags(
-		@ApiParam("源设备ID") @PathVariable Long sourceDeviceId,
-		@ApiParam("目标设备ID列表") @RequestBody List<Long> targetDeviceIds) {
+		@ApiParam("source deviceID") @PathVariable Long sourceDeviceId,
+		@ApiParam("target deviceIDlist") @RequestBody List<Long> targetDeviceIds) {
 
 		boolean success = vlsDeviceTagRelationService.copyDeviceTags(sourceDeviceId, targetDeviceIds, "admin");
 		if (success) {
-			return R.success("复制设备标签成功");
+			return R.success("Copying device label successfully");
 		} else {
-			return R.fail("复制设备标签失败");
+			return R.fail("Failed to copy device label");
 		}
 	}
 
 	/**
-	 * 获取设备标签统计信息
+	 * Get device tag statistics
 	 */
-	@ApiOperation("获取设备标签统计信息")
+	@ApiOperation("Get device tag statistics")
 	@GetMapping("/statistics/device-tags")
 	public R<List<Map<String, Object>>> getDeviceTagStatistics() {
 		List<Map<String, Object>> statistics = vlsDeviceTagRelationService.getDeviceTagStatistics();
@@ -312,9 +312,9 @@ public class VlsDeviceTagRelationController extends BladeController {
 	}
 
 	/**
-	 * 获取标签使用统计
+	 * Get tag usage statistics
 	 */
-	@ApiOperation("获取标签使用统计")
+	@ApiOperation("Get tag usage statistics")
 	@GetMapping("/statistics/tag-usage")
 	public R<List<Map<String, Object>>> getTagUsageStatistics() {
 		List<Map<String, Object>> statistics = vlsDeviceTagRelationService.getTagUsageStatistics();
@@ -322,71 +322,71 @@ public class VlsDeviceTagRelationController extends BladeController {
 	}
 
 	/**
-	 * 检查设备是否有指定标签
+	 * Check if the device has the specified label
 	 */
-	@ApiOperation("检查设备是否有指定标签")
+	@ApiOperation("Check if the device has the specified label")
 	@GetMapping("/device/{deviceId}/has-tag/{tagId}")
 	public R<Boolean> hasDeviceTag(
-		@ApiParam("设备ID") @PathVariable Long deviceId,
-		@ApiParam("标签ID") @PathVariable Long tagId) {
+		@ApiParam("equipmentID") @PathVariable Long deviceId,
+		@ApiParam("LabelID") @PathVariable Long tagId) {
 
 		boolean hasTag = vlsDeviceTagRelationService.hasDeviceTag(deviceId, tagId);
 		return R.data(hasTag);
 	}
 
 	/**
-	 * 获取标签的设备数量
+	 * Get the number of devices labeled
 	 */
-	@ApiOperation("获取标签的设备数量")
+	@ApiOperation("Get the number of devices labeled")
 	@GetMapping("/tag/{tagId}/device-count")
 	public R<Integer> getTagDeviceCount(
-		@ApiParam("标签ID") @PathVariable Long tagId) {
+		@ApiParam("LabelID") @PathVariable Long tagId) {
 
 		int count = vlsDeviceTagRelationService.getTagDeviceCount(tagId);
 		return R.data(count);
 	}
 
 	/**
-	 * 验证标签ID列表是否有效
+	 * Verification tagIDIs the list valid?
 	 */
-	@ApiOperation("验证标签ID列表是否有效")
+	@ApiOperation("Verification tagIDIs the list valid?")
 	@PostMapping("/validate-tags")
 	public R<Map<String, Object>> validateTagIds(
-		@ApiParam("标签ID列表") @RequestBody List<Long> tagIds) {
+		@ApiParam("LabelIDlist") @RequestBody List<Long> tagIds) {
 
 		Map<String, Object> result = vlsDeviceTagRelationService.validateTagIds(tagIds);
 		return R.data(result);
 	}
 
 	/**
-	 * 同步标签使用计数
+	 * Sync tag usage count
 	 */
-	@ApiOperation("同步标签使用计数")
+	@ApiOperation("Sync tag usage count")
 	@PostMapping("/sync-usage-count")
 
 	public R<String> syncTagUsageCount() {
 		boolean success = vlsDeviceTagRelationService.syncTagUsageCount();
 		if (success) {
-			return R.success("同步标签使用计数成功");
+			return R.success("Synchronizing tag usage count successfully");
 		} else {
-			return R.fail("同步标签使用计数失败");
+			return R.fail("Failed to sync tag usage count");
 		}
 	}
 
 	/**
-	 * 获取设备标签的完整信息（包含设备信息和标签信息）
+	 * Get complete information about device tags(Contains device information and label information)
 	 */
-	@ApiOperation("获取设备标签的完整信息")
+	@ApiOperation("Get complete information about device tags")
 	@GetMapping("/device/{deviceId}/full-info")
-	public R<Map<String, Object>> getDeviceTagFullInfo(@ApiParam("设备ID") @PathVariable Long deviceId) {
+	public R<Map<String, Object>> getDeviceTagFullInfo(@ApiParam("equipmentID") @PathVariable Long deviceId) {
 
 		Map<String, Object> info = new HashMap<>();
 
-		// 获取设备标签详情
+		// Get device tag details
 		Map<String, Object> tagDetails = vlsDeviceTagRelationService.getDeviceTagDetails(deviceId);
 		info.put("tagDetails", tagDetails);
 
-		// 获取设备的标签列表
+		// Get a list of tags for a device
 		List<DeviceTagRelationDTO> tags = vlsDeviceTagRelationService.getDeviceTags(deviceId);
 		info.put("tags", tags);
 
@@ -394,12 +394,12 @@ public class VlsDeviceTagRelationController extends BladeController {
 	}
 
 	/**
-	 * 根据标签批量获取设备标签关联信息
+	 * Obtain device tag related information in batches based on tags
 	 */
-	@ApiOperation("根据标签批量获取设备标签关联信息")
+	@ApiOperation("Obtain device tag related information in batches based on tags")
 	@PostMapping("/tags/device-relations")
 	public R<Map<String, Object>> getDeviceRelationsByTags(
-		@ApiParam("标签ID列表") @RequestBody List<Long> tagIds) {
+		@ApiParam("LabelIDlist") @RequestBody List<Long> tagIds) {
 
 		Map<String, Object> result = new HashMap<>();
 

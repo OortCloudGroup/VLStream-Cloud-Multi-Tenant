@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 事件管理表 服务实现类
+ * event management table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Blade配置
+ * BladeConfiguration
  *
  * @author Chill
  */
@@ -23,18 +23,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class BladeConfiguration implements WebMvcConfigurer {
 
 	/**
-	 * 安全框架配置
+	 * Security framework configuration
 	 */
 	@Bean
 	public SecureRegistry secureRegistry() {
 		return new SecureRegistry()
-			// 开启认证配置
+			// Enable authentication configuration
 			.enabled()
-			// 令牌严格模式配置
+			// Token strict mode configuration
 			.strictTokenDisabled()
-			// 请求头严格模式配置
+			// Request header strict mode configuration
 			.strictHeaderDisabled()
-			// 认证放行配置
+			// Authentication release configuration
 			.skipUrls(
 				"/blade-auth/**",
 				"/blade-system/tenant/info",
@@ -52,21 +52,21 @@ public class BladeConfiguration implements WebMvcConfigurer {
 				"/druid/**",
 				"/favicon.ico"
 			)
-			// 认证鉴权配置
+			// Authentication configuration
 			.authDisabled()
 			.addAuthPattern(HttpMethod.ALL, "/blade-chat/message/**", "hasAuth()")
 			.addAuthPattern(HttpMethod.POST, "/blade-desk/dashboard/upload", "hasTimeAuth(9, 17)")
 			.addAuthPattern(HttpMethod.POST, "/blade-desk/dashboard/submit", "hasAnyRole('administrator', 'admin', 'user')")
-			// 基础认证配置
+			// Basic authentication configuration
 			.basicDisabled()
 			.addBasicPattern(HttpMethod.POST, "/blade-desk/dashboard/info", "blade", "blade")
-			// 签名认证配置
+			// Signature authentication configuration
 			.signDisabled()
 			.addSignPattern(HttpMethod.POST, "/blade-desk/dashboard/sign", "sha1");
 	}
 
 	/**
-	 * 跨域配置
+	 * Cross-domain configuration
 	 */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -79,7 +79,7 @@ public class BladeConfiguration implements WebMvcConfigurer {
 	}
 
 	/**
-	 * 给OAuth2服务端添加前缀
+	 * GiveOAuth2Add prefix on server side
 	 */
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {

@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * 移动端场景治理主任务表 服务实现类
+ * Mobile terminal scene management main task list Service implementation class
  */
 @Service
 @RequiredArgsConstructor
@@ -136,39 +136,39 @@ public class VlsMobileSceneGovernanceServiceImpl extends BaseServiceImpl<VlsMobi
 
 	private void validateCommon(MobileSceneGovernance mobileSceneGovernance) {
 		if (mobileSceneGovernance == null) {
-			throw new ServiceException("请求参数不能为空");
+			throw new ServiceException("Request parameters cannot be empty");
 		}
 		if (StringUtils.isBlank(mobileSceneGovernance.getName())) {
-			throw new ServiceException("治理名称不能为空");
+			throw new ServiceException("Governance name cannot be empty");
 		}
 		if (StringUtils.isBlank(mobileSceneGovernance.getLocationIds())) {
-			throw new ServiceException("分析区域不能为空");
+			throw new ServiceException("Analysis area cannot be empty");
 		}
 		if (StringUtils.isBlank(mobileSceneGovernance.getAlgorithmIds())) {
-			throw new ServiceException("AI算法不能为空");
+			throw new ServiceException("AIAlgorithm cannot be empty");
 		}
 		if (StringUtils.isBlank(mobileSceneGovernance.getCameraIds())) {
-			throw new ServiceException("摄像头不能为空");
+			throw new ServiceException("Camera cannot be empty");
 		}
 	}
 
 	private void validateLoop(MobileSceneGovernance mobileSceneGovernance) {
 		if (StringUtils.isBlank(mobileSceneGovernance.getCycleType())) {
-			throw new ServiceException("循环周期类型不能为空");
+			throw new ServiceException("Cycle type cannot be empty");
 		}
 		if (mobileSceneGovernance.getStartTime() == null || mobileSceneGovernance.getEndTime() == null) {
-			throw new ServiceException("开始时间和结束时间不能为空");
+			throw new ServiceException("Start time and end time cannot be empty");
 		}
 		if (mobileSceneGovernance.getEndTime().isBefore(mobileSceneGovernance.getStartTime())) {
-			throw new ServiceException("结束时间不能早于开始时间");
+			throw new ServiceException("End time cannot be earlier than start time");
 		}
 		if (StringUtils.isBlank(mobileSceneGovernance.getTriggerTimes())) {
-			throw new ServiceException("触发时间不能为空");
+			throw new ServiceException("Trigger time cannot be empty");
 		}
 		if ("everyOtherDay".equals(mobileSceneGovernance.getCycleType())) {
 			Integer intervalDays = mobileSceneGovernance.getIntervalDays();
 			if (intervalDays == null || intervalDays <= 0) {
-				throw new ServiceException("隔天模式间隔天数必须大于0");
+				throw new ServiceException("The number of days between every other day mode must be greater than0");
 			}
 		}
 	}
@@ -226,7 +226,7 @@ public class VlsMobileSceneGovernanceServiceImpl extends BaseServiceImpl<VlsMobi
 			}
 			return monthlyDaySet.contains(currentDate.getDayOfMonth());
 		}
-		throw new ServiceException("不支持的循环周期类型");
+		throw new ServiceException("Unsupported cycle type");
 	}
 
 	private List<LocalTime> parseTriggerTimeList(String triggerTimes) {
@@ -240,7 +240,7 @@ public class VlsMobileSceneGovernanceServiceImpl extends BaseServiceImpl<VlsMobi
 			triggerTimeList.add(LocalTime.parse(triggerTimeTrimText, TIME_FORMATTER));
 		}
 		if (triggerTimeList.isEmpty()) {
-			throw new ServiceException("触发时间不能为空");
+			throw new ServiceException("Trigger time cannot be empty");
 		}
 		return triggerTimeList;
 	}

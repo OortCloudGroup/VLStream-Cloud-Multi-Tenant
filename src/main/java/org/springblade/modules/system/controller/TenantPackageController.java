@@ -28,7 +28,7 @@ import java.util.Map;
 import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 
 /**
- * 租户产品表 控制器
+ * Tenant product table controller
  *
  * @author Oort
  */
@@ -36,62 +36,62 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @AllArgsConstructor
 @IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/tenant-package")
-@Tag(name = "租户产品包", description = "租户产品包")
+@Tag(name = "Tenant product package", description = "Tenant product package")
 public class TenantPackageController extends BladeController {
 
 	private final ITenantPackageService tenantPackageService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入tenantPackage")
+	@Operation(summary = "Details", description = "incomingtenantPackage")
 	public R<TenantPackage> detail(TenantPackage tenantPackage) {
 		TenantPackage detail = tenantPackageService.getOne(Condition.getQueryWrapper(tenantPackage));
 		return R.data(detail);
 	}
 
 	/**
-	 * 分页 租户产品表
+	 * Pagination Tenant product table
 	 */
 	@GetMapping("/list")
 	@Parameters({
-		@Parameter(name = "packageName", description = "产品包名", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
+		@Parameter(name = "packageName", description = "Product package name", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入tenantPackage")
+	@Operation(summary = "Pagination", description = "incomingtenantPackage")
 	public R<IPage<TenantPackage>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> tenantPackage, Query query) {
 		IPage<TenantPackage> pages = tenantPackageService.page(Condition.getPage(query), Condition.getQueryWrapper(tenantPackage, TenantPackage.class));
 		return R.data(pages);
 	}
 
 	/**
-	 * 新增 租户产品表
+	 * New Tenant product table
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增", description = "传入tenantPackage")
+	@Operation(summary = "New", description = "incomingtenantPackage")
 	public R save(@Valid @RequestBody TenantPackage tenantPackage) {
 		return R.status(tenantPackageService.save(tenantPackage));
 	}
 
 	/**
-	 * 修改 租户产品表
+	 * Revise Tenant product table
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "修改", description = "传入tenantPackage")
+	@Operation(summary = "Revise", description = "incomingtenantPackage")
 	public R update(@Valid @RequestBody TenantPackage tenantPackage) {
 		return R.status(tenantPackageService.updateById(tenantPackage));
 	}
 
 	/**
-	 * 新增或修改 租户产品表
+	 * Add or modify Tenant product table
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "新增或修改", description = "传入tenantPackage")
+	@Operation(summary = "Add or modify", description = "incomingtenantPackage")
 	public R submit(@Valid @RequestBody TenantPackage tenantPackage) {
 		CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
 		return R.status(tenantPackageService.saveOrUpdate(tenantPackage));
@@ -99,23 +99,23 @@ public class TenantPackageController extends BladeController {
 
 
 	/**
-	 * 删除 租户产品表
+	 * delete Tenant product table
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
 		return R.status(tenantPackageService.deleteLogic(Func.toLongList(ids)));
 	}
 
 
 	/**
-	 * 下拉数据源
+	 * Drop down data source
 	 */
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "下拉数据源", description = "传入tenant")
+	@Operation(summary = "Drop down data source", description = "incomingtenant")
 	public R<List<TenantPackage>> select(TenantPackage tenantPackage) {
 		return R.data(tenantPackageService.list(Condition.getQueryWrapper(tenantPackage)));
 	}

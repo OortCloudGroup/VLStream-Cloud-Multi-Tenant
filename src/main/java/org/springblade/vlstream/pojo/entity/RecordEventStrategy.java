@@ -12,57 +12,57 @@ import java.io.Serial;
 import java.util.Map;
 
 /**
- * 摄像头事件策略(触发录像/抓图) 实体类
+ * Camera incident policy(Trigger recording/Snapshot) Entity class
  *
  * @author Oort
  * @since 2026-02-04
  */
 @Data
 @TableName(value = "vls_record_event_strategy", autoResultMap = true)
-@Schema(description = "RecordEventStrategy对象")
+@Schema(description = "RecordEventStrategyobject")
 @EqualsAndHashCode(callSuper = true)
 public class RecordEventStrategy extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "设备编号(DeviceInfo.deviceId)")
+	@Schema(description = "Device number(DeviceInfo.deviceId)")
 	private String deviceId;
 
-	@Schema(description = "启用移动侦测")
+	@Schema(description = "Enable motion detection")
 	private Boolean motionDetectionEnabled;
 
-	@Schema(description = "启用PTZ运动报警上报")
+	@Schema(description = "enablePTZMotion alarm reporting")
 	private Boolean ptzAlarmReportEnabled;
 
-	@Schema(description = "启用动态分析")
+	@Schema(description = "Enable dynamic analysis")
 	private Boolean dynamicAnalysisEnabled;
 
-	@Schema(description = "启用遮挡报警")
+	@Schema(description = "Enable occlusion alarm")
 	private Boolean occlusionAlarmEnabled;
 
-	@Schema(description = "触发动作(record/snapshot)")
+	@Schema(description = "trigger action(record/snapshot)")
 	private String triggerAction;
 
-	@Schema(description = "触发报警前录制秒数")
+	@Schema(description = "Number of seconds to record before triggering the alarm")
 	private Integer preRecordSeconds;
 
-	@Schema(description = "触发报警后录制秒数")
+	@Schema(description = "Recording seconds after alarm is triggered")
 	private Integer postRecordSeconds;
 
-	@Schema(description = "告警频率(分钟/次)")
+	@Schema(description = "Alarm frequency(minute/Second-rate)")
 	private Integer alarmFrequencyMinutes;
 
-	@Schema(description = "告警级别(tip/general/important/urgent)")
+	@Schema(description = "Alarm level(tip/general/important/urgent)")
 	private String alarmLevel;
 
-	@Schema(description = "告警方式(site/message/sms/email/phone,逗号分隔)")
+	@Schema(description = "Alarm mode(site/message/sms/email/phone,comma separated)")
 	private String alarmMethod;
 
-	@Schema(description = "接收人ID集合(逗号分隔)")
+	@Schema(description = "recipientIDgather(comma separated)")
 	private String receiverIds;
 
-	@Schema(description = "策略配置")
+	@Schema(description = "Policy configuration")
 	@TableField(typeHandler = JacksonTypeHandler.class)
 	private Map<String, Object> protectionTime;
 

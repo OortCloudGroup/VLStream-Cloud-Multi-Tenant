@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 仓库类型枚举
+ * Warehouse type enum
  *
  * @author Administrator
  */
 @Getter
 public enum AlgorithmRepositoryTypeEnum {
 
-	basic("basic", "基础预置"),
-	extended("extended", "扩展");
+	basic("basic", "Basic presets"),
+	extended("extended", "Expand");
 
 	@EnumValue
 	private final String code;
@@ -24,10 +24,10 @@ public enum AlgorithmRepositoryTypeEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 状态码
-	 * @return 枚举对象
+	 * @param code status code
+	 * @return enumeration object
 	 */
 	public static AlgorithmRepositoryTypeEnum of(String code) {
 		if (code == null) {

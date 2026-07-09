@@ -12,44 +12,44 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_role_scope")
-@Schema(description = "RoleScope对象")
+@Schema(description = "RoleScopeobject")
 public class RoleScope implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键
+	 * primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "主键")
+	@Schema(description = "primary key")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * 权限类型
+	 * Permission type
 	 */
-	@Schema(description = "权限类型")
+	@Schema(description = "Permission type")
 	private Integer scopeCategory;
 
 	/**
-	 * 权限id
+	 * Permissionsid
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "权限id")
+	@Schema(description = "Permissionsid")
 	private Long scopeId;
 
 	/**
-	 * 角色id
+	 * Roleid
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "角色id")
+	@Schema(description = "Roleid")
 	private Long roleId;
 
 

@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.vlstream.pojo.entity.CameraOsdSetting;
 
 /**
- * 摄像机OSD设置表 服务类
+ * cameraOSDSetting table Service category
  */
 public interface IVlsCameraOsdSettingService extends BaseService<CameraOsdSetting> {
 }

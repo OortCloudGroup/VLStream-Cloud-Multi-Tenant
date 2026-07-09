@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.vlstream.pojo.entity.CameraDisplaySetting;
 
 /**
- * 摄像机显示设置表 Mapper 接口
+ * Camera display setting table Mapper interface
  */
 public interface VlsCameraDisplaySettingMapper extends BaseMapper<CameraDisplaySetting> {
 }

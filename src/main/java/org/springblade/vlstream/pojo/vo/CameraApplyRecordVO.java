@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.CameraApplyRecord;
 import java.io.Serial;
 
 /**
- * 摄像头申请审批记录视图
+ * Camera application approval record view
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -10,103 +10,103 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 行政区划表实体类
+ * Administrative division table entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_region")
-@Schema(description = "行政区划表")
+@Schema(description = "Administrative division table")
 public class Region implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 区划编号
+	 * Zoning number
 	 */
 	@TableId(value = "code", type = IdType.INPUT)
-	@Schema(description = "区划编号")
+	@Schema(description = "Zoning number")
 	private String code;
 	/**
-	 * 父区划编号
+	 * Parent division number
 	 */
-	@Schema(description = "父区划编号")
+	@Schema(description = "Parent division number")
 	private String parentCode;
 	/**
-	 * 祖区划编号
+	 * ancestral zoning number
 	 */
-	@Schema(description = "祖区划编号")
+	@Schema(description = "ancestral zoning number")
 	private String ancestors;
 	/**
-	 * 区划名称
+	 * Zoning name
 	 */
-	@Schema(description = "区划名称")
+	@Schema(description = "Zoning name")
 	private String name;
 	/**
-	 * 省级区划编号
+	 * Provincial division number
 	 */
-	@Schema(description = "省级区划编号")
+	@Schema(description = "Provincial division number")
 	private String provinceCode;
 	/**
-	 * 省级名称
+	 * Provincial name
 	 */
-	@Schema(description = "省级名称")
+	@Schema(description = "Provincial name")
 	private String provinceName;
 	/**
-	 * 市级区划编号
+	 * Municipal division number
 	 */
-	@Schema(description = "市级区划编号")
+	@Schema(description = "Municipal division number")
 	private String cityCode;
 	/**
-	 * 市级名称
+	 * Municipal name
 	 */
-	@Schema(description = "市级名称")
+	@Schema(description = "Municipal name")
 	private String cityName;
 	/**
-	 * 区级区划编号
+	 * District level division number
 	 */
-	@Schema(description = "区级区划编号")
+	@Schema(description = "District level division number")
 	private String districtCode;
 	/**
-	 * 区级名称
+	 * District level name
 	 */
-	@Schema(description = "区级名称")
+	@Schema(description = "District level name")
 	private String districtName;
 	/**
-	 * 镇级区划编号
+	 * Town-level division number
 	 */
-	@Schema(description = "镇级区划编号")
+	@Schema(description = "Town-level division number")
 	private String townCode;
 	/**
-	 * 镇级名称
+	 * Town name
 	 */
-	@Schema(description = "镇级名称")
+	@Schema(description = "Town name")
 	private String townName;
 	/**
-	 * 村级区划编号
+	 * Village level zoning number
 	 */
-	@Schema(description = "村级区划编号")
+	@Schema(description = "Village level zoning number")
 	private String villageCode;
 	/**
-	 * 村级名称
+	 * Village name
 	 */
-	@Schema(description = "村级名称")
+	@Schema(description = "Village name")
 	private String villageName;
 	/**
-	 * 层级
+	 * Hierarchy
 	 */
-	@Schema(description = "层级")
+	@Schema(description = "Hierarchy")
 	private Integer regionLevel;
 	/**
-	 * 排序
+	 * sort
 	 */
-	@Schema(description = "排序")
+	@Schema(description = "sort")
 	private Integer sort;
 	/**
-	 * 备注
+	 * Remark
 	 */
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String remark;
 
 

@@ -12,7 +12,7 @@ import java.io.Serial;
 
 
 /**
- * 时间策略表 Excel实体类
+ * time strategy table ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -27,28 +27,28 @@ public class VlsTimeStrategyExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 设备ID
+	 * equipmentID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("设备ID")
+	@ExcelProperty("equipmentID")
 	private String deviceId;
 	/**
-	 * 策略类型：everyday-每天, weekly-每周
+	 * Strategy type: everyday-every day, weekly-weekly
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("策略类型：everyday-每天, weekly-每周")
+	@ExcelProperty("Strategy type: everyday-every day, weekly-weekly")
 	private String strategyType;
 	/**
-	 * 每天模式的时间段，JSON数组格式：[0,1,2,3]
+	 * Daily mode time period, JSONarray format: [0,1,2,3]
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("每天模式的时间段，JSON数组格式：[0,1,2,3]")
+	@ExcelProperty("Daily mode time period, JSONarray format: [0,1,2,3]")
 	private String dailyTimes;
 	/**
-	 * 每周模式的时间段，JSON对象格式：{\"monday\":[0,1,2],\"tuesday\":[3,4,5]}
+	 * Time period for weekly mode, JSONobject format: {\"monday\":[0,1,2],\"tuesday\":[3,4,5]}
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("每周模式的时间段，JSON对象格式：{\"monday\":[0,1,2],\"tuesday\":[3,4,5]}")
+	@ExcelProperty("Time period for weekly mode, JSONobject format: {\"monday\":[0,1,2],\"tuesday\":[3,4,5]}")
 	private String weeklyTimes;
 
 }

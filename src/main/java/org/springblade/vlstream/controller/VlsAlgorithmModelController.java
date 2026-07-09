@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 算法模型表 控制器
+ * Algorithm model table controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -43,28 +43,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAlgorithmModel")
-@Tag(name = "算法模型表", description = "算法模型表接口")
+@Tag(name = "Algorithm model table", description = "Algorithm model table interface")
 public class VlsAlgorithmModelController extends BladeController {
 
 	private final IVlsAlgorithmModelService vlsAlgorithmModelService;
 
 	/**
-	 * 算法模型表 详情
+	 * Algorithm model table Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入vlsAlgorithmModel")
+	@Operation(summary = "Details", description = "incomingvlsAlgorithmModel")
 	public R<AlgorithmModelVO> detail(AlgorithmModel vlsAlgorithmModel) {
 		AlgorithmModel detail = vlsAlgorithmModelService.getOne(Condition.getQueryWrapper(vlsAlgorithmModel));
 		return R.data(VlsAlgorithmModelWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 算法模型表 分页
+	 * Algorithm model table Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmModel")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmModel")
 	public R<IPage<AlgorithmModelVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmModel, Query query) {
 		IPage<AlgorithmModel> pages = vlsAlgorithmModelService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAlgorithmModel, AlgorithmModel.class));
 		return R.data(VlsAlgorithmModelWrapper.build().pageVO(pages));
@@ -72,63 +72,63 @@ public class VlsAlgorithmModelController extends BladeController {
 
 
 	/**
-	 * 算法模型表 自定义分页
+	 * Algorithm model table Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmModel")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmModel")
 	public R<IPage<AlgorithmModelVO>> page(AlgorithmModelVO vlsAlgorithmModel, Query query) {
 		IPage<AlgorithmModelVO> pages = vlsAlgorithmModelService.selectVlsAlgorithmModelPage(Condition.getPage(query), vlsAlgorithmModel);
 		return R.data(pages);
 	}
 
 	/**
-	 * 算法模型表 新增
+	 * Algorithm model table New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入vlsAlgorithmModel")
+	@Operation(summary = "New", description = "incomingvlsAlgorithmModel")
 	public R save(@Valid @RequestBody AlgorithmModel vlsAlgorithmModel) {
 		return R.status(vlsAlgorithmModelService.save(vlsAlgorithmModel));
 	}
 
 	/**
-	 * 算法模型表 修改
+	 * Algorithm model table Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入vlsAlgorithmModel")
+	@Operation(summary = "Revise", description = "incomingvlsAlgorithmModel")
 	public R update(@Valid @RequestBody AlgorithmModel vlsAlgorithmModel) {
 		return R.status(vlsAlgorithmModelService.updateById(vlsAlgorithmModel));
 	}
 
 	/**
-	 * 算法模型表 新增或修改
+	 * Algorithm model table Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入vlsAlgorithmModel")
+	@Operation(summary = "Add or modify", description = "incomingvlsAlgorithmModel")
 	public R submit(@Valid @RequestBody AlgorithmModel vlsAlgorithmModel) {
 		return R.status(vlsAlgorithmModelService.saveOrUpdate(vlsAlgorithmModel));
 	}
 
 	/**
-	 * 算法模型表 删除
+	 * Algorithm model table delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsAlgorithmModelService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAlgorithmModel")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description = "传入vlsAlgorithmModel")
+	@Operation(summary = "Export data", description = "incomingvlsAlgorithmModel")
 	public void exportVlsAlgorithmModel(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmModel, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<AlgorithmModel> queryWrapper = Condition.getQueryWrapper(vlsAlgorithmModel, AlgorithmModel.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -136,242 +136,242 @@ public class VlsAlgorithmModelController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsAlgorithmModelEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAlgorithmModelExcel> list = vlsAlgorithmModelService.exportVlsAlgorithmModel(queryWrapper);
-		ExcelUtil.export(response, "算法模型表数据" + DateUtil.time(), "算法模型表数据表", list, VlsAlgorithmModelExcel.class);
+		ExcelUtil.export(response, "Algorithm model table data" + DateUtil.time(), "Algorithm model table data table", list, VlsAlgorithmModelExcel.class);
 	}
 
-	@ApiOperation(value = "根据ID查询算法模型详情")
+	@ApiOperation(value = "according toIDQuery algorithm model details")
 	@GetMapping("/{id}")
-	public R<AlgorithmModel> getModelById(@ApiParam("模型ID") @PathVariable Long id) {
+	public R<AlgorithmModel> getModelById(@ApiParam("ModelID") @PathVariable Long id) {
 		try {
 			AlgorithmModel model = vlsAlgorithmModelService.getModelById(id);
 			if (model == null) {
-				return R.fail("模型不存在");
+				return R.fail("Model does not exist");
 			}
 			return R.data(model);
 		} catch (Exception e) {
-			log.error("查询算法模型详情失败", e);
-			return R.fail("查询算法模型详情失败：" + e.getMessage());
+			log.error("Failed to query algorithm model details", e);
+			return R.fail("Failed to query algorithm model details: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "创建算法模型")
+	@ApiOperation(value = "Create an algorithm model")
 	@PostMapping("/create")
 	public R<AlgorithmModel> createModel(@Valid @RequestBody AlgorithmModelVO createDTO) {
 		try {
 			AlgorithmModel model = vlsAlgorithmModelService.createModel(createDTO);
 			return R.data(model);
 		} catch (Exception e) {
-			log.error("创建算法模型失败", e);
-			return R.fail("创建算法模型失败：" + e.getMessage());
+			log.error("Failed to create algorithm model", e);
+			return R.fail("Failed to create algorithm model: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "删除算法模型")
+	@ApiOperation(value = "Delete algorithm model")
 	@DeleteMapping("/{id}")
-	public R<Boolean> deleteModel(@ApiParam("模型ID") @PathVariable Long id) {
+	public R<Boolean> deleteModel(@ApiParam("ModelID") @PathVariable Long id) {
 		try {
 			boolean success = vlsAlgorithmModelService.deleteModel(id);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("删除算法模型失败", e);
-			return R.fail("删除算法模型失败：" + e.getMessage());
+			log.error("Deletion of algorithm model failed", e);
+			return R.fail("Deletion of algorithm model failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "批量删除算法模型")
+	@ApiOperation(value = "Batch deletion algorithm model")
 	@DeleteMapping("/batch")
 	public R<Boolean> batchDeleteModel(@RequestBody List<Long> ids) {
 		try {
 			boolean success = vlsAlgorithmModelService.batchDeleteModel(ids);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("批量删除算法模型失败", e);
-			return R.fail("批量删除算法模型失败：" + e.getMessage());
+			log.error("Batch deletion algorithm model failed", e);
+			return R.fail("Batch deletion algorithm model failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "根据算法ID查询模型列表")
+	@ApiOperation(value = "According to algorithmIDQuery model list")
 	@GetMapping("/algorithm/{algorithmId}")
-	public R<List<AlgorithmModel>> getModelsByAlgorithmId(@ApiParam("算法ID") @PathVariable Long algorithmId) {
+	public R<List<AlgorithmModel>> getModelsByAlgorithmId(@ApiParam("algorithmID") @PathVariable Long algorithmId) {
 		try {
 			List<AlgorithmModel> models = vlsAlgorithmModelService.getModelsByAlgorithmId(algorithmId);
 			return R.data(models);
 		} catch (Exception e) {
-			log.error("根据算法ID查询模型列表失败", e);
-			return R.fail("根据算法ID查询模型列表失败：" + e.getMessage());
+			log.error("According to algorithmIDQuerying model list failed", e);
+			return R.fail("According to algorithmIDQuerying model list failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "根据训练任务ID查询模型列表")
+	@ApiOperation(value = "According to training tasksIDQuery model list")
 	@GetMapping("/training/{trainingId}")
-	public R<List<AlgorithmModel>> getModelsByTrainingId(@ApiParam("训练任务ID") @PathVariable Long trainingId) {
+	public R<List<AlgorithmModel>> getModelsByTrainingId(@ApiParam("training tasksID") @PathVariable Long trainingId) {
 		try {
 			List<AlgorithmModel> models = vlsAlgorithmModelService.getModelsByTrainingId(trainingId);
 			return R.data(models);
 		} catch (Exception e) {
-			log.error("根据训练任务ID查询模型列表失败", e);
-			return R.fail("根据训练任务ID查询模型列表失败：" + e.getMessage());
+			log.error("According to training tasksIDQuerying model list failed", e);
+			return R.fail("According to training tasksIDQuerying model list failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "根据状态查询模型列表")
+	@ApiOperation(value = "Query model list based on status")
 	@GetMapping("/status/{status}")
-	public R<List<AlgorithmModel>> getModelsByStatus(@ApiParam("状态") @PathVariable String status) {
+	public R<List<AlgorithmModel>> getModelsByStatus(@ApiParam("state") @PathVariable String status) {
 		try {
 			List<AlgorithmModel> models = vlsAlgorithmModelService.getModelsByStatus(status);
 			return R.data(models);
 		} catch (Exception e) {
-			log.error("根据状态查询模型列表失败", e);
-			return R.fail("根据状态查询模型列表失败：" + e.getMessage());
+			log.error("Querying model list based on status failed", e);
+			return R.fail("Querying model list based on status failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "发布模型")
+	@ApiOperation(value = "publish model")
 	@PostMapping("/publish/{id}")
-	public R<Boolean> publishModel(@ApiParam("模型ID") @PathVariable Long id) {
+	public R<Boolean> publishModel(@ApiParam("ModelID") @PathVariable Long id) {
 		try {
 			boolean success = vlsAlgorithmModelService.publishModel(id);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("发布模型失败", e);
-			return R.fail("发布模型失败：" + e.getMessage());
+			log.error("Publishing model failed", e);
+			return R.fail("Publishing model failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "撤销发布模型")
+	@ApiOperation(value = "Undo release model")
 	@PostMapping("/unpublish/{id}")
-	public R<Boolean> unpublishModel(@ApiParam("模型ID") @PathVariable Long id) {
+	public R<Boolean> unpublishModel(@ApiParam("ModelID") @PathVariable Long id) {
 		try {
 			boolean success = vlsAlgorithmModelService.unpublishModel(id);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("撤销发布模型失败", e);
-			return R.fail("撤销发布模型失败：" + e.getMessage());
+			log.error("Failed to unpublish model", e);
+			return R.fail("Failed to unpublish model: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "批量发布模型")
+	@ApiOperation(value = "Release models in batches")
 	@PostMapping("/batch-publish")
 	public R<Boolean> batchPublishModel(@RequestBody List<Long> ids) {
 		try {
 			boolean success = vlsAlgorithmModelService.batchPublishModel(ids);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("批量发布模型失败", e);
-			return R.fail("批量发布模型失败：" + e.getMessage());
+			log.error("Failed to publish models in batches", e);
+			return R.fail("Failed to publish models in batches: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "下载模型")
+	@ApiOperation(value = "Download model")
 	@GetMapping("/download/{id}")
-	public R<String> downloadModel(@ApiParam("模型ID") @PathVariable Long id) {
+	public R<String> downloadModel(@ApiParam("ModelID") @PathVariable Long id) {
 		try {
 			String filePath = vlsAlgorithmModelService.downloadModel(id);
 			return R.success(filePath);
 		} catch (Exception e) {
-			log.error("下载模型失败", e);
-			return R.fail("下载模型失败：" + e.getMessage());
+			log.error("Failed to download model", e);
+			return R.fail("Failed to download model: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "部署模型")
+	@ApiOperation(value = "Deployment model")
 	@PostMapping("/deploy/{id}")
-	public R<Boolean> deployModel(@ApiParam("模型ID") @PathVariable Long id) {
+	public R<Boolean> deployModel(@ApiParam("ModelID") @PathVariable Long id) {
 		try {
 			boolean success = vlsAlgorithmModelService.deployModel(id);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("部署模型失败", e);
-			return R.fail("部署模型失败：" + e.getMessage());
+			log.error("Deployment model failed", e);
+			return R.fail("Deployment model failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "获取模型统计信息")
+	@ApiOperation(value = "Get model statistics")
 	@GetMapping("/statistics")
 	public R<AlgorithmModelStatisticsDTO> getStatistics() {
 		try {
 			AlgorithmModelStatisticsDTO statistics = vlsAlgorithmModelService.getStatistics();
 			return R.data(statistics);
 		} catch (Exception e) {
-			log.error("获取模型统计信息失败", e);
-			return R.fail("获取模型统计信息失败：" + e.getMessage());
+			log.error("Failed to obtain model statistics", e);
+			return R.fail("Failed to obtain model statistics: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "检查模型名称和版本是否存在")
+	@ApiOperation(value = "Check if model name and version exist")
 	@GetMapping("/check-name-version")
 	public R<Boolean> checkModelNameAndVersion(
-		@ApiParam("模型名称") @RequestParam String modelName,
-		@ApiParam("模型版本") @RequestParam Integer version,
-		@ApiParam("排除的ID") @RequestParam(required = false) Long excludeId) {
+		@ApiParam("Model name") @RequestParam String modelName,
+		@ApiParam("model version") @RequestParam Integer version,
+		@ApiParam("excludedID") @RequestParam(required = false) Long excludeId) {
 		try {
 			boolean exists = vlsAlgorithmModelService.checkModelNameAndVersion(modelName, version, excludeId);
 			return R.data(exists);
 		} catch (Exception e) {
-			log.error("检查模型名称和版本失败", e);
-			return R.fail("检查模型名称和版本失败：" + e.getMessage());
+			log.error("Checking model name and version failed", e);
+			return R.fail("Checking model name and version failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "根据算法ID和版本查询模型")
+	@ApiOperation(value = "According to algorithmIDand version query model")
 	@GetMapping("/algorithm/{algorithmId}/version/{version}")
 	public R<AlgorithmModel> getModelByAlgorithmIdAndVersion(
-		@ApiParam("算法ID") @PathVariable Long algorithmId,
-		@ApiParam("版本") @PathVariable Integer version) {
+		@ApiParam("algorithmID") @PathVariable Long algorithmId,
+		@ApiParam("Version") @PathVariable Integer version) {
 		try {
 			AlgorithmModel model = vlsAlgorithmModelService.getModelByAlgorithmIdAndVersion(algorithmId, version);
 			return R.data(model);
 		} catch (Exception e) {
-			log.error("根据算法ID和版本查询模型失败", e);
-			return R.fail("根据算法ID和版本查询模型失败：" + e.getMessage());
+			log.error("According to algorithmIDand version query model failed", e);
+			return R.fail("According to algorithmIDand version query model failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "获取算法下最新版本的模型")
+	@ApiOperation(value = "Get the latest version of the model under the algorithm")
 	@GetMapping("/algorithm/{algorithmId}/latest")
-	public R<AlgorithmModel> getLatestModelByAlgorithmId(@ApiParam("算法ID") @PathVariable Long algorithmId) {
+	public R<AlgorithmModel> getLatestModelByAlgorithmId(@ApiParam("algorithmID") @PathVariable Long algorithmId) {
 		try {
 			AlgorithmModel model = vlsAlgorithmModelService.getLatestModelByAlgorithmId(algorithmId);
 			return R.data(model);
 		} catch (Exception e) {
-			log.error("获取算法下最新版本的模型失败", e);
-			return R.fail("获取算法下最新版本的模型失败：" + e.getMessage());
+			log.error("Failed to obtain the latest version of the model under the algorithm", e);
+			return R.fail("Failed to obtain the latest version of the model under the algorithm: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "查询热门模型")
+	@ApiOperation(value = "Query popular models")
 	@GetMapping("/popular")
-	public R<List<AlgorithmModel>> getPopularModels(@ApiParam("限制数量") @RequestParam(defaultValue = "10") Integer limit) {
+	public R<List<AlgorithmModel>> getPopularModels(@ApiParam("limited quantity") @RequestParam(defaultValue = "10") Integer limit) {
 		try {
 			List<AlgorithmModel> models = vlsAlgorithmModelService.getPopularModels(limit);
 			return R.data(models);
 		} catch (Exception e) {
-			log.error("查询热门模型失败", e);
-			return R.fail("查询热门模型失败：" + e.getMessage());
+			log.error("Failed to query popular models", e);
+			return R.fail("Failed to query popular models: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "根据创建人查询模型数量")
+	@ApiOperation(value = "Query the number of models based on the creator")
 	@GetMapping("/count/creator/{createdBy}")
-	public R<Long> countModelsByCreatedBy(@ApiParam("创建人ID") @PathVariable Long createdBy) {
+	public R<Long> countModelsByCreatedBy(@ApiParam("CreatorID") @PathVariable Long createdBy) {
 		try {
 			Long count = vlsAlgorithmModelService.countModelsByCreatedBy(createdBy);
 			return R.data(count);
 		} catch (Exception e) {
-			log.error("根据创建人查询模型数量失败", e);
-			return R.fail("根据创建人查询模型数量失败：" + e.getMessage());
+			log.error("Querying the number of models based on the creator failed", e);
+			return R.fail("Querying the number of models based on the creator failed: " + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "获取算法模型的总大小")
+	@ApiOperation(value = "Get the total size of the algorithm model")
 	@GetMapping("/total-size")
 	public R<Long> getTotalModelSize() {
 		try {
 			Long totalSize = vlsAlgorithmModelService.getTotalModelSize();
 			return R.data(totalSize);
 		} catch (Exception e) {
-			log.error("获取算法模型的总大小失败", e);
-			return R.fail("获取算法模型的总大小失败：" + e.getMessage());
+			log.error("Failed to get total size of algorithm model", e);
+			return R.fail("Failed to get total size of algorithm model: " + e.getMessage());
 		}
 	}
 

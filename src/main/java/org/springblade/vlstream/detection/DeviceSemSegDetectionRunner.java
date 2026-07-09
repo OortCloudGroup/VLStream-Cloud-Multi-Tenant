@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 /**
- * 语义分割启动触发器：应用启动时触发一次语义分割任务刷新。
+ * Semantic segmentation start trigger: A semantic segmentation task refresh is triggered when the application starts.. 
  */
 @Component
 @ConditionalOnProperty(value = "vlstream.semseg-detection.enabled", havingValue = "true", matchIfMissing = false)

@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.AudioAnomalyDetectionSetting;
 import java.io.Serial;
 
 /**
- * 音频异常侦测设置表 视图实体类
+ * Audio anomaly detection setting table View entity class
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

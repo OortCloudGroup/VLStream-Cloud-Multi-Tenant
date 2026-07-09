@@ -21,19 +21,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * 资源类型配置表 控制器
+ * Resource type configuration table controller
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsResourceType")
-@Tag(name = "资源类型配置", description = "资源类型配置接口")
+@Tag(name = "Resource type configuration", description = "Resource type configuration interface")
 public class VlsResourceTypeController extends BladeController {
 
 	private final IVlsResourceTypeService vlsResourceTypeService;
 
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入resourceType")
+	@Operation(summary = "Details", description = "incomingresourceType")
 	public R<ResourceTypeVO> detail(ResourceType resourceType) {
 		ResourceType detail = vlsResourceTypeService.getOne(Condition.getQueryWrapper(resourceType));
 		return R.data(VlsResourceTypeWrapper.build().entityVO(detail));
@@ -41,7 +41,7 @@ public class VlsResourceTypeController extends BladeController {
 
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入resourceType")
+	@Operation(summary = "Pagination", description = "incomingresourceType")
 	public R<IPage<ResourceTypeVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> resourceType, Query query) {
 		IPage<ResourceType> pages = vlsResourceTypeService.page(Condition.getPage(query), Condition.getQueryWrapper(resourceType, ResourceType.class));
 		return R.data(VlsResourceTypeWrapper.build().pageVO(pages));
@@ -49,29 +49,29 @@ public class VlsResourceTypeController extends BladeController {
 
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增", description = "传入resourceType")
+	@Operation(summary = "New", description = "incomingresourceType")
 	public R save(@Valid @RequestBody ResourceType resourceType) {
 		return R.status(vlsResourceTypeService.save(resourceType));
 	}
 
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "修改", description = "传入resourceType")
+	@Operation(summary = "Revise", description = "incomingresourceType")
 	public R update(@Valid @RequestBody ResourceType resourceType) {
 		return R.status(vlsResourceTypeService.updateById(resourceType));
 	}
 
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "新增或修改", description = "传入resourceType")
+	@Operation(summary = "Add or modify", description = "incomingresourceType")
 	public R submit(@Valid @RequestBody ResourceType resourceType) {
 		return R.status(vlsResourceTypeService.saveOrUpdate(resourceType));
 	}
 
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsResourceTypeService.deleteLogic(Func.toLongList(ids)));
 	}
 }

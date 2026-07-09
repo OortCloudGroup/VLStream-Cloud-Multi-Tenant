@@ -11,7 +11,7 @@ import org.springblade.modules.system.pojo.vo.ApDeptVO;
 import java.util.List;
 
 /**
- * 组织机构表 Mapper 接口
+ * Organization chart Mapper interface
  *
  * @author BladeX
  * @since 2025-08-09
@@ -19,32 +19,32 @@ import java.util.List;
 public interface ApDeptMapper extends BaseMapper<ApDeptEntity> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param apDept 查询参数
+	 * @param page Paging parameters
+	 * @param apDept query parameters
 	 * @return List<ApDeptVO>
 	 */
 	List<ApDeptVO> selectApDeptPage(IPage page, ApDeptVO apDept);
 
 	/**
-	 * 获取导出数据
+	 * Get export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<ApDeptExcel>
 	 */
 	List<ApDeptExcel> exportApDept(@Param("ew") Wrapper<ApDeptEntity> queryWrapper);
 
 	/**
-	 * 根据部门编码查询本部门及所有子部门
+	 * Query this department and all sub-departments based on department code
 	 *
-	 * @param deptCode 部门编码
+	 * @param deptCode Department code
 	 * @return List<ApDeptEntity>
 	 */
 	List<ApDeptEntity> selectDeptAndChildrenByDeptCode(@Param("deptCode") String deptCode);
 
 	/**
-	 * 获取部门名
+	 * Get department name
 	 *
 	 * @param ids
 	 * @return

@@ -8,14 +8,14 @@ import org.springblade.modules.system.pojo.vo.RoleMenuVO;
 import java.util.List;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 * @param page
 	 * @param roleMenu
 	 * @return

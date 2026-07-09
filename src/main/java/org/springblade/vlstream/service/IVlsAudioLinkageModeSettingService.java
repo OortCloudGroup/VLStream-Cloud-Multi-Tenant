@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.vlstream.pojo.entity.AudioLinkageModeSetting;
 
 /**
- * 音频联动方式设置表 服务类
+ * Audio linkage mode setting table Service category
  */
 public interface IVlsAudioLinkageModeSettingService extends BaseService<AudioLinkageModeSetting> {
 }

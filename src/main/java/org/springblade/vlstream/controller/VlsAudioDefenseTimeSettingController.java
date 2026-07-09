@@ -22,16 +22,16 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 音频布防时间设置表 控制器
+ * Audio arming time setting table controller
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAudioDefenseTimeSetting")
-@Tag(name = "音频布防时间设置", description = "音频布防时间设置接口")
+@Tag(name = "Audio arming time setting", description = "Audio arming time setting interface")
 public class VlsAudioDefenseTimeSettingController extends BladeController {
 
 	private static final Map<String, Object> DEFAULT_PROTECTION_TIME = Map.of(
-		"frequency", "每天",
+		"frequency", "every day",
 		"time_periods", List.of(
 			Map.of("start", "08:00:00", "end", "12:00:00"),
 			Map.of("start", "14:00:00", "end", "18:00:00")
@@ -44,9 +44,9 @@ public class VlsAudioDefenseTimeSettingController extends BladeController {
 
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "按设备ID查询音频布防时间设置")
+	@Operation(summary = "Details", description = "by deviceIDQuery the audio arming time setting")
 	public R<AudioDefenseTimeSettingVO> detail(@RequestParam Long deviceId) {
-		Assert.notNull(deviceId, "设备主键ID不能为空");
+		Assert.notNull(deviceId, "Device primary keyIDcannot be empty");
 		AudioDefenseTimeSetting detail = vlsAudioDefenseTimeSettingService.getOne(Wrappers.<AudioDefenseTimeSetting>lambdaQuery()
 			.eq(AudioDefenseTimeSetting::getDeviceId, deviceId)
 			.last("limit 1"));
@@ -65,9 +65,9 @@ public class VlsAudioDefenseTimeSettingController extends BladeController {
 
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "新增或修改", description = "按设备ID保存音频布防时间设置")
+	@Operation(summary = "Add or modify", description = "by deviceIDSave audio arming time settings")
 	public R submit(@Valid @RequestBody AudioDefenseTimeSetting audioDefenseTimeSetting) {
-		Assert.notNull(audioDefenseTimeSetting.getDeviceId(), "设备主键ID不能为空");
+		Assert.notNull(audioDefenseTimeSetting.getDeviceId(), "Device primary keyIDcannot be empty");
 		AudioDefenseTimeSetting existed = vlsAudioDefenseTimeSettingService.getOne(Wrappers.<AudioDefenseTimeSetting>lambdaQuery()
 			.eq(AudioDefenseTimeSetting::getDeviceId, audioDefenseTimeSetting.getDeviceId())
 			.last("limit 1"));
@@ -80,7 +80,7 @@ public class VlsAudioDefenseTimeSettingController extends BladeController {
 		}
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsAudioDefenseTimeSettingTopic(), audioDefenseTimeSetting);
 		if (!publishSuccess) {
-			return R.fail("保存成功，但MQTT消息发送失败");
+			return R.fail("Saved successfully, butMQTTMessage sending failed");
 		}
 		return R.status(true);
 	}

@@ -11,43 +11,43 @@ import java.math.BigDecimal;
 
 @Data
 @TableName("vls_rtsp_device")
-@Schema(description = "RTSP设备表")
+@Schema(description = "RTSPEquipment table")
 @EqualsAndHashCode(callSuper = true)
 public class RtspDeviceEntity extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "部门ID")
+	@Schema(description = "departmentID")
 	private Long deptId;
 
-	@Schema(description = "设备IP")
+	@Schema(description = "equipmentIP")
 	private String ip;
 
-	@Schema(description = "设备名称")
+	@Schema(description = "Device name")
 	private String name;
 
-	@Schema(description = "用户名")
+	@Schema(description = "username")
 	private String userName;
 
-	@Schema(description = "密码")
+	@Schema(description = "password")
 	private String password;
 
-	@Schema(description = "通道号")
+	@Schema(description = "Channel number")
 	private String channel;
 
-	@Schema(description = "播放地址")
+	@Schema(description = "Play address")
 	private String url;
 
-	@Schema(description = "设备厂商")
+	@Schema(description = "Equipment manufacturer")
 	private String firm;
 
-	@Schema(description = "纬度")
+	@Schema(description = "latitude")
 	private BigDecimal lat;
 
-	@Schema(description = "经度")
+	@Schema(description = "longitude")
 	private BigDecimal lng;
 
-	@Schema(description = "地图定位地址")
+	@Schema(description = "Map location address")
 	private String addressMap;
 }

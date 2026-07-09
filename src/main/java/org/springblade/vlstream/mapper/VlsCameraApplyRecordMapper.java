@@ -10,7 +10,7 @@ import org.springblade.vlstream.pojo.vo.CameraApplyRecordVO;
 import java.util.List;
 
 /**
- * 摄像头申请审批记录 Mapper 接口
+ * Camera application approval record Mapper interface
  */
 public interface VlsCameraApplyRecordMapper extends BaseMapper<CameraApplyRecord> {
 

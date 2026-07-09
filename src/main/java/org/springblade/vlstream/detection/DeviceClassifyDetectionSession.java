@@ -34,7 +34,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 单设备图像分类检测会话：加载模型并对视频流进行分类，在产生结果时截图上传并创建事件；支持异常重启与资源清理。
+ * Single-device image classification detection session: Load the model and classify the video stream, Upload screenshots and create events when results are generated; Support abnormal restart and resource cleanup. 
  */
 @Slf4j
 public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
@@ -106,7 +106,7 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
 
     public void stop(String reason) {
         stopRequested.set(true);
-        log.info("停止图像分类: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+        log.info("Stop image classification: deviceId={}, deviceName={}, algorithmId={}, reason={}",
             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
         stopDetector();
         cleanupTempModelDirectory();
@@ -129,12 +129,12 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
             this.detector = streamDetector;
             try {
                 streamDetector.startDetection();
-                log.info("开始图像分类: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
+                log.info("Start image classification: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, streamUrl);
                 return;
             } catch (Exception startException) {
                 retryTimes++;
-                log.error("启动图像分类器失败: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
+                log.error("Failed to start image classifier: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, retryTimes, startException.getMessage(), startException);
                 stopDetector();
                 if (retryTimes > MAX_START_RETRY_TIMES) {
@@ -172,7 +172,7 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
                         }
                         snapshotImage = DetectionSessionSupport.copyForSnapshot(image, log);
                         if (snapshotImage == null) {
-                            log.warn("设备 {} 复制截图失败，跳过", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to copy screenshot, jump over", deviceInfo.getDeviceName());
                             return;
                         }
 
@@ -181,23 +181,23 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
                         File snapFile = snapshot.toFile();
                         try {
                             ImageUtils.save(snapshotImage, snapFile.getName(), snapFile.getParent());
-                            log.info("图像分类截图已保存: deviceId={}, deviceName={}, time={}, path={}",
+                            log.info("Image classification screenshot saved: deviceId={}, deviceName={}, time={}, path={}",
                                 deviceInfo.getId(), deviceInfo.getDeviceName(), now, snapshot.toAbsolutePath());
                         } catch (Exception saveException) {
-                            log.warn("设备 {} 保存截图失败", deviceInfo.getDeviceName(), saveException);
+                            log.warn("equipment {} Failed to save screenshot", deviceInfo.getDeviceName(), saveException);
                             return;
                         }
 
                         FileResponseDto fileResponseDto = DetectionSessionSupport.uploadSnapshot(fileUploadService, snapFile);
                         if (fileResponseDto == null || StringUtils.isBlank(fileResponseDto.getUrl())) {
-                            log.warn("设备 {} 上传截图失败，跳过事件创建", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to upload screenshot, Skip event creation", deviceInfo.getDeviceName());
                             return;
                         }
                         createEvent(deviceInfo, algorithm, detectionInfoList, fileResponseDto.getUrl());
-                        log.info("图像分类事件已创建: deviceId={}, deviceName={}, algorithmId={}, results={}",
+                        log.info("Image classification event created: deviceId={}, deviceName={}, algorithmId={}, results={}",
                             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, detectionInfoList.size());
                     } catch (Exception detectException) {
-                        log.warn("设备 {} 图像分类回调处理失败", deviceInfo.getDeviceName(), detectException);
+                        log.warn("equipment {} Image classification callback processing failed", deviceInfo.getDeviceName(), detectException);
                         scheduleDetectorRestart("detectException");
                     } finally {
                         detectionInProgress.set(false);
@@ -207,14 +207,14 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
 
                 @Override
                 public void onStreamEnded() {
-                    log.info("图像分类视频流结束: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("Image classification video stream ends: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamEnded");
                 }
 
                 @Override
                 public void onStreamDisconnected() {
-                    log.info("图像分类视频流断开: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("Image classification video stream disconnected: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamDisconnected");
                 }
@@ -234,7 +234,7 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
                 if (stopRequested.get()) {
                     return;
                 }
-                log.info("已触发重启图像分类: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+                log.info("Restart image classification triggered: deviceId={}, deviceName={}, algorithmId={}, reason={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
                 stopDetector();
                 Thread.sleep(START_RETRY_DELAY_MILLIS);
@@ -269,12 +269,12 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
         try {
             currentDetector.stopDetection();
         } catch (Exception stopException) {
-            log.warn("停止图像分类器失败", stopException);
+            log.warn("Stopping image classifier failed", stopException);
         }
         try {
             currentDetector.close();
         } catch (Exception closeException) {
-            log.warn("关闭图像分类器失败", closeException);
+            log.warn("Failed to close image classifier", closeException);
         }
     }
 
@@ -310,7 +310,7 @@ public class DeviceClassifyDetectionSession implements DeviceDetectionSession {
                              Algorithm algorithm,
                              List<DetectionInfo> detectionInfos,
                              String snapshotPath) {
-        String eventDesc = "设备 " + deviceInfo.getDeviceName() + " 分类到 " + detectionInfos.size() + " 个结果";
+        String eventDesc = "equipment " + deviceInfo.getDeviceName() + " classified to " + detectionInfos.size() + " results";
         DetectionSessionSupport.createEvent(eventManagementService, deviceInfo, algorithm, eventDesc, detectionInfos, snapshotPath);
     }
 }

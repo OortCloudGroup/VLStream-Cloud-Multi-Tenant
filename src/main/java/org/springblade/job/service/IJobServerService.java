@@ -6,13 +6,13 @@ import org.springblade.job.pojo.entity.JobServer;
 import org.springblade.job.pojo.vo.JobServerVO;
 
 /**
- * 任务服务表 服务类
+ * task service table Service category
  *
  * @author Oort
  */
 public interface IJobServerService extends BaseService<JobServer> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param jobServer
@@ -21,7 +21,7 @@ public interface IJobServerService extends BaseService<JobServer> {
 	IPage<JobServerVO> selectJobServerPage(IPage<JobServerVO> page, JobServerVO jobServer);
 
 	/**
-	 * 保存并同步
+	 * Save and sync
 	 *
 	 * @param jobServer
 	 * @return
@@ -29,7 +29,7 @@ public interface IJobServerService extends BaseService<JobServer> {
 	Boolean submitAndSync(JobServer jobServer);
 
 	/**
-	 * 同步数据
+	 * Sync data
 	 *
 	 * @param jobServer
 	 * @return

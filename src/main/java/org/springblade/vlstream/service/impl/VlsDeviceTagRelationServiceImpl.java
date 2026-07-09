@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 设备标签关联表 服务实现类
+ * Device tag association table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23
@@ -49,22 +49,22 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 	@Transactional(rollbackFor = Exception.class)
 	public boolean setDeviceTags(Long deviceId, List<Long> tagIds, String createdBy) {
 		try {
-			// 先删除设备的所有标签
+			// First remove all tags from the device
 			baseMapper.deleteByDeviceId(deviceId);
 
-			// 如果有新标签，则批量插入
+			// If there is a new label, Then insert in batches
 			if (tagIds != null && !tagIds.isEmpty()) {
-				// 去重并过滤无效标签
+				// Remove duplicates and filter invalid tags
 				List<Long> validTagIds = validateAndFilterTagIds(tagIds);
 				if (!validTagIds.isEmpty()) {
 					baseMapper.batchInsertDeviceTags(deviceId, validTagIds, createdBy);
 				}
 			}
 
-			log.info("设置设备标签成功: deviceId={}, tagIds={}", deviceId, tagIds);
+			log.info("Device label set successfully: deviceId={}, tagIds={}", deviceId, tagIds);
 			return true;
 		} catch (Exception e) {
-			log.error("设置设备标签失败: deviceId={}, tagIds={}", deviceId, tagIds, e);
+			log.error("Failed to set device label: deviceId={}, tagIds={}", deviceId, tagIds, e);
 			return false;
 		}
 	}
@@ -77,7 +77,7 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 				return true;
 			}
 
-			// 去重并过滤已存在的标签
+			// Remove duplicates and filter existing tags
 			List<Long> existingTagIds = getDeviceTagIds(deviceId);
 			List<Long> newTagIds = tagIds.stream()
 				.distinct()
@@ -85,17 +85,17 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 				.collect(Collectors.toList());
 
 			if (!newTagIds.isEmpty()) {
-				// 验证标签有效性
+				// Verify tag validity
 				List<Long> validTagIds = validateAndFilterTagIds(newTagIds);
 				if (!validTagIds.isEmpty()) {
 					baseMapper.batchInsertDeviceTags(deviceId, validTagIds, createdBy);
 				}
 			}
 
-			log.info("添加设备标签成功: deviceId={}, newTagIds={}", deviceId, newTagIds);
+			log.info("Device tag added successfully: deviceId={}, newTagIds={}", deviceId, newTagIds);
 			return true;
 		} catch (Exception e) {
-			log.error("添加设备标签失败: deviceId={}, tagIds={}", deviceId, tagIds, e);
+			log.error("Adding device tag failed: deviceId={}, tagIds={}", deviceId, tagIds, e);
 			return false;
 		}
 	}
@@ -109,10 +109,10 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 			}
 
 			int deleted = baseMapper.deleteDeviceTagsBatch(deviceId, tagIds);
-			log.info("移除设备标签成功: deviceId={}, tagIds={}, deleted={}", deviceId, tagIds, deleted);
+			log.info("Device tag removed successfully: deviceId={}, tagIds={}, deleted={}", deviceId, tagIds, deleted);
 			return true;
 		} catch (Exception e) {
-			log.error("移除设备标签失败: deviceId={}, tagIds={}", deviceId, tagIds, e);
+			log.error("Failed to remove device label: deviceId={}, tagIds={}", deviceId, tagIds, e);
 			return false;
 		}
 	}
@@ -122,10 +122,10 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 	public boolean clearDeviceTags(Long deviceId) {
 		try {
 			int deleted = baseMapper.deleteByDeviceId(deviceId);
-			log.info("清除设备标签成功: deviceId={}, deleted={}", deviceId, deleted);
+			log.info("Clear device label successfully: deviceId={}, deleted={}", deviceId, deleted);
 			return true;
 		} catch (Exception e) {
-			log.error("清除设备标签失败: deviceId={}", deviceId, e);
+			log.error("Clearing device tag failed: deviceId={}", deviceId, e);
 			return false;
 		}
 	}
@@ -179,23 +179,23 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 	@Transactional(rollbackFor = Exception.class)
 	public boolean copyDeviceTags(Long sourceDeviceId, List<Long> targetDeviceIds, String createdBy) {
 		try {
-			// 获取源设备的标签
+			// Get the label of the source device
 			List<Long> sourceTagIds = getDeviceTagIds(sourceDeviceId);
 			if (sourceTagIds.isEmpty()) {
-				log.info("源设备无标签，无需复制: sourceDeviceId={}", sourceDeviceId);
+				log.info("Source device unlabeled, No need to copy: sourceDeviceId={}", sourceDeviceId);
 				return true;
 			}
 
-			// 为每个目标设备设置标签
+			// Set labels for each target device
 			for (Long targetDeviceId : targetDeviceIds) {
 				setDeviceTags(targetDeviceId, sourceTagIds, createdBy);
 			}
 
-			log.info("复制设备标签成功: sourceDeviceId={}, targetDeviceIds={}, tagIds={}",
+			log.info("Copying device label successfully: sourceDeviceId={}, targetDeviceIds={}, tagIds={}",
 				sourceDeviceId, targetDeviceIds, sourceTagIds);
 			return true;
 		} catch (Exception e) {
-			log.error("复制设备标签失败: sourceDeviceId={}, targetDeviceIds={}",
+			log.error("Failed to copy device label: sourceDeviceId={}, targetDeviceIds={}",
 				sourceDeviceId, targetDeviceIds, e);
 			return false;
 		}
@@ -229,7 +229,7 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 
 		if (tagIds != null && !tagIds.isEmpty()) {
 			for (Long tagId : tagIds) {
-				// 检查标签是否存在且有效
+				// 检查Labelexists且有效
 				if (tagManagementMapper.selectById(tagId) != null) {
 					validTagIds.add(tagId);
 				} else {
@@ -256,7 +256,7 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 		result.put("deviceId", deviceId);
 		result.put("totalCount", deviceTags.size());
 
-		// 按类型分组
+		// Group by type
 		Map<String, List<DeviceTagRelationDTO>> tagsByCategory = deviceTags.stream()
 			.collect(Collectors.groupingBy(DeviceTagRelationDTO::getCategoryType));
 
@@ -265,7 +265,7 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 		result.put("ownTagCount", tagsByCategory.getOrDefault("own", new ArrayList<>()).size());
 		result.put("publicTagCount", tagsByCategory.getOrDefault("public", new ArrayList<>()).size());
 
-		// 标签名称列表
+		// Tag name list
 		List<String> tagNames = deviceTags.stream()
 			.map(DeviceTagRelationDTO::getTagName)
 			.collect(Collectors.toList());
@@ -276,8 +276,8 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 
 	@Override
 	public List<Map<String, Object>> getDevicesByTagCategory(String categoryType, Integer level) {
-		// 这里需要根据具体需求实现
-		// 可以结合DeviceInfoMapper和TagManagementMapper来查询
+		// This needs to be implemented according to specific needs
+		// Can be combinedDeviceInfoMapperandTagManagementMapperto inquire
 		return new ArrayList<>();
 	}
 
@@ -285,31 +285,31 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 	@Transactional(rollbackFor = Exception.class)
 	public boolean syncTagUsageCount() {
 		try {
-			// 获取标签使用统计
+			// Get tag usage statistics
 			List<Map<String, Object>> usageStats = getTagUsageStatistics();
 
-			// 更新每个标签的使用次数
+			// Update the number of uses of each label
 			for (Map<String, Object> stat : usageStats) {
 				Long tagId = (Long) stat.get("tag_id");
 				Long deviceCount = (Long) stat.get("device_count");
 
-				// 设置tag_management表中的usage_count字段
+				// set uptag_managementin the tableusage_countField
 				tagManagementMapper.setUsageCount(tagId, deviceCount.intValue());
 			}
 
-			log.info("同步标签使用计数成功，更新了 {} 个标签", usageStats.size());
+			log.info("Synchronizing tag usage count successfully, updated {} tags", usageStats.size());
 			return true;
 		} catch (Exception e) {
-			log.error("同步标签使用计数失败", e);
+			log.error("Failed to sync tag usage count", e);
 			return false;
 		}
 	}
 
 	/**
-	 * 验证并过滤标签ID列表
+	 * Validate and filter tagsIDlist
 	 *
-	 * @param tagIds 原始标签ID列表
-	 * @return 有效的标签ID列表
+	 * @param tagIds original tagIDlist
+	 * @return valid tagIDlist
 	 */
 	private List<Long> validateAndFilterTagIds(List<Long> tagIds) {
 		if (tagIds == null || tagIds.isEmpty()) {
@@ -323,7 +323,7 @@ public class VlsDeviceTagRelationServiceImpl extends BaseServiceImpl<VlsDeviceTa
 				try {
 					return tagManagementMapper.selectById(tagId) != null;
 				} catch (Exception e) {
-					log.warn("验证标签ID失败: tagId={}", tagId, e);
+					log.warn("Verification tagIDfail: tagId={}", tagId, e);
 					return false;
 				}
 			})

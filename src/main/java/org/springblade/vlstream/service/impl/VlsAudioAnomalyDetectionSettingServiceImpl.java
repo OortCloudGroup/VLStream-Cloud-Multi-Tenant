@@ -7,7 +7,7 @@ import org.springblade.vlstream.service.IVlsAudioAnomalyDetectionSettingService;
 import org.springframework.stereotype.Service;
 
 /**
- * 音频异常侦测设置表 服务实现类
+ * Audio anomaly detection setting table Service implementation class
  */
 @Service
 public class VlsAudioAnomalyDetectionSettingServiceImpl extends BaseServiceImpl<VlsAudioAnomalyDetectionSettingMapper, AudioAnomalyDetectionSetting> implements IVlsAudioAnomalyDetectionSettingService {

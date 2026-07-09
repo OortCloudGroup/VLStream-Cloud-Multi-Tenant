@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 事件管理表 Mapper 接口
+ * event management table Mapper interface
  *
  * @author Oort
  * @since 2025-12-23
@@ -18,18 +18,18 @@ import java.util.List;
 public interface VlsEventManagementMapper extends BaseMapper<EventManagement> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsEventManagement 查询参数
+	 * @param page Paging parameters
+	 * @param vlsEventManagement query parameters
 	 * @return List<VlsEventManagementVO>
 	 */
 	List<EventManagementVO> selectVlsEventManagementPage(IPage page, EventManagementVO vlsEventManagement);
 
 	/**
-	 * 获取导出数据
+	 * Get export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsEventManagementExcel>
 	 */
 	List<VlsEventManagementExcel> exportVlsEventManagement(@Param("ew") Wrapper<EventManagement> queryWrapper);

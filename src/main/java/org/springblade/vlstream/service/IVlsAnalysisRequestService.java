@@ -9,25 +9,25 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * 智能分析请求表 服务类
+ * Intelligent analysis request form Service category
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAnalysisRequestService extends BaseService<AnalysisRequest> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsAnalysisRequest 查询参数
+	 * @param page Paging parameters
+	 * @param vlsAnalysisRequest query parameters
 	 * @return IPage<VlsAnalysisRequestVO>
 	 */
 	IPage<AnalysisRequestVO> selectVlsAnalysisRequestPage(IPage<AnalysisRequestVO> page, AnalysisRequestVO vlsAnalysisRequest);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsAnalysisRequestExcel>
 	 */
 	List<VlsAnalysisRequestExcel> exportVlsAnalysisRequest(Wrapper<AnalysisRequest> queryWrapper);

@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.Algorithm;
 import java.io.Serial;
 
 /**
- * 算法表 数据传输对象实体类
+ * Algorithm table Data transfer object entity class
  *
  * @author Oort
  * @since 2025-12-23

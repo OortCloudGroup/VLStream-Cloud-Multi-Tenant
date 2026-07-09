@@ -20,11 +20,11 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 import static org.springblade.core.secure.constant.PermissionConstant.*;
 
 /**
- * 默认授权校验类
+ * Default authorization verification class
  *
  * @author Chill
  */
-//若开启动态数据源功能，则加上@Master注解指定权限数据库为主库
+//If the dynamic data source function is enabled, then add@MasterAnnotate the specified permission database as the main database
 //@Master
 @AllArgsConstructor
 public class BladePermissionHandler implements IPermissionHandler {
@@ -80,9 +80,9 @@ public class BladePermissionHandler implements IPermissionHandler {
 	}
 
 	/**
-	 * 获取接口权限地址
+	 * Get the interface permission address
 	 *
-	 * @param roleId 角色id
+	 * @param roleId Roleid
 	 * @return permissions
 	 */
 	private List<String> permissionPath(String roleId) {
@@ -96,10 +96,10 @@ public class BladePermissionHandler implements IPermissionHandler {
 	}
 
 	/**
-	 * 获取接口权限信息
+	 * Get interface permission information
 	 *
-	 * @param permission 权限编号
-	 * @param roleId     角色id
+	 * @param permission Permission number
+	 * @param roleId     Roleid
 	 * @return permissions
 	 */
 	private List<String> permissionCode(String permission, String roleId) {
@@ -115,33 +115,33 @@ public class BladePermissionHandler implements IPermissionHandler {
 	}
 
 	/**
-	 * 获取菜单权限信息
+	 * Get menu permission information
 	 *
-	 * @param permission 菜单编号
-	 * @param roleId     角色id
+	 * @param permission menu number
+	 * @param roleId     Roleid
 	 * @return permissions
 	 */
 	private List<String> permissionMenu(String permission, String roleId) {
 		List<String> permissions = CacheUtil.get(SYS_CACHE, SCOPE_CACHE_MENU, permission + StringPool.COLON + roleId, List.class, Boolean.FALSE);
 		if (permissions == null) {
-			// 获取所有菜单
+			// Get all menus
 			List<PermissionMenu> allMenus = permissionAllMenu();
-			// 获取角色菜单
+			// Get character menu
 			List<Long> roleIds = Func.toLongList(roleId);
 			List<PermissionMenu> roleIdMenus = jdbcTemplate.query(permissionMenuStatement(roleIds.size()), new BeanPropertyRowMapper<>(PermissionMenu.class), roleIds.toArray());
-			// 反向递归角色菜单所有父级
+			// Reverse recursive character menu all parents
 			List<PermissionMenu> routes = new LinkedList<>(roleIdMenus);
 			roleIdMenus.forEach(roleMenu -> recursion(allMenus, routes, roleMenu));
-			// 获取匹配的菜单权限值
+			// Get the matching menu permission value
 			permissions = routes.stream().map(PermissionMenu::getCode).filter(code -> Func.equals(code, permission)).collect(Collectors.toList());
-			// 写入缓存值
+			// Write cached value
 			CacheUtil.put(SYS_CACHE, SCOPE_CACHE_MENU, permission + StringPool.COLON + roleId, permissions, Boolean.FALSE);
 		}
 		return permissions;
 	}
 
 	/**
-	 * 获取所有菜单权限信息
+	 * Get all menu permission information
 	 */
 	private List<PermissionMenu> permissionAllMenu() {
 		List<PermissionMenu> permissions = CacheUtil.get(SYS_CACHE, SCOPE_CACHE_ALL_MENU, StringPool.EMPTY, List.class, Boolean.FALSE);
@@ -153,11 +153,11 @@ public class BladePermissionHandler implements IPermissionHandler {
 	}
 
 	/**
-	 * 递归获取菜单父级
+	 * Get menu parent recursively
 	 *
-	 * @param allMenus 所有菜单合集
-	 * @param routes   角色分配的菜单合集
-	 * @param roleMenu 当前菜单
+	 * @param allMenus All menu collection
+	 * @param routes   Menu collection for role assignments
+	 * @param roleMenu Current menu
 	 */
 	private void recursion(List<PermissionMenu> allMenus, List<PermissionMenu> routes, PermissionMenu roleMenu) {
 		Optional<PermissionMenu> menu = allMenus.stream().filter(x -> Func.equals(x.getId(), roleMenu.getParentId())).findFirst();

@@ -28,7 +28,7 @@ import java.util.Map;
 import static org.springblade.core.cache.constant.CacheConstant.PARAM_CACHE;
 
 /**
- * 控制器
+ * controller
  *
  * @author Chill
  */
@@ -37,44 +37,44 @@ import static org.springblade.core.cache.constant.CacheConstant.PARAM_CACHE;
 @AllArgsConstructor
 @IsAdmin
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/param")
-@Tag(name = "参数配置", description = "参数配置")
+@Tag(name = "Parameter configuration", description = "Parameter configuration")
 public class ParamController extends BladeController {
 
 	private final IParamService paramService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入param")
+	@Operation(summary = "Details", description = "incomingparam")
 	public R<Param> detail(Param param) {
 		Param detail = paramService.getOne(Condition.getQueryWrapper(param));
 		return R.data(detail);
 	}
 
 	/**
-	 * 分页
+	 * Pagination
 	 */
 	@GetMapping("/list")
 	@Parameters({
-		@Parameter(name = "paramName", description = "参数名称", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "paramKey", description = "参数键名", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "paramValue", description = "参数键值", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
+		@Parameter(name = "paramName", description = "Parameter name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "paramKey", description = "Parameter key name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "paramValue", description = "Parameter key value", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入param")
+	@Operation(summary = "Pagination", description = "incomingparam")
 	public R<IPage<Param>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> param, Query query) {
 		IPage<Param> pages = paramService.page(Condition.getPage(query), Condition.getQueryWrapper(param, Param.class));
 		return R.data(pages);
 	}
 
 	/**
-	 * 新增或修改
+	 * Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增或修改", description = "传入param")
+	@Operation(summary = "Add or modify", description = "incomingparam")
 	public R submit(@Valid @RequestBody Param param) {
 		CacheUtil.clear(PARAM_CACHE);
 		CacheUtil.clear(PARAM_CACHE, Boolean.FALSE);
@@ -83,12 +83,12 @@ public class ParamController extends BladeController {
 
 
 	/**
-	 * 删除
+	 * delete
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		CacheUtil.clear(PARAM_CACHE);
 		CacheUtil.clear(PARAM_CACHE, Boolean.FALSE);
 		return R.status(paramService.deleteLogic(Func.toLongList(ids)));

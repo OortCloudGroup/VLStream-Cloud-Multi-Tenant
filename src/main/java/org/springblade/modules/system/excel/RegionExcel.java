@@ -22,55 +22,55 @@ public class RegionExcel implements Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@ExcelProperty("区划编号")
+	@ExcelProperty("Zoning number")
 	private String code;
 
-	@ExcelProperty("父区划编号")
+	@ExcelProperty("Parent division number")
 	private String parentCode;
 
-	@ExcelProperty("祖区划编号")
+	@ExcelProperty("ancestral zoning number")
 	private String ancestors;
 
-	@ExcelProperty("区划名称")
+	@ExcelProperty("Zoning name")
 	private String name;
 
-	@ExcelProperty("省级区划编号")
+	@ExcelProperty("Provincial division number")
 	private String provinceCode;
 
-	@ExcelProperty("省级名称")
+	@ExcelProperty("Provincial name")
 	private String provinceName;
 
-	@ExcelProperty("市级区划编号")
+	@ExcelProperty("Municipal division number")
 	private String cityCode;
 
-	@ExcelProperty("市级名称")
+	@ExcelProperty("Municipal name")
 	private String cityName;
 
-	@ExcelProperty("区级区划编号")
+	@ExcelProperty("District level division number")
 	private String districtCode;
 
-	@ExcelProperty("区级名称")
+	@ExcelProperty("District level name")
 	private String districtName;
 
-	@ExcelProperty("镇级区划编号")
+	@ExcelProperty("Town-level division number")
 	private String townCode;
 
-	@ExcelProperty("镇级名称")
+	@ExcelProperty("Town name")
 	private String townName;
 
-	@ExcelProperty("村级区划编号")
+	@ExcelProperty("Village level zoning number")
 	private String villageCode;
 
-	@ExcelProperty("村级名称")
+	@ExcelProperty("Village name")
 	private String villageName;
 
-	@ExcelProperty("层级")
+	@ExcelProperty("Hierarchy")
 	private Integer regionLevel;
 
-	@ExcelProperty("排序")
+	@ExcelProperty("sort")
 	private Integer sort;
 
-	@ExcelProperty("备注")
+	@ExcelProperty("Remark")
 	private String remark;
 
 }

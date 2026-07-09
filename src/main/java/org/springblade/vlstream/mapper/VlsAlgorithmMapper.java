@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 算法表 Mapper 接口
+ * Algorithm table Mapper interface
  *
  * @author Oort
  * @since 2025-12-23
@@ -21,24 +21,24 @@ import java.util.Map;
 public interface VlsAlgorithmMapper extends BaseMapper<Algorithm> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsAlgorithm 查询参数
+	 * @param page Paging parameters
+	 * @param vlsAlgorithm query parameters
 	 * @return List<VlsAlgorithmVO>
 	 */
 	List<AlgorithmVO> selectVlsAlgorithmPage(IPage page, AlgorithmVO vlsAlgorithm);
 
 	/**
-	 * 获取导出数据
+	 * Get export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsAlgorithmExcel>
 	 */
 	List<VlsAlgorithmExcel> exportVlsAlgorithm(@Param("ew") Wrapper<Algorithm> queryWrapper);
 
 	/**
-	 * 分页查询算法列表
+	 * Paging query algorithm list
 	 */
 	@Select("SELECT a.*, r.name as repository_name " +
 		"FROM vls_algorithm a " +
@@ -55,37 +55,37 @@ public interface VlsAlgorithmMapper extends BaseMapper<Algorithm> {
 										 @Param("deployStatus") String deployStatus);
 
 	/**
-	 * 根据仓库ID查询算法列表
+	 * According to warehouseIDQuery algorithm list
 	 */
 	@Select("SELECT * FROM vls_algorithm WHERE is_deleted = 0 AND repository_id = #{repositoryId} ORDER BY create_time DESC")
 	List<Algorithm> selectByRepositoryId(@Param("repositoryId") Long repositoryId);
 
 	/**
-	 * 根据分类查询算法列表
+	 * Query algorithm list according to classification
 	 */
 	@Select("SELECT * FROM vls_algorithm WHERE is_deleted = 0 AND category = #{category} ORDER BY create_time DESC")
 	List<Algorithm> selectByCategory(@Param("category") String category);
 
 	/**
-	 * 统计某仓库下的算法数量
+	 * Count the number of algorithms under a certain warehouse
 	 */
 	@Select("SELECT COUNT(*) FROM vls_algorithm WHERE is_deleted = 0 AND repository_id = #{repositoryId}")
 	Long countByRepositoryId(@Param("repositoryId") Long repositoryId);
 
 	/**
-	 * 查询算法分类统计
+	 * Query algorithm classification statistics
 	 */
 	@Select("SELECT category, COUNT(*) as count FROM vls_algorithm WHERE is_deleted = 0 GROUP BY category")
 	List<Map<String, Object>> selectCategoryStatistics();
 
 	/**
-	 * 查询算法类型统计
+	 * Query algorithm type statistics
 	 */
 	@Select("SELECT type, COUNT(*) as count FROM vls_algorithm WHERE is_deleted = 0 GROUP BY type")
 	List<Map<String, Object>> selectTypeStatistics();
 
 	/**
-	 * 查询部署状态统计
+	 * Query deployment status statistics
 	 */
 	@Select("SELECT deploy_status, COUNT(*) as count FROM vls_algorithm WHERE is_deleted = 0 GROUP BY deploy_status")
 	List<Map<String, Object>> selectDeployStatusStatistics();

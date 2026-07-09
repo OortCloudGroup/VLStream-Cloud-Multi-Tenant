@@ -11,61 +11,61 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 
 /**
- * 移动端场景治理主任务表 实体类
+ * Mobile terminal scene management main task list Entity class
  */
 @Data
 @TableName("vls_mobile_scene_governance")
-@Schema(description = "MobileSceneGovernance对象")
+@Schema(description = "MobileSceneGovernanceobject")
 @EqualsAndHashCode(callSuper = true)
 public class MobileSceneGovernance extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "治理名称")
+	@Schema(description = "Governance name")
 	private String name;
 
-	@Schema(description = "治理模式(immediate/loop)")
+	@Schema(description = "governance model(immediate/loop)")
 	private String governanceMode;
 
-	@Schema(description = "循环周期类型(everyday/everyOtherDay/weekly/monthly)")
+	@Schema(description = "Cycle type(everyday/everyOtherDay/weekly/monthly)")
 	private String cycleType;
 
-	@Schema(description = "隔天模式间隔天数")
+	@Schema(description = "Number of days between every other day mode")
 	private Integer intervalDays;
 
-	@Schema(description = "每周执行日(1-7,逗号分隔)")
+	@Schema(description = "Weekly execution day(1-7,comma separated)")
 	private String weeklyDays;
 
-	@Schema(description = "每月执行日(1-31,逗号分隔)")
+	@Schema(description = "Monthly execution day(1-31,comma separated)")
 	private String monthlyDays;
 
-	@Schema(description = "开始时间")
+	@Schema(description = "start time")
 	private LocalDateTime startTime;
 
-	@Schema(description = "结束时间")
+	@Schema(description = "end time")
 	private LocalDateTime endTime;
 
-	@Schema(description = "触发时间列表(HH:mm:ss,逗号分隔)")
+	@Schema(description = "Trigger time list(HH:mm:ss,comma separated)")
 	private String triggerTimes;
 
-	@Schema(description = "分析区域ID集合(逗号分隔)")
+	@Schema(description = "analysis areaIDgather(comma separated)")
 	private String locationIds;
 
-	@Schema(description = "算法ID集合(逗号分隔)")
+	@Schema(description = "algorithmIDgather(comma separated)")
 	private String algorithmIds;
 
-	@Schema(description = "摄像头ID集合(逗号分隔)")
+	@Schema(description = "CameraIDgather(comma separated)")
 	private String cameraIds;
 
-	@Schema(description = "分析描述")
+	@Schema(description = "Analysis Description")
 	private String description;
 
 	@TableField(exist = false)
-	@Schema(description = "算法名称(逗号分隔)")
+	@Schema(description = "Algorithm name(comma separated)")
 	private String algorithmNames;
 
 	@TableField(exist = false)
-	@Schema(description = "摄像头名称(逗号分隔)")
+	@Schema(description = "Camera name(comma separated)")
 	private String cameraNames;
 }

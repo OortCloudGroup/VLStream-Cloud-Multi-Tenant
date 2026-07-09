@@ -25,7 +25,7 @@ import static org.springblade.core.cache.constant.CacheConstant.MENU_CACHE;
 import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 
 /**
- * 顶部菜单表 控制器
+ * top menu table controller
  *
  * @author Oort
  */
@@ -34,80 +34,80 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @AllArgsConstructor
 @IsAdmin
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/topmenu")
-@Tag(name = "顶部菜单表", description = "顶部菜单")
+@Tag(name = "top menu table", description = "top menu")
 public class TopMenuController extends BladeController {
 
 	private final ITopMenuService topMenuService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入topMenu")
+	@Operation(summary = "Details", description = "incomingtopMenu")
 	public R<TopMenu> detail(TopMenu topMenu) {
 		TopMenu detail = topMenuService.getOne(Condition.getQueryWrapper(topMenu));
 		return R.data(detail);
 	}
 
 	/**
-	 * 分页 顶部菜单表
+	 * Pagination top menu table
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入topMenu")
+	@Operation(summary = "Pagination", description = "incomingtopMenu")
 	public R<IPage<TopMenu>> list(TopMenu topMenu, Query query) {
 		IPage<TopMenu> pages = topMenuService.page(Condition.getPage(query), Condition.getQueryWrapper(topMenu).lambda().orderByAsc(TopMenu::getSort));
 		return R.data(pages);
 	}
 
 	/**
-	 * 新增 顶部菜单表
+	 * New top menu table
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入topMenu")
+	@Operation(summary = "New", description = "incomingtopMenu")
 	public R save(@Valid @RequestBody TopMenu topMenu) {
 		return R.status(topMenuService.save(topMenu));
 	}
 
 	/**
-	 * 修改 顶部菜单表
+	 * Revise top menu table
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入topMenu")
+	@Operation(summary = "Revise", description = "incomingtopMenu")
 	public R update(@Valid @RequestBody TopMenu topMenu) {
 		return R.status(topMenuService.updateById(topMenu));
 	}
 
 	/**
-	 * 新增或修改 顶部菜单表
+	 * Add or modify top menu table
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入topMenu")
+	@Operation(summary = "Add or modify", description = "incomingtopMenu")
 	public R submit(@Valid @RequestBody TopMenu topMenu) {
 		return R.status(topMenuService.saveOrUpdate(topMenu));
 	}
 
 
 	/**
-	 * 删除 顶部菜单表
+	 * delete top menu table
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(topMenuService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 设置顶部菜单
+	 * Set top menu
 	 */
 	@PostMapping("/grant")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "顶部菜单配置", description = "传入topMenuId集合以及menuId集合")
+	@Operation(summary = "Top menu configuration", description = "incomingtopMenuIdcollection as wellmenuIdgather")
 	public R grant(@RequestBody GrantVO grantVO) {
 		CacheUtil.clear(SYS_CACHE);
 		CacheUtil.clear(MENU_CACHE);

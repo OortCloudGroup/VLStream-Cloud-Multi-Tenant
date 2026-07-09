@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 行政区划表 Mapper 接口
+ * Administrative division table Mapper interface
  *
  * @author Chill
  */
 public interface RegionMapper extends BaseMapper<Region> {
 
 	/**
-	 * 懒加载列表
+	 * Lazy loading list
 	 *
 	 * @param parentCode
 	 * @param param
@@ -27,7 +27,7 @@ public interface RegionMapper extends BaseMapper<Region> {
 	List<RegionVO> lazyList(String parentCode, Map<String, Object> param);
 
 	/**
-	 * 懒加载列表
+	 * Lazy loading list
 	 *
 	 * @param parentCode
 	 * @param param
@@ -36,7 +36,7 @@ public interface RegionMapper extends BaseMapper<Region> {
 	List<RegionVO> lazyTree(String parentCode, Map<String, Object> param);
 
 	/**
-	 * 导出区划数据
+	 * Export zoning data
 	 *
 	 * @param queryWrapper
 	 * @return

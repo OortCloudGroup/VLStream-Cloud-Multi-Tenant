@@ -3,7 +3,7 @@ package org.springblade.vlstream.pojo.dto;
 import lombok.Data;
 
 /**
- * 登录响应DTO
+ * Login responseDTO
  */
 @Data
 public class LoginResponse {

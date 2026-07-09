@@ -4,20 +4,20 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 算法类型枚举
+ * Algorithm type enum
  *
  * @author Administrator
  */
 @Getter
 public enum AlgorithmCategoryEnum {
-	personDetect("personDetect", "行人检测算法"),
-	detect("detect", "目标检测算法"),
-	segment("segment", "实例分割算法"),
-	semanticSeg("semanticSeg", "语义分割算法"),
-	classify("classify", "图像分类算法"),
-	pose("pose", "关键点检测算法"),
-	obb("obb", "旋转目标检测算法"),
-	faceDetect("faceDetect", "人脸识别算法");
+	personDetect("personDetect", "Pedestrian detection algorithm"),
+	detect("detect", "Target detection algorithm"),
+	segment("segment", "Instance segmentation algorithm"),
+	semanticSeg("semanticSeg", "Semantic segmentation algorithm"),
+	classify("classify", "Image classification algorithm"),
+	pose("pose", "Key point detection algorithm"),
+	obb("obb", "Rotating target detection algorithm"),
+	faceDetect("faceDetect", "Face recognition algorithm");
 
 	@EnumValue
     private final String code;
@@ -29,10 +29,10 @@ public enum AlgorithmCategoryEnum {
     }
 
     /**
-     * 根据code获取枚举
+     * according tocodeGet enumeration
      *
-     * @param code 状态码
-     * @return 枚举对象
+     * @param code status code
+     * @return enumeration object
      */
     public static AlgorithmCategoryEnum of(String code) {
         if (code == null) {

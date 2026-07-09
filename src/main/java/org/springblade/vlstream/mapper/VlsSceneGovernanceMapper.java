@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 场景治理表 Mapper 接口
+ * Scenario management table Mapper interface
  *
  * @author Oort
  * @since 2025-12-23
@@ -19,60 +19,60 @@ import java.util.List;
 public interface VlsSceneGovernanceMapper extends BaseMapper<SceneGovernance> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsSceneGovernance 查询参数
+	 * @param page Paging parameters
+	 * @param vlsSceneGovernance query parameters
 	 * @return List<VlsSceneGovernanceVO>
 	 */
 	List<SceneGovernanceVO> selectVlsSceneGovernancePage(IPage page, SceneGovernanceVO vlsSceneGovernance);
 
 	/**
-	 * 获取导出数据
+	 * Get export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsSceneGovernanceExcel>
 	 */
 	List<VlsSceneGovernanceExcel> exportVlsSceneGovernance(@Param("ew") Wrapper<SceneGovernance> queryWrapper);
 
 	/**
-	 * 根据名称查询场景治理信息
+	 * Query scene management information based on name
 	 *
-	 * @param name 场景名称
-	 * @return 场景治理信息
+	 * @param name scene name
+	 * @return Scene management information
 	 */
 	@Select("SELECT * FROM vls_scene_governance WHERE name = #{name} AND is_deleted = 0")
 	SceneGovernance selectByName(@Param("name") String name);
 
 	/**
-	 * 根据状态查询场景治理列表
+	 * Query the scene governance list based on status
 	 *
-	 * @param status 场景状态
-	 * @return 场景治理列表
+	 * @param status Scene status
+	 * @return Scenario governance list
 	 */
 	@Select("SELECT * FROM vls_scene_governance WHERE status = #{status} AND is_deleted = 0 ORDER BY created_at DESC")
 	List<SceneGovernance> selectByStatus(@Param("status") String status);
 
 	/**
-	 * 获取场景治理总数
+	 * Get the total number of scene management
 	 *
-	 * @return 总数
+	 * @return total
 	 */
 	@Select("SELECT COUNT(*) FROM vls_scene_governance WHERE is_deleted = 0")
 	Long getTotalCount();
 
 	/**
-	 * 获取启用的场景治理数量
+	 * Get the number of enabled scene governance
 	 *
-	 * @return 启用数量
+	 * @return Enable quantity
 	 */
 	@Select("SELECT COUNT(*) FROM vls_scene_governance WHERE status = 'enabled' AND is_deleted = 0")
 	Long getEnabledCount();
 
 	/**
-	 * 获取禁用的场景治理数量
+	 * Get the number of disabled scene governance
 	 *
-	 * @return 禁用数量
+	 * @return Banned quantity
 	 */
 	@Select("SELECT COUNT(*) FROM vls_scene_governance WHERE status = 'disabled' AND is_deleted = 0")
 	Long getDisabledCount();

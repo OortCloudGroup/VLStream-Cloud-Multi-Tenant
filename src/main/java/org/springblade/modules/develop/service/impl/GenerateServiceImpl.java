@@ -46,7 +46,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * 服务实现类
+ * Service implementation class
  *
  * @author Chill
  */
@@ -66,18 +66,18 @@ public class GenerateServiceImpl implements IGenerateService {
 	public boolean code(List<Long> ids) {
 		Collection<Code> codes = codeService.listByIds(ids);
 		codes.forEach(code -> {
-			// 创建代码生成器
+			// Create a code generator
 			BladeCodeGenerator generator = new BladeCodeGenerator();
-			// 设置菜单数据
+			// Set menu data
 			this.generateMenu(generator, code);
-			// 设置配置信息
+			// Set configuration information
 			this.generateTemplate(generator, code);
-			// 设置基础模型
+			// Set up the base model
 			Model model = modelService.getById(code.getModelId());
 			this.generateModel(generator, code, model);
-			// 设置数据源
+			// Set data source
 			this.generateDatasource(generator, model);
-			// 启动代码生成
+			// Start code generation
 			generator.run();
 		});
 		return true;
@@ -85,28 +85,28 @@ public class GenerateServiceImpl implements IGenerateService {
 
 	@Override
 	public boolean codeFast(GeneratorDTO dto) {
-		// 创建代码生成器
+		// Create a code generator
 		BladeCodeGenerator generator = new BladeCodeGenerator();
 		Code code = Objects.requireNonNull(BeanUtil.copyProperties(dto, Code.class));
 		Model model = Objects.requireNonNull(BeanUtil.copyProperties(dto, Model.class));
 		String modelForm = dto.getModelForm();
-		// 设置菜单数据
+		// Set menu data
 		this.generateMenu(generator, code);
-		// 设置配置信息
+		// Set configuration information
 		this.generateForm(generator, modelForm);
 		this.generateTemplate(generator, code);
 		this.generateModel(generator, code, model);
-		// 设置数据源
+		// Set data source
 		this.generateDatasource(generator, model);
-		// 启动代码生成
+		// Start code generation
 		generator.run();
 		return true;
 	}
 
 	private void generateMenu(BladeCodeGenerator generator, Code code) {
-		// 设置上级菜单id
+		// Set upper-level menuid
 		generator.setMenuId(String.valueOf(code.getMenuId()));
-		// 设置是否生成菜单sql
+		// Set whether to generate a menusql
 		generator.setHasMenuSql(Boolean.TRUE);
 	}
 
@@ -119,7 +119,7 @@ public class GenerateServiceImpl implements IGenerateService {
 		}
 	}
 
-	private void generateTemplate(BladeCodeGenerator generator, Code code) {// 设置基础配置
+	private void generateTemplate(BladeCodeGenerator generator, Code code) {// Set up basic configuration
 		generator.setCodeStyle(code.getCodeStyle());
 		generator.setCodeName(code.getCodeName());
 		generator.setServiceName(code.getServiceName());
@@ -128,7 +128,7 @@ public class GenerateServiceImpl implements IGenerateService {
 		generator.setPackageWebDir(code.getWebPath());
 		generator.setTablePrefix(Func.toStrArray(code.getTablePrefix()));
 		generator.setIncludeTables(Func.toStrArray(code.getTableName()));
-		// 设置模版信息
+		// Set template information
 		generator.setTemplateType(Func.toStr(code.getTemplateType(), DevelopConstant.TEMPLATE_CRUD));
 		generator.setAuthor(code.getAuthor());
 		generator.setSubModelId(code.getSubModelId());
@@ -136,13 +136,13 @@ public class GenerateServiceImpl implements IGenerateService {
 		generator.setTreeId(code.getTreeId());
 		generator.setTreePid(code.getTreePid());
 		generator.setTreeName(code.getTreeName());
-		// 设置是否继承基础业务字段
+		// Set whether to inherit basic business fields
 		generator.setHasSuperEntity(code.getBaseMode() == 2);
-		// 设置是否开启包装器模式
+		// Set whether to enable wrapper mode
 		generator.setHasWrapper(code.getWrapMode() == 2);
-		// 设置是否开启远程调用模式
+		// Set whether to enable remote calling mode
 		generator.setHasFeign(code.getFeignMode() == 2);
-		// 设置控制器服务名前缀
+		// Set controller service name prefix
 		generator.setHasServiceName(Boolean.TRUE);
 	}
 
@@ -151,7 +151,7 @@ public class GenerateServiceImpl implements IGenerateService {
 		generator.setModelClass(model.getModelClass());
 		generator.setModel(JsonUtil.readMap(JsonUtil.toJson(model)));
 
-		// 设置模型集合
+		// Set up model collection
 		if (Func.isNotEmpty(model.getId())) {
 			List<ModelPrototype> prototypes = modelPrototypeService.prototypeList(model.getId());
 			generator.setPrototypes(JsonUtil.readListMap(JsonUtil.toJson(prototypes)));
@@ -178,10 +178,10 @@ public class GenerateServiceImpl implements IGenerateService {
 	}
 
 	/**
-	 * 将 TableField 列表转换为 ModelPrototype 列表
+	 * Will TableField List converted to ModelPrototype list
 	 *
-	 * @param tableFields 输入的 TableField 列表
-	 * @return 转换后的 ModelPrototype 列表
+	 * @param tableFields input TableField list
+	 * @return converted ModelPrototype list
 	 */
 	public static List<ModelPrototype> convertPrototypes(List<TableField> tableFields) {
 		return tableFields.stream().map(tableField -> {

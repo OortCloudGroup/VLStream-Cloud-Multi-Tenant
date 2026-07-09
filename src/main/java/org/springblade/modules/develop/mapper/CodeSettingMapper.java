@@ -29,7 +29,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.develop.pojo.entity.CodeSetting;
 
 /**
- * 代码生成器配置表 Mapper 接口
+ * Code generator configuration table Mapper interface
  *
  * @author Oort
  */

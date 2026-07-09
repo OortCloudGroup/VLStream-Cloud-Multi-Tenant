@@ -14,7 +14,7 @@ import java.io.Serial;
 
 
 /**
- * 算法模型表 Excel实体类
+ * Algorithm model table ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -29,76 +29,76 @@ public class VlsAlgorithmModelExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 模型名称
+	 * Model name
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型名称")
+	@ExcelProperty("Model name")
 	private String modelName;
 	/**
-	 * 算法ID
+	 * algorithmID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("算法ID")
+	@ExcelProperty("algorithmID")
 	private Long algorithmId;
 	/**
-	 * 训练任务ID
+	 * training tasksID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("训练任务ID")
+	@ExcelProperty("training tasksID")
 	private Long trainingId;
 	/**
-	 * 模型版本
+	 * model version
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型版本")
+	@ExcelProperty("model version")
 	private Integer version;
 	/**
-	 * 模型格式：ONNX,PyTorch,TensorFlow
+	 * Model format: ONNX,PyTorch,TensorFlow
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型格式：ONNX,PyTorch,TensorFlow")
+	@ExcelProperty("Model format: ONNX,PyTorch,TensorFlow")
 	private String modelFormat;
 	/**
-	 * 模型大小
+	 * Model size
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型大小")
+	@ExcelProperty("Model size")
 	private String modelSize;
 	/**
-	 * 模型文件路径
+	 * Model file path
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型文件路径")
+	@ExcelProperty("Model file path")
 	private String modelPath;
 	/**
-	 * 模型准确率
+	 * Model accuracy
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型准确率")
+	@ExcelProperty("Model accuracy")
 	private BigDecimal accuracy;
 	/**
-	 * 模型描述
+	 * Model description
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型描述")
+	@ExcelProperty("Model description")
 	private String description;
 	/**
-	 * 下载次数
+	 * Number of downloads
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("下载次数")
+	@ExcelProperty("Number of downloads")
 	private Integer downloadCount;
 	/**
-	 * 部署次数
+	 * Deployment times
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("部署次数")
+	@ExcelProperty("Deployment times")
 	private Integer deployCount;
 	/**
-	 * 发布时间
+	 * Release time
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("发布时间")
+	@ExcelProperty("Release time")
 	private LocalDateTime publishTime;
 
 }

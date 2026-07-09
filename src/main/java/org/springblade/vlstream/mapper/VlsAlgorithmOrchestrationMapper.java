@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 算法编排表 Mapper 接口
+ * Algorithm layout table Mapper interface
  *
  * @author Oort
  * @since 2025-12-23
@@ -18,18 +18,18 @@ import java.util.List;
 public interface VlsAlgorithmOrchestrationMapper extends BaseMapper<AlgorithmOrchestration> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsAlgorithmOrchestration 查询参数
+	 * @param page Paging parameters
+	 * @param vlsAlgorithmOrchestration query parameters
 	 * @return List<VlsAlgorithmOrchestrationVO>
 	 */
 	List<AlgorithmOrchestrationVO> selectVlsAlgorithmOrchestrationPage(IPage page, AlgorithmOrchestrationVO vlsAlgorithmOrchestration);
 
 	/**
-	 * 获取导出数据
+	 * Get export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsAlgorithmOrchestrationExcel>
 	 */
 	List<VlsAlgorithmOrchestrationExcel> exportVlsAlgorithmOrchestration(@Param("ew") Wrapper<AlgorithmOrchestration> queryWrapper);

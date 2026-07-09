@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 附件类型枚举类
- * 1-原文 2-草稿 3-清稿 4-正文 5-附件
+ * Attachment type enumeration class
+ * 1-original 2-draft 3-Clear draft 4-text 5-appendix
  *
  * @author Oort
  * @since 2025-01-01
@@ -18,34 +18,34 @@ import java.util.Map;
 public enum AttachTypeEnum {
 
 	/**
-	 * 利用文件
+	 * exploit file
 	 */
-	UTILIZE("UTILIZE", "利用文件"),
+	UTILIZE("UTILIZE", "exploit file"),
 
 	/**
-	 * 原文
+	 * original
 	 */
-	ORIGINAL("ORIGINAL", "原文"),
+	ORIGINAL("ORIGINAL", "original"),
 
 	/**
-	 * 草稿
+	 * draft
 	 */
-	DRAFT("DRAFT", "草稿"),
+	DRAFT("DRAFT", "draft"),
 
 	/**
-	 * 清稿
+	 * Clear draft
 	 */
-	CLEAN_COPY("CLEAN_COPY", "清稿"),
+	CLEAN_COPY("CLEAN_COPY", "Clear draft"),
 
 	/**
-	 * 正文
+	 * text
 	 */
-	MAIN_TEXT("MAIN_TEXT", "正文"),
+	MAIN_TEXT("MAIN_TEXT", "text"),
 
 	/**
-	 * 附件
+	 * appendix
 	 */
-	ATTACHMENT("ATTACHMENT", "附件");
+	ATTACHMENT("ATTACHMENT", "appendix");
 
 	@EnumValue
 	private final String code;
@@ -57,10 +57,10 @@ public enum AttachTypeEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 类型码
-	 * @return 枚举对象，如果未找到则返回null
+	 * @param code type code
+	 * @return enumeration object, Return if not foundnull
 	 */
 	public static AttachTypeEnum of(String code) {
 		if (code == null) {
@@ -75,9 +75,9 @@ public enum AttachTypeEnum {
 	}
 
 	/**
-	 * 获取枚举数组，每个元素包含code和description
+	 * Get enumeration array, Each element containscodeanddescription
 	 *
-	 * @return 包含code和description的数组
+	 * @return Includecodeanddescriptionarray of
 	 */
 	public static Map<String, String>[] toArray() {
 		return Arrays.stream(values())

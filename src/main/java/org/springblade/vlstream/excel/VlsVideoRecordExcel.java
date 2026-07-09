@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 
 /**
- * 视频录制记录表 Excel实体类
+ * Video recording record sheet ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-25
@@ -47,82 +47,82 @@ public class VlsVideoRecordExcel implements Serializable {
 	@ExcelProperty("stream")
 	private String stream;
 	/**
-	 * 设备ID
+	 * equipmentID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("设备ID")
+	@ExcelProperty("equipmentID")
 	private Long deviceId;
 	/**
-	 * 设备名称
+	 * Device name
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("设备名称")
+	@ExcelProperty("Device name")
 	private String deviceName;
 	/**
-	 * 视频文件名
+	 * Video file name
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("视频文件名")
+	@ExcelProperty("Video file name")
 	private String fileName;
 	/**
-	 * 视频文件路径
+	 * Video file path
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("视频文件路径")
+	@ExcelProperty("Video file path")
 	private String filePath;
 	/**
-	 * 文件大小(字节)
+	 * file size(byte)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("文件大小(字节)")
+	@ExcelProperty("file size(byte)")
 	private Long fileSize;
 	/**
-	 * 点播url
+	 * on demandurl
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("点播url")
+	@ExcelProperty("on demandurl")
 	private String url;
 	/**
-	 * 视频时长(秒)
+	 * Video duration(Second)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("视频时长(秒)")
+	@ExcelProperty("Video duration(Second)")
 	private Integer duration;
 	/**
-	 * 视频格式
+	 * video format
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("视频格式")
+	@ExcelProperty("video format")
 	private String format;
 	/**
-	 * 录制开始时间
+	 * Recording start time
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("录制开始时间")
+	@ExcelProperty("Recording start time")
 	private LocalDateTime recordStartTime;
 	/**
-	 * 录制结束时间
+	 * Recording end time
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("录制结束时间")
+	@ExcelProperty("Recording end time")
 	private LocalDateTime recordEndTime;
 	/**
-	 * 录制日期(用于按日期分组)
+	 * recording date(for grouping by date)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("录制日期(用于按日期分组)")
+	@ExcelProperty("recording date(for grouping by date)")
 	private LocalDate recordDate;
 	/**
-	 * 录制状态
+	 * Recording status
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("录制状态")
+	@ExcelProperty("Recording status")
 	private String recordStatus;
 	/**
-	 * 缩略图路径
+	 * thumbnail path
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("缩略图路径")
+	@ExcelProperty("thumbnail path")
 	private String thumbnailPath;
 
 }

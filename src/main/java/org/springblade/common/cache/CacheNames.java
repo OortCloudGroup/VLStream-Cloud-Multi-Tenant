@@ -3,17 +3,17 @@ package org.springblade.common.cache;
 import org.springblade.core.tool.utils.StringPool;
 
 /**
- * 缓存名
+ * Cache name
  *
  * @author Chill
  */
 public interface CacheNames {
 
 	/**
-	 * 返回拼接后的key
+	 * Return the splicedkey
 	 *
-	 * @param cacheKey      缓存key
-	 * @param cacheKeyValue 缓存key值
+	 * @param cacheKey      cachekey
+	 * @param cacheKeyValue cachekeyvalue
 	 * @return tenantKey
 	 */
 	static String cacheKey(String cacheKey, String cacheKeyValue) {
@@ -21,11 +21,11 @@ public interface CacheNames {
 	}
 
 	/**
-	 * 返回租户格式的key
+	 * Returns the tenant formatkey
 	 *
-	 * @param tenantId      租户编号
-	 * @param cacheKey      缓存key
-	 * @param cacheKeyValue 缓存key值
+	 * @param tenantId      Tenant number
+	 * @param cacheKey      cachekey
+	 * @param cacheKeyValue cachekeyvalue
 	 * @return tenantKey
 	 */
 	static String tenantKey(String tenantId, String cacheKey, String cacheKeyValue) {
@@ -33,17 +33,17 @@ public interface CacheNames {
 	}
 
 	/**
-	 * 验证码key
+	 * Verification codekey
 	 */
 	String CAPTCHA_KEY = "blade:auth::blade:captcha:";
 
 	/**
-	 * 账号失败key
+	 * Account failedkey
 	 */
 	String ACCOUNT_FAIL_KEY = "blade:lock::account:fail:";
 
 	/**
-	 * IP失败key
+	 * IPfailkey
 	 */
 	String IP_FAIL_KEY = "blade:lock::ip:fail:";
 

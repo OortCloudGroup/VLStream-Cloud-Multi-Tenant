@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * 用户查询服务实现类
+ * User query service implementation class
  *
  * @author Chill
  */
@@ -71,12 +71,12 @@ public class UserSearchServiceImpl extends BaseServiceImpl<UserMapper, User> imp
 		if (Func.isEmpty(userId)) {
 			return new ArrayList<>();
 		}
-		// 根据用户ID列表查询用户信息
+		// According to userIDList query user information
 		List<User> users = this.list(Wrappers.<User>lambdaQuery().in(User::getId, userId));
 		if (Func.isEmpty(users)) {
 			return new ArrayList<>();
 		}
-		// 收集所有用户的主管ID
+		// Collect all users' supervisorsID
 		List<Long> allLeaderIds = users.stream()
 			.filter(user -> StringUtil.isNotBlank(user.getLeaderId()))
 			.flatMap(user -> Func.toLongList(user.getLeaderId()).stream())
@@ -85,7 +85,7 @@ public class UserSearchServiceImpl extends BaseServiceImpl<UserMapper, User> imp
 		if (Func.isEmpty(allLeaderIds)) {
 			return new ArrayList<>();
 		}
-		// 根据主管ID列表查询主管用户信息
+		// According to supervisorIDQuery supervisor user information in list
 		return this.list(Wrappers.<User>lambdaQuery().in(User::getId, allLeaderIds));
 	}
 }

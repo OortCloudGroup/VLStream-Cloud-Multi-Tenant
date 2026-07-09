@@ -8,7 +8,7 @@ import org.springblade.modules.system.pojo.vo.LogApiVO;
 import java.util.Objects;
 
 /**
- * Log包装类,返回视图层所需的字段
+ * LogPackaging,Returns the fields required by the view layer
  *
  * @author Chill
  */

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 数据库类型枚举
+ * Database type enum
  *
  * @author
  * @since 2025-07-28
@@ -14,22 +14,22 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DatabaseTypeEnum {
 	/**
-	 * Oracle数据库
+	 * Oracledatabase
 	 */
 	Oracle("Oracle", "Oracle"),
 
 	/**
-	 * PostgreSQL数据库
+	 * PostgreSQLdatabase
 	 */
 	PostgreSQL("PostgreSQL", "PostgreSQL"),
 
 	/**
-	 * SqlServer数据库
+	 * SqlServerdatabase
 	 */
 	SqlServer("SqlServer", "SqlServer"),
 
 	/**
-	 * MySQL数据库
+	 * MySQLdatabase
 	 */
 	MySQL("MySQL", "MySQL");
 
@@ -38,10 +38,10 @@ public enum DatabaseTypeEnum {
 	private final String name;
 
 	/**
-	 * 根据代码获取枚举
+	 * Get enumeration based on code
 	 *
-	 * @param code 代码
-	 * @return 枚举
+	 * @param code code
+	 * @return enumerate
 	 */
 	public static DatabaseTypeEnum fromCode(String code) {
 		for (DatabaseTypeEnum databaseType : DatabaseTypeEnum.values()) {

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 /**
- * 实例分割启动触发器：应用启动时触发一次实例分割任务刷新。
+ * Instance split start trigger: Trigger an instance split task refresh when the application starts. 
  */
 @Component
 @ConditionalOnProperty(value = "vlstream.instance-seg-detection.enabled", havingValue = "true", matchIfMissing = false)

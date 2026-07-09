@@ -4,24 +4,24 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@Schema(description = "ONVIF 云台移动参数")
+@Schema(description = "ONVIF PTZ movement parameters")
 public class OnvifAbsoluteMoveDTO {
 
-	@Schema(description = "设备IP")
+	@Schema(description = "equipmentIP")
 	private String ip;
 
-	@Schema(description = "用户名")
+	@Schema(description = "username")
 	private String username;
 
-	@Schema(description = "密码")
+	@Schema(description = "password")
 	private String password;
 
 	@Schema(description = "ProfileToken")
 	private String profileToken;
 
-	@Schema(description = "X坐标")
+	@Schema(description = "Xcoordinate")
 	private double x;
 
-	@Schema(description = "Y坐标")
+	@Schema(description = "Ycoordinate")
 	private double y;
 }

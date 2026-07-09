@@ -14,25 +14,25 @@ import java.io.Serial;
 import java.util.Map;
 
 /**
- * 音频布防时间设置表 实体类
+ * Audio arming time setting table Entity class
  */
 @Data
 @TableName(value = "vls_audio_defense_time_setting", autoResultMap = true)
-@Schema(description = "AudioDefenseTimeSetting对象")
+@Schema(description = "AudioDefenseTimeSettingobject")
 @EqualsAndHashCode(callSuper = true)
 public class AudioDefenseTimeSetting extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "设备主键ID")
+	@Schema(description = "Device primary keyID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long deviceId;
 
-	@Schema(description = "时间策略配置")
+	@Schema(description = "Time policy configuration")
 	@TableField(typeHandler = JacksonTypeHandler.class)
 	private Map<String, Object> protectionTime;
 
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String remark;
 }

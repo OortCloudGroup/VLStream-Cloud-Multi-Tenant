@@ -12,14 +12,14 @@ import java.io.Serial;
 import java.util.Map;
 
 /**
- * 时间策略表 实体类
+ * time strategy table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName(value = "vls_time_strategy", autoResultMap = true)
-@Schema(description = "VlsTimeStrategyEntity对象")
+@Schema(description = "VlsTimeStrategyEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class TimeStrategy extends TenantEntity {
 
@@ -27,14 +27,14 @@ public class TimeStrategy extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 设备ID
+	 * equipmentID
 	 */
-	@Schema(description = "设备ID")
+	@Schema(description = "equipmentID")
 	private String deviceId;
 	/**
-	 *时间策略配置
+	 *Time policy configuration
 	 */
-	@Schema(description = "时间策略配置")
+	@Schema(description = "Time policy configuration")
 	@TableField(typeHandler = JacksonTypeHandler.class)
 	private Map<String, Object> protectionTime;
 

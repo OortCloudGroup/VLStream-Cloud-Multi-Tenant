@@ -12,7 +12,7 @@ import org.springblade.core.mp.base.BaseServiceImpl;
 import java.util.List;
 
 /**
- * 智能分析请求表 服务实现类
+ * Intelligent analysis request form Service implementation class
  *
  * @author Oort
  * @since 2025-12-23

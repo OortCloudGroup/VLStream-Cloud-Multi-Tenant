@@ -8,27 +8,27 @@ import org.springblade.vlstream.pojo.vo.MobileSceneGovernanceLoopVO;
 import java.util.List;
 
 /**
- * 移动端场景治理主任务表 服务类
+ * Mobile terminal scene management main task list Service category
  */
 public interface IVlsMobileSceneGovernanceService extends BaseService<MobileSceneGovernance> {
 
 	/**
-	 * 新增即时治理
+	 * Add real-time management
 	 */
 	boolean saveImmediate(MobileSceneGovernance mobileSceneGovernance);
 
 	/**
-	 * 新增循环治理，并生成子循环任务
+	 * Added cycle management, and generate sub-loop tasks
 	 */
 	boolean saveLoop(MobileSceneGovernance mobileSceneGovernance);
 
 	/**
-	 * 查询即时治理列表
+	 * Query real-time governance list
 	 */
 	IPage<MobileSceneGovernance> listImmediate(IPage<MobileSceneGovernance> page);
 
 	/**
-	 * 查询循环治理列表（包含子循环任务）
+	 * Query cycle management list(Contains sub-loop tasks)
 	 */
 	IPage<MobileSceneGovernanceLoopVO> listLoop(IPage<MobileSceneGovernance> page);
 }

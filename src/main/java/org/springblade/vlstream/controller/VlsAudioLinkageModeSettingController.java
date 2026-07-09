@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 音频联动方式设置表 控制器
+ * Audio linkage mode setting table controller
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAudioLinkageModeSetting")
-@Tag(name = "音频联动方式设置", description = "音频联动方式设置接口")
+@Tag(name = "Audio linkage mode settings", description = "Audio linkage mode setting interface")
 public class VlsAudioLinkageModeSettingController extends BladeController {
 
 	private final IVlsAudioLinkageModeSettingService vlsAudioLinkageModeSettingService;
@@ -38,9 +38,9 @@ public class VlsAudioLinkageModeSettingController extends BladeController {
 
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "按设备ID查询音频联动方式设置")
+	@Operation(summary = "Details", description = "by deviceIDQuery audio linkage mode settings")
 	public R<AudioLinkageModeSettingVO> detail(@RequestParam Long deviceId) {
-		Assert.notNull(deviceId, "设备主键ID不能为空");
+		Assert.notNull(deviceId, "Device primary keyIDcannot be empty");
 		AudioLinkageModeSetting detail = vlsAudioLinkageModeSettingService.getOne(Wrappers.<AudioLinkageModeSetting>lambdaQuery()
 			.eq(AudioLinkageModeSetting::getDeviceId, deviceId)
 			.last("limit 1"));
@@ -49,14 +49,14 @@ public class VlsAudioLinkageModeSettingController extends BladeController {
 
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "新增或修改", description = "按设备ID保存音频联动方式设置")
+	@Operation(summary = "Add or modify", description = "by deviceIDSave audio linkage mode settings")
 	public R submit(@Valid @RequestBody AudioLinkageModeSetting audioLinkageModeSetting) {
-		Assert.notNull(audioLinkageModeSetting.getDeviceId(), "设备主键ID不能为空");
+		Assert.notNull(audioLinkageModeSetting.getDeviceId(), "Device primary keyIDcannot be empty");
 		if (Integer.valueOf(1).equals(audioLinkageModeSetting.getAlarmOutputLinkageEnabled())) {
-			Assert.isTrue(StringUtils.isNotBlank(audioLinkageModeSetting.getAlarmOutputChannel()), "联动报警输出开启时，报警输出通道不能为空");
+			Assert.isTrue(StringUtils.isNotBlank(audioLinkageModeSetting.getAlarmOutputChannel()), "When the linkage alarm output is turned on, The alarm output channel cannot be empty");
 		}
 		if (Integer.valueOf(1).equals(audioLinkageModeSetting.getRecordLinkageEnabled())) {
-			Assert.isTrue(StringUtils.isNotBlank(audioLinkageModeSetting.getRecordChannel()), "录像联动开启时，录像通道不能为空");
+			Assert.isTrue(StringUtils.isNotBlank(audioLinkageModeSetting.getRecordChannel()), "When video linkage is enabled, The recording channel cannot be empty");
 		}
 		AudioLinkageModeSetting existed = vlsAudioLinkageModeSettingService.getOne(Wrappers.<AudioLinkageModeSetting>lambdaQuery()
 			.eq(AudioLinkageModeSetting::getDeviceId, audioLinkageModeSetting.getDeviceId())
@@ -70,7 +70,7 @@ public class VlsAudioLinkageModeSettingController extends BladeController {
 		}
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsAudioLinkageModeSettingTopic(), audioLinkageModeSetting);
 		if (!publishSuccess) {
-			return R.fail("保存成功，但MQTT消息发送失败");
+			return R.fail("Saved successfully, butMQTTMessage sending failed");
 		}
 		return R.status(true);
 	}

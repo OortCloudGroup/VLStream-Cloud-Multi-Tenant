@@ -4,17 +4,17 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 事件级别枚举
+ * Event level enumeration
  *
  * @author Administrator
  */
 @Getter
 public enum EventLevelEnum {
 
-	low("low", "低"),
-	medium("medium", "中"),
-	high("high", "高"),
-	urgent("urgent", "紧急");
+	low("low", "Low"),
+	medium("medium", "middle"),
+	high("high", "high"),
+	urgent("urgent", "urgent");
 
 	@EnumValue
 	private final String code;
@@ -26,10 +26,10 @@ public enum EventLevelEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 状态码
-	 * @return 枚举对象
+	 * @param code status code
+	 * @return enumeration object
 	 */
 	public static EventLevelEnum of(String code) {
 		if (code == null) {

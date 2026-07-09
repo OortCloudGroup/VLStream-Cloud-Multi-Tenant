@@ -8,7 +8,7 @@ import org.springblade.vlstream.pojo.vo.ResourceSpecVO;
 import java.util.Objects;
 
 /**
- * 资源规格配置表 包装类
+ * Resource specification configuration table Packaging
  */
 public class VlsResourceSpecWrapper extends BaseEntityWrapper<ResourceSpec, ResourceSpecVO> {
 

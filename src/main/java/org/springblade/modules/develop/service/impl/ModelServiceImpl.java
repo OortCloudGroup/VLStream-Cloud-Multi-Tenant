@@ -42,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 数据模型表 服务实现类
+ * Data model table Service implementation class
  *
  * @author Chill
  */
@@ -62,13 +62,13 @@ public class ModelServiceImpl extends BaseServiceImpl<ModelMapper, Model> implem
 			if (modelPrototypeService.count(Wrappers.<ModelPrototype>lambdaQuery().in(ModelPrototype::getModelId, ids)) > 0) {
 				boolean prototypeTemp = modelPrototypeService.remove(Wrappers.<ModelPrototype>lambdaQuery().in(ModelPrototype::getModelId, ids));
 				if (!prototypeTemp) {
-					throw new ServiceException("删除数据模型成功，关联数据原型删除失败");
+					throw new ServiceException("Data model deleted successfully, Related data prototype deletion failed");
 				}
 			}
 			if (codeService.count(Wrappers.<Code>lambdaQuery().in(Code::getModelId, ids)) > 0) {
 				boolean codeTemp = codeService.remove(Wrappers.<Code>lambdaQuery().in(Code::getModelId, ids));
 				if (!codeTemp) {
-					throw new ServiceException("删除数据模型成功，关联代码生成配置删除失败");
+					throw new ServiceException("Data model deleted successfully, Deletion of associated code generation configuration failed");
 				}
 			}
 		}

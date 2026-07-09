@@ -4,15 +4,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@Schema(description = "ONVIF 设备信息查询参数")
+@Schema(description = "ONVIF Device information query parameters")
 public class OnvifFetchStreamUrisDTO {
 
-	@Schema(description = "设备IP")
+	@Schema(description = "equipmentIP")
 	private String ip;
 
-	@Schema(description = "用户名")
+	@Schema(description = "username")
 	private String username;
 
-	@Schema(description = "密码")
+	@Schema(description = "password")
 	private String password;
 }

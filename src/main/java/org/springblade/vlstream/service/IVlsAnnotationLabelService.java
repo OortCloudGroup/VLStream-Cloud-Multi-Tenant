@@ -9,90 +9,90 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * 标注标签实体类 服务类
+ * Annotation label entity class Service category
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAnnotationLabelService extends BaseService<AnnotationLabel> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsAnnotationLabel 查询参数
+	 * @param page Paging parameters
+	 * @param vlsAnnotationLabel query parameters
 	 * @return IPage<VlsAnnotationLabelVO>
 	 */
 	IPage<AnnotationLabelVO> selectVlsAnnotationLabelPage(IPage<AnnotationLabelVO> page, AnnotationLabelVO vlsAnnotationLabel);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsAnnotationLabelExcel>
 	 */
 	List<VlsAnnotationLabelExcel> exportVlsAnnotationLabel(Wrapper<AnnotationLabel> queryWrapper);
 
 	/**
-	 * 根据标注项目ID查询标签列表（包含使用次数统计）
+	 * According to the marked itemsIDQuery tag list(Contains usage statistics)
 	 *
-	 * @param annotationId 标注项目ID
-	 * @return 标签列表
+	 * @param annotationId Label itemsID
+	 * @return tag list
 	 */
 	List<AnnotationLabel> getByAnnotationIdWithUsageCount(Long annotationId);
 
 	/**
-	 * 创建标签
+	 * Create tags
 	 *
-	 * @param annotationId 标注项目ID
-	 * @param name 标签名称
-	 * @param color 标签颜色
-	 * @param description 标签描述
-	 * @return 创建的标签
+	 * @param annotationId Label itemsID
+	 * @param name Tag name
+	 * @param color Label color
+	 * @param description Tag description
+	 * @return Tags created
 	 */
 	AnnotationLabel createLabel(Long annotationId, String name, String color, String description);
 
 	/**
-	 * 更新标签
+	 * renewLabel
 	 *
-	 * @param labelId 标签ID
-	 * @param name 标签名称
-	 * @param color 标签颜色
-	 * @param description 标签描述
-	 * @return 更新后的标签
+	 * @param labelId LabelID
+	 * @param name Tag name
+	 * @param color Label color
+	 * @param description Tag description
+	 * @return Updated label
 	 */
 	AnnotationLabel updateLabel(Long labelId, String name, String color, String description);
 
 	/**
-	 * 删除标签
+	 * Delete tag
 	 *
-	 * @param labelId 标签ID
-	 * @return 是否删除成功
+	 * @param labelId LabelID
+	 * @return Is deletion successful?
 	 */
 	boolean deleteLabel(Long labelId);
 
 	/**
-	 * 更新标签的使用次数
+	 * Update label usage count
 	 *
-	 * @param labelId 标签ID
-	 * @return 是否更新成功
+	 * @param labelId LabelID
+	 * @return Is the update successful?
 	 */
 	boolean updateUsageCount(Long labelId);
 
 	/**
-	 * 批量更新标签排序
+	 * Batch update tag sorting
 	 *
-	 * @param annotationId 标注项目ID
-	 * @param labelIds 标签ID列表（按排序顺序）
-	 * @return 是否更新成功
+	 * @param annotationId Label itemsID
+	 * @param labelIds LabelIDlist(by sort order)
+	 * @return Is the update successful?
 	 */
 	boolean updateSortOrder(Long annotationId, List<Long> labelIds);
 
 	/**
-	 * 根据名称搜索标签
+	 * Search tags by name
 	 *
-	 * @param annotationId 标注项目ID
-	 * @param keyword 搜索关键词
-	 * @return 标签列表
+	 * @param annotationId Label itemsID
+	 * @param keyword Search keywords
+	 * @return tag list
 	 */
 	List<AnnotationLabel> searchLabels(Long annotationId, String keyword);
 

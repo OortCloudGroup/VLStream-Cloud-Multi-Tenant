@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * 控制器
+ * controller
  *
  * @author Chill
  */
@@ -63,67 +63,67 @@ import java.util.Map;
 @AllArgsConstructor
 @IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_DEVELOP_NAME + "/code")
-@Tag(name = "代码生成", description = "代码生成")
+@Tag(name = "code generation", description = "code generation")
 public class CodeController extends BladeController {
 
 	private final ICodeService codeService;
 	private final IGenerateService generateService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入code")
+	@Operation(summary = "Details", description = "incomingcode")
 	public R<Code> detail(Code code) {
 		Code detail = codeService.getOne(Condition.getQueryWrapper(code));
 		return R.data(detail);
 	}
 
 	/**
-	 * 分页
+	 * Pagination
 	 */
 	@GetMapping("/list")
 	@Parameters({
-		@Parameter(name = "codeName", description = "模块名", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "tableName", description = "表名", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "modelName", description = "实体名", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
+		@Parameter(name = "codeName", description = "module name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "tableName", description = "table name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "modelName", description = "Entity name", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入code")
+	@Operation(summary = "Pagination", description = "incomingcode")
 	public R<IPage<Code>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> code, Query query) {
 		IPage<Code> pages = codeService.page(Condition.getPage(query), Condition.getQueryWrapper(code, Code.class));
 		return R.data(pages);
 	}
 
 	/**
-	 * 新增或修改
+	 * Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增或修改", description = "传入code")
+	@Operation(summary = "Add or modify", description = "incomingcode")
 	public R submit(@Valid @RequestBody Code code) {
 		return R.status(codeService.submit(code));
 	}
 
 
 	/**
-	 * 删除
+	 * delete
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "delete", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(codeService.removeByIds(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 复制
+	 * copy
 	 */
 	@PostMapping("/copy")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "复制", description = "传入id")
-	public R copy(@Parameter(description = "主键", required = true) @RequestParam Long id) {
+	@Operation(summary = "copy", description = "incomingid")
+	public R copy(@Parameter(description = "primary key", required = true) @RequestParam Long id) {
 		Code code = codeService.getById(id);
 		code.setId(null);
 		code.setCodeName(code.getCodeName() + "-copy");
@@ -131,22 +131,22 @@ public class CodeController extends BladeController {
 	}
 
 	/**
-	 * 代码生成
+	 * code generation
 	 */
 	@PostMapping("/gen-code")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "代码生成", description = "传入ids")
-	public R genCode(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "code generation", description = "incomingids")
+	public R genCode(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(generateService.code(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 代码生成
+	 * code generation
 	 */
 	@PostMapping("/gen-code-fast")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "代码快速生成", description = "传入配置集合")
-	public R genCodeFast(@Parameter(description = "主键集合", required = true) @RequestBody GeneratorDTO dto) {
+	@Operation(summary = "Quick code generation", description = "Pass in configuration collection")
+	public R genCodeFast(@Parameter(description = "primary key set", required = true) @RequestBody GeneratorDTO dto) {
 		return R.status(generateService.codeFast(dto));
 	}
 

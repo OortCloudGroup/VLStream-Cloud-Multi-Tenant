@@ -30,7 +30,7 @@ import java.util.Map;
 import static org.springblade.core.cache.constant.CacheConstant.DICT_CACHE;
 
 /**
- * 服务实现类
+ * Service implementation class
  *
  * @author Chill
  */
@@ -86,9 +86,9 @@ public class DictBizServiceImpl extends ServiceImpl<DictBizMapper, DictBiz> impl
 		LambdaQueryWrapper<DictBiz> lqw = Wrappers.<DictBiz>query().lambda().eq(DictBiz::getCode, dict.getCode()).eq(DictBiz::getDictKey, dict.getDictKey());
 		Long cnt = baseMapper.selectCount((Func.isEmpty(dict.getId())) ? lqw : lqw.notIn(DictBiz::getId, dict.getId()));
 		if (cnt > 0L) {
-			throw new ServiceException("当前字典键值已存在!");
+			throw new ServiceException("The current dictionary key value already exists!");
 		}
-		// 修改顶级字典后同步更新下属字典的编号
+		// After modifying the top-level dictionary, the numbers of subordinate dictionaries are updated simultaneously.
 		if (Func.isNotEmpty(dict.getId()) && dict.getParentId().longValue() == BladeConstant.TOP_PARENT_ID) {
 			DictBiz parent = DictBizCache.getById(dict.getId());
 			this.update(Wrappers.<DictBiz>update().lambda().set(DictBiz::getCode, dict.getCode()).eq(DictBiz::getCode, parent.getCode()).ne(DictBiz::getParentId, BladeConstant.TOP_PARENT_ID));
@@ -105,7 +105,7 @@ public class DictBizServiceImpl extends ServiceImpl<DictBizMapper, DictBiz> impl
 	public boolean removeDict(String ids) {
 		Long cnt = baseMapper.selectCount(Wrappers.<DictBiz>query().lambda().in(DictBiz::getParentId, Func.toLongList(ids)));
 		if (cnt > 0L) {
-			throw new ServiceException("请先删除子节点!");
+			throw new ServiceException("Please delete child nodes first!");
 		}
 		return removeByIds(Func.toLongList(ids));
 	}

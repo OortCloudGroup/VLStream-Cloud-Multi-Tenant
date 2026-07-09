@@ -16,14 +16,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 容器实例表 实体类
+ * Container instance table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_container_instance")
-@Schema(description = "VlsContainerInstanceEntity对象")
+@Schema(description = "VlsContainerInstanceEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class ContainerInstance extends TenantEntity {
 
@@ -31,137 +31,137 @@ public class ContainerInstance extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 实例名称
+	 * Instance name
 	 */
-	@Schema(description = "实例名称")
+	@Schema(description = "Instance name")
 	private String instanceName;
 	/**
-	 * 容器ID
+	 * containerID
 	 */
-	@Schema(description = "容器ID")
+	@Schema(description = "containerID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private String containerId;
 	/**
-	 * 镜像名称
+	 * Image name
 	 */
-	@Schema(description = "镜像名称")
+	@Schema(description = "Image name")
 	private String imageName;
 	/**
-	 * 镜像类型：base-基础镜像,app-应用镜像,custom-自定义镜像,url-镜像地址
+	 * Image type: base-base image,app-Application image,custom-Custom image,url-Mirror address
 	 */
-	@Schema(description = "镜像类型：base-基础镜像,app-应用镜像,custom-自定义镜像,url-镜像地址")
+	@Schema(description = "Image type: base-base image,app-Application image,custom-Custom image,url-Mirror address")
 	private String imageType;
 	/**
-	 * 镜像标签
+	 * Mirror tag
 	 */
-	@Schema(description = "镜像标签")
+	@Schema(description = "Mirror tag")
 	private String imageTag;
 	/**
-	 * 资源类型ID
+	 * Resource typeID
 	 */
-	@Schema(description = "资源类型ID")
+	@Schema(description = "Resource typeID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long resourceTypeId;
 	/**
-	 * 资源规格ID
+	 * Resource specificationID
 	 */
-	@Schema(description = "资源规格ID")
+	@Schema(description = "Resource specificationID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long resourceSpecId;
 	/**
-	 * 实例数量
+	 * Number of instances
 	 */
-	@Schema(description = "实例数量")
+	@Schema(description = "Number of instances")
 	private Integer instanceCount;
 	/**
-	 * 算法ID
+	 * algorithmID
 	 */
-	@Schema(description = "算法ID")
+	@Schema(description = "algorithmID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long algorithmId;
 	/**
-	 * 实例类型
+	 * Instance type
 	 */
-	@Schema(description = "实例类型")
+	@Schema(description = "Instance type")
 	private String instanceType;
 	/**
-	 * CPU限制
+	 * CPUlimit
 	 */
-	@Schema(description = "CPU限制")
+	@Schema(description = "CPUlimit")
 	private String cpuLimit;
 	/**
-	 * 内存限制
+	 * memory limit
 	 */
-	@Schema(description = "内存限制")
+	@Schema(description = "memory limit")
 	private String memoryLimit;
 	/**
-	 * GPU限制
+	 * GPUlimit
 	 */
-	@Schema(description = "GPU限制")
+	@Schema(description = "GPUlimit")
 	private String gpuLimit;
 	/**
-	 * 端口配置
+	 * Port configuration
 	 */
-	@Schema(description = "端口配置")
+	@Schema(description = "Port configuration")
 	private String portConfig;
 	/**
-	 * 环境变量配置
+	 * Environment variable configuration
 	 */
-	@Schema(description = "环境变量配置")
+	@Schema(description = "Environment variable configuration")
 	private String envConfig;
 	/**
-	 * 存储卷配置
+	 * Storage volume configuration
 	 */
-	@Schema(description = "存储卷配置")
+	@Schema(description = "Storage volume configuration")
 	private String volumeConfig;
 	/**
-	 * 实例状态：running-运行中,stopped-已停止,error-错误,starting-启动中,stopping-停止中
+	 * Instance status: running-Running,stopped-Stopped,error-mistake,starting-Starting,stopping-Stopping
 	 */
-	@Schema(description = "实例状态：running-运行中,stopped-已停止,error-错误,starting-启动中,stopping-停止中")
+	@Schema(description = "Instance status: running-Running,stopped-Stopped,error-mistake,starting-Starting,stopping-Stopping")
 	private String instanceStatus;
 	/**
-	 * 健康状态：healthy-健康,unhealthy-不健康,unknown-未知
+	 * health status: healthy-healthy,unhealthy-unhealthy,unknown-unknown
 	 */
-	@Schema(description = "健康状态：healthy-健康,unhealthy-不健康,unknown-未知")
+	@Schema(description = "health status: healthy-healthy,unhealthy-unhealthy,unknown-unknown")
 	private String healthStatus;
 	/**
-	 * 启动时间
+	 * Start time
 	 */
-	@Schema(description = "启动时间")
+	@Schema(description = "Start time")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date startTime;
 	/**
-	 * 停止时间
+	 * stop time
 	 */
-	@Schema(description = "停止时间")
+	@Schema(description = "stop time")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date stopTime;
 	/**
-	 * 重启次数
+	 * Number of restarts
 	 */
-	@Schema(description = "重启次数")
+	@Schema(description = "Number of restarts")
 	private Integer restartCount;
 	/**
-	 * CPU使用率
+	 * CPUUsage rate
 	 */
-	@Schema(description = "CPU使用率")
+	@Schema(description = "CPUUsage rate")
 	private BigDecimal cpuUsage;
 	/**
-	 * 内存使用率
+	 * memory usage
 	 */
-	@Schema(description = "内存使用率")
+	@Schema(description = "memory usage")
 	private BigDecimal memoryUsage;
 	/**
-	 * GPU使用率
+	 * GPUUsage rate
 	 */
-	@Schema(description = "GPU使用率")
+	@Schema(description = "GPUUsage rate")
 	private BigDecimal gpuUsage;
 	/**
-	 * 日志路径
+	 * Log path
 	 */
-	@Schema(description = "日志路径")
+	@Schema(description = "Log path")
 	private String logsPath;
 
 }

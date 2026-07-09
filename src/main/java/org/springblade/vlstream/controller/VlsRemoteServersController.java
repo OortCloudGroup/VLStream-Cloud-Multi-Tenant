@@ -30,7 +30,7 @@ import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * 远程服务器配置表 控制器
+ * Remote server configuration table controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -38,28 +38,28 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsRemoteServers")
-@Tag(name = "远程服务器配置表", description = "远程服务器配置表接口")
+@Tag(name = "Remote server configuration table", description = "Remote server configuration table interface")
 public class VlsRemoteServersController extends BladeController {
 
 	private final IVlsRemoteServersService vlsRemoteServersService;
 
 	/**
-	 * 远程服务器配置表 详情
+	 * Remote server configuration table Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description  = "传入vlsRemoteServers")
+	@Operation(summary = "Details", description  = "incomingvlsRemoteServers")
 	public R<RemoteServersVO> detail(RemoteServers vlsRemoteServers) {
 		RemoteServers detail = vlsRemoteServersService.getOne(Condition.getQueryWrapper(vlsRemoteServers));
 		return R.data(VlsRemoteServersWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 远程服务器配置表 分页
+	 * Remote server configuration table Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description  = "传入vlsRemoteServers")
+	@Operation(summary = "Pagination", description  = "incomingvlsRemoteServers")
 	public R<IPage<RemoteServersVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsRemoteServers, Query query) {
 		IPage<RemoteServers> pages = vlsRemoteServersService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsRemoteServers, RemoteServers.class));
 		return R.data(VlsRemoteServersWrapper.build().pageVO(pages));
@@ -67,63 +67,63 @@ public class VlsRemoteServersController extends BladeController {
 
 
 	/**
-	 * 远程服务器配置表 自定义分页
+	 * Remote server configuration table Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description  = "传入vlsRemoteServers")
+	@Operation(summary = "Pagination", description  = "incomingvlsRemoteServers")
 	public R<IPage<RemoteServersVO>> page(RemoteServersVO vlsRemoteServers, Query query) {
 		IPage<RemoteServersVO> pages = vlsRemoteServersService.selectVlsRemoteServersPage(Condition.getPage(query), vlsRemoteServers);
 		return R.data(pages);
 	}
 
 	/**
-	 * 远程服务器配置表 新增
+	 * Remote server configuration table New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description  = "传入vlsRemoteServers")
+	@Operation(summary = "New", description  = "incomingvlsRemoteServers")
 	public R save(@Valid @RequestBody RemoteServers vlsRemoteServers) {
 		return R.status(vlsRemoteServersService.save(vlsRemoteServers));
 	}
 
 	/**
-	 * 远程服务器配置表 修改
+	 * Remote server configuration table Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description  = "传入vlsRemoteServers")
+	@Operation(summary = "Revise", description  = "incomingvlsRemoteServers")
 	public R update(@Valid @RequestBody RemoteServers vlsRemoteServers) {
 		return R.status(vlsRemoteServersService.updateById(vlsRemoteServers));
 	}
 
 	/**
-	 * 远程服务器配置表 新增或修改
+	 * Remote server configuration table Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description  = "传入vlsRemoteServers")
+	@Operation(summary = "Add or modify", description  = "incomingvlsRemoteServers")
 	public R submit(@Valid @RequestBody RemoteServers vlsRemoteServers) {
 		return R.status(vlsRemoteServersService.saveOrUpdate(vlsRemoteServers));
 	}
 
 	/**
-	 * 远程服务器配置表 删除
+	 * Remote server configuration table delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description  = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description  = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsRemoteServersService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsRemoteServers")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description  = "传入vlsRemoteServers")
+	@Operation(summary = "Export data", description  = "incomingvlsRemoteServers")
 	public void exportVlsRemoteServers(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsRemoteServers, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<RemoteServers> queryWrapper = Condition.getQueryWrapper(vlsRemoteServers, RemoteServers.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -131,7 +131,7 @@ public class VlsRemoteServersController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsRemoteServersEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsRemoteServersExcel> list = vlsRemoteServersService.exportVlsRemoteServers(queryWrapper);
-		ExcelUtil.export(response, "远程服务器配置表数据" + DateUtil.time(), "远程服务器配置表数据表", list, VlsRemoteServersExcel.class);
+		ExcelUtil.export(response, "Remote server configuration table data" + DateUtil.time(), "Remote server configuration table data table", list, VlsRemoteServersExcel.class);
 	}
 
 }

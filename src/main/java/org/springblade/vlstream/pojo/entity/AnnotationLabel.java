@@ -10,14 +10,14 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 标注标签实体类 实体类
+ * Annotation label entity class Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_annotation_label")
-@Schema(description = "VlsAnnotationLabelEntity对象")
+@Schema(description = "VlsAnnotationLabelEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class AnnotationLabel extends TenantEntity {
 
@@ -25,35 +25,35 @@ public class AnnotationLabel extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 关联的标注项目ID
+	 * Associated annotation itemsID
 	 */
-	@Schema(description = "关联的标注项目ID")
+	@Schema(description = "Associated annotation itemsID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long annotationId;
 	/**
-	 * 标签名称
+	 * Tag name
 	 */
-	@Schema(description = "标签名称")
+	@Schema(description = "Tag name")
 	private String name;
 	/**
-	 * 标签颜色(十六进制)
+	 * Label color(hexadecimal)
 	 */
-	@Schema(description = "标签颜色(十六进制)")
+	@Schema(description = "Label color(hexadecimal)")
 	private String color;
 	/**
-	 * 标签描述
+	 * Tag description
 	 */
-	@Schema(description = "标签描述")
+	@Schema(description = "Tag description")
 	private String description;
 	/**
-	 * 排序顺序
+	 * sort order
 	 */
-	@Schema(description = "排序顺序")
+	@Schema(description = "sort order")
 	private Integer sortOrder;
 	/**
-	 * 使用次数统计
+	 * Usage statistics
 	 */
-	@Schema(description = "使用次数统计")
+	@Schema(description = "Usage statistics")
 	private Integer usageCount;
 
 }

@@ -8,29 +8,29 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 档案分类枚举
+ * File classification enumeration
  */
 public enum CategoryEnum {
 
 	/**
-	 * 未归管理
+	 * Not under management
 	 */
-	WSWG("WSWG", "未归管理"),
+	WSWG("WSWG", "Not under management"),
 
 	/**
-	 * 归档管理
+	 * Archive management
 	 */
-	WSGD("WSGD", "归档管理"),
+	WSGD("WSGD", "Archive management"),
 
 	/**
-	 * 案卷管理
+	 * Case file management
 	 */
-	WSAJ("WSAJ", "案卷管理"),
+	WSAJ("WSAJ", "Case file management"),
 
 	/**
-	 * 资料管理
+	 * Data management
 	 */
-	WSZL("WSZL", "资料管理");
+	WSZL("WSZL", "Data management");
 
 	@EnumValue
 	private final String code;
@@ -50,10 +50,10 @@ public enum CategoryEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 分类code
-	 * @return 对应的枚举值，如果未找到则返回null
+	 * @param code Classificationcode
+	 * @return The corresponding enumeration value, Return if not foundnull
 	 */
 	public static CategoryEnum fromCode(String code) {
 		for (CategoryEnum category : values()) {
@@ -65,9 +65,9 @@ public enum CategoryEnum {
 	}
 
 	/**
-	 * 获取枚举map，key为code，value为枚举实例
+	 * Get enumerationmap, keyforcode, valuefor an enumeration instance
 	 *
-	 * @return 枚举map
+	 * @return enumeratemap
 	 */
 	public static Map<String, String> toMap() {
 		return Arrays.stream(values())
@@ -75,9 +75,9 @@ public enum CategoryEnum {
 	}
 
 	/**
-	 * 获取枚举数组，每个元素包含code和description
+	 * Get enumeration array, Each element containscodeanddescription
 	 *
-	 * @return 包含code和description的数组
+	 * @return Includecodeanddescriptionarray of
 	 */
 	public static Map<String, String>[] toArray() {
 		return Arrays.stream(values())
@@ -85,7 +85,7 @@ public enum CategoryEnum {
 				Map<String, String> map = new HashMap<>();
 				map.put("code", enumValue.getCode());
 				map.put("description", enumValue.getDescription());
-				map.put("other", "所有文件");
+				map.put("other", "All files");
 				return map;
 			})
 			.toArray(Map[]::new);

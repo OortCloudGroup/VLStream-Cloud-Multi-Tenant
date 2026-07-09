@@ -15,7 +15,7 @@ import org.springblade.modules.system.pojo.vo.UserVO;
 import java.util.List;
 
 /**
- * 包装类,返回视图层所需的字段
+ * Packaging,Returns the fields required by the view layer
  *
  * @author Chill
  */
@@ -40,21 +40,21 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 			userVO.setRoleName(Func.join(roleName));
 		} else {
 			userVO.setRoleId(StringPool.EMPTY);
-			userVO.setRoleName("暂未分配");
+			userVO.setRoleName("Not assigned yet");
 		}
 		if (StringUtil.isNotBlank(user.getDeptId()) && !StringUtil.equals(user.getDeptId(), StringPool.MINUS_ONE)) {
 			List<String> deptName = SysCache.getDeptNames(user.getDeptId());
 			userVO.setDeptName(Func.join(deptName));
 		} else {
 			userVO.setDeptId(StringPool.EMPTY);
-			userVO.setDeptName("暂未分配");
+			userVO.setDeptName("Not assigned yet");
 		}
 		if (StringUtil.isNotBlank(user.getPostId()) && !StringUtil.equals(user.getPostId(), StringPool.MINUS_ONE)) {
 			List<String> postName = SysCache.getPostNames(user.getPostId());
 			userVO.setPostName(Func.join(postName));
 		} else {
 			userVO.setPostId(StringPool.EMPTY);
-			userVO.setPostName("暂未分配");
+			userVO.setPostName("Not assigned yet");
 		}
 		userVO.setSexName(DictCache.getValue(DictEnum.SEX, user.getSex()));
 		userVO.setUserTypeName(DictCache.getValue(DictEnum.USER_TYPE, user.getUserType()));

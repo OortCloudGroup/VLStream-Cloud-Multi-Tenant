@@ -16,8 +16,8 @@ import static org.springblade.modules.auth.constant.BladeAuthConstant.FAIL_COUNT
 import static org.springblade.modules.auth.constant.BladeAuthConstant.FAIL_COUNT_VALUE;
 
 /**
- * 失败锁定处理器
- * 统一管理账号锁定和IP锁定逻辑
+ * Failure to lock handler
+ * Unified management of account locking andIPLocking logic
  *
  * @author Oort
  */
@@ -28,31 +28,31 @@ public class BladeLockHandler {
 	private final BladeRedis bladeRedis;
 
 	/**
-	 * 锁定时长（分钟）
+	 * Lock duration(minute)
 	 */
 	private static final int LOCK_DURATION_MINUTES = 30;
 
 	/**
-	 * 校验账号是否锁定
+	 * Verify whether the account is locked
 	 *
-	 * @param tenantId 租户id
-	 * @param account  账号
+	 * @param tenantId tenantid
+	 * @param account  account
 	 * @return OAuth2Validation
 	 */
 	public OAuth2Validation validateAccountLock(String tenantId, String account) {
 		int cnt = getAccountFailCount(tenantId, account);
 		int failCount = getFailCountThreshold();
 		if (cnt >= failCount) {
-			log.error("用户：{}，已锁定，请求ip：{}", account, WebUtil.getIP());
+			log.error("user: {}, locked, askip: {}", account, WebUtil.getIP());
 			return buildValidationFailure();
 		}
 		return new OAuth2Validation();
 	}
 
 	/**
-	 * 校验IP是否锁定
+	 * checkIPWhether to lock
 	 *
-	 * @param tenantId 租户id
+	 * @param tenantId tenantid
 	 * @return OAuth2Validation
 	 */
 	public OAuth2Validation validateIpLock(String tenantId) {
@@ -60,17 +60,17 @@ public class BladeLockHandler {
 		int cnt = getIpFailCount(tenantId, clientIp);
 		int failCount = getFailCountThreshold();
 		if (cnt >= failCount) {
-			log.error("IP：{}，已锁定", clientIp);
+			log.error("IP: {}, locked", clientIp);
 			return buildValidationFailure();
 		}
 		return new OAuth2Validation();
 	}
 
 	/**
-	 * 增加账号错误次数
+	 * Increase the number of account errors
 	 *
-	 * @param tenantId 租户id
-	 * @param account  账号
+	 * @param tenantId tenantid
+	 * @param account  account
 	 */
 	public void addAccountFailCount(String tenantId, String account) {
 		if (Func.hasEmpty(tenantId, account)) {
@@ -82,9 +82,9 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 增加IP错误次数
+	 * IncreaseIPnumber of errors
 	 *
-	 * @param tenantId 租户id
+	 * @param tenantId tenantid
 	 */
 	public void addIpFailCount(String tenantId) {
 		String clientIp = WebUtil.getIP();
@@ -97,10 +97,10 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 清空账号错误次数
+	 * Clear account error count
 	 *
-	 * @param tenantId 租户id
-	 * @param account  账号
+	 * @param tenantId tenantid
+	 * @param account  account
 	 */
 	public void clearAccountFailCount(String tenantId, String account) {
 		if (Func.hasEmpty(tenantId, account)) {
@@ -111,9 +111,9 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 清空IP错误次数
+	 * ClearIPnumber of errors
 	 *
-	 * @param tenantId 租户id
+	 * @param tenantId tenantid
 	 */
 	public void clearIpFailCount(String tenantId) {
 		String clientIp = WebUtil.getIP();
@@ -125,11 +125,11 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 处理认证失败
-	 * 同时增加账号和IP错误次数
+	 * Handle authentication failure
+	 * Also add accounts andIPnumber of errors
 	 *
-	 * @param tenantId 租户id
-	 * @param account  账号
+	 * @param tenantId tenantid
+	 * @param account  account
 	 */
 	public void handleAuthFailure(String tenantId, String account) {
 		addAccountFailCount(tenantId, account);
@@ -137,11 +137,11 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 处理认证成功
-	 * 同时清空账号和IP错误次数
+	 * Processing authentication successful
+	 * Clear the account andIPnumber of errors
 	 *
-	 * @param tenantId 租户id
-	 * @param account  账号
+	 * @param tenantId tenantid
+	 * @param account  account
 	 */
 	public void handleAuthSuccess(String tenantId, String account) {
 		clearAccountFailCount(tenantId, account);
@@ -149,10 +149,10 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 获取账号错误次数
+	 * Get the number of account errors
 	 *
-	 * @param tenantId 租户id
-	 * @param account  账号
+	 * @param tenantId tenantid
+	 * @param account  account
 	 * @return int
 	 */
 	private int getAccountFailCount(String tenantId, String account) {
@@ -164,10 +164,10 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 获取IP错误次数
+	 * getIPnumber of errors
 	 *
-	 * @param tenantId 租户id
-	 * @param clientIp 客户端IP
+	 * @param tenantId tenantid
+	 * @param clientIp clientIP
 	 * @return int
 	 */
 	private int getIpFailCount(String tenantId, String clientIp) {
@@ -179,7 +179,7 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 获取失败次数阈值
+	 * Get the failure count threshold
 	 *
 	 * @return int
 	 */
@@ -188,7 +188,7 @@ public class BladeLockHandler {
 	}
 
 	/**
-	 * 构建校验失败结果
+	 * Build verification failure results
 	 *
 	 * @return OAuth2Validation
 	 */

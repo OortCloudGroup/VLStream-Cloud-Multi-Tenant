@@ -13,7 +13,7 @@ import java.io.Serial;
 
 
 /**
- * 场景治理表 Excel实体类
+ * Scenario management table ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23

@@ -8,13 +8,13 @@ import org.springblade.job.pojo.vo.JobInfoVO;
 import java.util.List;
 
 /**
- * 任务信息表 服务类
+ * Task information sheet Service category
  *
  * @author Oort
  */
 public interface IJobInfoService extends BaseService<JobInfo> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param jobInfo
@@ -23,38 +23,38 @@ public interface IJobInfoService extends BaseService<JobInfo> {
 	IPage<JobInfoVO> selectJobInfoPage(IPage<JobInfoVO> page, JobInfoVO jobInfo);
 
 	/**
-	 * 保存并同步
+	 * Save and sync
 	 *
 	 * @return
 	 */
 	Boolean submitAndSync(JobInfo jobInfo);
 
 	/**
-	 * 删除并同步
+	 * Delete and sync
 	 *
 	 * @return
 	 */
 	Boolean removeAndSync(List<Long> ids);
 
 	/**
-	 * 启用禁用服务
+	 * Enable or disable services
 	 *
-	 * @param id     任务服务ID
-	 * @param enable 是否启用
+	 * @param id     Task serviceID
+	 * @param enable Whether to enable
 	 * @return
 	 */
 	Boolean changeServerJob(Long id, Integer enable);
 
 	/**
-	 * 运行服务
+	 * Run service
 	 *
-	 * @param id 任务服务ID
+	 * @param id Task serviceID
 	 * @return
 	 */
 	Boolean runServerJob(Long id);
 
 	/**
-	 * 数据同步
+	 * Data synchronization
 	 *
 	 * @return
 	 */

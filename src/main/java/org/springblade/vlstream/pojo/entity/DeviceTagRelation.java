@@ -11,14 +11,14 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * 设备标签关联表 实体类
+ * Device tag association table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_device_tag_relation")
-@Schema(description = "VlsDeviceTagRelationEntity对象")
+@Schema(description = "VlsDeviceTagRelationEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class DeviceTagRelation extends TenantEntity {
 
@@ -26,15 +26,15 @@ public class DeviceTagRelation extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 设备ID，关联device_info.id
+	 * equipmentID, associationdevice_info.id
 	 */
-	@Schema(description = "设备ID，关联device_info.id")
+	@Schema(description = "equipmentID, associationdevice_info.id")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long deviceId;
 	/**
-	 * 标签ID，关联tag_management.id
+	 * LabelID, associationtag_management.id
 	 */
-	@Schema(description = "标签ID，关联tag_management.id")
+	@Schema(description = "LabelID, associationtag_management.id")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long tagId;
 

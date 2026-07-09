@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /**
- * 启动器
+ * launcher
  *
  * @author Chill
  */
@@ -18,8 +18,8 @@ public class Application {
 
 	public static void main(String[] args) {
 		BladeApplication.run(CommonConstant.APPLICATION_NAME, Application.class, args);
-		System.out.println( "(♥◠‿◠)ﾉﾞ  系统启动成功   ლ(´ڡ`ლ)ﾞ " );
-		System.out.println( "swagger地址： http://localhost:8080/doc.html" );
+		System.out.println( "(♥◠‿◠)ﾉﾞ  System started successfully   ლ(´ڡ`ლ)ﾞ " );
+		System.out.println( "swaggeraddress:  http://localhost:8080/doc.html" );
 	}
 
 }

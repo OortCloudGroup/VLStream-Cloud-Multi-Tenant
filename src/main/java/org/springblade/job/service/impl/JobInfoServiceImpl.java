@@ -40,7 +40,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 任务信息表 服务实现类
+ * Task information sheet Service implementation class
  *
  * @author Oort
  */
@@ -62,12 +62,12 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean submitAndSync(JobInfo jobInfo) {
-		//获取应用分组服务端信息
+		//Get application group server information
 		JobServer jobServer = jobServerService.getById(jobInfo.getJobServerId());
-		//构建Job客户端
+		//buildJobclient
 		PowerJobClient client = new PowerJobClient(jobServer.getJobServerUrl(), jobServer.getJobAppName(), jobServer.getJobAppPassword());
 		SaveJobInfoRequest request = convertToServer(jobInfo);
-		//获取上传结果
+		//Get upload results
 		ResultDTO<Long> result = client.saveJob(request);
 		if (result.isSuccess()) {
 			jobInfo.setJobId(result.getData());
@@ -85,7 +85,7 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 			if (Func.isNotEmpty(jobDTO)) {
 				JobInfo jobInfo = jobDTO.getJobInfo();
 				PowerJobClient powerJobClient = jobDTO.getPowerJobClient();
-				//删除服务数据
+				//Delete service data
 				ResultDTO<Void> result = powerJobClient.deleteJob(jobInfo.getJobId());
 				if (result.isSuccess()) {
 					this.removeById(id);
@@ -103,11 +103,11 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 		if (Func.isNotEmpty(jobDTO)) {
 			JobInfo jobInfo = jobDTO.getJobInfo();
 			PowerJobClient powerJobClient = jobDTO.getPowerJobClient();
-			//更换服务端状态
+			//Change server status
 			ResultDTO<Void> result = (enable == PowerJobConstant.JOB_ENABLED) ?
 				powerJobClient.enableJob(jobInfo.getJobId()) :
 				powerJobClient.disableJob(jobInfo.getJobId());
-			//删除客户端数据
+			//Delete client data
 			if (result.isSuccess()) {
 				boolean updated = this.update(Wrappers.<JobInfo>update().lambda().set(JobInfo::getEnable, enable).eq(JobInfo::getId, id));
 				if (enable == null || !enable.equals(PowerJobConstant.JOB_ENABLED)) {
@@ -138,10 +138,10 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 			return;
 		}
 		try {
-			orchestrator.stopAllForDeviceIds(cameraIds, "场景治理任务已停用");
+			orchestrator.stopAllForDeviceIds(cameraIds, "Scenario management task has been disabled");
 		} catch (Exception exception) {
-			// 启停任务接口需要保证主流程可用，停止失败不影响 Job 状态变更
-			log.warn("停止场景治理检测会话失败: jobInfoId={}, businessId={}, cameras={}", jobInfo.getId(), jobInfo.getBusinessId(), cameraIds, exception);
+			// The start and stop task interface needs to ensure that the main process is available, Stop failure does not affect Job status change
+			log.warn("Stop scene management detection session failure: jobInfoId={}, businessId={}, cameras={}", jobInfo.getId(), jobInfo.getBusinessId(), cameraIds, exception);
 		}
 	}
 
@@ -186,47 +186,47 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean sync() {
-		//任务信息列表
+		//Task information list
 		List<JobInfo> jobInfos = this.list();
-		//任务服务列表
+		//Task service list
 		List<JobServer> jobServers = jobServerService.list();
-		//按应用分组
+		//Group by application
 		Map<Long, List<JobInfo>> jobGroups = jobInfos.stream().collect(Collectors.groupingBy(JobInfo::getJobServerId));
-		//处理服务端数据下载
+		//Handle server-side data download
 		jobServers.forEach(jobServer -> {
-			//构建Job客户端
+			//buildJobclient
 			PowerJobClient client = new PowerJobClient(jobServer.getJobServerUrl(), jobServer.getJobAppName(), jobServer.getJobAppPassword());
-			//从服务端获取数据
+			//Get data from server
 			List<JobInfoDTO> serverInfoList = Optional.ofNullable(client.fetchAllJob())
 				.filter(ResultDTO::isSuccess)
 				.map(ResultDTO::getData)
 				.orElseGet(ArrayList::new);
-			//获取客户端数据
+			//Get client data
 			List<JobInfo> localInfoList = jobGroups.get(jobServer.getId());
-			//处理需要从服务端下载的数据
+			//Process data that needs to be downloaded from the server
 			List<JobInfoDTO> jobInfoDTOList = serverInfoList.stream()
 				.filter(serverData -> serverData.getStatus() != PowerJobConstant.JOB_DELETED)
 				.filter(serverData -> Func.isEmpty(localInfoList) || localInfoList.stream().noneMatch(localData -> Func.equalsSafe(localData.getJobId(), serverData.getId())))
 				.collect(Collectors.toList());
 			List<JobInfo> dataToDownload = convertToLocalList(jobInfoDTOList, jobServer.getId());
-			//调用本地Service保存数据
+			//call localServicesave data
 			this.saveBatch(dataToDownload);
 		});
-		//处理客户端数据上传
+		//Handle client data upload
 		jobGroups.forEach((jobServerId, localInfoList) -> {
-			//获取应用分组服务端信息
+			//Get application group server information
 			JobServer jobServer = jobServers.stream().filter(js -> Func.equalsSafe(js.getId(), jobServerId))
 				.findFirst().orElseThrow(() -> new ServiceException(PowerJobConstant.JOB_SYNC_ALERT));
-			//构建Job客户端
+			//buildJobclient
 			PowerJobClient client = new PowerJobClient(jobServer.getJobServerUrl(), jobServer.getJobAppName(), jobServer.getJobAppPassword());
-			//处理需要上传到服务端的数据
+			//Process the data that needs to be uploaded to the server
 			localInfoList.forEach(localData -> {
-				//转换数据格式
+				//Convert data format
 				SaveJobInfoRequest data = convertToServer(localData);
-				//调用OpenAPI接口上传数据
+				//callOpenAPIInterface upload data
 				ResultDTO<Long> saveResult = client.saveJob(data);
 				if (saveResult.isSuccess()) {
-					//更新服务端JobId至客户端
+					//Update serverJobIdto client
 					this.update(Wrappers.<JobInfo>update().lambda().set(JobInfo::getJobId, saveResult.getData()).eq(JobInfo::getId, localData.getId()));
 				} else {
 					throw new ServiceException(saveResult.getMessage());
@@ -237,25 +237,25 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 	}
 
 	/**
-	 * 获取Job数据集合
+	 * getJobdata collection
 	 *
-	 * @param jobInfoId 服务信息ID
+	 * @param jobInfoId Service informationID
 	 * @return PowerJobClient
 	 */
 	public JobDTO JobData(Long jobInfoId) {
-		//构建DTO类
+		//buildDTOkind
 		JobDTO jobDTO = new JobDTO();
-		//获取任务信息
+		//Get task information
 		JobInfo jobInfo = this.getById(jobInfoId);
 		jobDTO.setJobInfo(jobInfo);
 		if (Func.isEmpty(jobInfo.getJobId())) {
 			throw new ServiceException(PowerJobConstant.JOB_SYNC_ALERT);
 		}
 		if (Func.isNotEmpty(jobInfo.getJobServerId())) {
-			//获取应用分组服务端信息
+			//Get application group server information
 			JobServer jobServer = jobServerService.getById(jobInfo.getJobServerId());
 			jobDTO.setJobServer(jobServer);
-			//构建Job客户端
+			//buildJobclient
 			PowerJobClient powerJobClient = new PowerJobClient(jobServer.getJobServerUrl(), jobServer.getJobAppName(), jobServer.getJobAppPassword());
 			jobDTO.setPowerJobClient(powerJobClient);
 			return jobDTO;
@@ -264,9 +264,9 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 	}
 
 	/**
-	 * 服务端Job列表转换
+	 * ServerJobList conversion
 	 *
-	 * @param jobInfoList 本地任务信息列表
+	 * @param jobInfoList Local task information list
 	 * @return List<SaveJobInfoRequest>
 	 */
 	public List<SaveJobInfoRequest> convertToServerList(List<JobInfo> jobInfoList) {
@@ -274,9 +274,9 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 	}
 
 	/**
-	 * 本地Job列表转换
+	 * localJobList conversion
 	 *
-	 * @param jobInfoDTOList 服务端任务信息列表
+	 * @param jobInfoDTOList Server task information list
 	 * @return List<JobInfo>
 	 */
 	public List<JobInfo> convertToLocalList(List<JobInfoDTO> jobInfoDTOList, Long jobServerId) {
@@ -284,9 +284,9 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 	}
 
 	/**
-	 * 服务端Job单个转换
+	 * ServerJobsingle conversion
 	 *
-	 * @param jobInfo 本地任务信息
+	 * @param jobInfo local task information
 	 * @return SaveJobInfoRequest
 	 */
 	public SaveJobInfoRequest convertToServer(JobInfo jobInfo) {
@@ -329,9 +329,9 @@ public class JobInfoServiceImpl extends BaseServiceImpl<JobInfoMapper, JobInfo> 
 	}
 
 	/**
-	 * 本地Job单个转换
+	 * localJobsingle conversion
 	 *
-	 * @param jobInfoDTO 服务端任务信息
+	 * @param jobInfoDTO Server task information
 	 * @return SaveJobInfoRequest
 	 */
 	public JobInfo convertToLocal(JobInfoDTO jobInfoDTO, Long jobServerId) {

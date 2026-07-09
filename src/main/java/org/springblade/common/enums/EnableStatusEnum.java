@@ -3,7 +3,7 @@ package org.springblade.common.enums;
 import lombok.Getter;
 
 /**
- * 启用状态枚举
+ * Enable status enumeration
  *
  * @author Administrator
  */
@@ -11,14 +11,14 @@ import lombok.Getter;
 public enum EnableStatusEnum {
 
 	/**
-	 * 禁用
+	 * Disable
 	 */
-	DISABLED(1, "禁用"),
+	DISABLED(1, "Disable"),
 
 	/**
-	 * 启用
+	 * enable
 	 */
-	ENABLED(2, "启用");
+	ENABLED(2, "enable");
 
 	private final Integer code;
 	private final String description;
@@ -29,10 +29,10 @@ public enum EnableStatusEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 状态码
-	 * @return 枚举对象
+	 * @param code status code
+	 * @return enumeration object
 	 */
 	public static EnableStatusEnum of(Integer code) {
 		if (code == null) {

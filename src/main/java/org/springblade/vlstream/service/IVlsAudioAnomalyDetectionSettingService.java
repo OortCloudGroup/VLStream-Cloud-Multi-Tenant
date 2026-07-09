@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.vlstream.pojo.entity.AudioAnomalyDetectionSetting;
 
 /**
- * 音频异常侦测设置表 服务类
+ * Audio anomaly detection setting table Service category
  */
 public interface IVlsAudioAnomalyDetectionSettingService extends BaseService<AudioAnomalyDetectionSetting> {
 }

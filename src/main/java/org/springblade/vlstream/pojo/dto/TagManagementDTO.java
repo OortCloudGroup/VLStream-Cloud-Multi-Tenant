@@ -9,7 +9,7 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * 标签管理表 数据传输对象实体类
+ * Tag management table Data transfer object entity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -20,7 +20,7 @@ public class TagManagementDTO extends TagManagement {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "子标签列表", hidden = true)
+	@Schema(description = "subtag list", hidden = true)
 	private List<TagManagementDTO> children;
 
 }

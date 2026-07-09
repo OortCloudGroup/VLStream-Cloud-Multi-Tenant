@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 算法仓库表 服务实现类
+ * Algorithm warehouse table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23
@@ -55,36 +55,36 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 														   String name,
 														   String repositoryType,
 														   String status) {
-		log.info("分页查询算法仓库列表，参数：name={}, repositoryType={}, status={}", name, repositoryType, status);
+		log.info("Paging query algorithm warehouse list, parameter: name={}, repositoryType={}, status={}", name, repositoryType, status);
 		return algorithmRepositoryMapper.selectRepositoryPage(page, name, repositoryType, status);
 	}
 
 	@Override
 	public List<AlgorithmRepository> getEnabledRepositories() {
-		log.info("查询所有启用的算法仓库");
+		log.info("Query所有enablealgorithmstorehouse");
 		return algorithmRepositoryMapper.selectEnabledRepositories();
 	}
 
 	@Override
 	public List<AlgorithmRepository> getByRepositoryType(String repositoryType) {
-		log.info("根据类型查询算法仓库：{}", repositoryType);
+		log.info("Query algorithm warehouse based on type: {}", repositoryType);
 		return algorithmRepositoryMapper.selectByRepositoryType(repositoryType);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean createRepository(AlgorithmRepository repository) {
-		log.info("创建算法仓库：{}", repository.getName());
+		log.info("Create algorithm warehouse: {}", repository.getName());
 
-		// 检查名称是否重复
+		// Check if names are duplicates
 		QueryWrapper<AlgorithmRepository> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("name", repository.getName());
 		if (count(queryWrapper) > 0) {
-			log.warn("算法仓库名称已存在：{}", repository.getName());
+			log.warn("Algorithm warehouse name already exists: {}", repository.getName());
 			return false;
 		}
 
-		// 设置默认值
+		// Set default value
 		if (repository.getAlgorithmCount() == null) {
 			repository.setAlgorithmCount(0);
 		}
@@ -101,12 +101,12 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean updateRepository(AlgorithmRepository repository) {
-		log.info("更新算法仓库：ID={}, Name={}", repository.getId(), repository.getName());
+		log.info("Update algorithm repository: ID={}, Name={}", repository.getId(), repository.getName());
 
-		// 检查是否为基础预置算法库（不允许修改某些字段）
+		// Check whether the algorithm library is preset for the base(Modification of some fields is not allowed)
 		AlgorithmRepository existing = getById(repository.getId());
 		if (existing != null && "basic".equals(existing.getRepositoryType())) {
-			// 基础预置算法库只允许修改备注和状态
+			// The basic preset algorithm library only allows modification of comments and status
 			repository.setName(existing.getName());
 			repository.setRepositoryType(existing.getRepositoryType());
 		}
@@ -117,12 +117,12 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteRepository(Long id) {
-		log.info("删除算法仓库：ID={}", id);
+		log.info("Delete algorithm repository: ID={}", id);
 
-		// 检查是否为基础预置算法库（不允许删除）
+		// Check whether the algorithm library is preset for the base(Delete not allowed)
 		AlgorithmRepository repository = getById(id);
 		if (repository != null && "basic".equals(repository.getRepositoryType())) {
-			log.warn("不允许删除基础预置算法库：ID={}", id);
+			log.warn("Deletion of basic preset algorithm libraries is not allowed: ID={}", id);
 			return false;
 		}
 
@@ -132,9 +132,9 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean batchDeleteRepositories(List<Long> ids) {
-		log.info("批量删除算法仓库：IDs={}", ids);
+		log.info("Batch deletion of algorithm warehouse: IDs={}", ids);
 
-		// 过滤掉基础预置算法库
+		// Filter out the basic preset algorithm library
 		List<AlgorithmRepository> repositories = listByIds(ids);
 		List<Long> allowedIds = repositories.stream()
 			.filter(repo -> !"basic".equals(repo.getRepositoryType()))
@@ -142,7 +142,7 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 			.collect(Collectors.toList());
 
 		if (allowedIds.isEmpty()) {
-			log.warn("没有可删除的算法仓库");
+			log.warn("There is no algorithm repository to delete");
 			return false;
 		}
 
@@ -151,7 +151,7 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 
 	@Override
 	public boolean updateRepositoryStatus(Long id, String status) {
-		log.info("更新算法仓库状态：ID={}, Status={}", id, status);
+		log.info("Update algorithm warehouse status: ID={}, Status={}", id, status);
 
 		UpdateWrapper<AlgorithmRepository> updateWrapper = new UpdateWrapper<>();
 		updateWrapper.eq("id", id)
@@ -162,7 +162,7 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 
 	@Override
 	public boolean batchUpdateRepositoryStatus(List<Long> ids, String status) {
-		log.info("批量更新算法仓库状态：IDs={}, Status={}", ids, status);
+		log.info("Batch update algorithm warehouse status: IDs={}, Status={}", ids, status);
 
 		UpdateWrapper<AlgorithmRepository> updateWrapper = new UpdateWrapper<>();
 		updateWrapper.in("id", ids)
@@ -173,14 +173,14 @@ public class VlsAlgorithmRepositoryServiceImpl extends BaseServiceImpl<VlsAlgori
 
 	@Override
 	public Long countRepositories() {
-		log.info("统计算法仓库数量");
+		log.info("Statistical algorithm warehouse quantity");
 		return algorithmRepositoryMapper.countRepositories();
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void updateAlgorithmCount(Long repositoryId) {
-		log.info("更新算法仓库的算法数量：ID={}", repositoryId);
+		log.info("Update the number of algorithms in the algorithm warehouse: ID={}", repositoryId);
 
 		Long count = algorithmMapper.countByRepositoryId(repositoryId);
 

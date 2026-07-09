@@ -3,68 +3,68 @@ package org.springblade.common.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
 /**
- * 控件类型枚举
+ * Control type enumeration
  */
 public enum ControlTypeEnum {
 	/**
-	 * 单行输入框
+	 * Single line input box
 	 */
-	INPUT("INPUT", "单行输入框", "input"),
+	INPUT("INPUT", "Single line input box", "input"),
 
 	/**
-	 * 多行输入框
+	 * Multi-line input box
 	 */
-	TEXTAREA("TEXTAREA", "多行输入框", "text"),
+	TEXTAREA("TEXTAREA", "Multi-line input box", "text"),
 
 	/**
-	 * 密码框
+	 * Password box
 	 */
-	PASSWORD("PASSWORD", "密码框", "password"),
+	PASSWORD("PASSWORD", "Password box", "password"),
 
 	/**
-	 * 单选框
+	 * radio button
 	 */
-	RADIO("RADIO", "单选框", "radio"),
+	RADIO("RADIO", "radio button", "radio"),
 
 	/**
-	 * 复选框
+	 * checkbox
 	 */
-	CHECKBOX("CHECKBOX", "复选框", "checkbox"),
+	CHECKBOX("CHECKBOX", "checkbox", "checkbox"),
 
 	/**
-	 * 下拉框
+	 * drop down box
 	 */
-	SELECT("SELECT", "下拉框", "select"),
+	SELECT("SELECT", "drop down box", "select"),
 
 	/**
-	 * 日期选择器
+	 * date picker
 	 */
-	DATE_PICKER("DATE_PICKER", "日期选择器", "date"),
+	DATE_PICKER("DATE_PICKER", "date picker", "date"),
 
 	/**
-	 * 时间选择器
+	 * time picker
 	 */
-	TIME_PICKER("TIME_PICKER", "时间选择器", "datetime"),
+	TIME_PICKER("TIME_PICKER", "time picker", "datetime"),
 
 	/**
-	 * 日期时间选择器
+	 * Date time picker
 	 */
-	DATETIME_PICKER("DATETIME_PICKER", "日期时间选择器", "datetime"),
+	DATETIME_PICKER("DATETIME_PICKER", "Date time picker", "datetime"),
 
 	/**
-	 * 文件上传
+	 * document上传
 	 */
-	FILE_UPLOAD("FILE_UPLOAD", "文件上传", ""),
+	FILE_UPLOAD("FILE_UPLOAD", "document上传", ""),
 
 	/**
-	 * 图片上传
+	 * Image upload
 	 */
-	IMAGE_UPLOAD("IMAGE_UPLOAD", "图片上传", ""),
+	IMAGE_UPLOAD("IMAGE_UPLOAD", "Image upload", ""),
 
 	/**
-	 * 视频上传
+	 * Video upload
 	 */
-	VIDEO_UPLOAD("VIDEO_UPLOAD", "视频上传", "");
+	VIDEO_UPLOAD("VIDEO_UPLOAD", "Video upload", "");
 
 	@EnumValue
 	private final String code;
@@ -90,10 +90,10 @@ public enum ControlTypeEnum {
 	}
 
 	/**
-	 * 根据code获取枚举值
+	 * according tocodeGet enumeration value
 	 *
-	 * @param code 控件类型代码
-	 * @return 对应的枚举值
+	 * @param code Control type code
+	 * @return The corresponding enumeration value
 	 */
 	public static ControlTypeEnum fromCode(String code) {
 		for (ControlTypeEnum type : ControlTypeEnum.values()) {

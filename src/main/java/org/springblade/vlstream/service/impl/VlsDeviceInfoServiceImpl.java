@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 设备信息表 服务实现类
+ * Equipment information table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23
@@ -83,7 +83,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 	@Transactional(rollbackFor = Exception.class)
 	public boolean addDevice(DeviceInfo deviceInfo) {
 		try {
-			// 自动生成device_id（如果没有提供）
+			// Automatically generateddevice_id(if not provided)
 			if (deviceInfo.getDeviceId() == null || deviceInfo.getDeviceId().trim().isEmpty()) {
 				String deviceId = generateDeviceId();
 				deviceInfo.setDeviceId(deviceId);
@@ -92,7 +92,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 			}
 			return save(deviceInfo);
 		} catch (Exception e) {
-			log.error("新增设备失败", e);
+			log.error("Failed to add device", e);
 			return false;
 		}
 	}
@@ -116,7 +116,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 			.orderByDesc(AlgorithmTraining::getUpdateTime)
 			.last("limit 1"));
 		if (latestTraining == null) {
-			log.error("算法下发失败，未找到最新训练任务: algorithmId={}", algorithmId);
+			log.error("Algorithm delivery failed, Latest training task not found: algorithmId={}", algorithmId);
 			return false;
 		}
 
@@ -125,7 +125,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 			.orderByDesc(AlgorithmModel::getCreateTime)
 			.last("limit 1"));
 		if (latestModel == null || latestModel.getId() == null) {
-			log.error("算法下发失败，未找到最新训练模型: algorithmId={}, trainingId={}", algorithmId, latestTraining.getId());
+			log.error("Algorithm delivery failed, Latest training model not found: algorithmId={}, trainingId={}", algorithmId, latestTraining.getId());
 			return false;
 		}
 
@@ -140,7 +140,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 				}
 				DeviceInfo device = getById(deviceId.trim());
 				if (device == null || StringUtils.isBlank(device.getDeviceId())) {
-					log.error("算法下发失败，设备不存在或设备编号为空: deviceId={}", deviceId);
+					log.error("Algorithm delivery failed, The device does not exist or the device number is empty: deviceId={}", deviceId);
 					return false;
 				}
 
@@ -150,7 +150,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 				updateById(updateEntity);
 
 				if (!StringUtils.equals(mqttTopic, "oortcloud/dispatchAlgorithms")) {
-					log.error("算法下发失败，MQTT主题仅允许 oortcloud/#: topic={}", mqttTopic);
+					log.error("Algorithm delivery failed, MQTTTopics only allow oortcloud/#: topic={}", mqttTopic);
 					return false;
 				}
 
@@ -164,7 +164,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 			}
 			return true;
 		} catch (Exception dispatchException) {
-			log.error("算法下发失败，MQTT发送异常: algorithmId={}", algorithmId, dispatchException);
+			log.error("Algorithm delivery failed, MQTTSend exception: algorithmId={}", algorithmId, dispatchException);
 			return false;
 		} finally {
 			closeMqttClient(mqttClient);
@@ -202,12 +202,12 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 				mqttClient.disconnect();
 			}
 		} catch (MqttException disconnectException) {
-			log.warn("关闭MQTT连接失败", disconnectException);
+			log.warn("closureMQTTConnection failed", disconnectException);
 		}
 		try {
 			mqttClient.close();
 		} catch (MqttException closeException) {
-			log.warn("关闭MQTT客户端失败", closeException);
+			log.warn("closureMQTTClient failed", closeException);
 		}
 	}
 
@@ -264,22 +264,22 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 
 		if (deviceInfo == null) {
 			result.put("success", false);
-			result.put("message", "设备不存在");
+			result.put("message", "Device does not exist");
 			return result;
 		}
 
 		try {
-			// 这里实现实际的设备连接测试逻辑
-			// TODO: 根据设备类型和连接参数测试连接
-			log.info("测试设备连接: {}", deviceInfo.getDeviceName());
+			// The actual device connection test logic is implemented here
+			// TODO: Test connections based on device type and connection parameters
+			log.info("Test device connections: {}", deviceInfo.getDeviceName());
 
 			result.put("success", true);
-			result.put("message", "连接成功");
+			result.put("message", "Connection successful");
 			result.put("latency", "20ms");
 		} catch (Exception e) {
-			log.error("设备连接测试失败: {}", deviceInfo.getDeviceName(), e);
+			log.error("Device connection test failed: {}", deviceInfo.getDeviceName(), e);
 			result.put("success", false);
-			result.put("message", "连接失败: " + e.getMessage());
+			result.put("message", "Connection failed: " + e.getMessage());
 		}
 
 		return result;
@@ -301,13 +301,13 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 		for (VlsDeviceInfoMapper.StatusStatistics stat : statusStats) {
 			total += stat.getCount();
 			switch (stat.getStatus()) {
-				case "离线":
+				case "Offline":
 					offline = stat.getCount();
 					break;
-				case "在线":
+				case "online":
 					online = stat.getCount();
 					break;
-				case "故障":
+				case "Fault":
 					fault = stat.getCount();
 					break;
 			}
@@ -338,21 +338,21 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 		Map<String, Object> result = new HashMap<>();
 		List<String> errors = new ArrayList<>();
 
-		// 验证设备名称
+		// Verify device name
 		if (deviceInfo.getDeviceName() == null || deviceInfo.getDeviceName().trim().isEmpty()) {
-			errors.add("设备名称不能为空");
+			errors.add("Device name cannot be empty");
 		}
 
-		// 验证设备ID
+		// Verify deviceID
 		if (deviceInfo.getDeviceId() == null || deviceInfo.getDeviceId().trim().isEmpty()) {
-			errors.add("设备ID不能为空");
+			errors.add("equipmentIDcannot be empty");
 		} else if (checkDeviceIdExists(deviceInfo.getDeviceId())) {
-			errors.add("设备ID已存在");
+			errors.add("equipmentIDAlready exists");
 		}
 
 		if (errors.isEmpty()) {
 			result.put("valid", true);
-			result.put("message", "验证通过");
+			result.put("message", "Verification passed");
 		} else {
 			result.put("valid", false);
 			result.put("errors", errors);
@@ -390,21 +390,21 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 
 		if (deviceInfo == null) {
 			result.put("success", false);
-			result.put("message", "设备不存在");
+			result.put("message", "Device does not exist");
 			return result;
 		}
 
 		try {
-			// 模拟状态刷新
+			// Simulation status refresh
 			updateDeviceStatus(deviceId, 1);
 
 			result.put("success", true);
-			result.put("message", "状态刷新成功");
+			result.put("message", "Status refreshed successfully");
 			result.put("status", 1);
 		} catch (Exception e) {
-			log.error("刷新设备状态失败: {}", deviceInfo.getDeviceName(), e);
+			log.error("Failed to refresh device status: {}", deviceInfo.getDeviceName(), e);
 			result.put("success", false);
-			result.put("message", "状态刷新失败: " + e.getMessage());
+			result.put("message", "Status refresh failed: " + e.getMessage());
 		}
 
 		return result;
@@ -419,24 +419,24 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 
 		for (DeviceInfo device : deviceList) {
 			try {
-				// 验证设备信息
+				// Verify device information
 				Map<String, Object> validation = validateDevice(device);
 				if (!(Boolean) validation.get("valid")) {
 					failCount++;
-					errors.add("设备 " + device.getDeviceName() + " 验证失败");
+					errors.add("equipment " + device.getDeviceName() + " Authentication failed");
 					continue;
 				}
 
-				// 保存设备
+				// save device
 				if (addDevice(device)) {
 					successCount++;
 				} else {
 					failCount++;
-					errors.add("设备 " + device.getDeviceName() + " 保存失败");
+					errors.add("equipment " + device.getDeviceName() + " Save failed");
 				}
 			} catch (Exception e) {
 				failCount++;
-				errors.add("设备 " + device.getDeviceName() + " 处理异常: " + e.getMessage());
+				errors.add("equipment " + device.getDeviceName() + " Handle exceptions: " + e.getMessage());
 			}
 		}
 
@@ -480,7 +480,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 				return false;
 			}
 
-			// 更新配置
+			// Update configuration
 			if (config.containsKey("deviceName")) {
 				device.setDeviceName((String) config.get("deviceName"));
 			}
@@ -490,7 +490,7 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 
 			return updateById(device);
 		} catch (Exception e) {
-			log.error("更新设备配置失败", e);
+			log.error("Failed to update device configuration", e);
 			return false;
 		}
 	}
@@ -502,22 +502,22 @@ public class VlsDeviceInfoServiceImpl extends BaseServiceImpl<VlsDeviceInfoMappe
 
 		if (deviceInfo == null) {
 			result.put("success", false);
-			result.put("message", "设备不存在");
+			result.put("message", "Device does not exist");
 			return result;
 		}
 
 		try {
-			// 这里实现实际的PTZ控制逻辑
-			// TODO: 根据设备类型和命令执行PTZ控制
-			log.info("PTZ控制: 设备={}, 命令={}, 参数={}", deviceInfo.getDeviceName(), command, params);
+			// Here is the actualPTZcontrol logic
+			// TODO: Execute based on device type and commandPTZcontrol
+			log.info("PTZcontrol: equipment={}, Order={}, parameter={}", deviceInfo.getDeviceName(), command, params);
 
 			result.put("success", true);
-			result.put("message", "PTZ控制成功");
+			result.put("message", "PTZcontrol success");
 			result.put("command", command);
 		} catch (Exception e) {
-			log.error("PTZ控制失败: {}", deviceInfo.getDeviceName(), e);
+			log.error("PTZcontrol failure: {}", deviceInfo.getDeviceName(), e);
 			result.put("success", false);
-			result.put("message", "PTZ控制失败: " + e.getMessage());
+			result.put("message", "PTZcontrol failure: " + e.getMessage());
 		}
 
 		return result;

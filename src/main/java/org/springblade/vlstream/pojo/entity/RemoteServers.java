@@ -8,14 +8,14 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 远程服务器配置表 实体类
+ * Remote server configuration table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_remote_servers")
-@Schema(description = "VlsRemoteServersEntity对象")
+@Schema(description = "VlsRemoteServersEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class RemoteServers extends TenantEntity {
 
@@ -23,39 +23,39 @@ public class RemoteServers extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 服务器名称
+	 * Server name
 	 */
-	@Schema(description = "服务器名称")
+	@Schema(description = "Server name")
 	private String serverName;
 	/**
-	 * 服务器IP地址
+	 * serverIPaddress
 	 */
-	@Schema(description = "服务器IP地址")
+	@Schema(description = "serverIPaddress")
 	private String serverIp;
 	/**
-	 * SSH端口
+	 * SSHport
 	 */
-	@Schema(description = "SSH端口")
+	@Schema(description = "SSHport")
 	private Integer serverPort;
 	/**
-	 * 用户名
+	 * username
 	 */
-	@Schema(description = "用户名")
+	@Schema(description = "username")
 	private String username;
 	/**
-	 * 密码(加密)
+	 * password(encryption)
 	 */
-	@Schema(description = "密码(加密)")
+	@Schema(description = "password(encryption)")
 	private String password;
 	/**
-	 * Conda环境名称
+	 * Condaenvironment name
 	 */
-	@Schema(description = "Conda环境名称")
+	@Schema(description = "Condaenvironment name")
 	private String condaEnv;
 	/**
-	 * 工作目录
+	 * working directory
 	 */
-	@Schema(description = "工作目录")
+	@Schema(description = "working directory")
 	private String workDir;
 
 }

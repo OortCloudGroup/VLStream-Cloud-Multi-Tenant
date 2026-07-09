@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 远程服务器配置表 服务实现类
+ * Remote server configuration table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23
@@ -40,10 +40,10 @@ public class VlsRemoteServersServiceImpl extends BaseServiceImpl<VlsRemoteServer
 	}
 
 	/**
-	 * 查询远程服务器配置
+	 * Query remote server configuration
 	 *
-	 * @param id 远程服务器配置主键
-	 * @return 远程服务器配置
+	 * @param id Remote server configuration primary key
+	 * @return Remote server configuration
 	 */
 	@Override
 	public RemoteServers selectRemoteServerById(Long id) {
@@ -51,10 +51,10 @@ public class VlsRemoteServersServiceImpl extends BaseServiceImpl<VlsRemoteServer
 	}
 
 	/**
-	 * 查询远程服务器配置列表
+	 * Query the remote server configuration list
 	 *
-	 * @param remoteServer 远程服务器配置
-	 * @return 远程服务器配置
+	 * @param remoteServer Remote server configuration
+	 * @return Remote server configuration
 	 */
 	@Override
 	public List<RemoteServers> selectRemoteServerList(RemoteServers remoteServer) {
@@ -62,10 +62,10 @@ public class VlsRemoteServersServiceImpl extends BaseServiceImpl<VlsRemoteServer
 	}
 
 	/**
-	 * 新增远程服务器配置
+	 * Add remote server configuration
 	 *
-	 * @param remoteServer 远程服务器配置
-	 * @return 结果
+	 * @param remoteServer Remote server configuration
+	 * @return result
 	 */
 	@Override
 	public int insertRemoteServer(RemoteServers remoteServer) {
@@ -73,10 +73,10 @@ public class VlsRemoteServersServiceImpl extends BaseServiceImpl<VlsRemoteServer
 	}
 
 	/**
-	 * 修改远程服务器配置
+	 * Modify remote server configuration
 	 *
-	 * @param remoteServer 远程服务器配置
-	 * @return 结果
+	 * @param remoteServer Remote server configuration
+	 * @return result
 	 */
 	@Override
 	public int updateRemoteServer(RemoteServers remoteServer) {
@@ -84,10 +84,10 @@ public class VlsRemoteServersServiceImpl extends BaseServiceImpl<VlsRemoteServer
 	}
 
 	/**
-	 * 批量删除远程服务器配置
+	 * Delete remote server configurations in batches
 	 *
-	 * @param ids 需要删除的远程服务器配置主键
-	 * @return 结果
+	 * @param ids Remote server configuration primary key that needs to be deleted
+	 * @return result
 	 */
 	@Override
 	public int deleteRemoteServerByIds(Long[] ids) {
@@ -95,10 +95,10 @@ public class VlsRemoteServersServiceImpl extends BaseServiceImpl<VlsRemoteServer
 	}
 
 	/**
-	 * 删除远程服务器配置信息
+	 * Delete remote server configuration information
 	 *
-	 * @param id 远程服务器配置主键
-	 * @return 结果
+	 * @param id Remote server configuration primary key
+	 * @return result
 	 */
 	@Override
 	public int deleteRemoteServerById(Long id) {

@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 数据模型表 控制器
+ * Data model table controller
  *
  * @author Chill
  */
@@ -64,7 +64,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_DEVELOP_NAME + "/model")
-@Tag(name = "数据模型表", description = "数据模型表接口")
+@Tag(name = "Data model table", description = "Data model table interface")
 public class ModelController extends BladeController {
 
 	private final IModelService modelService;
@@ -72,53 +72,53 @@ public class ModelController extends BladeController {
 	private final IDatasourceService datasourceService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入model")
+	@Operation(summary = "Details", description = "incomingmodel")
 	public R<Model> detail(Model model) {
 		Model detail = modelService.getOne(Condition.getQueryWrapper(model));
 		return R.data(detail);
 	}
 
 	/**
-	 * 分页 数据模型表
+	 * Pagination Data model table
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入model")
+	@Operation(summary = "Pagination", description = "incomingmodel")
 	public R<IPage<Model>> list(Model model, Query query) {
 		IPage<Model> pages = modelService.page(Condition.getPage(query), Condition.getQueryWrapper(model));
 		return R.data(pages);
 	}
 
 	/**
-	 * 新增 数据模型表
+	 * New Data model table
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增", description = "传入model")
+	@Operation(summary = "New", description = "incomingmodel")
 	public R save(@Valid @RequestBody Model model) {
 		return R.status(modelService.save(model));
 	}
 
 	/**
-	 * 修改 数据模型表
+	 * Revise Data model table
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "修改", description = "传入model")
+	@Operation(summary = "Revise", description = "incomingmodel")
 	public R update(@Valid @RequestBody Model model) {
 		return R.status(modelService.updateById(model));
 	}
 
 	/**
-	 * 新增或修改 数据模型表
+	 * Add or modify Data model table
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "新增或修改", description = "传入model")
+	@Operation(summary = "Add or modify", description = "incomingmodel")
 	public R submit(@Valid @RequestBody Model model) {
 		boolean temp = modelService.saveOrUpdate(model);
 		if (temp) {
@@ -129,21 +129,21 @@ public class ModelController extends BladeController {
 	}
 
 	/**
-	 * 删除 数据模型表
+	 * delete Data model table
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(modelService.delete(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 模型列表
+	 * Model list
 	 */
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "模型列表", description = "模型列表")
+	@Operation(summary = "Model list", description = "Model list")
 	public R<List<Model>> select() {
 		List<Model> list = modelService.list();
 		list.forEach(model -> model.setModelName(model.getModelTable() + StringPool.COLON + StringPool.SPACE + model.getModelName()));
@@ -151,11 +151,11 @@ public class ModelController extends BladeController {
 	}
 
 	/**
-	 * 获取物理表列表
+	 * Get physical table list
 	 */
 	@GetMapping("/table-list")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "物理表列表", description = "传入datasourceId")
+	@Operation(summary = "Physical table list", description = "incomingdatasourceId")
 	public R<List<TableInfo>> tableList(Long datasourceId) {
 		Datasource datasource = datasourceService.getById(datasourceId);
 		ConfigBuilder config = modelPrototypeService.getConfigBuilder(datasource);
@@ -167,11 +167,11 @@ public class ModelController extends BladeController {
 	}
 
 	/**
-	 * 获取物理表信息
+	 * Get physical table information
 	 */
 	@GetMapping("/table-info")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "物理表信息", description = "传入model信息")
+	@Operation(summary = "Physical table information", description = "incomingmodelinformation")
 	public R<TableInfo> tableInfo(Long modelId, String tableName, Long datasourceId) {
 		if (StringUtil.isBlank(tableName)) {
 			Model model = modelService.getById(modelId);
@@ -182,11 +182,11 @@ public class ModelController extends BladeController {
 	}
 
 	/**
-	 * 获取字段信息
+	 * Get field information
 	 */
 	@GetMapping("/model-prototype")
 	@ApiOperationSupport(order = 10)
-	@Operation(summary = "物理表字段信息", description = "传入modelId与datasourceId")
+	@Operation(summary = "Physical table field information", description = "incomingmodelIdanddatasourceId")
 	public R modelPrototype(Long modelId, Long datasourceId) {
 		List<ModelPrototype> modelPrototypeList = modelPrototypeService.list(Wrappers.<ModelPrototype>query().lambda().eq(ModelPrototype::getModelId, modelId));
 		if (!modelPrototypeList.isEmpty()) {
@@ -198,7 +198,7 @@ public class ModelController extends BladeController {
 		if (tableInfo != null) {
 			return R.data(tableInfo.getFields());
 		} else {
-			return R.fail("未获得相关表信息");
+			return R.fail("No relevant table information was obtained");
 		}
 	}
 

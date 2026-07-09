@@ -36,94 +36,94 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * 数据原型表实体类
+ * Data prototype table entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_model_prototype")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "数据原型表")
+@Schema(description = "Data prototype table")
 public class ModelPrototype extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 模型主键
+	 * Model primary key
 	 */
-	@Schema(description = "模型主键")
+	@Schema(description = "Model primary key")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long modelId;
 	/**
-	 * 物理列名
+	 * Physical column name
 	 */
-	@Schema(description = "物理列名")
+	@Schema(description = "Physical column name")
 	private String jdbcName;
 	/**
-	 * 物理类型
+	 * physical type
 	 */
-	@Schema(description = "物理类型")
+	@Schema(description = "physical type")
 	private String jdbcType;
 	/**
-	 * 注释说明
+	 * Notes
 	 */
-	@Schema(description = "注释说明")
+	@Schema(description = "Notes")
 	private String jdbcComment;
 	/**
-	 * 实体列名
+	 * Entity column name
 	 */
-	@Schema(description = "实体列名")
+	@Schema(description = "Entity column name")
 	private String propertyName;
 	/**
-	 * 实体类型
+	 * Entity type
 	 */
-	@Schema(description = "实体类型")
+	@Schema(description = "Entity type")
 	private String propertyType;
 	/**
-	 * 实体类型引用
+	 * Entity type reference
 	 */
-	@Schema(description = "实体类型引用")
+	@Schema(description = "Entity type reference")
 	private String propertyEntity;
 	/**
-	 * 列表显示
+	 * List display
 	 */
-	@Schema(description = "列表显示")
+	@Schema(description = "List display")
 	private Integer isList;
 	/**
-	 * 表单显示
+	 * form display
 	 */
-	@Schema(description = "表单显示")
+	@Schema(description = "form display")
 	private Integer isForm;
 	/**
-	 * 独占一行
+	 * exclusive line
 	 */
-	@Schema(description = "独占一行")
+	@Schema(description = "exclusive line")
 	private Integer isRow;
 	/**
-	 * 组件类型
+	 * Component type
 	 */
-	@Schema(description = "组件类型")
+	@Schema(description = "Component type")
 	private String componentType;
 	/**
-	 * 字典编码
+	 * dictionary encoding
 	 */
-	@Schema(description = "字典编码")
+	@Schema(description = "dictionary encoding")
 	private String dictCode;
 	/**
-	 * 是否必填
+	 * Is it required?
 	 */
-	@Schema(description = "是否必填")
+	@Schema(description = "Is it required?")
 	private Integer isRequired;
 	/**
-	 * 查询配置
+	 * Query configuration
 	 */
-	@Schema(description = "查询配置")
+	@Schema(description = "Query configuration")
 	private Integer isQuery;
 	/**
-	 * 查询类型
+	 * Query type
 	 */
-	@Schema(description = "查询类型")
+	@Schema(description = "Query type")
 	private String queryType;
 
 

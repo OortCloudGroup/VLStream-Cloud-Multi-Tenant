@@ -6,20 +6,20 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 摄像头申请驳回参数
+ * Camera application rejection parameters
  */
 @Data
 public class CameraApplyRejectDTO {
 
-	@Schema(description = "申请记录ID", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotNull(message = "申请记录ID不能为空")
+	@Schema(description = "Application recordID", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotNull(message = "Application recordIDcannot be empty")
 	private Long id;
 
-	@Schema(description = "审批人", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotBlank(message = "审批人不能为空")
+	@Schema(description = "approver", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotBlank(message = "Approver cannot be empty")
 	private String approveUserName;
 
-	@Schema(description = "驳回原因", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotBlank(message = "驳回原因不能为空")
+	@Schema(description = "Reason for rejection", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotBlank(message = "Reason for rejection cannot be empty")
 	private String approvalComment;
 }

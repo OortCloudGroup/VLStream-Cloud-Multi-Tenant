@@ -11,7 +11,7 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
@@ -24,69 +24,69 @@ public class User extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 用户编号
+	 * User number
 	 */
 	private String code;
 	/**
-	 * 用户平台
+	 * User platform
 	 */
 	private Integer userType;
 	/**
-	 * 账号
+	 * account
 	 */
 	private String account;
 	/**
-	 * 密码
+	 * password
 	 */
 	private String password;
 	/**
-	 * 昵称
+	 * Nick name
 	 */
 	private String name;
 	/**
-	 * 真名
+	 * real name
 	 */
 	private String realName;
 	/**
-	 * 头像
+	 * avatar
 	 */
 	private String avatar;
 	/**
-	 * 邮箱
+	 * Mail
 	 */
 	@Sensitive(type = SensitiveType.EMAIL)
 	private String email;
 	/**
-	 * 手机
+	 * cell phone
 	 */
 	@Sensitive(type = SensitiveType.MOBILE)
 	private String phone;
 	/**
-	 * 生日
+	 * Birthday
 	 */
 	private Date birthday;
 	/**
-	 * 性别
+	 * gender
 	 */
 	private Integer sex;
 	/**
-	 * 角色id
+	 * Roleid
 	 */
 	private String roleId;
 	/**
-	 * 部门id
+	 * departmentid
 	 */
 	private String deptId;
 	/**
-	 * 岗位id
+	 * postid
 	 */
 	private String postId;
 	/**
-	 * 主管id
+	 * directorid
 	 */
 	private String leaderId;
 	/**
-	 * 是否主管
+	 * Whether in charge
 	 */
 	private Integer isLeader;
 

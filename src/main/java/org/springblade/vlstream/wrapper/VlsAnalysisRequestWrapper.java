@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.vo.AnalysisRequestVO;
 import java.util.Objects;
 
 /**
- * 智能分析请求表 包装类,返回视图层所需的字段
+ * Intelligent analysis request form Packaging,Returns the fields required by the view layer
  *
  * @author Oort
  * @since 2025-12-23

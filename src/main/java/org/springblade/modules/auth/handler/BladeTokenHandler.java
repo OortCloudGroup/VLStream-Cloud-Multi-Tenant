@@ -21,14 +21,14 @@ public class BladeTokenHandler extends OAuth2TokenHandler {
 
 	@Override
 	public OAuth2Token enhance(OAuth2User user, OAuth2Token token, OAuth2Request request) {
-		// 父类令牌状态配置
+		// Parent class token status configuration
 		OAuth2Token enhanceToken = super.enhance(user, token, request);
 
-		// 令牌统一处理，增加或删减字段
+		// Unified processing of tokens, Add or delete fields
 		Kv args = enhanceToken.getArgs();
 		args.set(TokenConstant.USER_NAME, user.getAccount());
 
-		// 返回令牌
+		// return token
 		return enhanceToken;
 	}
 }

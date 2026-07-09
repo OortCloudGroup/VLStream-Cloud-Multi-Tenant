@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import java.util.Map;
 
 /**
- * 异步监听错误日志事件
+ * Asynchronously listen to error log events
  *
  * @author Chill
  */
@@ -39,8 +39,8 @@ public class ErrorLogListener {
 			LogAbstractUtil.addOtherInfoToLog(logError, bladeProperties, serverInfo);
 			logService.saveErrorLog(logError);
 		} catch (Exception e) {
-			// 可以根据需要进行更多的异常处理，例如发送警报等
-			log.error("保存错误日志时发生异常", e);
+			// More exception handling can be done as needed, For example, sending an alert etc.
+			log.error("An exception occurred while saving the error log", e);
 		}
 	}
 }

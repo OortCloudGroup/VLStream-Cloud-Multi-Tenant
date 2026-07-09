@@ -10,14 +10,14 @@ import org.springblade.vlstream.enums.AlgorithmRepositoryTypeEnum;
 import java.io.Serial;
 
 /**
- * 算法仓库表 实体类
+ * Algorithm warehouse table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_algorithm_repository")
-@Schema(description = "VlsAlgorithmRepositoryEntity对象")
+@Schema(description = "VlsAlgorithmRepositoryEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class AlgorithmRepository extends TenantEntity {
 
@@ -25,24 +25,24 @@ public class AlgorithmRepository extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 算法仓库名称
+	 * Algorithm warehouse name
 	 */
-	@Schema(description = "算法仓库名称")
+	@Schema(description = "Algorithm warehouse name")
 	private String name;
 	/**
-	 * 拥有算法数量
+	 * Number of algorithms owned
 	 */
-	@Schema(description = "拥有算法数量")
+	@Schema(description = "Number of algorithms owned")
 	private Integer algorithmCount;
 	/**
-	 * 仓库类型
+	 * Warehouse type
 	 */
-	@Schema(description = "仓库类型")
+	@Schema(description = "Warehouse type")
 	private AlgorithmRepositoryTypeEnum repositoryType;
 	/**
-	 * 备注
+	 * Remark
 	 */
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String remark;
 
 }

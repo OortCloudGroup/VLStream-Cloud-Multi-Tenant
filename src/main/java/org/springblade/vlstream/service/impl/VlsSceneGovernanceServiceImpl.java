@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 场景治理表 服务实现类
+ * Scenario management table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23

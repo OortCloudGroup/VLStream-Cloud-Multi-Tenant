@@ -9,7 +9,7 @@ import org.springblade.modules.system.pojo.vo.OortDeptVO;
 import java.util.List;
 
 /**
- *  Mapper 接口
+ *  Mapper interface
  *
  * @author BladeX
  * @since 2025-09-04
@@ -17,24 +17,24 @@ import java.util.List;
 public interface OortDeptMapper extends BaseMapper<OortDeptEntity> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param oortDept 查询参数
+	 * @param page Paging parameters
+	 * @param oortDept query parameters
 	 * @return List<OortDeptVO>
 	 */
 	List<OortDeptVO> selectOortDeptPage(IPage page, OortDeptVO oortDept);
 
 	/**
-	 * 根据部门编码查询本部门及所有子部门
+	 * Query this department and all sub-departments based on department code
 	 *
-	 * @param deptCode 部门编码
+	 * @param deptCode Department code
 	 * @return List<ApDeptEntity>
 	 */
 	List<OortDeptEntity> selectDeptAndChildrenByDeptCode(@Param("deptCode") String deptCode);
 
 	/**
-	 * 获取部门名
+	 * Get department name
 	 *
 	 * @param ids
 	 * @return

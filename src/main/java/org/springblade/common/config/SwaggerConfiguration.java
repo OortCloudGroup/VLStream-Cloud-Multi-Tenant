@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Swagger配置类
+ * SwaggerConfiguration class
  *
  * @author Chill
  */
@@ -42,7 +42,7 @@ public class SwaggerConfiguration {
 
 	@Bean
 	public GroupedOpenApi internetServerApi() {
-		// 创建并返回GroupedOpenApi对象 - 仅在internet profile下生效
+		// Create and returnGroupedOpenApiobject - only ininternet profileeffective next
 		return GroupedOpenApi.builder()
 			.group("vlstream")
 			.packagesToScan(AppConstant.BASE_PACKAGES + ".vlstream")

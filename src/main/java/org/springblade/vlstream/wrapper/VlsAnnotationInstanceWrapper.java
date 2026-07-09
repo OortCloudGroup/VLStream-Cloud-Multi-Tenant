@@ -11,7 +11,7 @@ import org.springblade.vlstream.pojo.vo.AnnotationInstanceVO;
 import java.util.Objects;
 
 /**
- * 标注实例实体类 包装类,返回视图层所需的字段
+ * Label instance entity class Packaging,Returns the fields required by the view layer
  *
  * @author Oort
  * @since 2025-12-23

@@ -40,7 +40,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 单设备实例分割会话：加载模型并对视频流进行实例分割，在产生结果时截图上传并创建事件；支持异常重启与资源清理。
+ * Single device instance split session: Load the model and perform instance segmentation on the video stream, Upload screenshots and create events when results are generated; Support abnormal restart and resource cleanup. 
  */
 @Slf4j
 public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession {
@@ -112,7 +112,7 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
 
     public void stop(String reason) {
         stopRequested.set(true);
-        log.info("停止实例分割: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+        log.info("Stop instance splitting: deviceId={}, deviceName={}, algorithmId={}, reason={}",
             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
         stopDetector();
         cleanupTempModelDirectory();
@@ -135,12 +135,12 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
             this.detector = streamDetector;
             try {
                 streamDetector.startDetection();
-                log.info("开始实例分割: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
+                log.info("Start instance splitting: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, streamUrl);
                 return;
             } catch (Exception startException) {
                 retryTimes++;
-                log.error("启动实例分割器失败: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
+                log.error("Failed to start instance splitter: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, retryTimes, startException.getMessage(), startException);
                 stopDetector();
                 if (retryTimes > MAX_START_RETRY_TIMES) {
@@ -178,7 +178,7 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
                         }
                         snapshotImage = DetectionSessionSupport.copyForSnapshot(image, log);
                         if (snapshotImage == null) {
-                            log.warn("设备 {} 复制截图失败，跳过", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to copy screenshot, jump over", deviceInfo.getDeviceName());
                             return;
                         }
                         ImageUtils.drawRectAndText(snapshotImage, detectionInfoList);
@@ -188,23 +188,23 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
                         File snapFile = snapshot.toFile();
                         try {
                             ImageUtils.save(snapshotImage, snapFile.getName(), snapFile.getParent());
-                            log.info("实例分割截图已保存: deviceId={}, deviceName={}, time={}, path={}",
+                            log.info("Instance split screenshot saved: deviceId={}, deviceName={}, time={}, path={}",
                                 deviceInfo.getId(), deviceInfo.getDeviceName(), now, snapshot.toAbsolutePath());
                         } catch (Exception saveException) {
-                            log.warn("设备 {} 保存截图失败", deviceInfo.getDeviceName(), saveException);
+                            log.warn("equipment {} Failed to save screenshot", deviceInfo.getDeviceName(), saveException);
                             return;
                         }
 
                         FileResponseDto fileResponseDto = DetectionSessionSupport.uploadSnapshot(fileUploadService, snapFile);
                         if (fileResponseDto == null || StringUtils.isBlank(fileResponseDto.getUrl())) {
-                            log.warn("设备 {} 上传截图失败，跳过事件创建", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to upload screenshot, Skip event creation", deviceInfo.getDeviceName());
                             return;
                         }
                         createEvent(deviceInfo, algorithm, detectionInfoList, fileResponseDto.getUrl());
-                        log.info("实例分割事件已创建: deviceId={}, deviceName={}, algorithmId={}, detections={}",
+                        log.info("Instance split event created: deviceId={}, deviceName={}, algorithmId={}, detections={}",
                             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, detectionInfoList.size());
                     } catch (Exception detectException) {
-                        log.warn("设备 {} 实例分割回调处理失败", deviceInfo.getDeviceName(), detectException);
+                        log.warn("equipment {} Instance split callback processing failed", deviceInfo.getDeviceName(), detectException);
                         scheduleDetectorRestart("detectException");
                     } finally {
                         detectionInProgress.set(false);
@@ -214,14 +214,14 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
 
                 @Override
                 public void onStreamEnded() {
-                    log.info("实例分割视频流结束: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("Instance split video stream ends: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamEnded");
                 }
 
                 @Override
                 public void onStreamDisconnected() {
-                    log.info("实例分割视频流断开: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("Instance split video stream disconnected: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamDisconnected");
                 }
@@ -241,7 +241,7 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
                 if (stopRequested.get()) {
                     return;
                 }
-                log.info("已触发重启实例分割: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+                log.info("Restart instance split triggered: deviceId={}, deviceName={}, algorithmId={}, reason={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
                 stopDetector();
                 Thread.sleep(START_RETRY_DELAY_MILLIS);
@@ -276,12 +276,12 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
         try {
             currentDetector.stopDetection();
         } catch (Exception stopException) {
-            log.warn("停止实例分割器失败", stopException);
+            log.warn("Stopping instance splitter failed", stopException);
         }
         try {
             currentDetector.close();
         } catch (Exception closeException) {
-            log.warn("关闭实例分割器失败", closeException);
+            log.warn("Failed to close instance splitter", closeException);
         }
     }
 
@@ -317,7 +317,7 @@ public class DeviceInstanceSegDetectionSession implements DeviceDetectionSession
                              Algorithm algorithm,
                              List<DetectionInfo> detectionInfos,
                              String snapshotPath) {
-        String eventDesc = "设备 " + deviceInfo.getDeviceName() + " 分割到 " + detectionInfos.size() + " 个目标";
+        String eventDesc = "equipment " + deviceInfo.getDeviceName() + " split to " + detectionInfos.size() + " goals";
         DetectionSessionSupport.createEvent(eventManagementService, deviceInfo, algorithm, eventDesc, detectionInfos, snapshotPath);
     }
 }

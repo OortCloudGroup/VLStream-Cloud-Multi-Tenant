@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 查询控制器
+ * Query controller
  *
  * @author Chill
  */
@@ -42,7 +42,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/search")
-@Tag(name = "信息查询", description = "信息查询")
+@Tag(name = "Information inquiry", description = "Information inquiry")
 public class SearchController {
 
 	private final IRoleService roleService;
@@ -54,31 +54,31 @@ public class SearchController {
 	private final IUserService userService;
 
 	/**
-	 * 角色信息查询
+	 * Role information query
 	 */
 	@GetMapping("/role")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "角色信息查询", description = "传入roleName或者parentId")
+	@Operation(summary = "Role information query", description = "incomingroleNameorparentId")
 	public R<List<RoleVO>> roleSearch(String roleName, Long parentId) {
 		return R.data(roleService.search(roleName, parentId));
 	}
 
 	/**
-	 * 部门信息查询
+	 * Department information query
 	 */
 	@GetMapping("/dept")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "部门信息查询", description = "传入deptName或者parentId")
+	@Operation(summary = "Department information query", description = "incomingdeptNameorparentId")
 	public R<List<DeptVO>> deptSearch(String deptName, Long parentId) {
 		return R.data(deptService.search(deptName, parentId));
 	}
 
 	/**
-	 * 岗位信息查询
+	 * Job information inquiry
 	 */
 	@GetMapping("/post")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "岗位信息查询", description = "传入postName")
+	@Operation(summary = "Job information inquiry", description = "incomingpostName")
 	public R<IPage<PostVO>> postSearch(String postName, Query query) {
 		LambdaQueryWrapper<Post> queryWrapper = Wrappers.<Post>query().lambda();
 		if (Func.isNotBlank(postName)) {
@@ -90,51 +90,51 @@ public class SearchController {
 
 
 	/**
-	 * 用户列表查询
+	 * User list query
 	 */
 	@Parameters({
-		@Parameter(name = "name", description = "人员姓名", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "deptName", description = "部门名称", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "postName", description = "职位名称", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "current", description = "当前页数", in = ParameterIn.QUERY, schema = @Schema(type = "int")),
-		@Parameter(name = "size", description = "每页数量", in = ParameterIn.QUERY, schema = @Schema(type = "int"))
+		@Parameter(name = "name", description = "Personnel name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "deptName", description = "Department name", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "postName", description = "Job title", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "current", description = "Current page number", in = ParameterIn.QUERY, schema = @Schema(type = "int")),
+		@Parameter(name = "size", description = "Quantity per page", in = ParameterIn.QUERY, schema = @Schema(type = "int"))
 	})
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "用户列表查询", description = "用户列表查询")
+	@Operation(summary = "User list query", description = "User list query")
 	@GetMapping("/user")
 	public R<IPage<UserVO>> userSearch(@Parameter(hidden = true) UserVO user, @Parameter(hidden = true) Query query) {
 		return R.data(userService.selectUserSearch(user, query));
 	}
 
 	/**
-	 * 获取用户的主管信息
+	 * Get user's supervisor information
 	 */
 	@GetMapping("/leader-info")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "获取用户的主管信息", description = "传入userId")
+	@Operation(summary = "Get user's supervisor information", description = "incominguserId")
 	public R<List<UserVO>> leaderInfo(@Parameter(description = "userId", required = true) Long userId) {
 		List<UserVO> list = userService.leaderInfo(userId);
 		return R.data(list);
 	}
 
 	/**
-	 * 获取部门的主管信息
+	 * Get department manager information
 	 */
 	@GetMapping("/dept-leader-info")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "获取部门的主管信息", description = "传入deptId")
-	public R<List<UserVO>> deptLeaderInfo(@Parameter(description = "部门id", required = true) Long deptId) {
+	@Operation(summary = "Get department manager information", description = "incomingdeptId")
+	public R<List<UserVO>> deptLeaderInfo(@Parameter(description = "departmentid", required = true) Long deptId) {
 		List<UserVO> list = deptService.deptLeaderInfo(deptId);
 		return R.data(list);
 	}
 
 	/**
-	 * 获取主管列表
+	 * Get list of supervisors
 	 */
 	@GetMapping("/leader-list")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "获取主管列表", description = "获取所有主管用户列表")
-	public R<List<UserVO>> leaderList(@Parameter(description = "租户编号") String tenantId, @Parameter(description = "用户姓名") String realName) {
+	@Operation(summary = "Get list of supervisors", description = "Get a list of all supervisor users")
+	public R<List<UserVO>> leaderList(@Parameter(description = "Tenant number") String tenantId, @Parameter(description = "Username") String realName) {
 		List<UserVO> list = userService.leaderList(tenantId, realName);
 		return R.data(list);
 	}

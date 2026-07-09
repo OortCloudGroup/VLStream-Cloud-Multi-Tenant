@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 时间策略表 服务实现类
+ * time strategy table Service implementation class
  *
  * @author Oort
  * @since 2025-12-23
@@ -50,18 +50,18 @@ public class VlsTimeStrategyServiceImpl extends BaseServiceImpl<VlsTimeStrategyM
 
 	@Override
 	public boolean saveOrUpdateStrategy(TimeStrategy timeStrategy) {
-		// 检查是否已存在该设备的时间策略
+		// Check if a time policy already exists for the device
 		TimeStrategy existing = getByDeviceId(timeStrategy.getDeviceId());
 		boolean success;
 
 		if (existing != null) {
-			// 如果存在，更新
+			// if exists, renew
 			UpdateWrapper<TimeStrategy> updateWrapper = new UpdateWrapper<>();
 			updateWrapper.eq("device_id", timeStrategy.getDeviceId());
 			timeStrategy.setId(existing.getId());
 			success = this.update(timeStrategy, updateWrapper);
 		} else {
-			// 如果不存在，新增
+			// if does not exist, New
 			success = this.save(timeStrategy);
 		}
 		if (success) {

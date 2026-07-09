@@ -7,26 +7,26 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
 @Data
-@Schema(description = "TenantVO对象")
+@Schema(description = "TenantVOobject")
 public class TenantVO implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 租户ID
+	 * tenantID
 	 */
-	@Schema(description = "租户ID")
+	@Schema(description = "tenantID")
 	private String tenantId;
 	/**
-	 * 租户名称
+	 * Tenant name
 	 */
-	@Schema(description = "租户名称")
+	@Schema(description = "Tenant name")
 	private String tenantName;
 
 

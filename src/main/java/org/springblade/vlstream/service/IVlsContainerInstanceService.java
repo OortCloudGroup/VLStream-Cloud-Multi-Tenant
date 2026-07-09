@@ -17,194 +17,194 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 容器实例表 服务类
+ * Container instance table Service category
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsContainerInstanceService extends BaseService<ContainerInstance> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsContainerInstance 查询参数
+	 * @param page Paging parameters
+	 * @param vlsContainerInstance query parameters
 	 * @return IPage<VlsContainerInstanceVO>
 	 */
 	IPage<ContainerInstanceVO> selectVlsContainerInstancePage(IPage<ContainerInstanceVO> page, ContainerInstanceVO vlsContainerInstance);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsContainerInstanceExcel>
 	 */
 	List<VlsContainerInstanceExcel> exportVlsContainerInstance(Wrapper<ContainerInstance> queryWrapper);
 
 	/**
-	 * 分页查询容器实例
+	 * Paging query container instance
 	 *
-	 * @param page 分页参数
-	 * @param queryDTO 查询条件
-	 * @return 分页结果
+	 * @param page Paging parameters
+	 * @param queryDTO Query conditions
+	 * @return Paginated results
 	 */
 	IPage<ContainerInstance> pageContainerInstances(Page<ContainerInstance> page, ContainerInstanceQueryDTO queryDTO);
 
 	/**
-	 * 根据ID查询容器实例详情
+	 * according toIDQuery container instance details
 	 *
-	 * @param id 容器实例ID
-	 * @return 容器实例详情
+	 * @param id Container instanceID
+	 * @return Container instance details
 	 */
 	ContainerInstance getContainerInstanceById(Long id);
 
 	/**
-	 * 创建容器实例
+	 * Create container instance
 	 *
-	 * @param createDTO 创建参数
-	 * @return 创建的容器实例
+	 * @param createDTO Create parameters
+	 * @return Container instance created
 	 */
 	ContainerInstance createContainerInstance(ContainerInstanceCreateDTO createDTO);
 
 	/**
-	 * 更新容器实例
+	 * Update container instance
 	 *
-	 * @param updateDTO 更新参数
-	 * @return 更新后的容器实例
+	 * @param updateDTO Update parameters
+	 * @return Updated container instance
 	 */
 	ContainerInstance updateContainerInstance(ContainerInstanceUpdateDTO updateDTO);
 
 	/**
-	 * 删除容器实例
+	 * Delete container instance
 	 *
-	 * @param id 容器实例ID
-	 * @return 是否删除成功
+	 * @param id Container instanceID
+	 * @return Is deletion successful?
 	 */
 	boolean deleteContainerInstance(Long id);
 
 	/**
-	 * 批量删除容器实例
+	 * Delete container instances in batches
 	 *
-	 * @param ids 容器实例ID列表
-	 * @return 是否删除成功
+	 * @param ids Container instanceIDlist
+	 * @return Is deletion successful?
 	 */
 	boolean deleteContainerInstanceBatch(List<Long> ids);
 
 	/**
-	 * 根据容器ID查询容器实例
+	 * According to the containerIDQuery container instance
 	 *
-	 * @param containerId 容器ID
-	 * @return 容器实例
+	 * @param containerId containerID
+	 * @return Container instance
 	 */
 	ContainerInstance getByContainerId(String containerId);
 
 	/**
-	 * 根据算法ID查询容器实例列表
+	 * According to algorithmIDQuery container instance list
 	 *
-	 * @param algorithmId 算法ID
-	 * @return 容器实例列表
+	 * @param algorithmId algorithmID
+	 * @return Container instance list
 	 */
 	List<ContainerInstance> getByAlgorithmId(Long algorithmId);
 
 	/**
-	 * 根据状态查询容器实例列表
+	 * Query the list of container instances based on status
 	 *
-	 * @param instanceStatus 实例状态
-	 * @return 容器实例列表
+	 * @param instanceStatus Instance status
+	 * @return Container instance list
 	 */
 	List<ContainerInstance> getByStatus(String instanceStatus);
 
 	/**
-	 * 启动容器实例
+	 * Start container instance
 	 *
-	 * @param id 容器实例ID
-	 * @param containerId 容器ID
-	 * @return 是否启动成功
+	 * @param id Container instanceID
+	 * @param containerId containerID
+	 * @return Whether the startup is successful
 	 */
 	boolean startContainer(Long id, String containerId);
 
 	/**
-	 * 停止容器实例
+	 * Stop a container instance
 	 *
-	 * @param id 容器实例ID
-	 * @return 是否停止成功
+	 * @param id Container instanceID
+	 * @return Whether the stop was successful
 	 */
 	boolean stopContainer(Long id);
 
 	/**
-	 * 重启容器实例
+	 * Restart container instance
 	 *
-	 * @param id 容器实例ID
-	 * @return 是否重启成功
+	 * @param id Container instanceID
+	 * @return Whether the restart is successful
 	 */
 	boolean restartContainer(Long id);
 
 	/**
-	 * 更新容器实例状态
+	 * Update container instance status
 	 *
-	 * @param id 容器实例ID
-	 * @param instanceStatus 实例状态
-	 * @param healthStatus 健康状态
-	 * @param containerId 容器ID
-	 * @param startTime 启动时间
-	 * @param stopTime 停止时间
-	 * @return 是否更新成功
+	 * @param id Container instanceID
+	 * @param instanceStatus Instance status
+	 * @param healthStatus health status
+	 * @param containerId containerID
+	 * @param startTime Start time
+	 * @param stopTime stop time
+	 * @return Is the update successful?
 	 */
 	boolean updateInstanceStatus(Long id, String instanceStatus, String healthStatus,
 								 String containerId, Date startTime, Date stopTime);
 
 	/**
-	 * 更新容器监控数据
+	 * Update container monitoring data
 	 *
-	 * @param id 容器实例ID
-	 * @param cpuUsage CPU使用率
-	 * @param memoryUsage 内存使用率
-	 * @param gpuUsage GPU使用率
-	 * @return 是否更新成功
+	 * @param id Container instanceID
+	 * @param cpuUsage CPUUsage rate
+	 * @param memoryUsage memory usage
+	 * @param gpuUsage GPUUsage rate
+	 * @return Is the update successful?
 	 */
 	boolean updateMonitoringData(Long id, BigDecimal cpuUsage, BigDecimal memoryUsage, BigDecimal gpuUsage);
 
 	/**
-	 * 增加重启次数
+	 * Increase the number of restarts
 	 *
-	 * @param id 容器实例ID
-	 * @return 是否更新成功
+	 * @param id Container instanceID
+	 * @return Is the update successful?
 	 */
 	boolean increaseRestartCount(Long id);
 
 	/**
-	 * 获取容器实例统计信息
+	 * Get container instance statistics
 	 *
-	 * @return 统计结果
+	 * @return Statistical results
 	 */
 	Map<String, Object> getStatistics();
 
 	/**
-	 * 检查实例名称是否重复
+	 * Check for duplicate instance names
 	 *
-	 * @param instanceName 实例名称
-	 * @param excludeId 排除的ID（更新时使用）
-	 * @return 是否重复
+	 * @param instanceName Instance name
+	 * @param excludeId excludedID(Used when updating)
+	 * @return Whether to repeat
 	 */
 	boolean checkInstanceNameExists(String instanceName, Long excludeId);
 
 	/**
-	 * 获取运行中的容器实例列表
+	 * Get a list of running container instances
 	 *
-	 * @return 运行中的容器实例列表
+	 * @return List of running container instances
 	 */
 	List<ContainerInstance> getRunningInstances();
 
 	/**
-	 * 获取异常状态的容器实例列表
+	 * Get the list of container instances in abnormal status
 	 *
-	 * @return 异常状态的容器实例列表
+	 * @return List of container instances in abnormal status
 	 */
 	List<ContainerInstance> getErrorInstances();
 
 	/**
-	 * 获取健康状态不正常的容器实例列表
+	 * Get a list of container instances with abnormal health status
 	 *
-	 * @return 健康状态不正常的容器实例列表
+	 * @return List of container instances with abnormal health status
 	 */
 	List<ContainerInstance> getUnhealthyInstances();
 

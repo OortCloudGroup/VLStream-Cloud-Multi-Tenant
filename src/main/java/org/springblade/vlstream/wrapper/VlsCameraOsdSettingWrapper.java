@@ -6,7 +6,7 @@ import org.springblade.vlstream.pojo.entity.CameraOsdSetting;
 import org.springblade.vlstream.pojo.vo.CameraOsdSettingVO;
 
 /**
- * 摄像机OSD设置表 包装类
+ * cameraOSDSetting table Packaging
  */
 public class VlsCameraOsdSettingWrapper extends BaseEntityWrapper<CameraOsdSetting, CameraOsdSettingVO> {
 

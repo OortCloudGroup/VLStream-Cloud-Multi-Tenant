@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 算法训练任务表 视图实体类
+ * Algorithm training task list View entity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -19,24 +19,24 @@ public class AlgorithmTrainingVO extends AlgorithmTraining {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "算法名称")
+	@Schema(description = "Algorithm name")
 	private String algorithmName;
 
-	@Schema(description = "算法类型")
+	@Schema(description = "Algorithm type")
 	private AlgorithmCategoryEnum trainType;
 
-	@Schema(description = "对应模型")
+	@Schema(description = "Corresponding model")
 	private String targetModel;
 
-	@Schema(description = "数据集名称")
+	@Schema(description = "Data set name")
 	private String datasetName;
 
-	@Schema(description = "创建人姓名")
+	@Schema(description = "Creator name")
 	private String createdByName;
 
-	@Schema(description = "训练时长（分钟）")
+	@Schema(description = "Training duration(minute)")
 	private Long durationMinutes;
 
-	@Schema(description = "训练状态描述")
+	@Schema(description = "Training status description")
 	private String trainStatusDesc;
 }

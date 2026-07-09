@@ -7,18 +7,18 @@ import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
- * 顶部菜单表 服务类
+ * top menu table Service category
  *
  * @author Oort
  */
 public interface ITopMenuService extends BaseService<TopMenu> {
 
 	/**
-	 * 顶部菜单配置
+	 * Top menu configuration
 	 *
-	 * @param topMenuIds 顶部菜单id集合
-	 * @param menuIds    菜单id集合
-	 * @return 是否成功
+	 * @param topMenuIds top menuidgather
+	 * @param menuIds    menuidgather
+	 * @return Is it successful?
 	 */
 	boolean grant(@NotEmpty List<Long> topMenuIds, @NotEmpty List<Long> menuIds);
 

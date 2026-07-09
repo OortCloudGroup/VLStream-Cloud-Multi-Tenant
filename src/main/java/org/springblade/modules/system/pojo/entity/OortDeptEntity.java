@@ -10,14 +10,14 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 
 /**
- *  实体类
+ *  Entity class
  *
  * @author BladeX
  * @since 2025-09-04
  */
 @Data
 @TableName("oort_dept")
-@Schema(description = "OortDeptEntity对象")
+@Schema(description = "OortDeptEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class OortDeptEntity extends TenantEntity {
 
@@ -30,164 +30,164 @@ public class OortDeptEntity extends TenantEntity {
 	@Schema(description = "UUID")
 	private String oortUdid;
 	/**
-	 * 部门名称
+	 * Department name
 	 */
-	@Schema(description = "部门名称")
+	@Schema(description = "Department name")
 	private String oortDname;
 	/**
-	 * 部门拼音首字母
+	 * Department pinyin initials
 	 */
-	@Schema(description = "部门拼音首字母")
+	@Schema(description = "Department pinyin initials")
 	private String oortDnamefl;
 	/**
-	 * 部门编码
+	 * Department code
 	 */
-	@Schema(description = "部门编码")
+	@Schema(description = "Department code")
 	private String oortDcode;
 	/**
-	 * 父部门名称
+	 * Parent department name
 	 */
-	@Schema(description = "父部门名称")
+	@Schema(description = "Parent department name")
 	private String oortPdname;
 	/**
-	 * 父部门编码
+	 * Parent department code
 	 */
-	@Schema(description = "父部门编码")
+	@Schema(description = "Parent department code")
 	private String oortPdcode;
 	/**
-	 * 部门类型，0其它单位，1编制单位，2临时单位...9测试单位
+	 * Department type, 0Other units, 1Establishment unit, 2temporary unit...9test unit
 	 */
-	@Schema(description = "部门类型，0其它单位，1编制单位，2临时单位...9测试单位")
+	@Schema(description = "Department type, 0Other units, 1Establishment unit, 2temporary unit...9test unit")
 	private Byte oortDtype;
 	/**
-	 * 部门职级，0其它，1科级，2处级，3局级，4厅级...
+	 * Department rank, 0other, 1Section level, 2Division level, 3Bureau level, 4Department level...
 	 */
-	@Schema(description = "部门职级，0其它，1科级，2处级，3局级，4厅级...")
+	@Schema(description = "Department rank, 0other, 1Section level, 2Division level, 3Bureau level, 4Department level...")
 	private Byte oortDpost;
 	/**
-	 * 部门状态，0禁用，1正常，...9删除
+	 * Department status, 0Disable, 1normal, ...9delete
 	 */
-	@Schema(description = "部门状态，0禁用，1正常，...9删除")
+	@Schema(description = "Department status, 0Disable, 1normal, ...9delete")
 	private Byte oortStatus;
 	/**
-	 * 部门排序 越小越靠前
+	 * Department sorting The smaller it is, the closer it is to the front
 	 */
-	@Schema(description = "部门排序 越小越靠前")
+	@Schema(description = "Department sorting The smaller it is, the closer it is to the front")
 	private Integer oortDsort;
 	/**
-	 * 部门联系电话
+	 * Department contact number
 	 */
-	@Schema(description = "部门联系电话")
+	@Schema(description = "Department contact number")
 	private String oortDtel;
 	/**
-	 * 部门地址
+	 * Department address
 	 */
-	@Schema(description = "部门地址")
+	@Schema(description = "Department address")
 	private String oortDaddr;
 	/**
-	 * 部门层级
+	 * department level
 	 */
-	@Schema(description = "部门层级")
+	@Schema(description = "department level")
 	private Integer oortDlevel;
 	/**
-	 * 部门层级路径 从最顶层到所在部门的层级路径
+	 * Department level path Hierarchical path from the top to the department
 	 */
-	@Schema(description = "部门层级路径 从最顶层到所在部门的层级路径")
+	@Schema(description = "Department level path Hierarchical path from the top to the department")
 	private String oortDpath;
 	/**
-	 * 部门编码层级路径 从最顶层到所在部门的编码层级路径
+	 * Department coding hierarchical path Coding hierarchy path from the top to your department
 	 */
-	@Schema(description = "部门编码层级路径 从最顶层到所在部门的编码层级路径")
+	@Schema(description = "Department coding hierarchical path Coding hierarchy path from the top to your department")
 	private String oortDcodepath;
 	/**
-	 * 部门最后更新人
+	 * Last updated by department
 	 */
-	@Schema(description = "部门最后更新人")
+	@Schema(description = "Last updated by department")
 	private String oortDuupdate;
 	/**
-	 * 备注
+	 * Remark
 	 */
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String oortDremark;
 	/**
-	 * 部门创建时间
+	 * Department creation time
 	 */
-	@Schema(description = "部门创建时间")
+	@Schema(description = "Department creation time")
 	private LocalDateTime oortDtcreate;
 	/**
-	 * 部门更新时间
+	 * Department update time
 	 */
-	@Schema(description = "部门更新时间")
+	@Schema(description = "Department update time")
 	private LocalDateTime oortDupdate;
 	/**
-	 * 删除时间
+	 * Delete time
 	 */
-	@Schema(description = "删除时间")
+	@Schema(description = "Delete time")
 	private Integer oortTdelete;
 	/**
-	 * 更新标记
+	 * Update tag
 	 */
-	@Schema(description = "更新标记")
+	@Schema(description = "Update tag")
 	private Integer uptag;
 	/**
-	 * Logo地址
+	 * Logoaddress
 	 */
-	@Schema(description = "Logo地址")
+	@Schema(description = "Logoaddress")
 	private String oortDeptPhoto;
 	/**
-	 * 是否通讯录中隐藏
+	 * Whether to hide in address book
 	 */
-	@Schema(description = "是否通讯录中隐藏")
+	@Schema(description = "Whether to hide in address book")
 	private Byte ishidden;
 	/**
-	 * 保留字段1
+	 * reserved fields1
 	 */
-	@Schema(description = "保留字段1")
+	@Schema(description = "reserved fields1")
 	private String exfield1;
 	/**
-	 * 保留字段2
+	 * reserved fields2
 	 */
-	@Schema(description = "保留字段2")
+	@Schema(description = "reserved fields2")
 	private String exfield2;
 	/**
-	 * 保留字段3
+	 * reserved fields3
 	 */
-	@Schema(description = "保留字段3")
+	@Schema(description = "reserved fields3")
 	private String exfield3;
 	/**
-	 * 保留字段4
+	 * reserved fields4
 	 */
-	@Schema(description = "保留字段4")
+	@Schema(description = "reserved fields4")
 	private String exfield4;
 	/**
-	 * 保留字段5
+	 * reserved fields5
 	 */
-	@Schema(description = "保留字段5")
+	@Schema(description = "reserved fields5")
 	private String exfield5;
 	/**
-	 * 保留字段6
+	 * reserved fields6
 	 */
-	@Schema(description = "保留字段6")
+	@Schema(description = "reserved fields6")
 	private String exfield6;
 	/**
-	 * 保留字段7
+	 * reserved fields7
 	 */
-	@Schema(description = "保留字段7")
+	@Schema(description = "reserved fields7")
 	private String exfield7;
 	/**
-	 * 保留字段8
+	 * reserved fields8
 	 */
-	@Schema(description = "保留字段8")
+	@Schema(description = "reserved fields8")
 	private String exfield8;
 	/**
-	 * 保留字段9
+	 * reserved fields9
 	 */
-	@Schema(description = "保留字段9")
+	@Schema(description = "reserved fields9")
 	private String exfield9;
 	/**
-	 * 保留字段10
+	 * reserved fields10
 	 */
-	@Schema(description = "保留字段10")
+	@Schema(description = "reserved fields10")
 	private String exfield10;
 
 }

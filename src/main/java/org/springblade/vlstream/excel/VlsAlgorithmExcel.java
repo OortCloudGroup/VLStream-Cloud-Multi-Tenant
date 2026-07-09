@@ -14,7 +14,7 @@ import java.io.Serial;
 
 
 /**
- * 算法表 Excel实体类
+ * Algorithm table ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -29,112 +29,112 @@ public class VlsAlgorithmExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 所属算法仓库ID
+	 * Algorithm warehouse to which it belongsID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("所属算法仓库ID")
+	@ExcelProperty("Algorithm warehouse to which it belongsID")
 	private Long repositoryId;
 	/**
-	 * 算法名称
+	 * Algorithm name
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("算法名称")
+	@ExcelProperty("Algorithm name")
 	private String name;
 	/**
-	 * 算法分类（目标检测算法、实例分割算法、图像分类算法、关键点检测算法、旋转目标检测算法等）
+	 * Algorithm classification(Target detection algorithm、Instance segmentation algorithm、Image classification algorithm、Key point detection algorithm、Rotating target detection algorithm, etc.)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("算法分类（目标检测算法、实例分割算法、图像分类算法、关键点检测算法、旋转目标检测算法等）")
+	@ExcelProperty("Algorithm classification(Target detection algorithm、Instance segmentation algorithm、Image classification algorithm、Key point detection algorithm、Rotating target detection algorithm, etc.)")
 	private String category;
 	/**
-	 * 算法描述
+	 * Algorithm description
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("算法描述")
+	@ExcelProperty("Algorithm description")
 	private String description;
 	/**
-	 * 算法图片URL
+	 * Algorithm pictureURL
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("算法图片URL")
+	@ExcelProperty("Algorithm pictureURL")
 	private String imageUrl;
 	/**
-	 * 算法版本
+	 * algorithm version
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("算法版本")
+	@ExcelProperty("algorithm version")
 	private String version;
 	/**
-	 * 模型格式
+	 * Model format
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型格式")
+	@ExcelProperty("Model format")
 	private String modelFormat;
 	/**
-	 * 模型文件路径
+	 * Model file path
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("模型文件路径")
+	@ExcelProperty("Model file path")
 	private String modelFilePath;
 	/**
-	 * 算法配置参数（JSON格式）
+	 * Algorithm configuration parameters(JSONFormat)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("算法配置参数（JSON格式）")
+	@ExcelProperty("Algorithm configuration parameters(JSONFormat)")
 	private String configParams;
 	/**
-	 * 输入格式（image、video等）
+	 * Input format(image、videowait)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("输入格式（image、video等）")
+	@ExcelProperty("Input format(image、videowait)")
 	private String inputFormat;
 	/**
-	 * 输出格式（bbox、mask、keypoint等）
+	 * Output format(bbox、mask、keypointwait)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("输出格式（bbox、mask、keypoint等）")
+	@ExcelProperty("Output format(bbox、mask、keypointwait)")
 	private String outputFormat;
 	/**
-	 * 准确率
+	 * Accuracy
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("准确率")
+	@ExcelProperty("Accuracy")
 	private BigDecimal accuracy;
 	/**
-	 * 处理速度（FPS）
+	 * processing speed(FPS)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("处理速度（FPS）")
+	@ExcelProperty("processing speed(FPS)")
 	private Integer processingSpeed;
 	/**
-	 * 内存使用量（MB）
+	 * Memory usage(MB)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("内存使用量（MB）")
+	@ExcelProperty("Memory usage(MB)")
 	private Integer memoryUsage;
 	/**
-	 * 是否需要GPU：0-否，1-是
+	 * Is it necessaryGPU: 0-no, 1-yes
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("是否需要GPU：0-否，1-是")
+	@ExcelProperty("Is it necessaryGPU: 0-no, 1-yes")
 	private Byte gpuRequired;
 	/**
-	 * 部署状态：ready-就绪, deploying-部署中, deployed-已部署, failed-失败
+	 * Deployment status: ready-ready, deploying-Deploying, deployed-Deployed, failed-fail
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("部署状态：ready-就绪, deploying-部署中, deployed-已部署, failed-失败")
+	@ExcelProperty("Deployment status: ready-ready, deploying-Deploying, deployed-Deployed, failed-fail")
 	private String deployStatus;
 	/**
-	 * 部署次数
+	 * Deployment times
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("部署次数")
+	@ExcelProperty("Deployment times")
 	private Integer deployCount;
 	/**
-	 * 最后部署时间
+	 * Last deployment time
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("最后部署时间")
+	@ExcelProperty("Last deployment time")
 	private LocalDateTime lastDeployTime;
 
 }

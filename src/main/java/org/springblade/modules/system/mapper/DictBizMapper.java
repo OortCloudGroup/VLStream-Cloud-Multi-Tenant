@@ -8,42 +8,42 @@ import org.springblade.modules.system.pojo.vo.DictBizVO;
 import java.util.List;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */
 public interface DictBizMapper extends BaseMapper<DictBiz> {
 
 	/**
-	 * 获取字典表对应中文
+	 * Get the dictionary table corresponding to Chinese
 	 *
-	 * @param tenantId 租户ID
-	 * @param code     字典编号
-	 * @param dictKey  字典序号
+	 * @param tenantId tenantID
+	 * @param code     dictionary number
+	 * @param dictKey  Dictionary number
 	 * @return
 	 */
 	@TenantIgnore
 	String getValue(String tenantId, String code, String dictKey);
 
 	/**
-	 * 获取字典表
+	 * Get dictionary table
 	 *
-	 * @param tenantId 租户ID
-	 * @param code     字典编号
+	 * @param tenantId tenantID
+	 * @param code     dictionary number
 	 * @return
 	 */
 	@TenantIgnore
 	List<DictBiz> getList(String tenantId, String code);
 
 	/**
-	 * 获取树形节点
+	 * Get tree nodes
 	 *
 	 * @return
 	 */
 	List<DictBizVO> tree();
 
 	/**
-	 * 获取树形节点
+	 * Get tree nodes
 	 *
 	 * @return
 	 */

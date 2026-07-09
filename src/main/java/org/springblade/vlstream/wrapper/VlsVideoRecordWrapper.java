@@ -9,7 +9,7 @@ import org.springblade.vlstream.pojo.vo.VideoRecordVO;
 import java.util.Objects;
 
 /**
- * 视频录制记录表 包装类,返回视图层所需的字段
+ * Video recording record sheet Packaging,Returns the fields required by the view layer
  *
  * @author Oort
  * @since 2025-12-25

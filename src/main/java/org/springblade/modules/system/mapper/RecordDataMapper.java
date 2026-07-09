@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.system.pojo.entity.RecordData;
 
 /**
- * 数据审计表 Mapper 接口
+ * Data audit table Mapper interface
  *
  * @author Oort
  */

@@ -10,14 +10,14 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 算法编排表 实体类
+ * Algorithm layout table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_algorithm_orchestration")
-@Schema(description = "VlsAlgorithmOrchestrationEntity对象")
+@Schema(description = "VlsAlgorithmOrchestrationEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class AlgorithmOrchestration extends TenantEntity {
 
@@ -25,69 +25,69 @@ public class AlgorithmOrchestration extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 编排名称
+	 * arrangement name
 	 */
-	@Schema(description = "编排名称")
+	@Schema(description = "arrangement name")
 	private String orchestrationName;
 	/**
-	 * 编排描述
+	 * 编排describe
 	 */
-	@Schema(description = "编排描述")
+	@Schema(description = "编排describe")
 	private String orchestrationDesc;
 	/**
-	 * 触发类型：realtime-实时,scheduled-定时,manual-手动
+	 * Trigger type: realtime-real time,scheduled-timing,manual-Manual
 	 */
-	@Schema(description = "触发类型：realtime-实时,scheduled-定时,manual-手动")
+	@Schema(description = "Trigger type: realtime-real time,scheduled-timing,manual-Manual")
 	private String triggerType;
 	/**
-	 * 执行模式：serial-串行,parallel-并行
+	 * execution mode: serial-serial,parallel-parallel
 	 */
-	@Schema(description = "执行模式：serial-串行,parallel-并行")
+	@Schema(description = "execution mode: serial-serial,parallel-parallel")
 	private String executeMode;
 	/**
-	 * 算法步骤配置
+	 * Algorithm step configuration
 	 */
-	@Schema(description = "算法步骤配置")
+	@Schema(description = "Algorithm step configuration")
 	private String algorithmSteps;
 	/**
-	 * 输入配置
+	 * Enter configuration
 	 */
-	@Schema(description = "输入配置")
+	@Schema(description = "Enter configuration")
 	private String inputConfig;
 	/**
-	 * 输出配置
+	 * 输出Configuration
 	 */
-	@Schema(description = "输出配置")
+	@Schema(description = "输出Configuration")
 	private String outputConfig;
 	/**
-	 * 关联设备数量
+	 * Number of associated devices
 	 */
-	@Schema(description = "关联设备数量")
+	@Schema(description = "Number of associated devices")
 	private Integer deviceCount;
 	/**
-	 * 运行次数
+	 * Number of runs
 	 */
-	@Schema(description = "运行次数")
+	@Schema(description = "Number of runs")
 	private Integer runCount;
 	/**
-	 * 状态：active-活跃,inactive-非活跃,draft-草稿
+	 * state: active-active,inactive-inactive,draft-draft
 	 */
-	@Schema(description = "状态：active-活跃,inactive-非活跃,draft-草稿")
+	@Schema(description = "state: active-active,inactive-inactive,draft-draft")
 	private String orchestrationStatus;
 	/**
-	 * 最后运行时间
+	 * Last running time
 	 */
-	@Schema(description = "最后运行时间")
+	@Schema(description = "Last running time")
 	private LocalDateTime lastRunTime;
 	/**
-	 * 平均运行时间(秒)
+	 * average running time(Second)
 	 */
-	@Schema(description = "平均运行时间(秒)")
+	@Schema(description = "average running time(Second)")
 	private Integer avgRunTime;
 	/**
-	 * 成功率
+	 * success rate
 	 */
-	@Schema(description = "成功率")
+	@Schema(description = "success rate")
 	private BigDecimal successRate;
 
 }

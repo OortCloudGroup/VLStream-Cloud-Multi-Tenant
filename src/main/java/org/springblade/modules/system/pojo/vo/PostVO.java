@@ -8,19 +8,19 @@ import org.springblade.modules.system.pojo.entity.Post;
 import java.io.Serial;
 
 /**
- * 岗位表视图实体类
+ * Position table view entity class
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "岗位表")
+@Schema(description = "Job list")
 public class PostVO extends Post {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 岗位分类名
+	 * Job classification name
 	 */
 	private String categoryName;
 

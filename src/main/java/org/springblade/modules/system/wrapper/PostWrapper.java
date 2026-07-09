@@ -10,7 +10,7 @@ import org.springblade.modules.system.pojo.vo.PostVO;
 import java.util.Objects;
 
 /**
- * 岗位表包装类,返回视图层所需的字段
+ * Job list packaging category,Returns the fields required by the view layer
  *
  * @author Chill
  */

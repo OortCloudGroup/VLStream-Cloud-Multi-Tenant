@@ -52,16 +52,16 @@ public class SocialTokenGranter extends AbstractTokenGranter {
 	@Override
 	public OAuth2User user(OAuth2Request request) {
 		String tenantId = request.getTenantId();
-		// 开放平台来源
+		// Open platform sources
 		String sourceParameter = request.getSource();
-		// 匹配是否有别名定义
+		// Matches whether there is an alias definition
 		String source = socialProperties.getAlias().getOrDefault(sourceParameter, sourceParameter);
-		// 开放平台授权码
+		// Open platform authorization code
 		String code = request.getCode();
-		// 开放平台状态吗
+		// Open platform status?
 		String state = request.getState();
 
-		// 获取开放平台授权数据
+		// Obtain open platform authorization data
 		AuthRequest authRequest = SocialUtil.getAuthRequest(source, socialProperties);
 		AuthCallback authCallback = new AuthCallback();
 		authCallback.setCode(code);
@@ -74,16 +74,16 @@ public class SocialTokenGranter extends AbstractTokenGranter {
 			OAuth2ExceptionUtil.throwFromCode(OAuth2ErrorCode.INVALID_USER);
 		}
 
-		// 组装数据
+		// Assemble data
 		UserOauth userOauth = Objects.requireNonNull(BeanUtil.copyProperties(authUser, UserOauth.class));
 		userOauth.setSource(authUser.getSource());
 		userOauth.setTenantId(tenantId);
 		userOauth.setUuid(authUser.getUuid());
 		UserInfo userInfo = userService.userInfo(userOauth);
 
-		// 设置Oauth2用户信息
+		// set upOauth2User information
 		OAuth2User user = TokenUtil.convertUser(userInfo, request);
-		// 设置客户端信息
+		// Set client information
 		user.setClient(client(request));
 		return user;
 	}

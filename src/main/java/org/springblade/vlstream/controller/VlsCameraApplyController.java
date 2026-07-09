@@ -18,57 +18,57 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsCameraApply")
-@Tag(name = "摄像头申请", description = "摄像头申请表接口")
+@Tag(name = "Camera application", description = "Camera application form interface")
 public class VlsCameraApplyController extends BladeController {
 
 	private final IVlsCameraApplyRecordService vlsCameraApplyRecordService;
 
 	/**
-	 * 摄像头使用申请提交
+	 * Submit application for camera use
 	 */
 	@PostMapping("/camera-apply/submit")
 	@ApiOperationSupport(order = 31)
-	@Operation(summary = "摄像头使用申请", description = "提交摄像头申请记录")
+	@Operation(summary = "Camera use application", description = "Submit camera application record")
 	public R<Boolean> submitCameraApply(@Valid @RequestBody CameraApplySubmitDTO cameraApplySubmitDTO) {
 		return R.data(vlsCameraApplyRecordService.submit(cameraApplySubmitDTO));
 	}
 
 	/**
-	 * 摄像头使用申请审批通过
+	 * Application for camera use approved
 	 */
 	@PostMapping("/camera-apply/approve")
 	@ApiOperationSupport(order = 32)
-	@Operation(summary = "摄像头申请审批通过", description = "审批通过后状态流转为approved")
+	@Operation(summary = "Camera application approved", description = "After approval, the status changes toapproved")
 	public R<Boolean> approveCameraApply(@Valid @RequestBody CameraApplyApproveDTO cameraApplyApproveDTO) {
 		return R.data(vlsCameraApplyRecordService.approve(cameraApplyApproveDTO));
 	}
 
 	/**
-	 * 摄像头使用申请审批驳回
+	 * Camera use application approval rejected
 	 */
 	@PostMapping("/camera-apply/reject")
 	@ApiOperationSupport(order = 33)
-	@Operation(summary = "摄像头申请审批驳回", description = "驳回后状态流转为rejected")
+	@Operation(summary = "Camera application approval rejected", description = "After rejection, the status changes torejected")
 	public R<Boolean> rejectCameraApply(@Valid @RequestBody CameraApplyRejectDTO cameraApplyRejectDTO) {
 		return R.data(vlsCameraApplyRecordService.reject(cameraApplyRejectDTO));
 	}
 
 	/**
-	 * 摄像头使用申请完结
+	 * Camera use application completed
 	 */
 	@PostMapping("/camera-apply/complete")
 	@ApiOperationSupport(order = 34)
-	@Operation(summary = "摄像头申请完结", description = "仅approved状态可完结为completed")
+	@Operation(summary = "Camera application completed", description = "onlyapprovedThe status can be completed ascompleted")
 	public R<Boolean> completeCameraApply(@Valid @RequestBody CameraApplyCompleteDTO cameraApplyCompleteDTO) {
 		return R.data(vlsCameraApplyRecordService.complete(cameraApplyCompleteDTO));
 	}
 
 	/**
-	 * 摄像头使用申请分页
+	 * Camera use application page
 	 */
 	@GetMapping("/camera-apply/page")
 	@ApiOperationSupport(order = 35)
-	@Operation(summary = "摄像头申请分页", description = "按设备、状态、申请人分页查询")
+	@Operation(summary = "Camera application paging", description = "by device、state、Applicant page query")
 	public R<IPage<CameraApplyRecordVO>> pageCameraApply(CameraApplyQueryDTO cameraApplyQueryDTO, Query query) {
 		IPage<CameraApplyRecordVO> pages = vlsCameraApplyRecordService.page(Condition.getPage(query), cameraApplyQueryDTO);
 		return R.data(pages);

@@ -4,17 +4,17 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 请求状态枚举
+ * Request status enum
  *
  * @author Administrator
  */
 @Getter
 public enum AnalysisRequestStatusEnum {
 
-	cancel("cancel", "取消"),
-	processing("processing", "分析中"),
-	completed("completed", "已完成"),
-	failed("failed", "已失败");
+	cancel("cancel", "Cancel"),
+	processing("processing", "Analyzing"),
+	completed("completed", "Completed"),
+	failed("failed", "failed");
 
 	@EnumValue
 	private final String code;
@@ -26,10 +26,10 @@ public enum AnalysisRequestStatusEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 状态码
-	 * @return 枚举对象
+	 * @param code status code
+	 * @return enumeration object
 	 */
 	public static AnalysisRequestStatusEnum of(String code) {
 		if (code == null) {

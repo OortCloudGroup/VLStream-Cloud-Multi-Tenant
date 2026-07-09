@@ -10,14 +10,14 @@ import org.springblade.modules.system.pojo.entity.User;
 import java.util.List;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */
 public interface UserMapper extends BaseMapper<User> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param user
@@ -28,7 +28,7 @@ public interface UserMapper extends BaseMapper<User> {
 	List<User> selectUserPage(IPage<User> page, @Param("user") User user, @Param("deptIdList") List<Long> deptIdList, @Param("tenantId") String tenantId);
 
 	/**
-	 * 获取用户
+	 * Get user
 	 *
 	 * @param tenantId
 	 * @param account
@@ -37,7 +37,7 @@ public interface UserMapper extends BaseMapper<User> {
 	User getUser(String tenantId, String account);
 
 	/**
-	 * 获取用户
+	 * Get user
 	 *
 	 * @param tenantId
 	 * @param phone
@@ -46,7 +46,7 @@ public interface UserMapper extends BaseMapper<User> {
 	User getUserByPhone(String tenantId, String phone);
 
 	/**
-	 * 获取导出用户数据
+	 * Get exported user data
 	 *
 	 * @param queryWrapper
 	 * @return

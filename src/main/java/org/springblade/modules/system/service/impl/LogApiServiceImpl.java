@@ -7,7 +7,7 @@ import org.springblade.modules.system.service.ILogApiService;
 import org.springframework.stereotype.Service;
 
 /**
- * 服务实现类
+ * Service implementation class
  *
  * @author Chill
  */

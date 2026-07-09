@@ -9,31 +9,31 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * 资源类型配置表 实体类
+ * Resource type configuration table Entity class
  *
  * @author Oort
  */
 @Data
 @TableName("vls_resource_type")
-@Schema(description = "ResourceType对象")
+@Schema(description = "ResourceTypeobject")
 @EqualsAndHashCode(callSuper = true)
 public class ResourceType extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "资源类型编码")
+	@Schema(description = "Resource type encoding")
 	private String typeCode;
 
-	@Schema(description = "资源类型名称")
+	@Schema(description = "Resource type name")
 	private String typeName;
 
-	@Schema(description = "是否启用：1-启用，0-禁用")
+	@Schema(description = "Whether to enable: 1-enable, 0-Disable")
 	private Integer isActive;
 
-	@Schema(description = "排序顺序")
+	@Schema(description = "sort order")
 	private Integer sortOrder;
 
-	@Schema(description = "描述")
+	@Schema(description = "describe")
 	private String description;
 }

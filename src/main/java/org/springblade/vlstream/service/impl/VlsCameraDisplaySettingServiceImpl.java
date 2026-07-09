@@ -7,7 +7,7 @@ import org.springblade.vlstream.service.IVlsCameraDisplaySettingService;
 import org.springframework.stereotype.Service;
 
 /**
- * 摄像机显示设置表 服务实现类
+ * Camera display setting table Service implementation class
  */
 @Service
 public class VlsCameraDisplaySettingServiceImpl extends BaseServiceImpl<VlsCameraDisplaySettingMapper, CameraDisplaySetting> implements IVlsCameraDisplaySettingService {

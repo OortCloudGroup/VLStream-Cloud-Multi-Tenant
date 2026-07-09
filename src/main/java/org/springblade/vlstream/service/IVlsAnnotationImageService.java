@@ -12,76 +12,76 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 标注图片信息表 服务类
+ * Label image information table Service category
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAnnotationImageService extends BaseService<AnnotationImage> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsAnnotationImage 查询参数
+	 * @param page Paging parameters
+	 * @param vlsAnnotationImage query parameters
 	 * @return IPage<VlsAnnotationImageVO>
 	 */
 	IPage<AnnotationImageVO> selectVlsAnnotationImagePage(IPage<AnnotationImageVO> page, AnnotationImageVO vlsAnnotationImage);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsAnnotationImageExcel>
 	 */
 	List<VlsAnnotationImageExcel> exportVlsAnnotationImage(Wrapper<AnnotationImage> queryWrapper);
 
 	/**
-	 * 上传图片
+	 * Upload pictures
 	 */
 	List<AnnotationImage> uploadImages(MultipartFile[] files, Long annotationId);
 
 	/**
-	 * 根据数据集ID获取图片列表
+	 * According to the data setIDGet picture list
 	 */
 	List<AnnotationImage> getImagesByDataset(Long annotationId);
 
 	/**
-	 * 根据ID获取图片详情
+	 * according toIDGet image details
 	 */
 	AnnotationImage getImageById(Long id);
 
 	/**
-	 * 更新图片信息
+	 * Update picture information
 	 */
 	AnnotationImage updateImage(AnnotationImage image);
 
 	/**
-	 * 删除图片
+	 * Delete picture
 	 */
 	void deleteImage(Long id);
 
 	/**
-	 * 批量删除图片
+	 * Delete pictures in batches
 	 */
 	void batchDeleteImages(List<Long> ids);
 
 	/**
-	 * 获取数据集统计信息
+	 * Get dataset statistics
 	 */
 	Map<String, Object> getDatasetStats(Long datasetId);
 
 	/**
-	 * 保存图片信息到annotation_image表
+	 * Save image information toannotation_imagesurface
 	 */
 	boolean saveImage(AnnotationImage annotationImage);
 
 	/**
-	 * 批量保存图片信息到annotation_image表
+	 * Save image information in batches toannotation_imagesurface
 	 */
 	boolean batchSaveImages(List<AnnotationImage> annotationImages);
 
 	/**
-	 * 根据标注项目ID获取图片列表
+	 * According to the marked itemsIDGet picture list
 	 */
 	List<AnnotationImage> getImagesByAnnotationId(Long annotationId);
 

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 岗位表 服务实现类
+ * Job list Service implementation class
  *
  * @author Chill
  */

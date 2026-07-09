@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 标注实例实体类 数据传输对象实体类
+ * Label instance entity class Data transfer object entity class
  *
  * @author Oort
  * @since 2025-12-23

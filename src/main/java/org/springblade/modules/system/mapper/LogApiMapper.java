@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.core.log.model.LogApi;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */

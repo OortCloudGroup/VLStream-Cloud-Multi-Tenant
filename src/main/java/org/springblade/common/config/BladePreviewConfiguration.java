@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 演示配置类
+ * Demo configuration class
  *
  * @author Chill
  */
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class BladePreviewConfiguration {
 
 	/**
-	 * 演示模式配置
+	 * Demo mode configuration
 	 */
 	@Bean
 	public PreviewFilter previewFilter() {

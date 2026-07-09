@@ -11,108 +11,108 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * 摄像机显示设置表 实体类
+ * Camera display setting table Entity class
  */
 @Data
 @TableName("vls_camera_display_setting")
-@Schema(description = "CameraDisplaySetting对象")
+@Schema(description = "CameraDisplaySettingobject")
 @EqualsAndHashCode(callSuper = true)
 public class CameraDisplaySetting extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "设备主键ID")
+	@Schema(description = "Device primary keyID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long deviceId;
 
-	@Schema(description = "场景")
+	@Schema(description = "scene")
 	private String scene;
 
-	@Schema(description = "亮度")
+	@Schema(description = "brightness")
 	private Integer brightness;
 
-	@Schema(description = "对比度")
+	@Schema(description = "Contrast")
 	private Integer contrast;
 
-	@Schema(description = "饱和度")
+	@Schema(description = "saturation")
 	private Integer saturation;
 
-	@Schema(description = "锐度")
+	@Schema(description = "sharpness")
 	private Integer sharpness;
 
-	@Schema(description = "曝光模式")
+	@Schema(description = "exposure mode")
 	private String exposureMode;
 
-	@Schema(description = "最大快门限制")
+	@Schema(description = "Maximum shutter limit")
 	private String maxShutterLimit;
 
-	@Schema(description = "最小快门限制")
+	@Schema(description = "Minimum shutter limit")
 	private String minShutterLimit;
 
-	@Schema(description = "增益限制")
+	@Schema(description = "gain limit")
 	private Integer gainLimit;
 
-	@Schema(description = "低照度电子快门")
+	@Schema(description = "Low light electronic shutter")
 	private String lowLightElectronicShutter;
 
-	@Schema(description = "聚焦模式")
+	@Schema(description = "focus mode")
 	private String focusMode;
 
-	@Schema(description = "最小聚焦距离")
+	@Schema(description = "Minimum focus distance")
 	private String minFocusDistance;
 
-	@Schema(description = "日夜转换")
+	@Schema(description = "Day and night transition")
 	private String dayNightSwitch;
 
-	@Schema(description = "灵敏度")
+	@Schema(description = "Sensitivity")
 	private Integer sensitivity;
 
-	@Schema(description = "防补光过曝")
+	@Schema(description = "Prevent fill light from overexposure")
 	private String antiFillLightOverExposure;
 
-	@Schema(description = "红外灯模式")
+	@Schema(description = "Infrared light mode")
 	private String infraredLampMode;
 
-	@Schema(description = "亮度限制")
+	@Schema(description = "Brightness limit")
 	private Integer brightnessLimit;
 
-	@Schema(description = "背光补偿")
+	@Schema(description = "Backlight compensation")
 	private String backlightCompensation;
 
-	@Schema(description = "宽动态")
+	@Schema(description = "wide dynamic range")
 	private String wideDynamic;
 
-	@Schema(description = "强光抑制")
+	@Schema(description = "Strong light suppression")
 	private String strongLightSuppression;
 
-	@Schema(description = "白平衡")
+	@Schema(description = "white balance")
 	private String whiteBalance;
 
-	@Schema(description = "数字降噪")
+	@Schema(description = "digital noise reduction")
 	private String digitalNoiseReduction;
 
-	@Schema(description = "降噪等级")
+	@Schema(description = "Noise reduction level")
 	private Integer noiseReductionLevel;
 
-	@Schema(description = "透雾模式")
+	@Schema(description = "Fog mode")
 	private String defogMode;
 
-	@Schema(description = "电子防抖")
+	@Schema(description = "Electronic image stabilization")
 	private String electronicStabilization;
 
-	@Schema(description = "镜像")
+	@Schema(description = "mirror")
 	private String mirrorMode;
 
 	@Schema(description = "PAL(50HZ)")
 	private String pal50hz;
 
-	@Schema(description = "镜头初始化")
+	@Schema(description = "Lens initialization")
 	private String lensInitialization;
 
-	@Schema(description = "变倍限制")
+	@Schema(description = "Zoom limit")
 	private Integer zoomLimit;
 
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String remark;
 }

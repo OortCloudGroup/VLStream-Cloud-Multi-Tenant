@@ -15,42 +15,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 行政区划表视图实体类
+ * Administrative division table view entity class
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "行政区划表")
+@Schema(description = "Administrative division table")
 public class RegionVO extends Region implements INode<RegionVO> {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键ID
+	 * primary keyID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 
 	/**
-	 * 父节点ID
+	 * parent nodeID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long parentId;
 
 	/**
-	 * 父节点名称
+	 * Parent node name
 	 */
 	private String parentName;
 
 	/**
-	 * 是否有子孙节点
+	 * Whether there are descendant nodes
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Boolean hasChildren;
 
 	/**
-	 * 子孙节点
+	 * descendant node
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<RegionVO> children;

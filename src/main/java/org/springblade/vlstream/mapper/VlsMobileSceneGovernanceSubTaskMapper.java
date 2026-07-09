@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.vlstream.pojo.entity.MobileSceneGovernanceSubTask;
 
 /**
- * 移动端场景治理子循环任务表 Mapper 接口
+ * Mobile terminal scene management sub-cycle task list Mapper interface
  */
 public interface VlsMobileSceneGovernanceSubTaskMapper extends BaseMapper<MobileSceneGovernanceSubTask> {
 }

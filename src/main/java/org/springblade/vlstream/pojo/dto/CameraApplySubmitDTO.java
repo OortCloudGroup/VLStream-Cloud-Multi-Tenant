@@ -6,23 +6,23 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 摄像头申请提交参数
+ * Camera application submission parameters
  */
 @Data
 public class CameraApplySubmitDTO {
 
-	@Schema(description = "设备主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotNull(message = "设备主键ID不能为空")
+	@Schema(description = "Device primary keyID", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotNull(message = "Device primary keyIDcannot be empty")
 	private Long deviceInfoId;
 
-	@Schema(description = "申请原因", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotBlank(message = "申请原因不能为空")
+	@Schema(description = "Reason for application", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotBlank(message = "Application reason cannot be empty")
 	private String applyReason;
 
-	@Schema(description = "申请备注")
+	@Schema(description = "Application notes")
 	private String applyRemark;
 
-	@Schema(description = "申请人", requiredMode = Schema.RequiredMode.REQUIRED)
-	@NotBlank(message = "申请人不能为空")
+	@Schema(description = "applicant", requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotBlank(message = "Applicant cannot be empty")
 	private String applyUserName;
 }

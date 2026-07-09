@@ -12,25 +12,25 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 事件管理表 服务类
+ * event management table Service category
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsEventManagementService extends BaseService<EventManagement> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsEventManagement 查询参数
+	 * @param page Paging parameters
+	 * @param vlsEventManagement query parameters
 	 * @return IPage<VlsEventManagementVO>
 	 */
 	IPage<EventManagementVO> selectVlsEventManagementPage(IPage<EventManagementVO> page, EventManagementVO vlsEventManagement);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsEventManagementExcel>
 	 */
 	List<VlsEventManagementExcel> exportVlsEventManagement(Wrapper<EventManagement> queryWrapper);

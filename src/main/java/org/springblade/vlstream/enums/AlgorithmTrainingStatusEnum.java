@@ -4,18 +4,18 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 训练状态枚举
+ * Training status enum
  *
  * @author Administrator
  */
 @Getter
 public enum AlgorithmTrainingStatusEnum {
 
-	pending("pending", "等待"),
-	training("training", "训练中"),
-	completed("completed", "完成"),
-	failed("failed", "失败"),
-	stop("stop", "停止");
+	pending("pending", "wait"),
+	training("training", "in training"),
+	completed("completed", "Finish"),
+	failed("failed", "fail"),
+	stop("stop", "stop");
 
 	@EnumValue
 	private final String code;
@@ -27,10 +27,10 @@ public enum AlgorithmTrainingStatusEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 状态码
-	 * @return 枚举对象
+	 * @param code status code
+	 * @return enumeration object
 	 */
 	public static AlgorithmTrainingStatusEnum of(String code) {
 		if (code == null) {

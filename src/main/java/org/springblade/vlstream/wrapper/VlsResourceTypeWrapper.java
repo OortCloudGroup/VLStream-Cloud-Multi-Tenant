@@ -8,7 +8,7 @@ import org.springblade.vlstream.pojo.vo.ResourceTypeVO;
 import java.util.Objects;
 
 /**
- * 资源类型配置表 包装类
+ * Resource type configuration table Packaging
  */
 public class VlsResourceTypeWrapper extends BaseEntityWrapper<ResourceType, ResourceTypeVO> {
 

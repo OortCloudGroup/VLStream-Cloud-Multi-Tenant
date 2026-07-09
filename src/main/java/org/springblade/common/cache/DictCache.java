@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.springblade.core.cache.constant.CacheConstant.DICT_CACHE;
 
 /**
- * 字典缓存工具类
+ * Dictionary cache tool class
  *
  * @author Chill
  */
@@ -33,9 +33,9 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典实体
+	 * Get dictionary entity
 	 *
-	 * @param id 主键
+	 * @param id primary key
 	 * @return Dict
 	 */
 	public static Dict getById(Long id) {
@@ -43,10 +43,10 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典值
+	 * Get dictionary value
 	 *
-	 * @param code      字典编号枚举
-	 * @param dictValue 字典值
+	 * @param code      dictionary number enum
+	 * @param dictValue Dictionary value
 	 * @return String
 	 */
 	public static String getKey(DictEnum code, String dictValue) {
@@ -54,10 +54,10 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典键
+	 * Get dictionary key
 	 *
-	 * @param code      字典编号
-	 * @param dictValue 字典值
+	 * @param code      dictionary number
+	 * @param dictValue Dictionary value
 	 * @return String
 	 */
 	public static String getKey(String code, String dictValue) {
@@ -71,10 +71,10 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典值
+	 * Get dictionary value
 	 *
-	 * @param code    字典编号枚举
-	 * @param dictKey Integer型字典键
+	 * @param code    dictionary number enum
+	 * @param dictKey Integertype dictionary key
 	 * @return String
 	 */
 	public static String getValue(DictEnum code, Integer dictKey) {
@@ -82,10 +82,10 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典值
+	 * Get dictionary value
 	 *
-	 * @param code    字典编号
-	 * @param dictKey Integer型字典键
+	 * @param code    dictionary number
+	 * @param dictKey Integertype dictionary key
 	 * @return String
 	 */
 	public static String getValue(String code, Integer dictKey) {
@@ -93,10 +93,10 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典值
+	 * Get dictionary value
 	 *
-	 * @param code    字典编号枚举
-	 * @param dictKey String型字典键
+	 * @param code    dictionary number enum
+	 * @param dictKey Stringtype dictionary key
 	 * @return String
 	 */
 	public static String getValue(DictEnum code, String dictKey) {
@@ -104,10 +104,10 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典值
+	 * Get dictionary value
 	 *
-	 * @param code    字典编号
-	 * @param dictKey String型字典键
+	 * @param code    dictionary number
+	 * @param dictKey Stringtype dictionary key
 	 * @return String
 	 */
 	public static String getValue(String code, String dictKey) {
@@ -115,9 +115,9 @@ public class DictCache {
 	}
 
 	/**
-	 * 获取字典集合
+	 * Get dictionary collection
 	 *
-	 * @param code 字典编号
+	 * @param code dictionary number
 	 * @return List<Dict>
 	 */
 	public static List<Dict> getList(String code) {

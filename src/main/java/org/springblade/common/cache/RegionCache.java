@@ -8,7 +8,7 @@ import org.springblade.modules.system.service.IRegionService;
 import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 
 /**
- * 行政区划缓存工具类
+ * Administrative division cache tool class
  *
  * @author Chill
  */
@@ -29,9 +29,9 @@ public class RegionCache {
 	}
 
 	/**
-	 * 获取行政区划实体
+	 * Get administrative division entities
 	 *
-	 * @param code 区划编号
+	 * @param code Zoning number
 	 * @return Param
 	 */
 	public static Region getByCode(String code) {

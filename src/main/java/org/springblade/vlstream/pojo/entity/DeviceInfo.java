@@ -10,14 +10,14 @@ import java.io.Serial;
 import java.math.BigDecimal;
 
 /**
- * 设备信息表 实体类
+ * Equipment information table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_device_info")
-@Schema(description = "VlsDeviceInfoEntity对象")
+@Schema(description = "VlsDeviceInfoEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class DeviceInfo extends TenantEntity {
 
@@ -25,78 +25,78 @@ public class DeviceInfo extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 设备名称
+	 * Device name
 	 */
-	@Schema(description = "设备名称")
+	@Schema(description = "Device name")
 	private String deviceName;
 	/**
-	 * 设备编号，唯一标识
+	 * Device number, unique identifier
 	 */
-	@Schema(description = "设备编号，唯一标识")
+	@Schema(description = "Device number, unique identifier")
 	private String deviceId;
 	/**
-	 * 视频流地址 (RTSP/HTTP等)
+	 * Video stream address (RTSP/HTTPwait)
 	 */
-	@Schema(description = "视频流地址 (RTSP/HTTP等)")
+	@Schema(description = "Video stream address (RTSP/HTTPwait)")
 	private String streamUrl;
 	/**
-	 * 设备图像路径
+	 * Device image path
 	 */
-	@Schema(description = "设备图像路径")
+	@Schema(description = "Device image path")
 	private String imagePath;
 	/**
-	 * 设备类型 (球机监控、云台、枪机等)
+	 * Device type (Dome machine monitoring、PTZ、Bolt, etc.)
 	 */
-	@Schema(description = "设备类型 (球机监控、云台、枪机等)")
+	@Schema(description = "Device type (Dome machine monitoring、PTZ、Bolt, etc.)")
 	private String deviceType;
 	/**
-	 * 备注信息
+	 * Remarks
 	 */
-	@Schema(description = "备注信息")
+	@Schema(description = "Remarks")
 	private String remark;
 	/**
-	 * 经度
+	 * longitude
 	 */
-	@Schema(description = "经度")
+	@Schema(description = "longitude")
 	private BigDecimal longitude;
 	/**
-	 * 纬度
+	 * latitude
 	 */
-	@Schema(description = "纬度")
+	@Schema(description = "latitude")
 	private BigDecimal latitude;
 	/**
-	 * 高度位置(高空/地面/地下/其他)
+	 * height position(high altitude/ground/underground/other)
 	 */
-	@Schema(description = "高度位置(高空/地面/地下/其他)")
+	@Schema(description = "height position(high altitude/ground/underground/other)")
 	private String heightPosition;
 	/**
-	 * 详细地址
+	 * Detailed address
 	 */
-	@Schema(description = "详细地址")
+	@Schema(description = "Detailed address")
 	private String address;
 	/**
-	 * 区划选择
+	 * Zoning options
 	 */
-	@Schema(description = "区划选择")
+	@Schema(description = "Zoning options")
 	private String region;
 	/**
-	 * 设备标签
+	 * device tag
 	 */
-	@Schema(description = "设备标签")
+	@Schema(description = "device tag")
 	private String tag;
 	/**
-	 * 算法id
+	 * algorithmid
 	 */
-	@Schema(description = "算法id")
+	@Schema(description = "algorithmid")
 	private String algorithmId;
 	/**
-	 * 推送地址
+	 * push address
 	 */
-	@Schema(description = "推送地址")
+	@Schema(description = "push address")
 	private String pushUrl;
 	/**
-	 * 是否公开：0-否，1-是
+	 * Is it public?: 0-no, 1-yes
 	 */
-	@Schema(description = "是否公开：0-否，1-是")
+	@Schema(description = "Is it public?: 0-no, 1-yes")
 	private Integer isPublic;
 }

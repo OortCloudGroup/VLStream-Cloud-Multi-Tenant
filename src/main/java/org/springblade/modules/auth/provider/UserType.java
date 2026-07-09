@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
- * 用户类型枚举
+ * User type enum
  *
  * @author Chill
  */

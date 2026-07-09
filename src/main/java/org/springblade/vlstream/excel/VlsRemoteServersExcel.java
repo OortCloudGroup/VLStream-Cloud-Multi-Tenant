@@ -12,7 +12,7 @@ import java.io.Serial;
 
 
 /**
- * 远程服务器配置表 Excel实体类
+ * Remote server configuration table ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -27,46 +27,46 @@ public class VlsRemoteServersExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 服务器名称
+	 * Server name
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("服务器名称")
+	@ExcelProperty("Server name")
 	private String serverName;
 	/**
-	 * 服务器IP地址
+	 * serverIPaddress
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("服务器IP地址")
+	@ExcelProperty("serverIPaddress")
 	private String serverIp;
 	/**
-	 * SSH端口
+	 * SSHport
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("SSH端口")
+	@ExcelProperty("SSHport")
 	private Integer serverPort;
 	/**
-	 * 用户名
+	 * username
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("用户名")
+	@ExcelProperty("username")
 	private String username;
 	/**
-	 * 密码(加密)
+	 * password(encryption)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("密码(加密)")
+	@ExcelProperty("password(encryption)")
 	private String password;
 	/**
-	 * Conda环境名称
+	 * Condaenvironment name
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Conda环境名称")
+	@ExcelProperty("Condaenvironment name")
 	private String condaEnv;
 	/**
-	 * 工作目录
+	 * working directory
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("工作目录")
+	@ExcelProperty("working directory")
 	private String workDir;
 
 }

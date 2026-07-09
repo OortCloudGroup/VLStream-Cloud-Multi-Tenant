@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * 设备人体检测任务管理器：定时扫描设备配置并维护人体检测会话。
+ * Device human detection task manager: Schedule scan device configuration and maintain human detection sessions. 
  */
 @Slf4j
 @Component
@@ -37,7 +37,7 @@ public class DevicePersonDetectionManager extends AbstractDeviceDetectionManager
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.personDetect,
-            "人体检测",
+            "Human detection",
             this::resolveOnnxModelSourcePath,
             (modelPath, latestModel) -> isOnnxModel(modelPath, latestModel)
         );
@@ -74,22 +74,22 @@ public class DevicePersonDetectionManager extends AbstractDeviceDetectionManager
 
     @Override
     protected String getMissingConfigReason() {
-        return "设备未配置算法或配置不完整";
+        return "The device is not configured with an algorithm or the configuration is incomplete.";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "设备检测配置发生变化";
+        return "Device detection configuration changes";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "刷新设备检测任务失败";
+        return "Refresh device detection task failed";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "停止设备检测失败: deviceId={}, reason={}";
+        return "Stop device detection failed: deviceId={}, reason={}";
     }
 
 }

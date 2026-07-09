@@ -7,7 +7,7 @@ import org.springblade.vlstream.service.IVlsCameraOsdSettingService;
 import org.springframework.stereotype.Service;
 
 /**
- * 摄像机OSD设置表 服务实现类
+ * cameraOSDSetting table Service implementation class
  */
 @Service
 public class VlsCameraOsdSettingServiceImpl extends BaseServiceImpl<VlsCameraOsdSettingMapper, CameraOsdSetting> implements IVlsCameraOsdSettingService {

@@ -7,19 +7,19 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 档案分类案卷类型枚举
+ * File classification file type enumeration
  */
 public enum CategoryAjTypeEnum {
 
 	/**
-	 * 卷内JN 案卷AN
+	 * within the volumeJN filesAN
 	 */
-	JN("JN", "卷内"),
+	JN("JN", "within the volume"),
 
 	/**
-	 * 案卷
+	 * files
 	 */
-	AJ("AJ", "案卷");
+	AJ("AJ", "files");
 
 	@EnumValue
 	private final String code;
@@ -39,10 +39,10 @@ public enum CategoryAjTypeEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 分类code
-	 * @return 对应的枚举值，如果未找到则返回null
+	 * @param code Classificationcode
+	 * @return The corresponding enumeration value, Return if not foundnull
 	 */
 	public static CategoryAjTypeEnum fromCode(String code) {
 		for (CategoryAjTypeEnum category : values()) {
@@ -54,9 +54,9 @@ public enum CategoryAjTypeEnum {
 	}
 
 	/**
-	 * 获取枚举map，key为code，value为枚举实例
+	 * Get enumerationmap, keyforcode, valuefor an enumeration instance
 	 *
-	 * @return 枚举map
+	 * @return enumeratemap
 	 */
 	public static Map<String, String> toMap() {
 		return Arrays.stream(values())

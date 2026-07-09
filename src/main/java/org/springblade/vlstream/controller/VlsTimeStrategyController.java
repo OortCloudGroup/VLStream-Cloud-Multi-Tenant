@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 时间策略表 控制器
+ * time strategy table controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -44,11 +44,11 @@ import java.util.Objects;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsTimeStrategy")
-@Tag(name = "时间策略表", description = "时间策略表接口")
+@Tag(name = "time strategy table", description = "Time policy table interface")
 public class VlsTimeStrategyController extends BladeController {
 
 	private static final Map<String, Object> DEFAULT_PROTECTION_TIME = Map.of(
-		"frequency", "每天",
+		"frequency", "every day",
 		"time_periods", List.of(
 			Map.of("start", "08:00:00", "end", "12:00:00"),
 			Map.of("start", "14:00:00", "end", "18:00:00")
@@ -61,11 +61,11 @@ public class VlsTimeStrategyController extends BladeController {
 	private final ObjectProvider<VlsRtspRecordingManager> rtspRecordingManagerProvider;
 
 	/**
-	 * 时间策略表 详情
+	 * time strategy table Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入vlsTimeStrategy")
+	@Operation(summary = "Details", description = "incomingvlsTimeStrategy")
 	public R<TimeStrategyVO> detail(TimeStrategy vlsTimeStrategy) {
 		TimeStrategy detail = vlsTimeStrategyService.getOne(Condition.getQueryWrapper(vlsTimeStrategy));
 		if (detail == null) {
@@ -82,11 +82,11 @@ public class VlsTimeStrategyController extends BladeController {
 	}
 
 	/**
-	 * 时间策略表 分页
+	 * time strategy table Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入vlsTimeStrategy")
+	@Operation(summary = "Pagination", description = "incomingvlsTimeStrategy")
 	public R<IPage<TimeStrategyVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsTimeStrategy, Query query) {
 		IPage<TimeStrategy> pages = vlsTimeStrategyService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsTimeStrategy, TimeStrategy.class));
 		return R.data(VlsTimeStrategyWrapper.build().pageVO(pages));
@@ -94,22 +94,22 @@ public class VlsTimeStrategyController extends BladeController {
 
 
 	/**
-	 * 时间策略表 自定义分页
+	 * time strategy table Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description = "传入vlsTimeStrategy")
+	@Operation(summary = "Pagination", description = "incomingvlsTimeStrategy")
 	public R<IPage<TimeStrategyVO>> page(TimeStrategyVO vlsTimeStrategy, Query query) {
 		IPage<TimeStrategyVO> pages = vlsTimeStrategyService.selectVlsTimeStrategyPage(Condition.getPage(query), vlsTimeStrategy);
 		return R.data(pages);
 	}
 
 	/**
-	 * 时间策略表 新增
+	 * time strategy table New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入vlsTimeStrategy")
+	@Operation(summary = "New", description = "incomingvlsTimeStrategy")
 	public R save(@Valid @RequestBody TimeStrategy vlsTimeStrategy) {
 		boolean success = vlsTimeStrategyService.save(vlsTimeStrategy);
 		if (!success) {
@@ -118,17 +118,17 @@ public class VlsTimeStrategyController extends BladeController {
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsTimeStrategyTopic(), vlsTimeStrategy);
 		notifyRecordingRefresh();
 		if (!publishSuccess) {
-			return R.fail("保存成功，但MQTT消息发送失败");
+			return R.fail("Saved successfully, butMQTTMessage sending failed");
 		}
 		return R.status(true);
 	}
 
 	/**
-	 * 时间策略表 修改
+	 * time strategy table Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入vlsTimeStrategy")
+	@Operation(summary = "Revise", description = "incomingvlsTimeStrategy")
 	public R update(@Valid @RequestBody TimeStrategy vlsTimeStrategy) {
 		boolean success = vlsTimeStrategyService.updateById(vlsTimeStrategy);
 		if (success) {
@@ -138,11 +138,11 @@ public class VlsTimeStrategyController extends BladeController {
 	}
 
 	/**
-	 * 时间策略表 新增或修改
+	 * time strategy table Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入vlsTimeStrategy")
+	@Operation(summary = "Add or modify", description = "incomingvlsTimeStrategy")
 	public R submit(@Valid @RequestBody TimeStrategy vlsTimeStrategy) {
 		boolean success = vlsTimeStrategyService.saveOrUpdate(vlsTimeStrategy);
 		if (!success) {
@@ -151,18 +151,18 @@ public class VlsTimeStrategyController extends BladeController {
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsTimeStrategyTopic(), vlsTimeStrategy);
 		notifyRecordingRefresh();
 		if (!publishSuccess) {
-			return R.fail("保存成功，但MQTT消息发送失败");
+			return R.fail("Saved successfully, butMQTTMessage sending failed");
 		}
 		return R.status(true);
 	}
 
 	/**
-	 * 时间策略表 删除
+	 * time strategy table delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		boolean success = vlsTimeStrategyService.deleteLogic(Func.toLongList(ids));
 		if (success) {
 			notifyRecordingRefresh();
@@ -171,12 +171,12 @@ public class VlsTimeStrategyController extends BladeController {
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsTimeStrategy")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description = "传入vlsTimeStrategy")
+	@Operation(summary = "Export data", description = "incomingvlsTimeStrategy")
 	public void exportVlsTimeStrategy(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsTimeStrategy, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<TimeStrategy> queryWrapper = Condition.getQueryWrapper(vlsTimeStrategy, TimeStrategy.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -184,48 +184,48 @@ public class VlsTimeStrategyController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsTimeStrategyEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsTimeStrategyExcel> list = vlsTimeStrategyService.exportVlsTimeStrategy(queryWrapper);
-		ExcelUtil.export(response, "时间策略表数据" + DateUtil.time(), "时间策略表数据表", list, VlsTimeStrategyExcel.class);
+		ExcelUtil.export(response, "Time strategy table data" + DateUtil.time(), "Time strategy table data table", list, VlsTimeStrategyExcel.class);
 	}
 
 
 	/**
-	 * 保存或更新时间策略
+	 * Save or update time policy
 	 */
 	@PostMapping
-	@Operation(summary = "保存时间策略", description = "保存或更新时间策略")
+	@Operation(summary = "Save time strategy", description = "Save or update time policy")
 	public R<Boolean> saveOrUpdate(@RequestBody TimeStrategy timeStrategy) {
 		boolean success = vlsTimeStrategyService.saveOrUpdateStrategy(timeStrategy);
 		if (!success) {
-			return R.fail("保存失败");
+			return R.fail("Save failed");
 		}
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsTimeStrategyTopic(), timeStrategy);
 		notifyRecordingRefresh();
 		if (!publishSuccess) {
-			return R.fail("保存成功，但MQTT消息发送失败");
+			return R.fail("Saved successfully, butMQTTMessage sending failed");
 		}
 		return R.data(true);
 	}
 
 	/**
-	 * 根据设备ID删除时间策略
+	 * According to deviceIDDelete time policy
 	 */
 	@DeleteMapping("/{deviceId}")
-	@Operation(summary = "删除时间策略", description = "根据设备ID删除时间策略")
+	@Operation(summary = "Delete time policy", description = "According to deviceIDDelete time policy")
 	public R<Boolean> deleteByDeviceId(@PathVariable String deviceId) {
 		boolean success = vlsTimeStrategyService.deleteByDeviceId(deviceId);
 		if (success) {
 			notifyRecordingRefresh();
 		}
-		return success ? R.data(true) : R.fail("删除失败");
+		return success ? R.data(true) : R.fail("Delete failed");
 	}
 
 	private void notifyRecordingRefresh() {
 		VlsRtspRecordingManager rtspRecordingManager = rtspRecordingManagerProvider.getIfAvailable();
 		if (rtspRecordingManager != null) {
-			log.info("触发录制刷新通知: controller=VlsTimeStrategyController");
+			log.info("Trigger recording refresh notification: controller=VlsTimeStrategyController");
 			rtspRecordingManager.refreshNowAsync();
 		} else {
-			log.warn("触发录制刷新失败: VlsRtspRecordingManager未加载");
+			log.warn("Failed to trigger recording refresh: VlsRtspRecordingManagernot loaded");
 		}
 	}
 

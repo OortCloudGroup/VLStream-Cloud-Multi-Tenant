@@ -11,104 +11,104 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 组织机构表 实体类
+ * Organization chart Entity class
  *
  * @author BladeX
  * @since 2025-08-09
  */
 @Data
 @TableName("ap_dept")
-@Schema(description = "ApDeptEntity对象")
+@Schema(description = "ApDeptEntityobject")
 public class ApDeptEntity implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 组织机构ID
+	 * Organizational structureID
 	 */
-	@Schema(description = "组织机构ID")
+	@Schema(description = "Organizational structureID")
 	@TableId(value = "dept_id", type = IdType.ASSIGN_ID)
 	private String deptId;
 	/**
-	 * 租户ID
+	 * tenantID
 	 */
-	@Schema(description = "租户ID")
+	@Schema(description = "tenantID")
 	private String tenantId;
 	/**
-	 * 组织机构编码
+	 * Organization code
 	 */
-	@Schema(description = "组织机构编码")
+	@Schema(description = "Organization code")
 	private String deptCode;
 	/**
-	 * 父组织机构ID
+	 * Parent OrganizationID
 	 */
-	@Schema(description = "父组织机构ID")
+	@Schema(description = "Parent OrganizationID")
 	private String parentDeptId;
 	/**
-	 * 组织机构类型 1:集团 2:公司 3:部门 4:项目 0:未知
+	 * Organization type 1:group 2:company 3:department 4:project 0:unknown
 	 */
-	@Schema(description = "组织机构类型 1:集团 2:公司 3:部门 4:项目 0:未知")
+	@Schema(description = "Organization type 1:group 2:company 3:department 4:project 0:unknown")
 	private Integer deptType;
 	/**
-	 * 组织机构名称
+	 * Organization name
 	 */
-	@Schema(description = "组织机构名称")
+	@Schema(description = "Organization name")
 	private String deptName;
 	/**
-	 * 组织机构编码层级路径
+	 * Organization code hierarchy path
 	 */
-	@Schema(description = "组织机构编码层级路径")
+	@Schema(description = "Organization code hierarchy path")
 	private String deptCodePath;
 	/**
-	 * 组织机构名称层级路径
+	 * Organization name hierarchical path
 	 */
-	@Schema(description = "组织机构名称层级路径")
+	@Schema(description = "Organization name hierarchical path")
 	private String deptNamePath;
 	/**
-	 * 组织机构层级
+	 * organizational level
 	 */
-	@Schema(description = "组织机构层级")
+	@Schema(description = "organizational level")
 	private Long deptLevel;
 	/**
-	 * 部门排序 越小越靠前
+	 * Department sorting The smaller it is, the closer it is to the front
 	 */
-	@Schema(description = "部门排序 越小越靠前")
+	@Schema(description = "Department sorting The smaller it is, the closer it is to the front")
 	private Integer sort;
 	/**
-	 * 额外数据
+	 * extra data
 	 */
-	@Schema(description = "额外数据")
+	@Schema(description = "extra data")
 	private String data;
 	/**
-	 * 创建时间
+	 * creation time
 	 */
-	@Schema(description = "创建时间")
+	@Schema(description = "creation time")
 	private LocalDateTime createdAt;
 	/**
-	 * 更新时间
+	 * Update time
 	 */
-	@Schema(description = "更新时间")
+	@Schema(description = "Update time")
 	private LocalDateTime updatedAt;
 	/**
-	 * 删除时间戳
+	 * Remove timestamp
 	 */
-	@Schema(description = "删除时间戳")
+	@Schema(description = "Remove timestamp")
 	private Long deletedAt;
 	/**
-	 * 创建者的标识
+	 * Creator's ID
 	 */
-	@Schema(description = "创建者的标识")
+	@Schema(description = "Creator's ID")
 	private String createdBy;
 	/**
-	 * 最后更新者的标识
+	 * ID of the last updater
 	 */
-	@Schema(description = "最后更新者的标识")
+	@Schema(description = "ID of the last updater")
 	private String updatedBy;
 	/**
-	 * 审核表关联id
+	 * Audit table associationid
 	 */
-	@Schema(description = "审核表关联id")
+	@Schema(description = "Audit table associationid")
 	private Integer checkId;
 
 }

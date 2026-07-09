@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/control")
-@Tag(name = "协议-国标控制API", description = "国标控制API")
+@Tag(name = "protocol-National standard controlAPI", description = "National standard controlAPI")
 public class GbApiControlController {
 
-	@Operation(summary = "云台控制")
+	@Operation(summary = "PTZ control")
 	@GetMapping("/ptz")
 	public void ptz(@RequestParam String serial,
 					  @RequestParam String command,
 					  @RequestParam(required = false) Integer channel,
 					  @RequestParam(required = false) String code,
 					  @RequestParam(required = false) Integer speed) {
-		// 兼容接口占位，暂不执行国标信令
+		// Compatible interface placeholder, National standard signaling will not be implemented for the time being.
 	}
 
-	@Operation(summary = "预置位控制")
+	@Operation(summary = "Preset position control")
 	@GetMapping("/preset")
 	public void preset(@RequestParam String serial,
 						 @RequestParam String command,
@@ -32,6 +32,6 @@ public class GbApiControlController {
 						 @RequestParam(required = false) String code,
 						 @RequestParam(required = false) String name,
 						 @RequestParam(required = false) Integer preset) {
-		// 兼容接口占位，暂不执行国标信令
+		// Compatible interface placeholder, National standard signaling will not be implemented for the time being.
 	}
 }

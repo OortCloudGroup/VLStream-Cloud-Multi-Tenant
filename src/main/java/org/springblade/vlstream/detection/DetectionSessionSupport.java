@@ -24,7 +24,7 @@ import java.util.Base64;
 import java.util.Date;
 
 /**
- * 检测会话通用工具：提供截图复制与资源静默关闭等辅助能力。
+ * Universal tool for detecting sessions: Provides auxiliary capabilities such as screenshot copying and resource silent closing. 
  */
 public final class DetectionSessionSupport {
 
@@ -44,7 +44,7 @@ public final class DetectionSessionSupport {
             return copiedImage;
         } catch (Exception exception) {
             if (logger != null) {
-                logger.warn("复制截图图像失败", exception);
+                logger.warn("Failed to copy screenshot image", exception);
             }
             FileUtil.del(tempFile);
             return null;
@@ -59,7 +59,7 @@ public final class DetectionSessionSupport {
             autoCloseable.close();
         } catch (Exception closeException) {
             if (logger != null) {
-                logger.debug("关闭资源失败", closeException);
+                logger.debug("Failed to close resource", closeException);
             }
         }
     }
@@ -73,7 +73,7 @@ public final class DetectionSessionSupport {
                                                               boolean useMimeDecoder) {
         if (StringUtils.isBlank(modelSourcePath)) {
             if (logger != null && deviceInfo != null) {
-                logger.warn("设备 {} 的算法 {} 模型路径为空", deviceInfo.getDeviceName(), algorithmId);
+                logger.warn("equipment {} algorithm {} Model path is empty", deviceInfo.getDeviceName(), algorithmId);
             }
             return null;
         }
@@ -81,7 +81,7 @@ public final class DetectionSessionSupport {
             File localModelFile = new File(modelSourcePath);
             String localModelPath = localModelFile.getAbsolutePath();
             if (logger != null && deviceInfo != null) {
-                logger.info("设备 {} 使用本地模型路径: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
+                logger.info("equipment {} Use local model path: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
             }
             return new PreparedLocalModel(localModelPath, null, null);
         }
@@ -89,7 +89,7 @@ public final class DetectionSessionSupport {
         byte[] modelContent = fetchRemoteFileContent(sshService, sshProperties, modelSourcePath, "model", deviceInfo, logger, useMimeDecoder);
         if (modelContent == null) {
             if (logger != null && deviceInfo != null) {
-                logger.error("设备 {} 的算法 {} 模型文件不可用: modelPath={}", deviceInfo.getDeviceName(), algorithmId, modelSourcePath);
+                logger.error("equipment {} algorithm {} Model file is not available: modelPath={}", deviceInfo.getDeviceName(), algorithmId, modelSourcePath);
             }
             return null;
         }
@@ -98,7 +98,7 @@ public final class DetectionSessionSupport {
         FileUtil.writeBytes(modelContent, tempModelFile);
         String localModelPath = tempModelFile.getAbsolutePath();
         if (logger != null && deviceInfo != null) {
-            logger.info("设备 {} 模型文件已准备就绪: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
+            logger.info("equipment {} Model file is ready: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
         }
         return new PreparedLocalModel(localModelPath, tempModelFile, null);
     }
@@ -114,7 +114,7 @@ public final class DetectionSessionSupport {
                                                                    boolean useMimeDecoder) {
         if (StringUtils.isBlank(modelSourcePath)) {
             if (logger != null && deviceInfo != null) {
-                logger.warn("设备 {} 的算法 {} 模型路径为空", deviceInfo.getDeviceName(), algorithmId);
+                logger.warn("equipment {} algorithm {} Model path is empty", deviceInfo.getDeviceName(), algorithmId);
             }
             return null;
         }
@@ -126,12 +126,12 @@ public final class DetectionSessionSupport {
             String localModelPath = localModelFile.getAbsolutePath();
             if (onnxModel && !ensureLocalSynset(localModelFile, resolvedSynsetFileName)) {
                 if (logger != null && deviceInfo != null) {
-                    logger.warn("设备 {} 模型目录缺少 {}: modelPath={}", deviceInfo.getDeviceName(), resolvedSynsetFileName, localModelPath);
+                    logger.warn("equipment {} Model directory is missing {}: modelPath={}", deviceInfo.getDeviceName(), resolvedSynsetFileName, localModelPath);
                 }
                 return null;
             }
             if (logger != null && deviceInfo != null) {
-                logger.info("设备 {} 使用本地模型文件: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
+                logger.info("equipment {} Use local model files: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
             }
             return new PreparedLocalModel(localModelPath, null, null);
         }
@@ -141,7 +141,7 @@ public final class DetectionSessionSupport {
             tempModelDirectory = Files.createTempDirectory(StringUtils.defaultIfBlank(tempDirectoryPrefix, "detect-model-"));
         } catch (Exception createException) {
             if (logger != null && deviceInfo != null) {
-                logger.warn("设备 {} 创建临时目录失败", deviceInfo.getDeviceName(), createException);
+                logger.warn("equipment {} Failed to create temporary directory", deviceInfo.getDeviceName(), createException);
             }
             return null;
         }
@@ -149,7 +149,7 @@ public final class DetectionSessionSupport {
         byte[] modelContent = fetchRemoteFileContent(sshService, sshProperties, modelSourcePath, "model", deviceInfo, logger, useMimeDecoder);
         if (modelContent == null) {
             if (logger != null && deviceInfo != null) {
-                logger.error("设备 {} 的算法 {} 模型文件不可用: modelPath={}", deviceInfo.getDeviceName(), algorithmId, modelSourcePath);
+                logger.error("equipment {} algorithm {} Model file is not available: modelPath={}", deviceInfo.getDeviceName(), algorithmId, modelSourcePath);
             }
             cleanupTempModelDirectory(tempModelDirectory, logger);
             return null;
@@ -161,7 +161,7 @@ public final class DetectionSessionSupport {
             Files.write(localModelFile, modelContent);
         } catch (Exception writeException) {
             if (logger != null && deviceInfo != null) {
-                logger.warn("设备 {} 写入临时模型文件失败", deviceInfo.getDeviceName(), writeException);
+                logger.warn("equipment {} Failed to write temporary model file", deviceInfo.getDeviceName(), writeException);
             }
             cleanupTempModelDirectory(tempModelDirectory, logger);
             return null;
@@ -172,7 +172,7 @@ public final class DetectionSessionSupport {
             byte[] synsetContent = fetchRemoteFileContent(sshService, sshProperties, synsetRemotePath, "synset", deviceInfo, logger, useMimeDecoder);
             if (synsetContent == null) {
                 if (logger != null && deviceInfo != null) {
-                    logger.error("设备 {} 的算法 {} synset 文件不可用: modelPath={}, synsetPath={}",
+                    logger.error("equipment {} algorithm {} synset File not available: modelPath={}, synsetPath={}",
                         deviceInfo.getDeviceName(), algorithmId, modelSourcePath, synsetRemotePath);
                 }
                 cleanupTempModelDirectory(tempModelDirectory, logger);
@@ -183,7 +183,7 @@ public final class DetectionSessionSupport {
                 Files.write(synsetFilePath, synsetContent);
             } catch (Exception writeException) {
                 if (logger != null && deviceInfo != null) {
-                    logger.warn("设备 {} 写入 synset 文件失败", deviceInfo.getDeviceName(), writeException);
+                    logger.warn("equipment {} write synset File failed", deviceInfo.getDeviceName(), writeException);
                 }
                 cleanupTempModelDirectory(tempModelDirectory, logger);
                 return null;
@@ -192,7 +192,7 @@ public final class DetectionSessionSupport {
 
         String localModelPath = localModelFile.toAbsolutePath().toString();
         if (logger != null && deviceInfo != null) {
-            logger.info("设备 {} 模型文件已准备就绪: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
+            logger.info("equipment {} Model file is ready: algorithmId={}, modelPath={}", deviceInfo.getDeviceName(), algorithmId, localModelPath);
         }
         return new PreparedLocalModel(localModelPath, null, tempModelDirectory);
     }
@@ -205,7 +205,7 @@ public final class DetectionSessionSupport {
             FileUtil.del(modelFile);
         } catch (Exception exception) {
             if (logger != null) {
-                logger.debug("删除临时模型文件失败: {}", modelFile.getAbsolutePath(), exception);
+                logger.debug("Failed to delete temporary model files: {}", modelFile.getAbsolutePath(), exception);
             }
         }
     }
@@ -218,7 +218,7 @@ public final class DetectionSessionSupport {
             FileUtil.del(tempModelDirectory.toFile());
         } catch (Exception exception) {
             if (logger != null) {
-                logger.debug("删除临时模型目录失败: {}", tempModelDirectory.toAbsolutePath(), exception);
+                logger.debug("Failed to delete temporary model directory: {}", tempModelDirectory.toAbsolutePath(), exception);
             }
         }
     }
@@ -243,7 +243,7 @@ public final class DetectionSessionSupport {
                                                 boolean useMimeDecoder) {
         if (StringUtils.isBlank(remotePath)) {
             if (logger != null && deviceInfo != null) {
-                logger.warn("设备 {} 的 {} 路径为空", deviceInfo.getDeviceName(), fileLabel);
+                logger.warn("equipment {} of {} Path is empty", deviceInfo.getDeviceName(), fileLabel);
             }
             return null;
         }
@@ -261,7 +261,7 @@ public final class DetectionSessionSupport {
         if (fileResult != null && fileResult.isSuccess() && StringUtils.isNotBlank(fileResult.getOutput())) {
             String base64Content = fileResult.getOutput().trim().replaceAll("\\s+", "");
             if (logger != null && deviceInfo != null) {
-                logger.info("{} Base64长度: deviceId={}, deviceName={}, length={}",
+                logger.info("{} Base64length: deviceId={}, deviceName={}, length={}",
                     fileLabel, deviceInfo.getId(), deviceInfo.getDeviceName(), base64Content.length());
             }
             try {
@@ -270,14 +270,14 @@ public final class DetectionSessionSupport {
                     : Base64.getDecoder().decode(base64Content);
             } catch (IllegalArgumentException decodeException) {
                 if (logger != null && deviceInfo != null) {
-                    logger.warn("设备 {} 解码 {} 失败: {}", deviceInfo.getDeviceName(), fileLabel, decodeException.getMessage());
+                    logger.warn("equipment {} decoding {} fail: {}", deviceInfo.getDeviceName(), fileLabel, decodeException.getMessage());
                 }
                 return null;
             }
         }
         if (logger != null && deviceInfo != null) {
             String errorMessage = fileResult == null ? null : fileResult.getErrorMsg();
-            logger.warn("远程获取 {} 失败: deviceId={}, deviceName={}, path={}, error={}",
+            logger.warn("remote acquisition {} fail: deviceId={}, deviceName={}, path={}, error={}",
                 fileLabel, deviceInfo.getId(), deviceInfo.getDeviceName(), remotePath, errorMessage);
         }
         return null;
@@ -302,7 +302,7 @@ public final class DetectionSessionSupport {
         eventManagement.setEventLevel(EventLevelEnum.medium);
         eventManagement.setEventStatus(EventStatusEnum.pending);
         eventManagement.setEventData(ai.djl.util.JsonUtils.toJson(eventData));
-        eventManagement.setHandleResult("算法: " + algorithm.getName());
+        eventManagement.setHandleResult("algorithm: " + algorithm.getName());
         eventManagement.setTenantId("0e391fd7-1033-4f09-88c0-187582fee462");
         eventManagementService.createEvent(eventManagement);
     }

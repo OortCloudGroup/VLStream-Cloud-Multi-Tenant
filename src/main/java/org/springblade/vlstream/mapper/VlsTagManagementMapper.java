@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 标签管理表 Mapper 接口
+ * Tag management table Mapper interface
  *
  * @author Oort
  * @since 2025-12-23
@@ -21,26 +21,26 @@ import java.util.List;
 public interface VlsTagManagementMapper extends BaseMapper<TagManagement> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page             分页参数
-	 * @param vlsTagManagement 查询参数
+	 * @param page             Paging parameters
+	 * @param vlsTagManagement query parameters
 	 * @return List<VlsTagManagementVO>
 	 */
 	List<TagManagementVO> selectVlsTagManagementPage(IPage page, TagManagementVO vlsTagManagement);
 
 	/**
-	 * 获取导出数据
+	 * Get export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsTagManagementExcel>
 	 */
 	List<VlsTagManagementExcel> exportVlsTagManagement(@Param("ew") Wrapper<TagManagement> queryWrapper);
 
 	/**
-	 * 获取标签树形结构（按类型和层级排序）
+	 * Get tag tree structure(Sort by type and level)
 	 *
-	 * @return 标签列表
+	 * @return tag list
 	 */
 	@Select("SELECT t.*, p.tag_name as parent_name " +
 		"FROM vls_tag_management t " +
@@ -50,10 +50,10 @@ public interface VlsTagManagementMapper extends BaseMapper<TagManagement> {
 	List<TagManagement> selectTagTree();
 
 	/**
-	 * 根据类型获取标签树
+	 * Get tag tree based on type
 	 *
-	 * @param tagType 标签类型
-	 * @return 标签列表
+	 * @param tagType Tag type
+	 * @return tag list
 	 */
 	@Select("SELECT t.*, p.tag_name as parent_name " +
 		"FROM vls_tag_management t " +
@@ -63,10 +63,10 @@ public interface VlsTagManagementMapper extends BaseMapper<TagManagement> {
 	List<TagManagement> selectTagTreeByType(@Param("tagType") String tagType);
 
 	/**
-	 * 根据父级ID获取子标签
+	 * According to parentIDGet subtags
 	 *
-	 * @param parentId 父级ID
-	 * @return 子标签列表
+	 * @param parentId parentID
+	 * @return subtag list
 	 */
 	@Select("SELECT * FROM vls_tag_management " +
 		"WHERE is_deleted = 0 AND parent_id = #{parentId} " +
@@ -74,9 +74,9 @@ public interface VlsTagManagementMapper extends BaseMapper<TagManagement> {
 	List<TagManagement> selectChildrenByParentId(@Param("parentId") Long parentId);
 
 	/**
-	 * 获取根级标签（类型级别）
+	 * Get root-level tags(type level)
 	 *
-	 * @return 根级标签列表
+	 * @return Root-level tag list
 	 */
 	@Select("SELECT * FROM vls_tag_management " +
 		"WHERE is_deleted = 0 AND level = 0 " +
@@ -84,31 +84,31 @@ public interface VlsTagManagementMapper extends BaseMapper<TagManagement> {
 	List<TagManagement> selectRootTags();
 
 	/**
-	 * 更新标签使用次数
+	 * Update label usage count
 	 *
-	 * @param tagId     标签ID
-	 * @param increment 增加的次数
+	 * @param tagId     LabelID
+	 * @param increment increased times
 	 */
 	@Update("UPDATE vls_tag_management SET usage_count = usage_count + #{increment} " +
 		"WHERE id = #{tagId}")
 	void updateUsageCount(@Param("tagId") Long tagId, @Param("increment") Integer increment);
 
 	/**
-	 * 设置标签使用次数
+	 * Set label usage times
 	 *
-	 * @param tagId 标签ID
-	 * @param count 使用次数
+	 * @param tagId LabelID
+	 * @param count Number of uses
 	 */
 	@Update("UPDATE vls_tag_management SET usage_count = #{count} WHERE id = #{tagId}")
 	void setUsageCount(@Param("tagId") Long tagId, @Param("count") Integer count);
 
 	/**
-	 * 检查标签名称是否存在（同级别下）
+	 * Check if tag name exists(Under the same level)
 	 *
-	 * @param tagName   标签名称
-	 * @param parentId  父级ID
-	 * @param excludeId 排除的ID（用于编辑时验证）
-	 * @return 数量
+	 * @param tagName   Tag name
+	 * @param parentId  parentID
+	 * @param excludeId excludedID(Used for validation while editing)
+	 * @return quantity
 	 */
 	@Select("<script>" +
 		"SELECT COUNT(*) FROM vls_tag_management " +
@@ -123,10 +123,10 @@ public interface VlsTagManagementMapper extends BaseMapper<TagManagement> {
 						   @Param("excludeId") Long excludeId);
 
 	/**
-	 * 获取最大排序号
+	 * Get the maximum sort number
 	 *
-	 * @param parentId 父级ID
-	 * @return 最大排序号
+	 * @param parentId parentID
+	 * @return Maximum sort number
 	 */
 	@Select("SELECT COALESCE(MAX(sort_order), 0) FROM vls_tag_management " +
 		"WHERE is_deleted = 0 AND (parent_id = #{parentId} OR (parent_id IS NULL AND #{parentId} IS NULL))")

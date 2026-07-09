@@ -14,31 +14,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 视图实体类
+ * View entity class
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "RoleVO对象")
+@Schema(description = "RoleVOobject")
 public class RoleVO extends Role implements INode<RoleVO> {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键ID
+	 * primary keyID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 
 	/**
-	 * 父节点ID
+	 * parent nodeID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long parentId;
 
 	/**
-	 * 子孙节点
+	 * descendant node
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<RoleVO> children;
@@ -52,7 +52,7 @@ public class RoleVO extends Role implements INode<RoleVO> {
 	}
 
 	/**
-	 * 上级角色
+	 * superior role
 	 */
 	private String parentName;
 }

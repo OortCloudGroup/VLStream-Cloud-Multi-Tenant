@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 算法标注数据表 控制器
+ * Algorithm annotation data table controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -41,28 +41,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAlgorithmAnnotation")
-@Tag(name = "算法标注数据表", description = "算法标注数据表接口")
+@Tag(name = "Algorithm annotation data table", description = "Algorithm annotation data table interface")
 public class VlsAlgorithmAnnotationController extends BladeController {
 
 	private final IVlsAlgorithmAnnotationService vlsAlgorithmAnnotationService;
 
 	/**
-	 * 算法标注数据表 详情
+	 * Algorithm annotation data table Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入vlsAlgorithmAnnotation")
+	@Operation(summary = "Details", description = "incomingvlsAlgorithmAnnotation")
 	public R<AlgorithmAnnotationVO> detail(AlgorithmAnnotation vlsAlgorithmAnnotation) {
 		AlgorithmAnnotation detail = vlsAlgorithmAnnotationService.getOne(Condition.getQueryWrapper(vlsAlgorithmAnnotation));
 		return R.data(VlsAlgorithmAnnotationWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 算法标注数据表 分页
+	 * Algorithm annotation data table Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmAnnotation")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmAnnotation")
 	public R<IPage<AlgorithmAnnotationVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmAnnotation, Query query) {
 		IPage<AlgorithmAnnotation> pages = vlsAlgorithmAnnotationService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAlgorithmAnnotation, AlgorithmAnnotation.class));
 		return R.data(VlsAlgorithmAnnotationWrapper.build().pageVO(pages));
@@ -70,63 +70,63 @@ public class VlsAlgorithmAnnotationController extends BladeController {
 
 
 	/**
-	 * 算法标注数据表 自定义分页
+	 * Algorithm annotation data table Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmAnnotation")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmAnnotation")
 	public R<IPage<AlgorithmAnnotationVO>> page(AlgorithmAnnotationVO vlsAlgorithmAnnotation, Query query) {
 		IPage<AlgorithmAnnotationVO> pages = vlsAlgorithmAnnotationService.selectVlsAlgorithmAnnotationPage(Condition.getPage(query), vlsAlgorithmAnnotation);
 		return R.data(pages);
 	}
 
 	/**
-	 * 算法标注数据表 新增
+	 * Algorithm annotation data table New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入vlsAlgorithmAnnotation")
+	@Operation(summary = "New", description = "incomingvlsAlgorithmAnnotation")
 	public R save(@Valid @RequestBody AlgorithmAnnotation vlsAlgorithmAnnotation) {
 		return R.status(vlsAlgorithmAnnotationService.save(vlsAlgorithmAnnotation));
 	}
 
 	/**
-	 * 算法标注数据表 修改
+	 * Algorithm annotation data table Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入vlsAlgorithmAnnotation")
+	@Operation(summary = "Revise", description = "incomingvlsAlgorithmAnnotation")
 	public R update(@Valid @RequestBody AlgorithmAnnotation vlsAlgorithmAnnotation) {
 		return R.status(vlsAlgorithmAnnotationService.updateById(vlsAlgorithmAnnotation));
 	}
 
 	/**
-	 * 算法标注数据表 新增或修改
+	 * Algorithm annotation data table Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入vlsAlgorithmAnnotation")
+	@Operation(summary = "Add or modify", description = "incomingvlsAlgorithmAnnotation")
 	public R submit(@Valid @RequestBody AlgorithmAnnotation vlsAlgorithmAnnotation) {
 		return R.status(vlsAlgorithmAnnotationService.saveOrUpdate(vlsAlgorithmAnnotation));
 	}
 
 	/**
-	 * 算法标注数据表 删除
+	 * Algorithm annotation data table delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsAlgorithmAnnotationService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAlgorithmAnnotation")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description = "传入vlsAlgorithmAnnotation")
+	@Operation(summary = "Export data", description = "incomingvlsAlgorithmAnnotation")
 	public void exportVlsAlgorithmAnnotation(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmAnnotation, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<AlgorithmAnnotation> queryWrapper = Condition.getQueryWrapper(vlsAlgorithmAnnotation, AlgorithmAnnotation.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -134,257 +134,257 @@ public class VlsAlgorithmAnnotationController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsAlgorithmAnnotationEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAlgorithmAnnotationExcel> list = vlsAlgorithmAnnotationService.exportVlsAlgorithmAnnotation(queryWrapper);
-		ExcelUtil.export(response, "算法标注数据表数据" + DateUtil.time(), "算法标注数据表数据表", list, VlsAlgorithmAnnotationExcel.class);
+		ExcelUtil.export(response, "Algorithm annotation data table data" + DateUtil.time(), "Algorithm annotation data table data table", list, VlsAlgorithmAnnotationExcel.class);
 	}
 
 	/**
-	 * 根据标注类型查询标注列表
+	 * Query annotation list based on annotation type
 	 */
 	@GetMapping("/type/{annotationType}")
-	@Operation(summary = "根据标注类型查询标注列表", description = "获取指定类型的所有标注")
+	@Operation(summary = "Query annotation list based on annotation type", description = "Get all annotations of a specified type")
 	public R<List<AlgorithmAnnotation>> getAnnotationsByType(
-		@Parameter(description = "标注类型", example = "object_detection") @PathVariable String annotationType) {
+		@Parameter(description = "Dimension type", example = "object_detection") @PathVariable String annotationType) {
 
-		log.info("根据标注类型查询标注列表：{}", annotationType);
+		log.info("Query annotation list based on annotation type: {}", annotationType);
 
 		List<AlgorithmAnnotation> annotations = vlsAlgorithmAnnotationService.getByAnnotationType(annotationType);
 		return R.data(annotations);
 	}
 
 	/**
-	 * 根据标注状态查询标注列表
+	 * Query annotation list based on annotation status
 	 */
 	@GetMapping("/status/{annotationStatus}")
-	@Operation(summary = "根据标注状态查询标注列表", description = "获取指定状态的所有标注")
+	@Operation(summary = "Query annotation list based on annotation status", description = "get指定stateof所有mark")
 	public R<List<AlgorithmAnnotation>> getAnnotationsByStatus(
-		@Parameter(description = "标注状态", example = "partial") @PathVariable String annotationStatus) {
+		@Parameter(description = "Annotation status", example = "partial") @PathVariable String annotationStatus) {
 
-		log.info("根据标注状态查询标注列表：{}", annotationStatus);
+		log.info("Query annotation list based on annotation status: {}", annotationStatus);
 
 		List<AlgorithmAnnotation> annotations = vlsAlgorithmAnnotationService.getByAnnotationStatus(annotationStatus);
 		return R.data(annotations);
 	}
 
 	/**
-	 * 根据ID查询标注详情
+	 * according toIDQuery label details
 	 */
 	@GetMapping("/{id}")
-	@Operation(summary = "查询标注详情", description = "根据ID获取标注详细信息")
+	@Operation(summary = "Query label details", description = "according toIDGet label details")
 	public R<AlgorithmAnnotation> getAnnotationById(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("查询标注详情：ID={}", id);
+		log.info("Query label details: ID={}", id);
 
 		AlgorithmAnnotation annotation = vlsAlgorithmAnnotationService.getById(id);
 		if (annotation == null) {
-			return R.fail("标注不存在");
+			return R.fail("Annotation does not exist");
 		}
 
 		return R.data(annotation);
 	}
 
 	/**
-	 * 创建算法标注
+	 * Create algorithm annotations
 	 */
 	@PostMapping
-	@Operation(summary = "创建算法标注", description = "新增算法标注")
+	@Operation(summary = "Create algorithm annotations", description = "Add algorithm annotation")
 	public R<String> createAnnotation(@Valid @RequestBody AlgorithmAnnotation annotation) {
-		log.info("创建算法标注：{}", annotation.getAnnotationName());
+		log.info("Create algorithm annotations: {}", annotation.getAnnotationName());
 
 		boolean success = vlsAlgorithmAnnotationService.createAnnotation(annotation);
 		if (success) {
-			return R.data("标注创建成功");
+			return R.data("Label created successfully");
 		} else {
-			return R.fail("标注创建失败，名称可能已存在");
+			return R.fail("Label creation failed, name may already exist");
 		}
 	}
 
 	/**
-	 * 更新算法标注
+	 * Update algorithm annotation
 	 */
 	@PutMapping("/{id}")
-	@Operation(summary = "更新算法标注", description = "根据ID更新标注信息")
+	@Operation(summary = "Update algorithm annotation", description = "according toIDUpdate label information")
 	public R<String> updateAnnotation(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id,
 		@Valid @RequestBody AlgorithmAnnotation annotation) {
 
-		log.info("更新算法标注：ID={}", id);
+		log.info("Update algorithm annotation: ID={}", id);
 
 		annotation.setId(id);
 		boolean success = vlsAlgorithmAnnotationService.updateAnnotation(annotation);
 
 		if (success) {
-			return R.data("标注更新成功");
+			return R.data("Annotation updated successfully");
 		} else {
-			return R.fail("标注更新失败");
+			return R.fail("Label update failed");
 		}
 	}
 
 	/**
-	 * 删除算法标注
+	 * Delete algorithm annotation
 	 */
 	@DeleteMapping("/{id}")
-	@Operation(summary = "删除算法标注", description = "根据ID删除标注（软删除）")
+	@Operation(summary = "Delete algorithm annotation", description = "according toIDDelete callout(soft delete)")
 	public R<String> deleteAnnotation(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("删除算法标注：ID={}", id);
+		log.info("Delete algorithm annotation: ID={}", id);
 
 		boolean success = vlsAlgorithmAnnotationService.deleteAnnotation(id);
 		if (success) {
-			return R.success("标注删除成功");
+			return R.success("Annotation deleted successfully");
 		} else {
-			return R.fail("标注删除失败");
+			return R.fail("Annotation deletion failed");
 		}
 	}
 
 	/**
-	 * 批量删除算法标注
+	 * Batch deletion of algorithm annotations
 	 */
 	@DeleteMapping("/batch")
-	@Operation(summary = "批量删除算法标注", description = "根据ID列表批量删除标注")
+	@Operation(summary = "Batch deletion of algorithm annotations", description = "according toIDDelete labels in batches from list")
 	public R<String> batchDeleteAnnotations(@RequestBody List<Long> ids) {
-		log.info("批量删除算法标注：IDs={}", ids);
+		log.info("Batch deletion of algorithm annotations: IDs={}", ids);
 
 		if (ids == null || ids.isEmpty()) {
-			return R.fail("请选择要删除的标注");
+			return R.fail("Please select the annotation to delete");
 		}
 
 		boolean success = vlsAlgorithmAnnotationService.batchDeleteAnnotations(ids);
 		if (success) {
-			return R.success("标注批量删除成功");
+			return R.success("Mark batch deletion successful");
 		} else {
-			return R.fail("标注批量删除失败");
+			return R.fail("Annotation batch deletion failed");
 		}
 	}
 
 	/**
-	 * 更新标注进度
+	 * Update labeling progress
 	 */
 	@PutMapping("/{id}/progress")
-	@Operation(summary = "更新标注进度", description = "更新标注的进度信息")
+	@Operation(summary = "Update labeling progress", description = "Update annotated progress information")
 	public R<String> updateAnnotationProgress(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id,
-		@Parameter(description = "已标注数量", example = "50") @RequestParam @NotNull Integer annotatedCount) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "Quantity marked", example = "50") @RequestParam @NotNull Integer annotatedCount) {
 
-		log.info("更新标注进度：ID={}, AnnotatedCount={}", id, annotatedCount);
+		log.info("Update labeling progress: ID={}, AnnotatedCount={}", id, annotatedCount);
 
 		boolean success = vlsAlgorithmAnnotationService.updateAnnotationProgress(id, annotatedCount);
 		if (success) {
-			return R.success("标注进度更新成功");
+			return R.success("Annotation progress updated successfully");
 		} else {
-			return R.fail("标注进度更新失败");
+			return R.fail("Annotation progress update failed");
 		}
 	}
 
 	/**
-	 * 批量更新标注状态
+	 * Update annotation status in batches
 	 */
 	@PutMapping("/batch/status")
-	@Operation(summary = "批量更新标注状态", description = "批量更新标注的状态")
+	@Operation(summary = "Update annotation status in batches", description = "Update label status in batches")
 	public R<String> batchUpdateAnnotationStatus(
 		@RequestBody List<Long> ids,
-		@Parameter(description = "标注状态", example = "completed") @RequestParam @NotNull String annotationStatus) {
+		@Parameter(description = "Annotation status", example = "completed") @RequestParam @NotNull String annotationStatus) {
 
-		log.info("批量更新标注状态：IDs={}, Status={}", ids, annotationStatus);
+		log.info("Update annotation status in batches: IDs={}, Status={}", ids, annotationStatus);
 
 		if (ids == null || ids.isEmpty()) {
-			return R.fail("请选择要更新的标注");
+			return R.fail("Please select annotations to update");
 		}
 
 		boolean success = vlsAlgorithmAnnotationService.batchUpdateAnnotationStatus(ids, annotationStatus);
 		if (success) {
-			return R.success("标注状态批量更新成功");
+			return R.success("Annotation status batch update successful");
 		} else {
-			return R.fail("标注状态批量更新失败");
+			return R.fail("Label status batch update failed");
 		}
 	}
 
 	/**
-	 * 开始标注任务
+	 * Start labeling task
 	 */
 	@PostMapping("/{id}/start")
-	@Operation(summary = "开始标注任务", description = "开始指定的标注任务")
+	@Operation(summary = "Start labeling task", description = "Start the specified labeling task")
 	public R<String> startAnnotationTask(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("开始标注任务：ID={}", id);
+		log.info("Start labeling task: ID={}", id);
 
 		boolean success = vlsAlgorithmAnnotationService.startAnnotationTask(id);
 		if (success) {
-			return R.success("标注任务开始成功");
+			return R.success("The labeling task started successfully");
 		} else {
-			return R.fail("标注任务开始失败");
+			return R.fail("Labeling task failed to start");
 		}
 	}
 
 	/**
-	 * 完成标注任务
+	 * Complete the labeling task
 	 */
 	@PostMapping("/{id}/complete")
-	@Operation(summary = "完成标注任务", description = "完成指定的标注任务")
+	@Operation(summary = "Complete the labeling task", description = "Complete designated labeling tasks")
 	public R<String> completeAnnotationTask(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("完成标注任务：ID={}", id);
+		log.info("Complete the labeling task: ID={}", id);
 
 		boolean success = vlsAlgorithmAnnotationService.completeAnnotationTask(id);
 		if (success) {
-			return R.success("标注任务完成成功");
+			return R.success("Labeling task completed successfully");
 		} else {
-			return R.fail("标注任务完成失败");
+			return R.fail("Annotation task failed to complete");
 		}
 	}
 
 	/**
-	 * 重置标注任务
+	 * Reset labeling task
 	 */
 	@PostMapping("/{id}/reset")
-	@Operation(summary = "重置标注任务", description = "重置指定的标注任务")
+	@Operation(summary = "Reset labeling task", description = "Resets the specified labeling task")
 	public R<String> resetAnnotationTask(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("重置标注任务：ID={}", id);
+		log.info("Reset labeling task: ID={}", id);
 
 		boolean success = vlsAlgorithmAnnotationService.resetAnnotationTask(id);
 		if (success) {
-			return R.success("标注任务重置成功");
+			return R.success("Labeling task reset successfully");
 		} else {
-			return R.fail("标注任务重置失败");
+			return R.fail("Annotation task reset failed");
 		}
 	}
 
 	/**
-	 * 导出标注数据
+	 * Export annotation data
 	 */
 	@PostMapping("/{id}/export")
-	@Operation(summary = "导出标注数据", description = "导出指定标注的数据")
-	public void exportAnnotationData(@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id, HttpServletResponse response) {
+	@Operation(summary = "Export annotation data", description = "Export data for specified annotations")
+	public void exportAnnotationData(@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id, HttpServletResponse response) {
 		log.info("Download dataset zip request, id={}", id);
 		vlsAlgorithmAnnotationService.downloadAnnotationDataset(id, response);
 	}
 
 	/**
-	 * 导入标注数据
+	 * Import annotation data
 	 */
 	@PostMapping("/{id}/import")
-	@Operation(summary = "导入标注数据", description = "导入标注数据")
+	@Operation(summary = "Import annotation data", description = "Import annotation data")
 	public R<Map<String, Object>> importAnnotationData(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id,
-		@Parameter(description = "数据路径") @RequestParam @NotNull String dataPath) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "data path") @RequestParam @NotNull String dataPath) {
 
-		log.info("导入标注数据：ID={}, DataPath={}", id, dataPath);
+		log.info("Import annotation data: ID={}, DataPath={}", id, dataPath);
 
 		Map<String, Object> result = vlsAlgorithmAnnotationService.importAnnotationData(id, dataPath);
 		if (result != null) {
 			return R.data(result);
 		} else {
-			return R.fail("标注数据导入失败");
+			return R.fail("Label data import failed");
 		}
 	}
 
 	/**
-	 * 验证标注数据
+	 * Verify annotation data
 	 */
 	/**
 	 * Import annotation dataset zip.
@@ -413,82 +413,82 @@ public class VlsAlgorithmAnnotationController extends BladeController {
 	}
 
 	@PostMapping("/{id}/validate")
-	@Operation(summary = "验证标注数据", description = "验证指定标注的数据质量")
+	@Operation(summary = "Verify annotation data", description = "verify指定markofdata质量")
 	public R<Map<String, Object>> validateAnnotationData(
-		@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("验证标注数据：ID={}", id);
+		log.info("Verify annotation data: ID={}", id);
 
 		Map<String, Object> result = vlsAlgorithmAnnotationService.validateAnnotationData(id);
 		if (result != null) {
 			return R.data(result);
 		} else {
-			return R.fail("标注数据验证失败");
+			return R.fail("Annotation data validation failed");
 		}
 	}
 
 	/**
-	 * 获取标注类型统计
+	 * Get annotation type statistics
 	 */
 	@GetMapping("/statistics/type")
-	@Operation(summary = "获取标注类型统计", description = "获取各类型的标注数量统计")
+	@Operation(summary = "Get annotation type statistics", description = "Get statistics on the number of annotations of various types")
 	public R<List<Map<String, Object>>> getAnnotationTypeStatistics() {
-		log.info("获取标注类型统计");
+		log.info("Get annotation type statistics");
 
 		List<Map<String, Object>> statistics = vlsAlgorithmAnnotationService.getAnnotationTypeStatistics();
 		return R.data(statistics);
 	}
 
 	/**
-	 * 获取标注状态统计
+	 * Get annotation status statistics
 	 */
 	@GetMapping("/statistics/status")
-	@Operation(summary = "获取标注状态统计", description = "获取各状态的标注数量统计")
+	@Operation(summary = "Get annotation status statistics", description = "Get statistics on the number of annotations in each status")
 	public R<List<Map<String, Object>>> getAnnotationStatusStatistics() {
-		log.info("获取标注状态统计");
+		log.info("Get annotation status statistics");
 
 		List<Map<String, Object>> statistics = vlsAlgorithmAnnotationService.getAnnotationStatusStatistics();
 		return R.data(statistics);
 	}
 
 	/**
-	 * 获取标注进度统计
+	 * Get annotation progress statistics
 	 */
 	@GetMapping("/statistics/progress")
-	@Operation(summary = "获取标注进度统计", description = "获取各进度区间的标注数量统计")
+	@Operation(summary = "Get annotation progress statistics", description = "Obtain the statistics of the number of annotations in each progress interval")
 	public R<List<Map<String, Object>>> getProgressStatistics() {
-		log.info("获取标注进度统计");
+		log.info("Get annotation progress statistics");
 
 		List<Map<String, Object>> statistics = vlsAlgorithmAnnotationService.getProgressStatistics();
 		return R.data(statistics);
 	}
 
 	/**
-	 * 获取标注工作量统计
+	 * Get annotation workload statistics
 	 */
 	@GetMapping("/statistics/workload")
-	@Operation(summary = "获取标注工作量统计", description = "获取标注工作量的总体统计")
+	@Operation(summary = "Get annotation workload statistics", description = "Get overall statistics on annotation workload")
 	public R<Map<String, Object>> getWorkloadStatistics() {
-		log.info("获取标注工作量统计");
+		log.info("Get annotation workload statistics");
 
 		Map<String, Object> statistics = vlsAlgorithmAnnotationService.getWorkloadStatistics();
 		return R.data(statistics);
 	}
 
 	/**
-	 * 保存标注数据到数据集文件
+	 * Save annotation data to dataset file
 	 */
 	@PostMapping("/{id}/save-dataset")
-	@Operation(summary = "保存标注数据到数据集", description = "将标注数据保存到数据集文件并更新数据库路径")
-	public R<String> saveAnnotationToDataset(@Parameter(description = "标注ID", example = "1") @PathVariable @NotNull Long id) {
+	@Operation(summary = "Save annotation data to dataset", description = "Save annotation data to dataset file and update database path")
+	public R<String> saveAnnotationToDataset(@Parameter(description = "markID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("保存标注数据到数据集：ID={}", id);
+		log.info("Save annotation data to dataset: ID={}", id);
 
 		boolean success = vlsAlgorithmAnnotationService.saveAnnotationToDataset(id);
 		if (success) {
-			return R.success("标注数据保存到数据集成功");
+			return R.success("Annotation data is saved to the dataset successfully");
 		} else {
-			return R.fail("标注数据保存到数据集失败");
+			return R.fail("Failed to save annotation data to dataset");
 		}
 	}
 

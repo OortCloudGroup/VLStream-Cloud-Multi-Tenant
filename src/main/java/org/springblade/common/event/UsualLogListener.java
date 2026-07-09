@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import java.util.Map;
 
 /**
- * 异步监听日志事件
+ * Asynchronously listen to log events
  *
  * @author Chill
  */

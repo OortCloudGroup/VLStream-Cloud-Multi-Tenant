@@ -15,104 +15,104 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_menu")
-@Schema(description = "Menu对象")
+@Schema(description = "Menuobject")
 public class Menu implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键
+	 * primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "主键")
+	@Schema(description = "primary key")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * 菜单父主键
+	 * Menu parent primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "菜单父主键")
+	@Schema(description = "Menu parent primary key")
 	private Long parentId;
 
 	/**
-	 * 菜单编号
+	 * menu number
 	 */
-	@Schema(description = "菜单编号")
+	@Schema(description = "menu number")
 	private String code;
 
 	/**
-	 * 菜单名称
+	 * Menu name
 	 */
-	@Schema(description = "菜单名称")
+	@Schema(description = "Menu name")
 	private String name;
 
 	/**
-	 * 菜单别名
+	 * Menu alias
 	 */
-	@Schema(description = "菜单别名")
+	@Schema(description = "Menu alias")
 	private String alias;
 
 	/**
-	 * 请求地址
+	 * Request address
 	 */
-	@Schema(description = "请求地址")
+	@Schema(description = "Request address")
 	private String path;
 
 	/**
-	 * 菜单资源
+	 * Menu resources
 	 */
-	@Schema(description = "菜单资源")
+	@Schema(description = "Menu resources")
 	private String source;
 
 	/**
-	 * 组件资源
+	 * Component resources
 	 */
-	@Schema(description = "组件资源")
+	@Schema(description = "Component resources")
 	private String component;
 
 	/**
-	 * 排序
+	 * sort
 	 */
-	@Schema(description = "排序")
+	@Schema(description = "sort")
 	private Integer sort;
 
 	/**
-	 * 菜单类型
+	 * Menu type
 	 */
-	@Schema(description = "菜单类型")
+	@Schema(description = "Menu type")
 	private Integer category;
 
 	/**
-	 * 操作按钮类型
+	 * Action button type
 	 */
-	@Schema(description = "操作按钮类型")
+	@Schema(description = "Action button type")
 	private Integer action;
 
 	/**
-	 * 是否打开新页面
+	 * Whether to open a new page
 	 */
-	@Schema(description = "是否打开新页面")
+	@Schema(description = "Whether to open a new page")
 	private Integer isOpen;
 
 	/**
-	 * 备注
+	 * Remark
 	 */
-	@Schema(description = "备注")
+	@Schema(description = "Remark")
 	private String remark;
 
 	/**
-	 * 是否已删除
+	 * Has it been deleted?
 	 */
 	@TableLogic
-	@Schema(description = "是否已删除")
+	@Schema(description = "Has it been deleted?")
 	private Integer isDeleted;
 
 

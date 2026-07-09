@@ -4,16 +4,16 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 标注类型枚举
+ * Annotation type enum
  *
  * @author Administrator
  */
 @Getter
 public enum AlgorithmAnnotationTypeEnum {
 
-	rect("rect", "矩形"),
-	circle("circle", "圆形"),
-	polygon("polygon", "多边形");
+	rect("rect", "rectangle"),
+	circle("circle", "round"),
+	polygon("polygon", "polygon");
 
 	@EnumValue
 	private final String code;
@@ -25,10 +25,10 @@ public enum AlgorithmAnnotationTypeEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 状态码
-	 * @return 枚举对象
+	 * @param code status code
+	 * @return enumeration object
 	 */
 	public static AlgorithmAnnotationTypeEnum of(String code) {
 		if (code == null) {

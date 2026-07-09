@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 /**
- * 旋转框（OBB）检测启动触发器：应用启动时触发一次旋转框检测任务刷新。
+ * spin box(OBB)Detect startup triggers: Trigger a spin box detection task refresh when the application starts. 
  */
 @Component
 @ConditionalOnProperty(value = "vlstream.obb-detection.enabled", havingValue = "true", matchIfMissing = false)

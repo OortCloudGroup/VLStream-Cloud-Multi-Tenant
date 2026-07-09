@@ -12,7 +12,7 @@ import java.io.Serial;
 
 
 /**
- * 标签管理表 Excel实体类
+ * Tag management table ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -27,64 +27,64 @@ public class VlsTagManagementExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 标签名称
+	 * Tag name
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标签名称")
+	@ExcelProperty("Tag name")
 	private String tagName;
 	/**
-	 * 标签大类：own-自有标签，public-公共标签
+	 * Tag categories: own-private label, public-public tags
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标签大类：own-自有标签，public-公共标签")
+	@ExcelProperty("Tag categories: own-private label, public-public tags")
 	private String categoryType;
 	/**
-	 * 层级：1-标签类型，2-具体标签
+	 * Hierarchy: 1-Tag type, 2-specific tags
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("层级：1-标签类型，2-具体标签")
+	@ExcelProperty("Hierarchy: 1-Tag type, 2-specific tags")
 	private Byte level;
 	/**
-	 * 父级ID，level=1时为NULL，level=2时为标签类型ID
+	 * parentID, level=1time isNULL, level=2is the label typeID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("父级ID，level=1时为NULL，level=2时为标签类型ID")
+	@ExcelProperty("parentID, level=1time isNULL, level=2is the label typeID")
 	private Long parentId;
 	/**
-	 * 排序顺序
+	 * sort order
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("排序顺序")
+	@ExcelProperty("sort order")
 	private Integer sortOrder;
 	/**
-	 * 标签颜色
+	 * Label color
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标签颜色")
+	@ExcelProperty("Label color")
 	private String tagColor;
 	/**
-	 * 标签图标
+	 * label icon
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标签图标")
+	@ExcelProperty("label icon")
 	private String tagIcon;
 	/**
-	 * 标签描述
+	 * Tag description
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标签描述")
+	@ExcelProperty("Tag description")
 	private String description;
 	/**
-	 * 是否启用：1-启用，0-禁用
+	 * Whether to enable: 1-enable, 0-Disable
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("是否启用：1-启用，0-禁用")
+	@ExcelProperty("Whether to enable: 1-enable, 0-Disable")
 	private Byte isActive;
 	/**
-	 * 使用次数
+	 * Number of uses
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("使用次数")
+	@ExcelProperty("Number of uses")
 	private Integer usageCount;
 
 }

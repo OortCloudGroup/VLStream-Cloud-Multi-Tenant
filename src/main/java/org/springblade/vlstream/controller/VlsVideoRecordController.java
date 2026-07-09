@@ -41,7 +41,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
- * 视频录制记录表 控制器
+ * Video recording record sheet controller
  *
  * @author Oort
  * @since 2025-12-25
@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsVideoRecord")
-@Tag(name = "视频录制记录表（视频回放）", description = "视频录制记录表接口（视频回放）")
+@Tag(name = "Video recording record sheet(Video playback)", description = "Video recording record table interface(Video playback)")
 public class VlsVideoRecordController extends BladeController {
 
 	private static final long STREAM_CHUNK_SIZE = 1024 * 1024;
@@ -58,22 +58,22 @@ public class VlsVideoRecordController extends BladeController {
 	private final IVlsVideoRecordService vlsVideoRecordService;
 
 	/**
-	 * 视频录制记录表 详情
+	 * Video recording record sheet Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入vlsVideoRecord")
+	@Operation(summary = "Details", description = "incomingvlsVideoRecord")
 	public R<VideoRecordVO> detail(VideoRecord vlsVideoRecord) {
 		VideoRecord detail = vlsVideoRecordService.getOne(Condition.getQueryWrapper(vlsVideoRecord));
 		return R.data(VlsVideoRecordWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 视频录制记录表 分页
+	 * Video recording record sheet Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入vlsVideoRecord")
+	@Operation(summary = "Pagination", description = "incomingvlsVideoRecord")
 	public R<IPage<VideoRecordVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsVideoRecord, Query query) {
 		IPage<VideoRecord> pages = vlsVideoRecordService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsVideoRecord, VideoRecord.class));
 		return R.data(VlsVideoRecordWrapper.build().pageVO(pages));
@@ -81,22 +81,22 @@ public class VlsVideoRecordController extends BladeController {
 
 
 	/**
-	 * 视频录制记录表 自定义分页
+	 * Video recording record sheet Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description = "传入vlsVideoRecord")
+	@Operation(summary = "Pagination", description = "incomingvlsVideoRecord")
 	public R<IPage<VideoRecordVO>> page(VideoRecordVO vlsVideoRecord, Query query) {
 		IPage<VideoRecordVO> pages = vlsVideoRecordService.selectVlsVideoRecordPage(Condition.getPage(query), vlsVideoRecord);
 		return R.data(pages);
 	}
 
 	/**
-	 * 视频回放查询
+	 * Video playback query
 	 */
 	@GetMapping("/playback")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "视频回放查询", description = "传入deviceId与时间段")
+	@Operation(summary = "Video playback query", description = "incomingdeviceIdwith time period")
 	public R<List<VideoRecordVO>> playback(@RequestParam Long deviceId,
 										   @RequestParam @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME) LocalDateTime startTime,
 										   @RequestParam @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME) LocalDateTime endTime) {
@@ -105,11 +105,11 @@ public class VlsVideoRecordController extends BladeController {
 	}
 
 	/**
-	 * 时间轴日历查询
+	 * Timeline calendar query
 	 */
 	@GetMapping("/timeline/calendar")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "时间轴日历", description = "按设备与年份返回有录像的月份/日期")
+	@Operation(summary = "timeline calendar", description = "Return the months with recordings by device and year/date")
 	public R<Map<Integer, List<Integer>>> timelineCalendar(@RequestParam Long deviceId, @RequestParam Integer year) {
 		List<LocalDate> recordDateList = vlsVideoRecordService.listRecordDates(deviceId, year);
 		Map<Integer, List<Integer>> monthDayMap = recordDateList.stream()
@@ -121,22 +121,22 @@ public class VlsVideoRecordController extends BladeController {
 	}
 
 	/**
-	 * 时间轴某天录像列表
+	 * Timeline recording list of a certain day
 	 */
 	@GetMapping("/timeline/day")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "时间轴当天录像", description = "按设备与日期返回录像列表")
+	@Operation(summary = "Timeline recording of the day", description = "Return to recording list by device and date")
 	public R<List<VideoRecordVO>> timelineDay(@RequestParam Long deviceId, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate recordDate) {
 		List<VideoRecord> records = vlsVideoRecordService.listDayRecords(deviceId, recordDate);
 		return R.data(VlsVideoRecordWrapper.build().listVO(records));
 	}
 
 	/**
-	 * 视频文件流播放
+	 * Video file streaming
 	 */
 	@GetMapping(value = "/stream/{recordId}")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "视频流播放", description = "根据录像ID播放本地文件，支持Range")
+	@Operation(summary = "Video streaming", description = "According to videoIDPlay local files, supportRange")
 	public ResponseEntity<?> stream(@PathVariable Long recordId, @RequestHeader HttpHeaders requestHeaders) throws IOException {
 		VideoRecord videoRecord = vlsVideoRecordService.getById(recordId);
 		if (videoRecord == null || StringUtils.isBlank(videoRecord.getFilePath())) {
@@ -144,7 +144,7 @@ public class VlsVideoRecordController extends BladeController {
 		}
 		Resource videoResource = new FileSystemResource(videoRecord.getFilePath());
 		if (!videoResource.exists() || !videoResource.isReadable()) {
-			log.error("文件不存在：{}", videoRecord.getFilePath());
+			log.error("File does not exist: {}", videoRecord.getFilePath());
 			return ResponseEntity.notFound().build();
 		}
 
@@ -187,52 +187,52 @@ public class VlsVideoRecordController extends BladeController {
 	}
 
 	/**
-	 * 视频录制记录表 新增
+	 * Video recording record sheet New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "新增", description = "传入vlsVideoRecord")
+	@Operation(summary = "New", description = "incomingvlsVideoRecord")
 	public R save(@Valid @RequestBody VideoRecord vlsVideoRecord) {
 		return R.status(vlsVideoRecordService.save(vlsVideoRecord));
 	}
 
 	/**
-	 * 视频录制记录表 修改
+	 * Video recording record sheet Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "修改", description = "传入vlsVideoRecord")
+	@Operation(summary = "Revise", description = "incomingvlsVideoRecord")
 	public R update(@Valid @RequestBody VideoRecord vlsVideoRecord) {
 		return R.status(vlsVideoRecordService.updateById(vlsVideoRecord));
 	}
 
 	/**
-	 * 视频录制记录表 新增或修改
+	 * Video recording record sheet Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 10)
-	@Operation(summary = "新增或修改", description = "传入vlsVideoRecord")
+	@Operation(summary = "Add or modify", description = "incomingvlsVideoRecord")
 	public R submit(@Valid @RequestBody VideoRecord vlsVideoRecord) {
 		return R.status(vlsVideoRecordService.saveOrUpdate(vlsVideoRecord));
 	}
 
 	/**
-	 * 视频录制记录表 删除
+	 * Video recording record sheet delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 11)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsVideoRecordService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsVideoRecord")
 	@ApiOperationSupport(order = 12)
-	@Operation(summary = "导出数据", description = "传入vlsVideoRecord")
+	@Operation(summary = "Export data", description = "incomingvlsVideoRecord")
 	public void exportVlsVideoRecord(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsVideoRecord, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<VideoRecord> queryWrapper = Condition.getQueryWrapper(vlsVideoRecord, VideoRecord.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -240,7 +240,7 @@ public class VlsVideoRecordController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsVideoRecordEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsVideoRecordExcel> list = vlsVideoRecordService.exportVlsVideoRecord(queryWrapper);
-		ExcelUtil.export(response, "视频录制记录表数据" + DateUtil.time(), "视频录制记录表数据表", list, VlsVideoRecordExcel.class);
+		ExcelUtil.export(response, "Video recording record table data" + DateUtil.time(), "Video recording record table data table", list, VlsVideoRecordExcel.class);
 	}
 
 }

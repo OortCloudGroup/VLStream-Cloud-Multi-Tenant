@@ -6,7 +6,7 @@ import org.springblade.vlstream.pojo.entity.AudioAnomalyDetectionSetting;
 import org.springblade.vlstream.pojo.vo.AudioAnomalyDetectionSettingVO;
 
 /**
- * 音频异常侦测设置表 包装类
+ * Audio anomaly detection setting table Packaging
  */
 public class VlsAudioAnomalyDetectionSettingWrapper extends BaseEntityWrapper<AudioAnomalyDetectionSetting, AudioAnomalyDetectionSettingVO> {
 

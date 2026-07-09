@@ -18,12 +18,12 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/device")
-@Tag(name = "协议-国标设备API", description = "国标设备API")
+@Tag(name = "protocol-National standard equipmentAPI", description = "National standard equipmentAPI")
 public class GbApiDeviceController {
 
 	private final IVlsDeviceInfoService deviceInfoService;
 
-	@Operation(summary = "设备列表")
+	@Operation(summary = "Device list")
 	@GetMapping("/list")
 	public Map<String, Object> list(@RequestParam(required = false) Integer start,
 									 @RequestParam(required = false) Integer limit,
@@ -57,7 +57,7 @@ public class GbApiDeviceController {
 		return result;
 	}
 
-	@Operation(summary = "通道列表")
+	@Operation(summary = "Channel list")
 	@GetMapping("/channellist")
 	public Map<String, Object> channellist(@RequestParam String serial,
 									 @RequestParam(required = false) String channel_type,

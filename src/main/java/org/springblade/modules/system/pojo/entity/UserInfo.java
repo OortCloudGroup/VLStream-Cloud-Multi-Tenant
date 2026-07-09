@@ -9,45 +9,45 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 用户信息
+ * User information
  *
  * @author Chill
  */
 @Data
-@Schema(description = "用户信息")
+@Schema(description = "User information")
 public class UserInfo implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 用户基础信息
+	 * User basic information
 	 */
-	@Schema(description = "用户")
+	@Schema(description = "user")
 	private User user;
 
 	/**
-	 * 拓展信息
+	 * Expand information
 	 */
-	@Schema(description = "拓展信息")
+	@Schema(description = "Expand information")
 	private Kv detail;
 
 	/**
-	 * 权限标识集合
+	 * Permission ID collection
 	 */
-	@Schema(description = "权限集合")
+	@Schema(description = "Permission set")
 	private List<String> permissions;
 
 	/**
-	 * 角色集合
+	 * role collection
 	 */
-	@Schema(description = "角色集合")
+	@Schema(description = "role collection")
 	private List<String> roles;
 
 	/**
-	 * 第三方授权id
+	 * Third party authorizationid
 	 */
-	@Schema(description = "第三方授权id")
+	@Schema(description = "Third party authorizationid")
 	private String oauthId;
 
 }

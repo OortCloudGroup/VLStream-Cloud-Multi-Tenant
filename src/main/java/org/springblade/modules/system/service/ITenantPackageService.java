@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.system.pojo.entity.TenantPackage;
 
 /**
- * 租户产品表 服务类
+ * Tenant product table Service category
  *
  * @author Oort
  */

@@ -20,7 +20,7 @@ public class LogApiVO extends LogApi {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 操作提交的数据
+	 * Operate submitted data
 	 */
 	@JsonIgnore
 	private String params;

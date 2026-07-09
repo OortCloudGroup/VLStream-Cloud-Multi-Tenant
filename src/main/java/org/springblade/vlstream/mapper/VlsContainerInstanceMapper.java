@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 容器实例表 Mapper 接口
+ * Container instance table Mapper interface
  *
  * @author Oort
  * @since 2025-12-23
@@ -24,54 +24,54 @@ import java.util.Map;
 public interface VlsContainerInstanceMapper extends BaseMapper<ContainerInstance> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsContainerInstance 查询参数
+	 * @param page Paging parameters
+	 * @param vlsContainerInstance query parameters
 	 * @return List<VlsContainerInstanceVO>
 	 */
 	List<ContainerInstanceVO> selectVlsContainerInstancePage(IPage page, ContainerInstanceVO vlsContainerInstance);
 
 	/**
-	 * 获取导出数据
+	 * Get export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsContainerInstanceExcel>
 	 */
 	List<VlsContainerInstanceExcel> exportVlsContainerInstance(@Param("ew") Wrapper<ContainerInstance> queryWrapper);
 
 	/**
-	 * 分页查询容器实例（包含关联信息）
+	 * Paging query container instance(Contains associated information)
 	 *
-	 * @param page 分页参数
-	 * @param queryDTO 查询条件
-	 * @return 分页结果
+	 * @param page Paging parameters
+	 * @param queryDTO Query conditions
+	 * @return Paginated results
 	 */
 	IPage<ContainerInstance> selectPageWithDetails(IPage<ContainerInstance> page, @Param("query") ContainerInstanceQueryDTO queryDTO);
 
 	/**
-	 * 根据ID查询容器实例详情（包含关联信息）
+	 * according toIDQuery container instance details(Contains associated information)
 	 *
-	 * @param id 容器实例ID
-	 * @return 容器实例详情
+	 * @param id Container instanceID
+	 * @return Container instance details
 	 */
 	ContainerInstance selectByIdWithDetails(@Param("id") Long id);
 
 	/**
-	 * 根据容器ID查询容器实例
+	 * According to the containerIDQuery container instance
 	 *
-	 * @param containerId 容器ID
-	 * @return 容器实例
+	 * @param containerId containerID
+	 * @return Container instance
 	 */
 	@Select("SELECT * FROM vls_container_instance WHERE container_id = #{containerId} AND is_deleted = 0")
 	ContainerInstance selectByContainerId(@Param("containerId") String containerId);
 
 	/**
-	 * 根据实例名称查询容器实例（用于重名检查）
+	 * Query container instances based on instance name(Used for duplicate name checking)
 	 *
-	 * @param instanceName 实例名称
-	 * @param excludeId 排除的ID（更新时使用）
-	 * @return 容器实例
+	 * @param instanceName Instance name
+	 * @param excludeId excludedID(Used when updating)
+	 * @return Container instance
 	 */
 	@Select("<script>" +
 		"SELECT * FROM vls_container_instance WHERE instance_name = #{instanceName} AND is_deleted = 0" +
@@ -80,33 +80,33 @@ public interface VlsContainerInstanceMapper extends BaseMapper<ContainerInstance
 	ContainerInstance selectByInstanceName(@Param("instanceName") String instanceName, @Param("excludeId") Long excludeId);
 
 	/**
-	 * 根据算法ID查询容器实例列表
+	 * According to algorithmIDQuery container instance list
 	 *
-	 * @param algorithmId 算法ID
-	 * @return 容器实例列表
+	 * @param algorithmId algorithmID
+	 * @return Container instance list
 	 */
 	@Select("SELECT * FROM vls_container_instance WHERE algorithm_id = #{algorithmId} AND is_deleted = 0 ORDER BY create_time DESC")
 	List<ContainerInstance> selectByAlgorithmId(@Param("algorithmId") Long algorithmId);
 
 	/**
-	 * 根据状态查询容器实例列表
+	 * Query the list of container instances based on status
 	 *
-	 * @param instanceStatus 实例状态
-	 * @return 容器实例列表
+	 * @param instanceStatus Instance status
+	 * @return Container instance list
 	 */
 	@Select("SELECT * FROM vls_container_instance WHERE instance_status = #{instanceStatus} AND is_deleted = 0")
 	List<ContainerInstance> selectByStatus(@Param("instanceStatus") String instanceStatus);
 
 	/**
-	 * 更新容器实例状态
+	 * Update container instance status
 	 *
-	 * @param id 容器实例ID
-	 * @param instanceStatus 实例状态
-	 * @param healthStatus 健康状态
-	 * @param containerId 容器ID
-	 * @param startTime 启动时间
-	 * @param stopTime 停止时间
-	 * @return 更新行数
+	 * @param id Container instanceID
+	 * @param instanceStatus Instance status
+	 * @param healthStatus health status
+	 * @param containerId containerID
+	 * @param startTime Start time
+	 * @param stopTime stop time
+	 * @return Update row count
 	 */
 	@Update("UPDATE vls_container_instance SET instance_status = #{instanceStatus}, " +
 		"health_status = #{healthStatus}, container_id = #{containerId}, " +
@@ -120,13 +120,13 @@ public interface VlsContainerInstanceMapper extends BaseMapper<ContainerInstance
 							 @Param("stopTime") Date stopTime);
 
 	/**
-	 * 更新容器监控数据
+	 * Update container monitoring data
 	 *
-	 * @param id 容器实例ID
-	 * @param cpuUsage CPU使用率
-	 * @param memoryUsage 内存使用率
-	 * @param gpuUsage GPU使用率
-	 * @return 更新行数
+	 * @param id Container instanceID
+	 * @param cpuUsage CPUUsage rate
+	 * @param memoryUsage memory usage
+	 * @param gpuUsage GPUUsage rate
+	 * @return Update row count
 	 */
 	@Update("UPDATE vls_container_instance SET cpu_usage = #{cpuUsage}, " +
 		"memory_usage = #{memoryUsage}, gpu_usage = #{gpuUsage}, update_time = NOW() " +
@@ -137,26 +137,26 @@ public interface VlsContainerInstanceMapper extends BaseMapper<ContainerInstance
 							 @Param("gpuUsage") java.math.BigDecimal gpuUsage);
 
 	/**
-	 * 增加重启次数
+	 * Increase the number of restarts
 	 *
-	 * @param id 容器实例ID
-	 * @return 更新行数
+	 * @param id Container instanceID
+	 * @return Update row count
 	 */
 	@Update("UPDATE vls_container_instance SET restart_count = restart_count + 1, update_time = NOW() WHERE id = #{id}")
 	int increaseRestartCount(@Param("id") Long id);
 
 	/**
-	 * 获取容器实例统计信息
+	 * Get container instance statistics
 	 *
-	 * @return 统计结果
+	 * @return Statistical results
 	 */
 	Map<String, Object> selectStatistics();
 
 	/**
-	 * 批量删除容器实例
+	 * Delete container instances in batches
 	 *
-	 * @param ids 容器实例ID列表
-	 * @return 删除行数
+	 * @param ids Container instanceIDlist
+	 * @return Number of rows to delete
 	 */
 	@Update("<script>" +
 		"UPDATE vls_container_instance SET deleted = 1, update_time = NOW() WHERE id IN " +

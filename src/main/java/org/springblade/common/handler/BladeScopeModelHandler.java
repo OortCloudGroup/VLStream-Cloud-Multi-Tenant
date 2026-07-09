@@ -23,7 +23,7 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
  *
  * @author Chill
  */
-//若开启动态数据源功能，则加上@Master注解指定权限数据库为主库
+//If the dynamic data source function is enabled, then add@MasterAnnotate the specified permission database as the main database
 //@Master
 @RequiredArgsConstructor
 public class BladeScopeModelHandler implements ScopeModelHandler {
@@ -36,10 +36,10 @@ public class BladeScopeModelHandler implements ScopeModelHandler {
 	private final JdbcTemplate jdbcTemplate;
 
 	/**
-	 * 获取数据权限
+	 * Get data permissions
 	 *
-	 * @param mapperId 数据权限mapperId
-	 * @param roleId   用户角色集合
+	 * @param mapperId Data permissionsmapperId
+	 * @param roleId   User role collection
 	 * @return DataScopeModel
 	 */
 	@Override
@@ -47,8 +47,8 @@ public class BladeScopeModelHandler implements ScopeModelHandler {
 		List<Object> args = new ArrayList<>(Collections.singletonList(mapperId));
 		List<Long> roleIds = Func.toLongList(roleId);
 		args.addAll(roleIds);
-		// 增加searched字段防止未配置的参数重复读库导致缓存击穿
-		// 后续若有新增配置则会清空缓存重新加载
+		// IncreasesearchedThe field prevents unconfigured parameters from being read from the library repeatedly and causing cache breakdown.
+		// If there are new configurations in the future, the cache will be cleared and reloaded.
 		DataScopeModel dataScope = CacheUtil.get(SYS_CACHE, SCOPE_CACHE_CLASS, mapperId + StringPool.COLON + roleId, DataScopeModel.class, Boolean.FALSE);
 		if (dataScope == null || !dataScope.getSearched()) {
 			List<DataScopeModel> list = jdbcTemplate.query(DataScopeConstant.dataByMapper(roleIds.size()), new BeanPropertyRowMapper<>(DataScopeModel.class), args.toArray());
@@ -64,16 +64,16 @@ public class BladeScopeModelHandler implements ScopeModelHandler {
 	}
 
 	/**
-	 * 获取数据权限
+	 * Get data permissions
 	 *
-	 * @param code 数据权限资源编号
+	 * @param code Data permission resource number
 	 * @return DataScopeModel
 	 */
 	@Override
 	public DataScopeModel getDataScopeByCode(String code) {
 		DataScopeModel dataScope = CacheUtil.get(SYS_CACHE, SCOPE_CACHE_CODE, code, DataScopeModel.class, Boolean.FALSE);
-		// 增加searched字段防止未配置的参数重复读库导致缓存击穿
-		// 后续若有新增配置则会清空缓存重新加载
+		// IncreasesearchedThe field prevents unconfigured parameters from being read from the library repeatedly and causing cache breakdown.
+		// If there are new configurations in the future, the cache will be cleared and reloaded.
 		if (dataScope == null || !dataScope.getSearched()) {
 			List<DataScopeModel> list = jdbcTemplate.query(DataScopeConstant.DATA_BY_CODE, new BeanPropertyRowMapper<>(DataScopeModel.class), code);
 			if (CollectionUtil.isNotEmpty(list)) {
@@ -88,9 +88,9 @@ public class BladeScopeModelHandler implements ScopeModelHandler {
 	}
 
 	/**
-	 * 获取部门子级
+	 * Get department children
 	 *
-	 * @param deptId 部门id
+	 * @param deptId departmentid
 	 * @return deptIds
 	 */
 	@Override

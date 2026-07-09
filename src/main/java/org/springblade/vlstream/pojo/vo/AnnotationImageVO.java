@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 标注图片信息表 视图实体类
+ * Label image information table View entity class
  *
  * @author Oort
  * @since 2025-12-23

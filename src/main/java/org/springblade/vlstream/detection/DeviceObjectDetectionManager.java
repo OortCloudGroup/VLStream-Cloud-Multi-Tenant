@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * 设备目标检测任务管理器：定时扫描设备配置并维护目标检测会话。
+ * Device Target Detection Task Manager: Regularly scan device configurations and maintain target detection sessions. 
  */
 @Slf4j
 @Component
@@ -32,14 +32,14 @@ public class DeviceObjectDetectionManager extends AbstractDeviceDetectionManager
         }
         String streamUrl = resolveStreamUrl(deviceInfo);
         if (StringUtils.isBlank(streamUrl)) {
-            log.warn("设备 {} 未配置流地址，跳过目标检测", deviceInfo.getDeviceName());
+            log.warn("equipment {} No flow address configured, Skip object detection", deviceInfo.getDeviceName());
             return null;
         }
 
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.detect,
-            "目标检测",
+            "Target detection",
             this::resolveObjectModelSourcePath,
             (modelPath, latestModel) -> isOnnxModel(modelPath, latestModel)
         );
@@ -76,22 +76,22 @@ public class DeviceObjectDetectionManager extends AbstractDeviceDetectionManager
 
     @Override
     protected String getMissingConfigReason() {
-        return "设备未配置目标检测算法或配置不完整";
+        return "The device is not configured with a target detection algorithm or the configuration is incomplete.";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "设备目标检测配置发生变化";
+        return "Device target detection configuration changed";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "刷新设备目标检测任务失败";
+        return "Refresh device target detection task failed";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "停止设备目标检测失败: deviceId={}, reason={}";
+        return "Stop device target detection failed: deviceId={}, reason={}";
     }
 
     private String resolveObjectModelSourcePath(Algorithm algorithm, AlgorithmModel latestModel) {

@@ -11,7 +11,7 @@ import org.springblade.vlstream.pojo.entity.CameraApplyRecord;
 import org.springblade.vlstream.pojo.vo.CameraApplyRecordVO;
 
 /**
- * 摄像头申请审批记录 服务类
+ * Camera application approval record Service category
  */
 public interface IVlsCameraApplyRecordService extends BaseService<CameraApplyRecord> {
 

@@ -24,40 +24,40 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 移动端场景治理 控制器
+ * Mobile scene management controller
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsMobileSceneGovernance")
-@Tag(name = "移动端场景治理", description = "移动端场景治理接口")
+@Tag(name = "Mobile scene management", description = "Mobile scene management interface")
 public class VlsMobileSceneGovernanceController extends BladeController {
 
 	private final IVlsMobileSceneGovernanceService vlsMobileSceneGovernanceService;
 
 	@GetMapping("/immediate/list")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "即时治理列表", description = "查询移动端即时治理列表")
+	@Operation(summary = "Instant governance list", description = "Query the real-time governance list on the mobile terminal")
 	public R<IPage<MobileSceneGovernance>> listImmediate(@Parameter(hidden = true) @RequestParam Map<String, Object> mobileSceneGovernance, Query query) {
 		return R.data(vlsMobileSceneGovernanceService.listImmediate(Condition.getPage(query)));
 	}
 
 	@GetMapping("/loop/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "循环治理列表", description = "查询移动端循环治理列表（包含子循环任务）")
+	@Operation(summary = "Cycle governance list", description = "Query the mobile cycle management list(Contains sub-loop tasks)")
 	public R<IPage<MobileSceneGovernanceLoopVO>> listLoop(@Parameter(hidden = true) @RequestParam Map<String, Object> mobileSceneGovernance, Query query) {
 		return R.data(vlsMobileSceneGovernanceService.listLoop(Condition.getPage(query)));
 	}
 
 	@PostMapping("/immediate/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增即时治理", description = "新增移动端即时治理")
+	@Operation(summary = "Add real-time management", description = "Added real-time management on mobile terminal")
 	public R saveImmediate(@Valid @RequestBody MobileSceneGovernance mobileSceneGovernance) {
 		return R.status(vlsMobileSceneGovernanceService.saveImmediate(mobileSceneGovernance));
 	}
 
 	@PostMapping("/loop/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增循环治理", description = "新增移动端循环治理并生成子循环任务")
+	@Operation(summary = "Added cycle management", description = "Added mobile terminal cycle management and generated sub-cycle tasks")
 	public R saveLoop(@Valid @RequestBody MobileSceneGovernance mobileSceneGovernance) {
 		return R.status(vlsMobileSceneGovernanceService.saveLoop(mobileSceneGovernance));
 	}

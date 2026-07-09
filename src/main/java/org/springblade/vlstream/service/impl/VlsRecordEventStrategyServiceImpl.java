@@ -10,7 +10,7 @@ import org.springblade.vlstream.service.IVlsRecordEventStrategyService;
 import org.springframework.stereotype.Service;
 
 /**
- * 摄像头事件策略 服务实现类
+ * Camera incident policy Service implementation class
  */
 @Service
 public class VlsRecordEventStrategyServiceImpl extends BaseServiceImpl<VlsRecordEventStrategyMapper, RecordEventStrategy>

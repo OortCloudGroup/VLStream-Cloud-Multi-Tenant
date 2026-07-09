@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.vo.TimeStrategyVO;
 import java.util.Objects;
 
 /**
- * 时间策略表 包装类,返回视图层所需的字段
+ * time strategy table Packaging,Returns the fields required by the view layer
  *
  * @author Oort
  * @since 2025-12-23

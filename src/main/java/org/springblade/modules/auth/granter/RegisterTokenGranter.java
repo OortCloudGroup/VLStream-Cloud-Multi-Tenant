@@ -51,13 +51,13 @@ public class RegisterTokenGranter extends AbstractTokenGranter {
 
 	@Override
 	public OAuth2User user(OAuth2Request request) {
-		// 校验注册功能是否开启
+		// Verify whether the registration function is enabled
 		Boolean registerOpen = Func.toBoolean(ParamCache.getValue(REGISTER_USER_VALUE), false);
 		if (!registerOpen) {
-			throw new UserInvalidException("注册功能暂未开启，请联系管理员");
+			throw new UserInvalidException("The registration function is not enabled yet, Please contact the administrator");
 		}
 
-		// 用户注册信息
+		// User registration information
 		User user = new User();
 		user.setUserType(UserType.of(request.getUserType()).getCategory());
 		user.setTenantId(request.getTenantId());
@@ -68,12 +68,12 @@ public class RegisterTokenGranter extends AbstractTokenGranter {
 		user.setPhone(request.getPhone());
 		user.setEmail(request.getEmail());
 
-		// 校验用户格式
+		// Verify user format
 		validateUser(user);
 
-		// 执行用户注册
+		// Perform user registration
 		if (service.registerUser(user)) {
-			// 构建oauth2所需用户信息
+			// buildoauth2Required user information
 			return convertOAuth2UserDetail(user, client(request));
 		}
 		throw new UserInvalidException(ExceptionCode.INVALID_USER.getMessage());
@@ -81,10 +81,10 @@ public class RegisterTokenGranter extends AbstractTokenGranter {
 
 	@Override
 	public OAuth2Token token(OAuth2User user, OAuth2Request request) {
-		// 移除注册后返回的令牌与刷新令牌，防止外部攻击采用注册接口获取令牌并调用低权接口
-		// 注意：
-		// 1. 框架已默认开启严格模式，blade.secure.strict-token=true，不移除令牌则不受影响，注册令牌会被框架校验并拒绝
-		// 2. 若自行关闭严格模式，blade.secure.strict-token=false，必须将令牌移除，否则注册获取令牌后可调用低权接口
+		// Remove tokens returned after registration and refresh tokens, Prevent external attacks from using the registration interface to obtain tokens and call low-privilege interfaces
+		// Notice: 
+		// 1. The framework has strict mode turned on by default, blade.secure.strict-token=true, If you do not remove the token, it will not be affected., The registration token will be verified and rejected by the framework
+		// 2. If you turn off strict mode yourself, blade.secure.strict-token=false, Token must be removed, Otherwise, you can call the low-rights interface after registering to obtain the token.
 		OAuth2Token token = super.token(user, request);
 		token.getArgs().remove(TokenConstant.ACCESS_TOKEN);
 		token.getArgs().remove(TokenConstant.REFRESH_TOKEN);
@@ -98,19 +98,19 @@ public class RegisterTokenGranter extends AbstractTokenGranter {
 		Predicate<String> isPhoneValid = phone -> phone.matches("^1[3-9]\\d{9}$");
 		Predicate<String> isEmailValid = email -> email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
 		if (!isNameValid.test(user.getName())) {
-			throw new UserInvalidException("用户姓名长度必须在2-10之间，且仅能设置纯中文或纯英文");
+			throw new UserInvalidException("Username length must be within2-10between, And only pure Chinese or pure English can be set");
 		}
 		if (!isUsernameValid.test(user.getAccount())) {
-			throw new UserInvalidException("用户账号长度必须在3-20之间，且需要包含英文，可额外携带数字、下划线、横杠、@");
+			throw new UserInvalidException("The user account length must be within3-20between, And need to include English, Can carry additional numbers、Underline、horizontal bar、@");
 		}
 		if (!isPasswordValid.test(user.getPassword())) {
-			throw new UserInvalidException("用户密码长度必须在6-20之间，且需要包含英文与数字，可额外携带下划线、横杠、@");
+			throw new UserInvalidException("User password length must be within6-20between, And need to include English and numbers, Can carry additional underscores、horizontal bar、@");
 		}
 		if (!isPhoneValid.test(user.getPhone())) {
-			throw new UserInvalidException("手机号格式不正确");
+			throw new UserInvalidException("Mobile phone number format is incorrect");
 		}
 		if (!isEmailValid.test(user.getEmail())) {
-			throw new UserInvalidException("邮箱格式不正确");
+			throw new UserInvalidException("Email format is incorrect");
 		}
 	}
 

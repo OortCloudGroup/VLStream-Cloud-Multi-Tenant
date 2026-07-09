@@ -6,7 +6,7 @@ import org.springblade.vlstream.pojo.entity.AudioLinkageModeSetting;
 import org.springblade.vlstream.pojo.vo.AudioLinkageModeSettingVO;
 
 /**
- * 音频联动方式设置表 包装类
+ * Audio linkage mode setting table Packaging
  */
 public class VlsAudioLinkageModeSettingWrapper extends BaseEntityWrapper<AudioLinkageModeSetting, AudioLinkageModeSettingVO> {
 

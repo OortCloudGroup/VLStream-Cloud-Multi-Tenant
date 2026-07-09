@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * 设备语义分割任务管理器：定时扫描设备配置并维护语义分割会话（支持图片 URL / 设备图片路径作为输入）。
+ * Device Semantic Segmentation Task Manager: Regularly scan device configurations and maintain semantic segmentation sessions(Support images URL / Device image path as input). 
  */
 @Slf4j
 @Component
@@ -31,11 +31,11 @@ public class DeviceSemSegDetectionManager extends AbstractDeviceDetectionManager
         String streamUrl = resolveStreamUrl(deviceInfo);
         String imagePath = StringUtils.trimToNull(deviceInfo.getImagePath());
         if (StringUtils.isBlank(streamUrl) && StringUtils.isBlank(imagePath)) {
-            log.warn("设备 {} 未配置图像来源，跳过语义分割", deviceInfo.getDeviceName());
+            log.warn("equipment {} Image source not configured, Skip semantic segmentation", deviceInfo.getDeviceName());
             return null;
         }
         if (StringUtils.isBlank(imagePath) && !isHttpUrl(streamUrl)) {
-            log.warn("设备 {} 未配置可用图片地址，跳过语义分割: streamUrl={}", deviceInfo.getDeviceName(), streamUrl);
+            log.warn("equipment {} Available image address is not configured, Skip semantic segmentation: streamUrl={}", deviceInfo.getDeviceName(), streamUrl);
             return null;
         }
 
@@ -43,7 +43,7 @@ public class DeviceSemSegDetectionManager extends AbstractDeviceDetectionManager
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.semanticSeg,
-            "语义分割",
+            "Semantic segmentation",
             this::resolveDefaultModelSourcePath,
             null
         );
@@ -80,22 +80,22 @@ public class DeviceSemSegDetectionManager extends AbstractDeviceDetectionManager
 
     @Override
     protected String getMissingConfigReason() {
-        return "设备未配置语义分割算法或配置不完整";
+        return "The device is not configured with a semantic segmentation algorithm or the configuration is incomplete.";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "设备语义分割配置发生变化";
+        return "Device semantic segmentation configuration changes";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "刷新设备语义分割任务失败";
+        return "Refresh device semantic segmentation task failed";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "停止设备语义分割失败: deviceId={}, reason={}";
+        return "Stop device semantic segmentation failed: deviceId={}, reason={}";
     }
 
     private boolean isHttpUrl(String url) {

@@ -9,43 +9,43 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * 岗位表实体类
+ * Job table entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_post")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "岗位表")
+@Schema(description = "Job list")
 public class Post extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 类型
+	 * type
 	 */
-	@Schema(description = "类型")
+	@Schema(description = "type")
 	private Integer category;
 	/**
-	 * 岗位编号
+	 * Position number
 	 */
-	@Schema(description = "岗位编号")
+	@Schema(description = "Position number")
 	private String postCode;
 	/**
-	 * 岗位名称
+	 * Job title
 	 */
-	@Schema(description = "岗位名称")
+	@Schema(description = "Job title")
 	private String postName;
 	/**
-	 * 岗位排序
+	 * Position sorting
 	 */
-	@Schema(description = "岗位排序")
+	@Schema(description = "Position sorting")
 	private Integer sort;
 	/**
-	 * 岗位描述
+	 * Job description
 	 */
-	@Schema(description = "岗位描述")
+	@Schema(description = "Job description")
 	private String remark;
 
 

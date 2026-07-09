@@ -38,159 +38,159 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_code")
-@Schema(description = "Code对象")
+@Schema(description = "Codeobject")
 public class Code implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键
+	 * primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "主键")
+	@Schema(description = "primary key")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * 数据模型主键
+	 * Data model primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "数据模型主键")
+	@Schema(description = "Data model primary key")
 	private Long modelId;
 
 	/**
-	 * 上级菜单主键
+	 * Upper level menu main key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "上级菜单主键")
+	@Schema(description = "Upper level menu main key")
 	private Long menuId;
 
 	/**
-	 * 模块名称
+	 * module name
 	 */
-	@Schema(description = "服务名称")
+	@Schema(description = "Service name")
 	private String serviceName;
 
 	/**
-	 * 模块名称
+	 * module name
 	 */
-	@Schema(description = "模块名称")
+	@Schema(description = "module name")
 	private String codeName;
 
 	/**
-	 * 表名
+	 * table name
 	 */
-	@Schema(description = "表名")
+	@Schema(description = "table name")
 	private String tableName;
 
 	/**
-	 * 实体名
+	 * Entity name
 	 */
-	@Schema(description = "表前缀")
+	@Schema(description = "table prefix")
 	private String tablePrefix;
 
 	/**
-	 * 主键名
+	 * primary key name
 	 */
-	@Schema(description = "主键名")
+	@Schema(description = "primary key name")
 	private String pkName;
 
 	/**
-	 * 后端包名
+	 * Backend package name
 	 */
-	@Schema(description = "后端包名")
+	@Schema(description = "Backend package name")
 	private String packageName;
 
 	/**
-	 * 模版类型
+	 * template type
 	 */
-	@Schema(description = "模版类型")
+	@Schema(description = "template type")
 	private String templateType;
 
 	/**
-	 * 作者信息
+	 * Author information
 	 */
-	@Schema(description = "作者信息")
+	@Schema(description = "Author information")
 	private String author;
 
 	/**
-	 * 子表模型主键
+	 * Child table model primary key
 	 */
-	@Schema(description = "子表模型主键")
+	@Schema(description = "Child table model primary key")
 	private String subModelId;
 
 	/**
-	 * 子表绑定外键
+	 * Subtable binding foreign key
 	 */
-	@Schema(description = "子表绑定外键")
+	@Schema(description = "Subtable binding foreign key")
 	private String subFkId;
 
 	/**
-	 * 树主键字段
+	 * tree primary key field
 	 */
-	@Schema(description = "树主键字段")
+	@Schema(description = "tree primary key field")
 	private String treeId;
 
 	/**
-	 * 树父主键字段
+	 * Tree parent primary key field
 	 */
-	@Schema(description = "树父主键字段")
+	@Schema(description = "Tree parent primary key field")
 	private String treePid;
 
 	/**
-	 * 树名称字段
+	 * tree name field
 	 */
-	@Schema(description = "树名称字段")
+	@Schema(description = "tree name field")
 	private String treeName;
 
 	/**
-	 * 基础业务模式
+	 * Basic business model
 	 */
-	@Schema(description = "基础业务模式")
+	@Schema(description = "Basic business model")
 	private Integer baseMode;
 
 	/**
-	 * 包装器模式
+	 * wrapper pattern
 	 */
-	@Schema(description = "包装器模式")
+	@Schema(description = "wrapper pattern")
 	private Integer wrapMode;
 
 	/**
-	 * 远程调用模式
+	 * remote call mode
 	 */
-	@Schema(description = "远程调用模式")
+	@Schema(description = "remote call mode")
 	private Integer feignMode;
 
 	/**
-	 * 代码风格
+	 * coding style
 	 */
-	@Schema(description = "代码风格")
+	@Schema(description = "coding style")
 	private String codeStyle;
 
 	/**
-	 * 后端路径
+	 * backend path
 	 */
-	@Schema(description = "后端路径")
+	@Schema(description = "backend path")
 	private String apiPath;
 
 	/**
-	 * 前端路径
+	 * frontend path
 	 */
-	@Schema(description = "前端路径")
+	@Schema(description = "frontend path")
 	private String webPath;
 
 	/**
-	 * 是否已删除
+	 * Has it been deleted?
 	 */
 	@TableLogic
-	@Schema(description = "是否已删除")
+	@Schema(description = "Has it been deleted?")
 	private Integer isDeleted;
 
 

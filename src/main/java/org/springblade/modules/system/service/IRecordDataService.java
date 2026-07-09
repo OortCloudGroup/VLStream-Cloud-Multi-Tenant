@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springblade.modules.system.pojo.entity.RecordData;
 
 /**
- * 数据审计表 服务类
+ * Data audit table Service category
  *
  * @author Oort
  */

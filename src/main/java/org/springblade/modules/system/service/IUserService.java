@@ -15,14 +15,14 @@ import org.springblade.modules.system.pojo.vo.UserVO;
 import java.util.List;
 
 /**
- * 服务类
+ * Service category
  *
  * @author Chill
  */
 public interface IUserService extends BaseService<User> {
 
 	/**
-	 * 新增用户
+	 * Add new user
 	 *
 	 * @param user
 	 * @return
@@ -30,7 +30,7 @@ public interface IUserService extends BaseService<User> {
 	boolean submit(User user);
 
 	/**
-	 * 修改用户
+	 * Modify user
 	 *
 	 * @param user
 	 * @return
@@ -38,7 +38,7 @@ public interface IUserService extends BaseService<User> {
 	boolean updateUser(User user);
 
 	/**
-	 * 修改用户基本信息
+	 * Modify basic user information
 	 *
 	 * @param user
 	 * @return
@@ -46,7 +46,7 @@ public interface IUserService extends BaseService<User> {
 	boolean updateUserInfo(User user);
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param user
@@ -57,7 +57,7 @@ public interface IUserService extends BaseService<User> {
 	IPage<User> selectUserPage(IPage<User> page, User user, Long deptId, String tenantId);
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param user
 	 * @param query
@@ -66,7 +66,7 @@ public interface IUserService extends BaseService<User> {
 	IPage<UserVO> selectUserSearch(UserVO user, Query query);
 
 	/**
-	 * 根据账号获取用户
+	 * Get users based on account
 	 *
 	 * @param tenantId
 	 * @param account
@@ -75,7 +75,7 @@ public interface IUserService extends BaseService<User> {
 	User userByAccount(String tenantId, String account);
 
 	/**
-	 * 用户信息
+	 * User information
 	 *
 	 * @param userId
 	 * @return
@@ -83,7 +83,7 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfo(Long userId);
 
 	/**
-	 * 用户信息
+	 * User information
 	 *
 	 * @param userId
 	 * @param userType
@@ -92,7 +92,7 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfo(Long userId, UserType userType);
 
 	/**
-	 * 用户信息
+	 * User information
 	 *
 	 * @param tenantId
 	 * @param account
@@ -101,7 +101,7 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfo(String tenantId, String account);
 
 	/**
-	 * 用户信息
+	 * User information
 	 *
 	 * @param tenantId
 	 * @param account
@@ -111,7 +111,7 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfo(String tenantId, String account, UserType userType);
 
 	/**
-	 * 用户信息
+	 * User information
 	 *
 	 * @param tenantId
 	 * @param phone
@@ -120,7 +120,7 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfoByPhone(String tenantId, String phone);
 
 	/**
-	 * 用户信息
+	 * User information
 	 *
 	 * @param tenantId
 	 * @param phone
@@ -130,7 +130,7 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfoByPhone(String tenantId, String phone, UserType userType);
 
 	/**
-	 * 用户信息
+	 * User information
 	 *
 	 * @param userOauth
 	 * @return
@@ -138,7 +138,7 @@ public interface IUserService extends BaseService<User> {
 	UserInfo userInfo(UserOauth userOauth);
 
 	/**
-	 * 给用户设置角色
+	 * Set roles for users
 	 *
 	 * @param userIds
 	 * @param roleIds
@@ -147,7 +147,7 @@ public interface IUserService extends BaseService<User> {
 	boolean grant(String userIds, String roleIds);
 
 	/**
-	 * 初始化密码
+	 * Initialization password
 	 *
 	 * @param userIds
 	 * @return
@@ -155,7 +155,7 @@ public interface IUserService extends BaseService<User> {
 	boolean resetPassword(String userIds);
 
 	/**
-	 * 修改密码
+	 * Change password
 	 *
 	 * @param userId
 	 * @param oldPassword
@@ -166,7 +166,7 @@ public interface IUserService extends BaseService<User> {
 	boolean updatePassword(Long userId, String oldPassword, String newPassword, String newPassword1);
 
 	/**
-	 * 删除用户
+	 * Delete user
 	 *
 	 * @param userIds
 	 * @return
@@ -174,7 +174,7 @@ public interface IUserService extends BaseService<User> {
 	boolean removeUser(String userIds);
 
 	/**
-	 * 导入用户数据
+	 * Import user data
 	 *
 	 * @param data
 	 * @param isCovered
@@ -183,7 +183,7 @@ public interface IUserService extends BaseService<User> {
 	void importUser(List<UserExcel> data, Boolean isCovered);
 
 	/**
-	 * 导出用户数据
+	 * Export user data
 	 *
 	 * @param queryWrapper
 	 * @return
@@ -191,7 +191,7 @@ public interface IUserService extends BaseService<User> {
 	List<UserExcel> exportUser(Wrapper<User> queryWrapper);
 
 	/**
-	 * 注册用户
+	 * Registered user
 	 *
 	 * @param user
 	 * @param oauthId
@@ -200,7 +200,7 @@ public interface IUserService extends BaseService<User> {
 	boolean registerGuest(User user, Long oauthId);
 
 	/**
-	 * 注册用户
+	 * Registered user
 	 *
 	 * @param user
 	 * @return
@@ -208,7 +208,7 @@ public interface IUserService extends BaseService<User> {
 	boolean registerUser(User user);
 
 	/**
-	 * 配置用户平台
+	 * Configure user platform
 	 *
 	 * @param userId
 	 * @param userType
@@ -218,7 +218,7 @@ public interface IUserService extends BaseService<User> {
 	boolean updatePlatform(Long userId, Integer userType, String userExt);
 
 	/**
-	 * 用户详细信息
+	 * User details
 	 *
 	 * @param user
 	 * @return
@@ -226,7 +226,7 @@ public interface IUserService extends BaseService<User> {
 	UserVO platformDetail(User user);
 
 	/**
-	 * 解锁用户
+	 * Unlock user
 	 *
 	 * @param userIds
 	 * @return
@@ -234,7 +234,7 @@ public interface IUserService extends BaseService<User> {
 	boolean unlock(String userIds);
 
 	/**
-	 * 审核通过
+	 * Approved
 	 *
 	 * @param userIds
 	 * @return
@@ -242,7 +242,7 @@ public interface IUserService extends BaseService<User> {
 	boolean auditPass(String userIds);
 
 	/**
-	 * 审核拒绝
+	 * Review rejection
 	 *
 	 * @param userIds
 	 * @return
@@ -250,26 +250,26 @@ public interface IUserService extends BaseService<User> {
 	boolean auditRefuse(String userIds);
 
 	/**
-	 * 设置用户为主管
+	 * Set user as supervisor
 	 *
-	 * @param userId 用户id
+	 * @param userId userid
 	 * @return
 	 */
 	boolean setLeader(Long userId);
 
 	/**
-	 * 获取用户的主管信息
+	 * Get user's supervisor information
 	 *
-	 * @param userId 用户id
+	 * @param userId userid
 	 * @return
 	 */
 	List<UserVO> leaderInfo(Long userId);
 
 	/**
-	 * 获取主管列表
+	 * Get list of supervisors
 	 *
-	 * @param tenantId 租户编号
-	 * @param realName 用户姓名
+	 * @param tenantId Tenant number
+	 * @param realName Username
 	 * @return
 	 */
 	List<UserVO> leaderList(String tenantId, String realName);

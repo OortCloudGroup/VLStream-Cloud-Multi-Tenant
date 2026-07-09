@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * 设备图像分类任务管理器：定时扫描设备配置并维护图像分类检测会话。
+ * Device Image Classification Task Manager: Schedule scan device configuration and maintain image classification detection session. 
  */
 @Slf4j
 @Component
@@ -30,14 +30,14 @@ public class DeviceClassifyDetectionManager extends AbstractDeviceDetectionManag
         }
         String streamUrl = resolveStreamUrl(deviceInfo);
         if (StringUtils.isBlank(streamUrl)) {
-            log.warn("设备 {} 未配置流地址，跳过图像分类", deviceInfo.getDeviceName());
+            log.warn("equipment {} No flow address configured, Skip image classification", deviceInfo.getDeviceName());
             return null;
         }
 
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.classify,
-            "图像分类",
+            "Image classification",
             this::resolveDefaultModelSourcePath,
             null
         );
@@ -74,22 +74,22 @@ public class DeviceClassifyDetectionManager extends AbstractDeviceDetectionManag
 
     @Override
     protected String getMissingConfigReason() {
-        return "设备未配置图像分类算法或配置不完整";
+        return "The device is not configured with an image classification algorithm or the configuration is incomplete.";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "设备图像分类配置发生变化";
+        return "Device image classification configuration changed";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "刷新设备图像分类任务失败";
+        return "Refresh device image classification task failed";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "停止设备图像分类失败: deviceId={}, reason={}";
+        return "Stop device image classification failed: deviceId={}, reason={}";
     }
 
 }

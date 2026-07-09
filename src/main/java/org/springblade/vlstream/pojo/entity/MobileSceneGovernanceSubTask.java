@@ -10,35 +10,35 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 
 /**
- * 移动端场景治理子循环任务表 实体类
+ * Mobile terminal scene management sub-cycle task list Entity class
  */
 @Data
 @TableName("vls_mobile_scene_governance_sub_task")
-@Schema(description = "MobileSceneGovernanceSubTask对象")
+@Schema(description = "MobileSceneGovernanceSubTaskobject")
 @EqualsAndHashCode(callSuper = true)
 public class MobileSceneGovernanceSubTask extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "主任务ID")
+	@Schema(description = "main taskID")
 	private Long governanceId;
 
-	@Schema(description = "子任务名称")
+	@Schema(description = "Subtask name")
 	private String name;
 
-	@Schema(description = "执行时间")
+	@Schema(description = "Execution time")
 	private LocalDateTime executeTime;
 
-	@Schema(description = "任务状态(pending/done/cancel)")
+	@Schema(description = "Task status(pending/done/cancel)")
 	private String taskStatus;
 
-	@Schema(description = "分析区域ID集合(逗号分隔)")
+	@Schema(description = "analysis areaIDgather(comma separated)")
 	private String locationIds;
 
-	@Schema(description = "算法ID集合(逗号分隔)")
+	@Schema(description = "algorithmIDgather(comma separated)")
 	private String algorithmIds;
 
-	@Schema(description = "摄像头ID集合(逗号分隔)")
+	@Schema(description = "CameraIDgather(comma separated)")
 	private String cameraIds;
 }

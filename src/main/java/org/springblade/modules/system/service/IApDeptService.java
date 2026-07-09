@@ -10,31 +10,31 @@ import org.springblade.modules.system.pojo.vo.ApDeptVO;
 import java.util.List;
 
 /**
- * 组织机构表 服务类
+ * Organization chart Service category
  *
  * @author Oort
  * @since 2025-08-09
  */
 public interface IApDeptService extends IService<ApDeptEntity> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param apDept 查询参数
+	 * @param page Paging parameters
+	 * @param apDept query parameters
 	 * @return IPage<ApDeptVO>
 	 */
 	IPage<ApDeptVO> selectApDeptPage(IPage<ApDeptVO> page, ApDeptVO apDept);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<ApDeptExcel>
 	 */
 	List<ApDeptExcel> exportApDept(Wrapper<ApDeptEntity> queryWrapper);
 
 	/**
-	 * 获取部门ID
+	 * Get departmentID
 	 *
 	 * @param tenantId
 	 * @param deptNames
@@ -43,7 +43,7 @@ public interface IApDeptService extends IService<ApDeptEntity> {
 	String getDeptIds(String tenantId, String deptNames);
 
 	/**
-	 * 获取部门ID
+	 * Get departmentID
 	 *
 	 * @param tenantId
 	 * @param deptNames
@@ -52,7 +52,7 @@ public interface IApDeptService extends IService<ApDeptEntity> {
 	String getDeptIdsByFuzzy(String tenantId, String deptNames);
 
 	/**
-	 * 获取部门名
+	 * Get department name
 	 *
 	 * @param deptIds
 	 * @return
@@ -60,7 +60,7 @@ public interface IApDeptService extends IService<ApDeptEntity> {
 	List<String> getDeptNames(String deptIds);
 
 	/**
-	 * 获取子部门ID
+	 * Get subdepartmentID
 	 *
 	 * @param deptId
 	 * @return

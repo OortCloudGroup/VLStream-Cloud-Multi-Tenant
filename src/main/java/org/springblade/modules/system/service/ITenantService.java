@@ -8,14 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 服务类
+ * Service category
  *
  * @author Chill
  */
 public interface ITenantService extends BaseService<Tenant> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param tenant
@@ -24,7 +24,7 @@ public interface ITenantService extends BaseService<Tenant> {
 	IPage<Tenant> selectTenantPage(IPage<Tenant> page, Tenant tenant);
 
 	/**
-	 * 根据租户编号获取实体
+	 * Get entity based on tenant number
 	 *
 	 * @param tenantId
 	 * @return
@@ -32,7 +32,7 @@ public interface ITenantService extends BaseService<Tenant> {
 	Tenant getByTenantId(String tenantId);
 
 	/**
-	 * 新增
+	 * New
 	 *
 	 * @param tenant
 	 * @return
@@ -40,7 +40,7 @@ public interface ITenantService extends BaseService<Tenant> {
 	boolean submitTenant(Tenant tenant);
 
 	/**
-	 * 删除至回收站
+	 * Delete to recycle bin
 	 *
 	 * @param ids
 	 * @return
@@ -48,7 +48,7 @@ public interface ITenantService extends BaseService<Tenant> {
 	boolean recycleTenant(List<Long> ids);
 
 	/**
-	 * 从回收站恢复
+	 * Restore from Recycle Bin
 	 *
 	 * @param ids
 	 * @return
@@ -56,7 +56,7 @@ public interface ITenantService extends BaseService<Tenant> {
 	boolean passTenant(List<Long> ids);
 
 	/**
-	 * 从回收站删除
+	 * Delete from recycle bin
 	 *
 	 * @param ids
 	 * @return
@@ -64,7 +64,7 @@ public interface ITenantService extends BaseService<Tenant> {
 	boolean removeTenant(List<Long> ids);
 
 	/**
-	 * 配置租户授权
+	 * Configure tenant authorization
 	 *
 	 * @param accountNumber
 	 * @param expireTime

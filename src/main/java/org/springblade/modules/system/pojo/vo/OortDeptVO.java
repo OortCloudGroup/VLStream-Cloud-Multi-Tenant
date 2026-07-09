@@ -7,7 +7,7 @@ import org.springblade.modules.system.pojo.entity.OortDeptEntity;
 import java.io.Serial;
 
 /**
- *  视图实体类
+ *  View entity class
  *
  * @author BladeX
  * @since 2025-09-04

@@ -4,16 +4,16 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 标注状态枚举
+ * Annotation status enumeration
  *
  * @author Administrator
  */
 @Getter
 public enum AlgorithmAnnotationStatusEnum {
 
-	none("none", "未标注"),
-	partial("partial", "部分标注"),
-	completed("completed", "完成标注");
+	none("none", "Not labeled"),
+	partial("partial", "Partial annotation"),
+	completed("completed", "Complete annotation");
 
 	@EnumValue
 	private final String code;
@@ -25,10 +25,10 @@ public enum AlgorithmAnnotationStatusEnum {
 	}
 
 	/**
-	 * 根据code获取枚举
+	 * according tocodeGet enumeration
 	 *
-	 * @param code 状态码
-	 * @return 枚举对象
+	 * @param code status code
+	 * @return enumeration object
 	 */
 	public static AlgorithmAnnotationStatusEnum of(String code) {
 		if (code == null) {

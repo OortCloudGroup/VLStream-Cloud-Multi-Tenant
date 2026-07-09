@@ -13,86 +13,86 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_dict_biz")
-@Schema(description = "DictBiz对象")
+@Schema(description = "DictBizobject")
 public class DictBiz implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键
+	 * primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "主键")
+	@Schema(description = "primary key")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * 租户ID
+	 * tenantID
 	 */
-	@Schema(description = "租户ID")
+	@Schema(description = "tenantID")
 	private String tenantId;
 
 	/**
-	 * 父主键
+	 * Parent primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "父主键")
+	@Schema(description = "Parent primary key")
 	private Long parentId;
 
 	/**
-	 * 字典码
+	 * dictionary code
 	 */
-	@Schema(description = "字典码")
+	@Schema(description = "dictionary code")
 	private String code;
 
 	/**
-	 * 字典值
+	 * Dictionary value
 	 */
-	@Schema(description = "字典值")
+	@Schema(description = "Dictionary value")
 	private String dictKey;
 
 	/**
-	 * 字典名称
+	 * Dictionary name
 	 */
-	@Schema(description = "字典名称")
+	@Schema(description = "Dictionary name")
 	private String dictValue;
 
 	/**
-	 * 排序
+	 * sort
 	 */
-	@Schema(description = "排序")
+	@Schema(description = "sort")
 	private Integer sort;
 
 	/**
-	 * 字典备注
+	 * Dictionary notes
 	 */
-	@Schema(description = "字典备注")
+	@Schema(description = "Dictionary notes")
 	private String remark;
 
 	/**
-	 * 是否已封存
+	 * Has it been archived?
 	 */
-	@Schema(description = "是否已封存")
+	@Schema(description = "Has it been archived?")
 	private Integer isSealed;
 
 	/**
-	 * 业务状态
+	 * business status
 	 */
-	@Schema(description = "业务状态")
+	@Schema(description = "business status")
 	private Integer status;
 
 	/**
-	 * 是否已删除
+	 * Has it been deleted?
 	 */
 	@TableLogic
-	@Schema(description = "是否已删除")
+	@Schema(description = "Has it been deleted?")
 	private Integer isDeleted;
 
 

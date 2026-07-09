@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * 设备实例分割任务管理器：定时扫描设备配置并维护实例分割会话。
+ * equipmentInstance splittingTask管理器: Regularly scan device configuration and maintain instance split sessions. 
  */
 @Slf4j
 @Component
@@ -30,14 +30,14 @@ public class DeviceInstanceSegDetectionManager extends AbstractDeviceDetectionMa
         }
         String streamUrl = resolveStreamUrl(deviceInfo);
         if (StringUtils.isBlank(streamUrl)) {
-            log.warn("设备 {} 未配置流地址，跳过实例分割", deviceInfo.getDeviceName());
+            log.warn("equipment {} No flow address configured, Skip instance splitting", deviceInfo.getDeviceName());
             return null;
         }
 
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.segment,
-            "实例分割",
+            "Instance splitting",
             this::resolveDefaultModelSourcePath,
             null
         );
@@ -74,22 +74,22 @@ public class DeviceInstanceSegDetectionManager extends AbstractDeviceDetectionMa
 
     @Override
     protected String getMissingConfigReason() {
-        return "设备未配置实例分割算法或配置不完整";
+        return "The device is not configured with an instance split algorithm or the configuration is incomplete.";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "设备实例分割配置发生变化";
+        return "Device instance split configuration changes";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "刷新设备实例分割任务失败";
+        return "Refresh device instance split task failed";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "停止设备实例分割失败: deviceId={}, reason={}";
+        return "Stop device instance split failed: deviceId={}, reason={}";
     }
 
 }

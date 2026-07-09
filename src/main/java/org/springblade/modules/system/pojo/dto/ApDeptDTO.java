@@ -7,7 +7,7 @@ import org.springblade.modules.system.pojo.entity.ApDeptEntity;
 import java.io.Serial;
 
 /**
- * 组织机构表 数据传输对象实体类
+ * Organization chart Data transfer object entity class
  *
  * @author Oort
  * @since 2025-08-09

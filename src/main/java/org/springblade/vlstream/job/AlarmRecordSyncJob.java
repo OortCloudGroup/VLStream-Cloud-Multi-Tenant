@@ -37,7 +37,7 @@ public class AlarmRecordSyncJob {
 	private IVlsDeviceInfoService deviceInfoService;
 
 	/**
-	 * 每10秒执行一次（cron表达式：秒 分 时 日 月 周）
+	 * Every10Execute once per second(cronexpression: Second point hour day moon week)
 	 */
 	@Scheduled(cron = "0/5 * * * * ?")
 	@Transactional(rollbackFor = Exception.class)
@@ -62,7 +62,7 @@ public class AlarmRecordSyncJob {
 					.body(JSONUtil.toJsonStr(requestBody))
 					.timeout(5000)
 					.execute();
-				log.info("推送事件结果：{}", response.body());
+				log.info("Push event results: {}", response.body());
 				if (response.getStatus() == HttpStatus.HTTP_OK) {
 					batch.forEach(warning -> {
 						warning.setIsReport(1);
@@ -107,7 +107,7 @@ public class AlarmRecordSyncJob {
 
 	private Map<String, Object> buildEmptyPoint() {
 		Map<String, Object> point = new HashMap<>(8);
-		point.put("address", "水产大厦");
+		point.put("address", "Fisheries Building");
 		point.put("coord_system_type", null);
 		point.put("coord_system_type_change", null);
 		point.put("lat", 114.12006299999996);

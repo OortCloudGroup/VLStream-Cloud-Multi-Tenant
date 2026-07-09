@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.system.pojo.entity.TopMenu;
 
 /**
- * 顶部菜单表 Mapper 接口
+ * top menu table Mapper interface
  *
  * @author Oort
  */

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.CommandLineRunner;
 
 /**
- * 检测启动触发器基类：应用启动时触发一次检测任务刷新。
+ * Detect start trigger base class: Trigger a detection task refresh when the application starts. 
  */
 public abstract class AbstractDetectionRunner<M extends AbstractDeviceDetectionManager<?>> implements CommandLineRunner {
 

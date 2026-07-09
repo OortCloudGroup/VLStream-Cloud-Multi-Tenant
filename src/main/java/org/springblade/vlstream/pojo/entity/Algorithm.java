@@ -18,14 +18,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 算法表 实体类
+ * Algorithm table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_algorithm")
-@Schema(description = "VlsAlgorithmEntity对象")
+@Schema(description = "VlsAlgorithmEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class Algorithm extends TenantEntity {
 
@@ -33,65 +33,65 @@ public class Algorithm extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 所属算法仓库ID
+	 * Algorithm warehouse to which it belongsID
 	 */
-	@Schema(description = "所属算法仓库ID")
+	@Schema(description = "Algorithm warehouse to which it belongsID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long repositoryId;
 	/**
-	 * 算法名称
+	 * Algorithm name
 	 */
-	@Schema(description = "算法名称")
+	@Schema(description = "Algorithm name")
 	private String name;
 	/**
-	 * 算法分类
+	 * Algorithm classification
 	 */
-	@Schema(description = "算法分类")
+	@Schema(description = "Algorithm classification")
 	private AlgorithmCategoryEnum category;
 	/**
-	 * 算法描述
+	 * Algorithm description
 	 */
-	@Schema(description = "算法描述")
+	@Schema(description = "Algorithm description")
 	private String description;
 	/**
-	 * 算法图片URL
+	 * Algorithm pictureURL
 	 */
-	@Schema(description = "算法图片URL")
+	@Schema(description = "Algorithm pictureURL")
 	private String imageUrl;
 	/**
-	 * pt模型文件路径
+	 * ptModel file path
 	 */
-	@Schema(description = "pt模型文件路径")
+	@Schema(description = "ptModel file path")
 	private String ptModelFilePath;
 	/**
-	 * 模型文件路径
+	 * Model file path
 	 */
-	@Schema(description = "onnx模型文件路径")
+	@Schema(description = "onnxModel file path")
 	private String onnxModelFilePath;
 	/**
-	 * 算法配置参数（JSON格式）
+	 * Algorithm configuration parameters(JSONFormat)
 	 */
-	@Schema(description = "算法配置参数（JSON格式）")
+	@Schema(description = "Algorithm configuration parameters(JSONFormat)")
 	private String configParams;
 	/**
-	 * 输入格式（image、video等）
+	 * Input format(image、videowait)
 	 */
-	@Schema(description = "输入格式（image、video等）")
+	@Schema(description = "Input format(image、videowait)")
 	private String inputFormat;
 	/**
-	 * 输出格式（bbox、mask、keypoint等）
+	 * Output format(bbox、mask、keypointwait)
 	 */
-	@Schema(description = "输出格式（bbox、mask、keypoint等）")
+	@Schema(description = "Output format(bbox、mask、keypointwait)")
 	private String outputFormat;
 	/**
-	 * 是否需要GPU：0-否，1-是
+	 * Is it necessaryGPU: 0-no, 1-yes
 	 */
-	@Schema(description = "是否需要GPU：0-否，1-是")
+	@Schema(description = "Is it necessaryGPU: 0-no, 1-yes")
 	private Integer gpuRequired;
 	/**
-	 * 是否为系统预置算法
+	 * Whether the algorithm is preset for the system
 	 */
-	@Schema(description = "是否为系统预置算法")
+	@Schema(description = "Whether the algorithm is preset for the system")
 	private YesNoEnum isSystem;
 
 }

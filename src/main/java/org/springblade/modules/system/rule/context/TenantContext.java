@@ -11,7 +11,7 @@ import org.springblade.modules.system.service.ITenantService;
 import java.util.List;
 
 /**
- * 租户上下文
+ * Tenant context
  *
  * @author Chill
  */
@@ -23,57 +23,57 @@ import java.util.List;
 public class TenantContext extends RuleContextComponent {
 
 	/**
-	 * 菜单业务
+	 * Menu business
 	 */
 	private IMenuService menuService;
 
 	/**
-	 * 字典业务
+	 * dictionary business
 	 */
 	private IDictBizService dictBizService;
 
 	/**
-	 * 租户业务
+	 * tenantbusiness
 	 */
 	private ITenantService tenantService;
 
 	/**
-	 * 租户ID生成器
+	 * tenantIDgenerator
 	 */
 	private TenantId tenantIdGenerator;
 
 	/**
-	 * 租户
+	 * tenant
 	 */
 	private Tenant tenant;
 
 	/**
-	 * 角色
+	 * Role
 	 */
 	private Role role;
 
 	/**
-	 * 角色菜单合集
+	 * Character menu collection
 	 */
 	private List<RoleMenu> roleMenuList;
 
 	/**
-	 * 机构
+	 * mechanism
 	 */
 	private Dept dept;
 
 	/**
-	 * 岗位
+	 * post
 	 */
 	private Post post;
 
 	/**
-	 * 业务字典合集
+	 * Business dictionary collection
 	 */
 	private List<DictBiz> dictBizList;
 
 	/**
-	 * 用户
+	 * user
 	 */
 	private User user;
 

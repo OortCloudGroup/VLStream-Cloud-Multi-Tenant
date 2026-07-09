@@ -8,14 +8,14 @@ import org.springblade.modules.system.pojo.vo.RoleVO;
 import java.util.List;
 
 /**
- * Mapper 接口
+ * Mapper interface
  *
  * @author Chill
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
 	 * @param page
 	 * @param role
@@ -24,7 +24,7 @@ public interface RoleMapper extends BaseMapper<Role> {
 	List<RoleVO> selectRolePage(IPage page, RoleVO role);
 
 	/**
-	 * 获取树形节点
+	 * Get tree nodes
 	 *
 	 * @param tenantId
 	 * @param excludeRole
@@ -33,7 +33,7 @@ public interface RoleMapper extends BaseMapper<Role> {
 	List<RoleVO> tree(String tenantId, String excludeRole);
 
 	/**
-	 * 获取角色名
+	 * Get character name
 	 *
 	 * @param ids
 	 * @return
@@ -41,7 +41,7 @@ public interface RoleMapper extends BaseMapper<Role> {
 	List<String> getRoleNames(Long[] ids);
 
 	/**
-	 * 获取角色名
+	 * Get character name
 	 *
 	 * @param ids
 	 * @return

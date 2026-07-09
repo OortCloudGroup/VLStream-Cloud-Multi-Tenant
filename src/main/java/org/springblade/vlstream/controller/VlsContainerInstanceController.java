@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 容器实例表 控制器
+ * Container instance table controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -37,28 +37,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsContainerInstance")
-@Tag(name = "容器实例表", description = "容器实例表接口")
+@Tag(name = "Container instance table", description = "Container instance table interface")
 public class VlsContainerInstanceController extends BladeController {
 
 	private final IVlsContainerInstanceService vlsContainerInstanceService;
 
 	/**
-	 * 容器实例表 详情
+	 * Container instance table Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description  = "传入vlsContainerInstance")
+	@Operation(summary = "Details", description  = "incomingvlsContainerInstance")
 	public R<ContainerInstanceVO> detail(ContainerInstance vlsContainerInstance) {
 		ContainerInstance detail = vlsContainerInstanceService.getOne(Condition.getQueryWrapper(vlsContainerInstance));
 		return R.data(VlsContainerInstanceWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 容器实例表 分页
+	 * Container instance table Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description  = "传入vlsContainerInstance")
+	@Operation(summary = "Pagination", description  = "incomingvlsContainerInstance")
 	public R<IPage<ContainerInstanceVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsContainerInstance, Query query) {
 		IPage<ContainerInstance> pages = vlsContainerInstanceService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsContainerInstance, ContainerInstance.class));
 		return R.data(VlsContainerInstanceWrapper.build().pageVO(pages));
@@ -66,63 +66,63 @@ public class VlsContainerInstanceController extends BladeController {
 
 
 	/**
-	 * 容器实例表 自定义分页
+	 * Container instance table Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description  = "传入vlsContainerInstance")
+	@Operation(summary = "Pagination", description  = "incomingvlsContainerInstance")
 	public R<IPage<ContainerInstanceVO>> page(ContainerInstanceVO vlsContainerInstance, Query query) {
 		IPage<ContainerInstanceVO> pages = vlsContainerInstanceService.selectVlsContainerInstancePage(Condition.getPage(query), vlsContainerInstance);
 		return R.data(pages);
 	}
 
 	/**
-	 * 容器实例表 新增
+	 * Container instance table New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description  = "传入vlsContainerInstance")
+	@Operation(summary = "New", description  = "incomingvlsContainerInstance")
 	public R save(@Valid @RequestBody ContainerInstance vlsContainerInstance) {
 		return R.status(vlsContainerInstanceService.save(vlsContainerInstance));
 	}
 
 	/**
-	 * 容器实例表 修改
+	 * Container instance table Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description  = "传入vlsContainerInstance")
+	@Operation(summary = "Revise", description  = "incomingvlsContainerInstance")
 	public R update(@Valid @RequestBody ContainerInstance vlsContainerInstance) {
 		return R.status(vlsContainerInstanceService.updateById(vlsContainerInstance));
 	}
 
 	/**
-	 * 容器实例表 新增或修改
+	 * Container instance table Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description  = "传入vlsContainerInstance")
+	@Operation(summary = "Add or modify", description  = "incomingvlsContainerInstance")
 	public R submit(@Valid @RequestBody ContainerInstance vlsContainerInstance) {
 		return R.status(vlsContainerInstanceService.saveOrUpdate(vlsContainerInstance));
 	}
 
 	/**
-	 * 容器实例表 删除
+	 * Container instance table delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description  = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description  = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsContainerInstanceService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsContainerInstance")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description  = "传入vlsContainerInstance")
+	@Operation(summary = "Export data", description  = "incomingvlsContainerInstance")
 	public void exportVlsContainerInstance(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsContainerInstance, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<ContainerInstance> queryWrapper = Condition.getQueryWrapper(vlsContainerInstance, ContainerInstance.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -130,7 +130,7 @@ public class VlsContainerInstanceController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsContainerInstanceEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsContainerInstanceExcel> list = vlsContainerInstanceService.exportVlsContainerInstance(queryWrapper);
-		ExcelUtil.export(response, "容器实例表数据" + DateUtil.time(), "容器实例表数据表", list, VlsContainerInstanceExcel.class);
+		ExcelUtil.export(response, "Container instance table data" + DateUtil.time(), "Container instance table data table", list, VlsContainerInstanceExcel.class);
 	}
 
 }

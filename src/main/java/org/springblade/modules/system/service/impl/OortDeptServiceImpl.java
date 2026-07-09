@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *  服务实现类
+ *  Service implementation class
  *
  * @author BladeX
  * @since 2025-09-04

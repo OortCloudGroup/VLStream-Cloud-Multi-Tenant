@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 智能分析请求表 视图实体类
+ * Intelligent analysis request form View entity class
  *
  * @author Oort
  * @since 2025-12-23

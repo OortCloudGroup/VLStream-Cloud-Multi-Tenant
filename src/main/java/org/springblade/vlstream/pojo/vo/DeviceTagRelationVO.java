@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 设备标签关联表 视图实体类
+ * Device tag association table View entity class
  *
  * @author Oort
  * @since 2025-12-23

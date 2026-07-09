@@ -6,7 +6,7 @@ import org.springblade.vlstream.pojo.entity.CameraDisplaySetting;
 import org.springblade.vlstream.pojo.vo.CameraDisplaySettingVO;
 
 /**
- * 摄像机显示设置表 包装类
+ * Camera display setting table Packaging
  */
 public class VlsCameraDisplaySettingWrapper extends BaseEntityWrapper<CameraDisplaySetting, CameraDisplaySettingVO> {
 

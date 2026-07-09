@@ -1,34 +1,34 @@
-#数据源配置
+#Data source configuration
 spring:
   data:
     redis:
-      ##redis 单机环境配置
+      ##redis Standalone environment configuration
       host: ${REDIS_HOST:192.168.60.77}
       port: ${REDIS_PORT:32576}
       database: 1
       password: ${REDIS_PASSWORD:redis@pass}
       ssl:
         enabled: false
-      ##redis 集群环境配置
+      ##redis Cluster environment configuration
       #cluster:
       #  nodes: 127.0.0.1:7001,127.0.0.1:7002,127.0.0.1:7003
       #  commandTimeout: 5000
-  #排除DruidDataSourceAutoConfigure
+  #excludeDruidDataSourceAutoConfigure
   autoconfigure:
     exclude: com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure
   datasource:
-    # MySql 主数据源信息
+    # MySql Master data source information
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${DB_HOST:192.168.60.77}:${DB_PORT:32443}/${DB_NAME:apaas_vlstream}?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:mysql@pass}
     dynamic:
       druid:
-        #通用校验配置
+        #General verification configuration
         validation-query: select 1
-        #启用sql日志拦截器
+        #enablesqlLog interceptor
         proxy-filters: sqlLogInterceptor
-      #设置默认的数据源或者数据源组,默认值即为master
+      #Set the default data source or data source group,The default value ismaster
       primary: master
       datasource:
         apaasUser:
@@ -49,58 +49,58 @@ spring:
           url: jdbc:mysql://${DB_HOST:192.168.60.77}:${DB_PORT:32443}/${REPORT_DB_NAME:apaas_report_designer}?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
           username: ${DB_USERNAME:root}
           password: ${DB_PASSWORD:mysql@pass}
-#第三方登陆
+#Third party login
 social:
   enabled: true
   domain: http://127.0.0.1:2888
 
-#oss默认配置
+#ossDefault configuration
 oss:
-  #开启oss配置
+  #turn onossConfiguration
   enabled: true
-  #开启oss类型
+  #turn onosstype
   #minio、s3、qiniu、alioss、huaweiobs、tencentcos
   name: minio
-  #租户模式
+  #Tenant model
   tenant-mode: true
-  #oss服务地址
+  #ossService address
   endpoint: http://172.30.0.90:9000
-  #oss转换服务地址，用于内网上传后将返回地址改为转换的外网地址
+  #ossTranslation service address, Used to change the return address to the converted external network address after uploading to the intranet
   #transform-endpoint: http://172.30.0.90:9000
-  #访问key
+  #accesskey
   access-key: bladexadmin
-  #密钥key
+  #keykey
   secret-key: bladexadmin
-  #存储桶
+  #bucket
   bucket-name: bladex
-#job服务配置
+#jobService configuration
 powerjob:
   worker:
     enabled: false
     app-name: vls-job
     port: 37777
     server-address: 192.168.60.75:30260
-#blade配置
+#bladeConfiguration
 blade:
-  #分布式锁配置
+  #Distributed lock configuration
   lock:
-    ##是否启用分布式锁
+    ##Whether to enable distributed locks
     enabled: true
     address: redis://${REDIS_HOST:192.168.60.77}:${REDIS_PORT:32576}
     password: ${REDIS_PASSWORD:redis@pass}
     database: 1
   token:
-    #租户类型配置 单租户还是多租户 single multi
+    #Tenant type configuration Single tenant or multi-tenant? single multi
     tenant-type: ${SSO_TENANT_TYPE:multi}
-    #多租户校验token地址 局域网192.168.60.77 政务网192.168.50.109 互联网192.168.50.108
+    #Multi-tenant verificationtokenaddress local area network192.168.60.77 Government Affairs Network192.168.50.109 internet192.168.50.108
     multi-tenant-verify-token-address: ${SSO_MULTI_TENANT_VERIFY_TOKEN:http://oort.oortcloudsmart.com:21410/bus/apaas-sso/sso/v1/verifyToken}
-    #获取多租户用户信息
+    #Get multi-tenant user information
     multi-tenant-admin-user-url: ${GET_MULTI_TENANT_ADMIN_USER_URL:http://oort.oortcloudsmart.com:21410/bus/apaas-user/user/v1/userInfo}
-    #单租户校验token地址
+    #Single tenant verificationtokenaddress
     single-tenant-verify-token-address: ${SSO_SINGLE_TENANT_VERIFY_TOKEN:http://oort.oortcloudsmart.com:21310/oort/oortcloud-sso/sso/v1/verifyToken}
-    #获取单租户用户信息
+    #Get single tenant user information
     single-tenant-admin-user-url: ${GET_SINGLE_TENANT_ADMIN_USER_URL:http://oort.oortcloudsmart.com:21310/oort/oortcloud-sso/sso/v1/getUserInfo}
-  #ai大模型对接
+  #aiLarge model docking
   dify:
     baseUrl: ${DIFY_BASE_URL:http://192.168.88.172/v1}
     chatApi: ${DIFY_CHAT_API:app-hJSSV772FDkXY2ZEebBdIMF6}
@@ -108,12 +108,12 @@ blade:
     workflowApi: ${DIFY_WORKFLOW_API:app-r1GmS7KJ1FPDXUJVeJhhLNGE}
     chatFlowApi: ${DIFY_CHATFLOW_API:}
     datasetsApi: ${DIFY_DATASETS_API:}
-#多租户文件上传
+#Multi-tenant file upload
 apaas:
-  #文件上传方法路径
+  #File upload method path
   fileUpload: ${FILE_UPLOAD:http://oort.oortcloudsmart.com:21410/bus/apaas-fastdfsservice/fastdfs/v1/uploadFile}
 
-# 业务配置
+# Business configuration
 vlstream:
   person-detection:
     enabled: false
@@ -145,7 +145,7 @@ vlstream:
     stale-file-seconds: ${VLSTREAM_RTSP_STALE_FILE_SECONDS:5}
     refresh-interval-millis: ${VLSTREAM_RTSP_REFRESH_INTERVAL_MILLIS:10000}
   reportUrl: ${REPORT_URL:http://oort.oortcloudsmart.com:21410/bus/apaas-location-service/task/v1/event_report_cameras}
-# 录制配置
+# Recording configuration
 recording:
   storage:
     path: recordings
@@ -157,44 +157,44 @@ recording:
     path: recordings
   max:
     concurrent: 5
-# 流转换配置
+# Stream conversion configuration
 stream:
-  # 首选转换模式 (webrtc | hls)
+  # Preferred conversion mode (webrtc | hls)
   preferred-mode: webrtc
 
-  # HLS输出配置
+  # HLS输出Configuration
   hls:
     output-dir: static/hls/
     segment-time: 2
     list-size: 5
     delete-segments: true
 
-  # FFmpeg配置
+  # FFmpegConfiguration
   ffmpeg:
     path: ffmpeg
     timeout: 30000
     max-concurrent-streams: 5
 
-  # 资源清理配置
+  # Resource cleanup configuration
   cleanup:
     enabled: true
-    interval: 3600000  # 1小时
-    max-idle-time: 600000  # 10分钟无活动自动清理
+    interval: 3600000  # 1Hour
+    max-idle-time: 600000  # 10Automatically clean after minutes of inactivity
 
-# WebRTC配置
+# WebRTCConfiguration
 webrtc:
   streamer:
-    # WebRTC-streamer服务器地址
+    # WebRTC-streamerServer address
     url: ${WEBRTC_STREAMER_URL:http://webrtc-streamer-server.zglt-1742612481:8000}
     internetUrl: ${WEBRTC_STREAMER__INTERNET_URL:http://oort.oortcloudsmart.com:21410/bus/webrtc-streamer-server}
-    # 是否启用WebRTC功能
+    # Whether to enableWebRTCFunction
     enabled: true
-    # 连接超时时间（毫秒）
+    # Connection timeout(millisecond)
     timeout: 30000
-    # 重试次数
+    # Number of retries
     retry-count: 3
-    # STUN服务器配置
+    # STUNServer configuration
     stun-server: stun.l.google.com:19302
-    # 是否启用日志
+    # Whether to enable logs
     verbose: true
 

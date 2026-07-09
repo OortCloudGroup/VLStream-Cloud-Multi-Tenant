@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * MQTT配置
+ * MQTTConfiguration
  */
 @Data
 @Component
@@ -13,82 +13,82 @@ import org.springframework.stereotype.Component;
 public class VlsMqttProperties {
 
 	/**
-	 * MQTT服务地址
+	 * MQTTService address
 	 */
 	private String host;
 
 	/**
-	 * MQTT服务端口
+	 * MQTTservice port
 	 */
 	private Integer port;
 
 	/**
-	 * MQTT用户名
+	 * MQTTusername
 	 */
 	private String username;
 
 	/**
-	 * MQTT密码
+	 * MQTTpassword
 	 */
 	private String password;
 
 	/**
-	 * 通用主题前缀
+	 * Common theme prefix
 	 */
 	private String topicPrefix = "oortcloud";
 
 	/**
-	 * 摄像机显示设置消息主题
+	 * Camera display settings message topic
 	 */
 	private String vlsCameraDisplaySettingTopic = "oortcloud/vlsCameraDisplaySetting";
 
 	/**
-	 * 摄像机OSD设置消息主题
+	 * cameraOSDSet message topic
 	 */
 	private String vlsCameraOsdSettingTopic = "oortcloud/vlsCameraOsdSetting";
 
 	/**
-	 * 音频异常侦测设置消息主题
+	 * Audio anomaly detection setting message theme
 	 */
 	private String vlsAudioAnomalyDetectionSettingTopic = "oortcloud/vlsAudioAnomalyDetectionSetting";
 
 	/**
-	 * 音频布防时间设置消息主题
+	 * Audio arming time setting message theme
 	 */
 	private String vlsAudioDefenseTimeSettingTopic = "oortcloud/vlsAudioDefenseTimeSetting";
 
 	/**
-	 * 音频联动方式设置消息主题
+	 * Audio linkage method to set message theme
 	 */
 	private String vlsAudioLinkageModeSettingTopic = "oortcloud/vlsAudioLinkageModeSetting";
 
 	/**
-	 * 时间策略消息主题
+	 * Time policy message topic
 	 */
 	private String vlsTimeStrategyTopic = "oortcloud/vlsTimeStrategy";
 
 	/**
-	 * 录像事件策略消息主题
+	 * Recording event policy message topic
 	 */
 	private String vlsRecordEventStrategyTopic = "oortcloud/vlsRecordEventStrategy";
 
 	/**
-	 * MQTT客户端ID前缀
+	 * MQTTclientIDprefix
 	 */
 	private String clientIdPrefix = "vls-dispatch";
 
 	/**
-	 * MQTT消息质量等级
+	 * MQTTMessage quality level
 	 */
 	private Integer qos = 1;
 
 	/**
-	 * MQTT心跳保持时长（秒）
+	 * MQTTheartbeat duration(Second)
 	 */
 	private Integer keepAliveSeconds = 60;
 
 	/**
-	 * MQTT连接超时（秒）
+	 * MQTTConnection timeout(Second)
 	 */
 	private Integer connectionTimeoutSeconds = 10;
 

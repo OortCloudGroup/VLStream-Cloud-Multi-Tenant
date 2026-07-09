@@ -17,25 +17,25 @@ import static org.springblade.common.constant.TenantConstant.PASSWORD_KEY;
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_USER_RULE;
 
 /**
- * 租户用户构建
+ * Tenant user build
  *
  * @author Chill
  */
-@LiteRuleComponent(id = TENANT_USER_RULE, name = "租户用户构建")
+@LiteRuleComponent(id = TENANT_USER_RULE, name = "Tenant user build")
 public class TenantUserRule extends RuleComponent {
 	@Override
 	public void process() {
-		// 获取上下文
+		// Get context
 		TenantContext contextBean = this.getContextBean(TenantContext.class);
 		Tenant tenant = contextBean.getTenant();
 
-		// 新建租户对应的默认管理用户
+		// Default management user corresponding to the new tenant
 		User user = new User();
 		user.setTenantId(tenant.getTenantId());
 		user.setName("admin");
 		user.setRealName("admin");
 		user.setAccount("admin");
-		// 获取参数配置的密码
+		// Get the password for parameter configuration
 		String password = Func.toStr(ParamCache.getValue(PASSWORD_KEY), DEFAULT_PASSWORD);
 		user.setPassword(password);
 		user.setBirthday(new Date());
@@ -43,7 +43,7 @@ public class TenantUserRule extends RuleComponent {
 		user.setUserType(UserType.WEB.getCategory());
 		user.setIsDeleted(BladeConstant.DB_NOT_DELETED);
 
-		// 设置上下文
+		// Set context
 		contextBean.setUser(user);
 	}
 }

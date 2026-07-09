@@ -12,38 +12,38 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Chill
  */
 @Data
 @TableName("blade_role_menu")
-@Schema(description = "RoleMenu对象")
+@Schema(description = "RoleMenuobject")
 public class RoleMenu implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键
+	 * primary key
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "主键")
+	@Schema(description = "primary key")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * 菜单id
+	 * menuid
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "菜单id")
+	@Schema(description = "menuid")
 	private Long menuId;
 
 	/**
-	 * 角色id
+	 * Roleid
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "角色id")
+	@Schema(description = "Roleid")
 	private Long roleId;
 
 

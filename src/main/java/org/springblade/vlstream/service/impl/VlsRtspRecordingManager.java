@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * RTSP录制进程管理器
+ * RTSPRecording process manager
  */
 @Slf4j
 @Component
@@ -79,18 +79,18 @@ public class VlsRtspRecordingManager {
 	}
 
 	public void refreshNowAsync() {
-		log.info("收到RTSP录制刷新请求，异步执行");
+		log.info("receiveRTSPRecord refresh request, Asynchronous execution");
 		CompletableFuture.runAsync(this::refreshNow);
 	}
 
 	public void refreshNow() {
 		if (Boolean.FALSE.equals(recordingProperties.getEnabled())) {
-			log.warn("跳过RTSP录制刷新：vlstream.rtsp-recording.enabled=false");
-			stopAllSessions("RTSP录制功能未启用");
+			log.warn("jump overRTSPRecording refresh: vlstream.rtsp-recording.enabled=false");
+			stopAllSessions("RTSPRecording is not enabled");
 			return;
 		}
 		if (!refreshInProgress.compareAndSet(false, true)) {
-			log.info("跳过RTSP录制刷新：已有刷新任务进行中");
+			log.info("jump overRTSPRecording refresh: There is already a refresh task in progress");
 			return;
 		}
 		try {
@@ -102,12 +102,12 @@ public class VlsRtspRecordingManager {
 			Map<Long, TimeStrategy> activeTimeStrategyMap = timeStrategyList.stream().filter(timeStrategy -> timeStrategy != null && timeStrategy.getId() != null).filter(timeStrategy -> StringUtils.isNotBlank(timeStrategy.getDeviceId())).collect(Collectors.toMap(TimeStrategy::getId, Function.identity(), (left, right) -> right));
 			List<RecordingSession> runningSessionList = recordingSessionMapper.selectList(Wrappers.<RecordingSession>lambdaQuery().eq(RecordingSession::getSessionStatus, "running"));
 			Map<Long, RecordingSession> runningSessionMap = runningSessionList.stream().filter(recordingSession -> recordingSession != null && recordingSession.getTimeStrategyId() != null).collect(Collectors.toMap(RecordingSession::getTimeStrategyId, Function.identity(), (left, right) -> right));
-			log.info("执行RTSP录制刷新：timeStrategyCount={}, recordEventStrategyCount={}, activeSessionCount={}, segmentSeconds={}", activeTimeStrategyMap.size(), recordEventStrategyMap.size(), runningSessionMap.size(), resolveSegmentSeconds());
+			log.info("implementRTSPRecording refresh: timeStrategyCount={}, recordEventStrategyCount={}, activeSessionCount={}, segmentSeconds={}", activeTimeStrategyMap.size(), recordEventStrategyMap.size(), runningSessionMap.size(), resolveSegmentSeconds());
 
 			stopRemovedSessions(activeTimeStrategyMap, runningSessionMap, currentDateTime);
 			activeTimeStrategyMap.values().forEach(timeStrategy -> refreshTimeStrategySession(timeStrategy, recordEventStrategyMap, runningSessionMap, currentDateTime));
 		} catch (Exception refreshException) {
-			log.error("刷新RTSP录制任务失败", refreshException);
+			log.error("refreshRTSPRecording task failed", refreshException);
 		} finally {
 			refreshInProgress.set(false);
 		}
@@ -118,13 +118,13 @@ public class VlsRtspRecordingManager {
 			return;
 		}
 		if (!recordSyncInProgress.compareAndSet(false, true)) {
-			log.info("跳过录像入库扫描：已有扫描任务进行中");
+			log.info("Skip video storage scanning: A scanning task is already in progress");
 			return;
 		}
 		try {
 			syncAllGeneratedRecords(LocalDateTime.now());
 		} catch (Exception syncException) {
-			log.error("录像入库扫描任务失败", syncException);
+			log.error("Video storage scan task failed", syncException);
 		} finally {
 			recordSyncInProgress.set(false);
 		}
@@ -132,14 +132,14 @@ public class VlsRtspRecordingManager {
 
 	@PreDestroy
 	public void shutdown() {
-		stopAllSessions("系统关闭");
+		stopAllSessions("System shutdown");
 	}
 
 	private void stopRemovedSessions(Map<Long, TimeStrategy> activeTimeStrategyMap, Map<Long, RecordingSession> runningSessionMap, LocalDateTime currentDateTime) {
 		Set<Long> activeTimeStrategyIdSet = runningSessionMap.keySet();
 		for (Long activeTimeStrategyId : activeTimeStrategyIdSet) {
 			if (!activeTimeStrategyMap.containsKey(activeTimeStrategyId)) {
-				stopSession(activeTimeStrategyId, "事件策略或时间策略已删除/禁用", currentDateTime);
+				stopSession(activeTimeStrategyId, "Event policy or time policy deleted/Disable", currentDateTime);
 			}
 		}
 	}
@@ -147,30 +147,30 @@ public class VlsRtspRecordingManager {
 	private void refreshTimeStrategySession(TimeStrategy timeStrategy, Map<String, RecordEventStrategy> recordEventStrategyMap, Map<Long, RecordingSession> runningSessionMap, LocalDateTime currentDateTime) {
 		Long timeStrategyId = timeStrategy.getId();
 		if (timeStrategyId == null) {
-			log.info("跳过时间策略刷新：strategyId为空, strategyDeviceId={}", timeStrategy.getDeviceId());
+			log.info("Skip time policy refresh: strategyIdis empty, strategyDeviceId={}", timeStrategy.getDeviceId());
 			return;
 		}
 		DeviceInfo deviceInfo = resolveDeviceInfo(timeStrategy.getDeviceId());
 		if (deviceInfo == null) {
-			log.info("停止会话：未找到设备信息, strategyId={}, strategyDeviceId={}", timeStrategyId, timeStrategy.getDeviceId());
-			stopSession(timeStrategyId, "设备不存在", currentDateTime);
+			log.info("stopsession: Device information not found, strategyId={}, strategyDeviceId={}", timeStrategyId, timeStrategy.getDeviceId());
+			stopSession(timeStrategyId, "Device does not exist", currentDateTime);
 			return;
 		}
 		RecordEventStrategy recordEventStrategy = resolveRecordEventStrategy(recordEventStrategyMap, timeStrategy, deviceInfo);
 		if (!isEventRecordingEnabled(recordEventStrategy)) {
-			log.info("停止会话：事件策略禁用录制, strategyId={}, strategyDeviceId={}, deviceBusinessId={}, triggerAction={}", timeStrategyId, timeStrategy.getDeviceId(), deviceInfo.getDeviceId(), recordEventStrategy == null ? "<none>" : recordEventStrategy.getTriggerAction());
-			stopSession(timeStrategyId, "未找到启用录制动作的事件策略", currentDateTime);
+			log.info("stopsession: Event policy disables recording, strategyId={}, strategyDeviceId={}, deviceBusinessId={}, triggerAction={}", timeStrategyId, timeStrategy.getDeviceId(), deviceInfo.getDeviceId(), recordEventStrategy == null ? "<none>" : recordEventStrategy.getTriggerAction());
+			stopSession(timeStrategyId, "Event policy enabling recording action not found", currentDateTime);
 			return;
 		}
 		String streamUrl = deviceInfo.getStreamUrl();
 		if (!isRtspAddress(streamUrl)) {
-			log.info("停止会话：设备RTSP地址无效, strategyId={}, deviceId={}, streamUrl={}", timeStrategyId, deviceInfo.getId(), deviceInfo.getStreamUrl());
-			stopSession(timeStrategyId, "设备未配置RTSP地址", currentDateTime);
+			log.info("stopsession: equipmentRTSPInvalid address, strategyId={}, deviceId={}, streamUrl={}", timeStrategyId, deviceInfo.getId(), deviceInfo.getStreamUrl());
+			stopSession(timeStrategyId, "Device is not configuredRTSPaddress", currentDateTime);
 			return;
 		}
 		boolean shouldRunNow = shouldRunNow(timeStrategy, currentDateTime);
 		if (!shouldRunNow) {
-			stopSession(timeStrategyId, "当前时间不在录制策略内", currentDateTime);
+			stopSession(timeStrategyId, "The current time is not within the recording policy", currentDateTime);
 			return;
 		}
 
@@ -182,11 +182,11 @@ public class VlsRtspRecordingManager {
 		RecordingSession existingSession = runningSessionMap.get(timeStrategyId);
 		if (existingSession != null) {
 			if (isSessionProcessAlive(timeStrategyId) && StringUtils.equals(existingSession.getSessionSignature(), sessionSignature)) {
-				log.debug("复用已存在录制会话: strategyId={}, signature={}", timeStrategyId, sessionSignature);
+				log.debug("Reuse an existing recording session: strategyId={}, signature={}", timeStrategyId, sessionSignature);
 				return;
 			}
-			log.info("录制会话参数发生变化，准备重建: strategyId={}, oldSignature={}, newSignature={}", timeStrategyId, existingSession.getSessionSignature(), sessionSignature);
-			stopSession(timeStrategyId, "录制参数变更，重建会话", currentDateTime);
+			log.info("Recording session parameters changed, Prepare to rebuild: strategyId={}, oldSignature={}, newSignature={}", timeStrategyId, existingSession.getSessionSignature(), sessionSignature);
+			stopSession(timeStrategyId, "Recording parameter changes, Rebuild session", currentDateTime);
 		}
 		startSession(timeStrategy, deviceInfo, streamUrl, outputDirectory, outputPattern, segmentSeconds, sessionSignature);
 	}
@@ -217,9 +217,9 @@ public class VlsRtspRecordingManager {
 			recordingSession.setStopReason(null);
 			recordingSession.setLastSyncTime(LocalDateTime.now());
 			saveOrUpdateSession(recordingSession);
-			log.info("启动RTSP录制成功: strategyId={}, deviceId={}, stream={}", timeStrategy.getId(), timeStrategy.getDeviceId(), streamUrl);
+			log.info("start upRTSPRecording successful: strategyId={}, deviceId={}, stream={}", timeStrategy.getId(), timeStrategy.getDeviceId(), streamUrl);
 		} catch (IOException ioException) {
-			log.error("启动RTSP录制失败: strategyId={}, deviceId={}, reason={}", timeStrategy.getId(), timeStrategy.getDeviceId(), ioException.getMessage(), ioException);
+			log.error("start upRTSPRecording failed: strategyId={}, deviceId={}, reason={}", timeStrategy.getId(), timeStrategy.getDeviceId(), ioException.getMessage(), ioException);
 		}
 	}
 
@@ -252,7 +252,7 @@ public class VlsRtspRecordingManager {
 		recordingSession.setSessionStopTime(LocalDateTime.now());
 		recordingSession.setLastSyncTime(LocalDateTime.now());
 		recordingSessionMapper.updateById(recordingSession);
-		log.info("停止RTSP录制: timeStrategyId={}, reason={}", timeStrategyId, reason);
+		log.info("stopRTSPRecord: timeStrategyId={}, reason={}", timeStrategyId, reason);
 	}
 
 	private void stopAllSessions(String reason) {
@@ -271,31 +271,31 @@ public class VlsRtspRecordingManager {
 
 	private void syncGeneratedRecords(RecordingSession recordingSession, LocalDateTime currentDateTime) {
 		if (recordingSession == null || StringUtils.isBlank(recordingSession.getOutputDirectory())) {
-			log.info("跳过文件同步：会话或目录为空");
+			log.info("Skip file sync: Session or directory is empty");
 			return;
 		}
 		File outputDirectoryFile = Paths.get(recordingSession.getOutputDirectory()).toFile();
 		File[] videoFileArray = outputDirectoryFile.listFiles(file -> file != null && file.isFile() && file.getName().endsWith(".mp4"));
 		if (videoFileArray == null) {
-			log.info("跳过文件同步：目录不可访问或无文件数组, strategyId={}, directory={}", recordingSession.getTimeStrategyId(), recordingSession.getOutputDirectory());
+			log.info("Skip file sync: Directory inaccessible or no file array, strategyId={}, directory={}", recordingSession.getTimeStrategyId(), recordingSession.getOutputDirectory());
 			return;
 		}
-		log.info("开始同步录像文件: strategyId={}, deviceId={}, directory={}, fileCount={}", recordingSession.getTimeStrategyId(), recordingSession.getDeviceId(), recordingSession.getOutputDirectory(), videoFileArray.length);
+		log.info("Start synchronizing video files: strategyId={}, deviceId={}, directory={}, fileCount={}", recordingSession.getTimeStrategyId(), recordingSession.getDeviceId(), recordingSession.getOutputDirectory(), videoFileArray.length);
 		for (File videoFile : videoFileArray) {
 			String absoluteFilePath = videoFile.getAbsolutePath();
 			LocalDateTime fileModifyTime = LocalDateTime.ofInstant(videoFile.lastModified() <= 0 ? java.time.Instant.now() : java.time.Instant.ofEpochMilli(videoFile.lastModified()), ZoneId.systemDefault());
 			if (fileModifyTime.isAfter(currentDateTime.minusSeconds(resolveStaleFileSeconds()))) {
-				log.info("跳过未稳定文件: path={}, modifyTime={}, staleThresholdSeconds={}", absoluteFilePath, fileModifyTime, resolveStaleFileSeconds());
+				log.info("Skip unstabilized files: path={}, modifyTime={}, staleThresholdSeconds={}", absoluteFilePath, fileModifyTime, resolveStaleFileSeconds());
 				continue;
 			}
 			if (existsRecordByFilePath(absoluteFilePath)) {
-				log.info("跳过重复入库文件(DB已存在): {}", absoluteFilePath);
+				log.info("Skip duplicate files(DBAlready exists): {}", absoluteFilePath);
 				continue;
 			}
 			VideoRecord videoRecord = buildVideoRecord(recordingSession, videoFile.toPath());
 			boolean saveResult = videoRecordService.save(videoRecord);
 			if (!saveResult) {
-				log.error("录像记录入库失败: path={}, strategyId={}, deviceId={}", absoluteFilePath, recordingSession.getTimeStrategyId(), recordingSession.getDeviceId());
+				log.error("Failed to store video records into database: path={}, strategyId={}, deviceId={}", absoluteFilePath, recordingSession.getTimeStrategyId(), recordingSession.getDeviceId());
 			}
 			if (saveResult && videoRecord.getId() != null) {
 				VideoRecord updateVideoRecord = new VideoRecord();
@@ -303,11 +303,11 @@ public class VlsRtspRecordingManager {
 				updateVideoRecord.setUrl("/vlsVideoRecord/stream/" + videoRecord.getId());
 				boolean updateResult = videoRecordService.updateById(updateVideoRecord);
 				if (!updateResult) {
-					log.warn("录像记录URL回填失败: recordId={}, path={}", videoRecord.getId(), absoluteFilePath);
+					log.warn("Video recordingURLBackfill failed: recordId={}, path={}", videoRecord.getId(), absoluteFilePath);
 				}
 			}
 			if (saveResult) {
-				log.info("录像记录入库成功: recordId={}, path={}, startTime={}, endTime={}", videoRecord.getId(), videoRecord.getFilePath(), videoRecord.getRecordStartTime(), videoRecord.getRecordEndTime());
+				log.info("Video record entered into database successfully: recordId={}, path={}, startTime={}, endTime={}", videoRecord.getId(), videoRecord.getFilePath(), videoRecord.getRecordStartTime(), videoRecord.getRecordEndTime());
 			}
 		}
 		recordingSession.setLastSyncTime(LocalDateTime.now());
@@ -360,18 +360,18 @@ public class VlsRtspRecordingManager {
 		try {
 			FileResponseDto fileResponseDto = fileUploadService.uploadFile(FILE_UPLOAD_APP_ID, FILE_UPLOAD_SECRET_KEY, thumbnailPath.toFile());
 			if (fileResponseDto == null || StringUtils.isBlank(fileResponseDto.getUrl())) {
-				log.warn("缩略图上传失败，返回URL为空: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath);
+				log.warn("Thumbnail upload failed, returnURLis empty: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath);
 				return null;
 			}
 			return fileResponseDto.getUrl();
 		} catch (Exception uploadException) {
-			log.error("上传视频缩略图失败: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath, uploadException);
+			log.error("Failed to upload video thumbnail: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath, uploadException);
 			return null;
 		} finally {
 			try {
 				Files.deleteIfExists(thumbnailPath);
 			} catch (IOException deleteException) {
-				log.warn("删除本地缩略图失败: thumbnailPath={}", thumbnailPath, deleteException);
+				log.warn("Failed to delete local thumbnail: thumbnailPath={}", thumbnailPath, deleteException);
 			}
 		}
 	}
@@ -386,24 +386,24 @@ public class VlsRtspRecordingManager {
 			boolean finished = process.waitFor(THUMBNAIL_CAPTURE_WAIT_SECONDS, TimeUnit.SECONDS);
 			if (!finished) {
 				process.destroyForcibly();
-				log.warn("生成视频缩略图超时: videoPath={}", videoPath);
+				log.warn("Generating video thumbnail timed out: videoPath={}", videoPath);
 				return false;
 			}
 			if (process.exitValue() != 0) {
-				log.warn("生成视频缩略图失败，ffmpeg退出码异常: videoPath={}, exitCode={}", videoPath, process.exitValue());
+				log.warn("Failed to generate video thumbnail, ffmpegExit code exception: videoPath={}, exitCode={}", videoPath, process.exitValue());
 				return false;
 			}
 			if (!Files.exists(thumbnailPath) || Files.size(thumbnailPath) <= 0) {
-				log.warn("生成视频缩略图失败，缩略图文件不存在或大小为0: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath);
+				log.warn("Failed to generate video thumbnail, The thumbnail file does not exist or is of size0: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath);
 				return false;
 			}
 			return true;
 		} catch (InterruptedException interruptedException) {
 			Thread.currentThread().interrupt();
-			log.warn("生成视频缩略图被中断: videoPath={}", videoPath, interruptedException);
+			log.warn("Generating video thumbnails is interrupted: videoPath={}", videoPath, interruptedException);
 			return false;
 		} catch (Exception captureException) {
-			log.error("生成视频缩略图异常: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath, captureException);
+			log.error("Exception in generating video thumbnails: videoPath={}, thumbnailPath={}", videoPath, thumbnailPath, captureException);
 			return false;
 		}
 	}
@@ -422,7 +422,7 @@ public class VlsRtspRecordingManager {
 			try {
 				return LocalDateTime.parse(dateText, FILE_TIME_FORMATTER);
 			} catch (DateTimeParseException parseException) {
-				log.info("解析录像文件开始时间失败: fileName={}", fileName);
+				log.info("Failed to parse video file start time: fileName={}", fileName);
 			}
 		}
 		long fileModifyEpochMilli = videoPath.toFile().lastModified();
@@ -458,17 +458,17 @@ public class VlsRtspRecordingManager {
 
 	private boolean isEventRecordingEnabled(RecordEventStrategy recordEventStrategy) {
 		if (recordEventStrategy == null || StringUtils.isBlank(recordEventStrategy.getDeviceId())) {
-			log.info("未配置事件策略，按时间策略默认启用录制");
+			log.info("No event policy configured, Enable recording by default by time policy");
 			return true;
 		}
 		String triggerAction = StringUtils.trimToEmpty(recordEventStrategy.getTriggerAction());
 		if (StringUtils.isBlank(triggerAction)) {
-			log.info("事件策略未配置triggerAction，按默认启用录制: strategyDeviceId={}", recordEventStrategy.getDeviceId());
+			log.info("Event policy not configuredtriggerAction, Enable recording by default: strategyDeviceId={}", recordEventStrategy.getDeviceId());
 			return true;
 		}
 		boolean enabled = StringUtils.containsIgnoreCase(triggerAction, TRIGGER_ACTION_RECORD);
 		if (!enabled) {
-			log.info("事件策略明确禁用录制(triggerAction不含record): strategyDeviceId={}, triggerAction={}", recordEventStrategy.getDeviceId(), triggerAction);
+			log.info("Event policy explicitly disables recording(triggerActionDoes not containrecord): strategyDeviceId={}, triggerAction={}", recordEventStrategy.getDeviceId(), triggerAction);
 		}
 		return enabled;
 	}

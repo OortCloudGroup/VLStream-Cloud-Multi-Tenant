@@ -29,7 +29,7 @@ import java.util.Map;
 import static org.springblade.core.cache.constant.CacheConstant.DICT_CACHE;
 
 /**
- * 服务实现类
+ * Service implementation class
  *
  * @author Chill
  */
@@ -72,9 +72,9 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 		LambdaQueryWrapper<Dict> lqw = Wrappers.<Dict>query().lambda().eq(Dict::getCode, dict.getCode()).eq(Dict::getDictKey, dict.getDictKey());
 		Long cnt = baseMapper.selectCount((Func.isEmpty(dict.getId())) ? lqw : lqw.notIn(Dict::getId, dict.getId()));
 		if (cnt > 0L) {
-			throw new ServiceException("当前字典键值已存在!");
+			throw new ServiceException("The current dictionary key value already exists!");
 		}
-		// 修改顶级字典后同步更新下属字典的编号
+		// After modifying the top-level dictionary, the numbers of subordinate dictionaries are updated simultaneously.
 		if (Func.isNotEmpty(dict.getId()) && dict.getParentId().longValue() == BladeConstant.TOP_PARENT_ID) {
 			Dict parent = DictCache.getById(dict.getId());
 			this.update(Wrappers.<Dict>update().lambda().set(Dict::getCode, dict.getCode()).eq(Dict::getCode, parent.getCode()).ne(Dict::getParentId, BladeConstant.TOP_PARENT_ID));
@@ -91,7 +91,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 	public boolean removeDict(String ids) {
 		Long cnt = baseMapper.selectCount(Wrappers.<Dict>query().lambda().in(Dict::getParentId, Func.toLongList(ids)));
 		if (cnt > 0L) {
-			throw new ServiceException("请先删除子节点!");
+			throw new ServiceException("Please delete child nodes first!");
 		}
 		return removeByIds(Func.toLongList(ids));
 	}

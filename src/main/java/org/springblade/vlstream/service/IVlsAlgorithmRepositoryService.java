@@ -10,37 +10,37 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * 算法仓库表 服务类
+ * Algorithm warehouse table Service category
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAlgorithmRepositoryService extends BaseService<AlgorithmRepository> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsAlgorithmRepository 查询参数
+	 * @param page Paging parameters
+	 * @param vlsAlgorithmRepository query parameters
 	 * @return IPage<VlsAlgorithmRepositoryVO>
 	 */
 	IPage<AlgorithmRepositoryVO> selectVlsAlgorithmRepositoryPage(IPage<AlgorithmRepositoryVO> page, AlgorithmRepositoryVO vlsAlgorithmRepository);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsAlgorithmRepositoryExcel>
 	 */
 	List<VlsAlgorithmRepositoryExcel> exportVlsAlgorithmRepository(Wrapper<AlgorithmRepository> queryWrapper);
 
 	/**
-	 * 分页查询算法仓库列表
+	 * Paging query algorithm warehouse list
 	 *
-	 * @param page 分页参数
-	 * @param name 仓库名称（模糊查询）
-	 * @param repositoryType 仓库类型
-	 * @param status 状态
-	 * @return 分页结果
+	 * @param page Paging parameters
+	 * @param name Warehouse name(fuzzy query)
+	 * @param repositoryType Warehouse type
+	 * @param status state
+	 * @return Paginated results
 	 */
 	IPage<AlgorithmRepository> selectRepositoryPage(Page<AlgorithmRepository> page,
 													String name,
@@ -48,81 +48,81 @@ public interface IVlsAlgorithmRepositoryService extends BaseService<AlgorithmRep
 													String status);
 
 	/**
-	 * 查询所有启用的算法仓库
+	 * Query所有enablealgorithmstorehouse
 	 *
-	 * @return 启用的算法仓库列表
+	 * @return List of enabled algorithm repositories
 	 */
 	List<AlgorithmRepository> getEnabledRepositories();
 
 	/**
-	 * 根据类型查询算法仓库
+	 * Query algorithm warehouse based on type
 	 *
-	 * @param repositoryType 仓库类型
-	 * @return 算法仓库列表
+	 * @param repositoryType Warehouse type
+	 * @return Algorithm warehouse list
 	 */
 	List<AlgorithmRepository> getByRepositoryType(String repositoryType);
 
 	/**
-	 * 创建算法仓库
+	 * Create algorithm warehouse
 	 *
-	 * @param repository 算法仓库信息
-	 * @return 是否成功
+	 * @param repository Algorithm warehouse information
+	 * @return Is it successful?
 	 */
 	boolean createRepository(AlgorithmRepository repository);
 
 	/**
-	 * 更新算法仓库
+	 * Update algorithm repository
 	 *
-	 * @param repository 算法仓库信息
-	 * @return 是否成功
+	 * @param repository Algorithm warehouse information
+	 * @return Is it successful?
 	 */
 	boolean updateRepository(AlgorithmRepository repository);
 
 	/**
-	 * 删除算法仓库
+	 * Delete algorithm repository
 	 *
-	 * @param id 仓库ID
-	 * @return 是否成功
+	 * @param id storehouseID
+	 * @return Is it successful?
 	 */
 	boolean deleteRepository(Long id);
 
 	/**
-	 * 批量删除算法仓库
+	 * Batch deletion of algorithm warehouse
 	 *
-	 * @param ids 仓库ID列表
-	 * @return 是否成功
+	 * @param ids storehouseIDlist
+	 * @return Is it successful?
 	 */
 	boolean batchDeleteRepositories(List<Long> ids);
 
 	/**
-	 * 更新仓库状态
+	 * Update warehouse status
 	 *
-	 * @param id 仓库ID
-	 * @param status 新状态
-	 * @return 是否成功
+	 * @param id storehouseID
+	 * @param status new status
+	 * @return Is it successful?
 	 */
 	boolean updateRepositoryStatus(Long id, String status);
 
 	/**
-	 * 批量更新仓库状态
+	 * Update warehouse status in batches
 	 *
-	 * @param ids 仓库ID列表
-	 * @param status 新状态
-	 * @return 是否成功
+	 * @param ids storehouseIDlist
+	 * @param status new status
+	 * @return Is it successful?
 	 */
 	boolean batchUpdateRepositoryStatus(List<Long> ids, String status);
 
 	/**
-	 * 统计算法仓库数量
+	 * Statistical algorithm warehouse quantity
 	 *
-	 * @return 仓库总数
+	 * @return Total number of warehouses
 	 */
 	Long countRepositories();
 
 	/**
-	 * 更新仓库的算法数量
+	 * Update the number of algorithms in the warehouse
 	 *
-	 * @param repositoryId 仓库ID
+	 * @param repositoryId storehouseID
 	 */
 	void updateAlgorithmCount(Long repositoryId);
 

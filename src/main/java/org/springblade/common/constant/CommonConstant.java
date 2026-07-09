@@ -3,7 +3,7 @@ package org.springblade.common.constant;
 import org.springblade.core.launch.constant.AppConstant;
 
 /**
- * 通用常量
+ * Universal constant
  *
  * @author Chill
  */
@@ -15,67 +15,67 @@ public interface CommonConstant {
 	String APPLICATION_NAME = AppConstant.APPLICATION_NAME_PREFIX + "api";
 
 	/**
-	 * sword 系统名
+	 * sword System name
 	 */
 	String SWORD_NAME = "sword";
 
 	/**
-	 * saber 系统名
+	 * saber System name
 	 */
 	String SABER_NAME = "saber";
 
 	/**
-	 * 顶级父节点id
+	 * top parent nodeid
 	 */
 	Long TOP_PARENT_ID = 0L;
 
 	/**
-	 * 顶级父节点名称
+	 * Top-level parent node name
 	 */
-	String TOP_PARENT_NAME = "顶级";
+	String TOP_PARENT_NAME = "Top";
 
 	/**
-	 * 未封存状态值
+	 * Unarchived status value
 	 */
 	Integer NOT_SEALED_ID = 0;
 
 	/**
-	 * 默认密码
+	 * default password
 	 */
 	String DEFAULT_PASSWORD = "123456";
 
 	/**
-	 * 默认密码参数值
+	 * Default password parameter value
 	 */
 	String DEFAULT_PARAM_PASSWORD = "account.initPassword";
 
 	/**
-	 * 默认排序字段
+	 * Default sort field
 	 */
 	String SORT_FIELD = "sort";
 
 	/**
-	 * 数据权限类型
+	 * Data permission type
 	 */
 	Integer DATA_SCOPE_CATEGORY = 1;
 
 	/**
-	 * 接口权限类型
+	 * Interface permission type
 	 */
 	Integer API_SCOPE_CATEGORY = 2;
 
 	/**
-	 * 数据集路径
+	 * Dataset path
 	 */
     String BASE_DATASETS_PATH = "/data/work/ultralytics_yolov8-main/datasets/";
 
 	/**
-	 * yolo工作路径
+	 * yoloworking path
 	 */
 	String BASE_YOLO_PATH = "/data/work/ultralytics_yolov8-main/";
 
 	/**
-	 * synset文件
+	 * synsetdocument
 	 */
 	String SYNSET_TXT = "synset.txt";
 }

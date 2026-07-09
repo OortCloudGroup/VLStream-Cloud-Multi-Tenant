@@ -22,7 +22,7 @@ import java.util.Map;
 import static org.springblade.common.cache.RegionCache.*;
 
 /**
- * 行政区划表 服务实现类
+ * Administrative division table Service implementation class
  *
  * @author Chill
  */
@@ -32,7 +32,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
 
 	@Override
 	public boolean submit(Region region) {
-		// 设置市级编号格式
+		// Set municipal number format
 		String regionCode = region.getCode();
 		String regionParentCode = region.getParentCode();
 		if (regionCode.startsWith(MAIN_CODE)) {
@@ -41,18 +41,18 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
 		if (regionParentCode.startsWith(MAIN_CODE)) {
 			region.setParentCode(StringUtil.removePrefix(regionParentCode, MAIN_CODE));
 		}
-		// 查询是否已存在
+		// Check if it already exists
 		Long cnt = baseMapper.selectCount(Wrappers.<Region>query().lambda().eq(Region::getCode, region.getCode()));
 		if (cnt > 0L) {
 			return this.updateById(region);
 		}
-		// 设置祖区划编号
+		// Set ancestor zone number
 		Region parent = getByCode(region.getParentCode());
 		if (Func.isNotEmpty(parent) && Func.isNotEmpty(parent.getCode())) {
 			String ancestors = parent.getAncestors() + StringPool.COMMA + parent.getCode();
 			region.setAncestors(ancestors);
 		}
-		// 设置省、市、区、镇、村
+		// Set province、city、district、town、village
 		Integer level = region.getRegionLevel();
 		String code = region.getCode();
 		String name = region.getName();
@@ -79,7 +79,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
 	public boolean removeRegion(String id) {
 		Long cnt = baseMapper.selectCount(Wrappers.<Region>query().lambda().eq(Region::getParentCode, id));
 		if (cnt > 0L) {
-			throw new ServiceException("请先删除子节点!");
+			throw new ServiceException("Please delete child nodes first!");
 		}
 		return removeById(id);
 	}

@@ -15,14 +15,14 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * 标注图片信息表 实体类
+ * Label image information table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_annotation_image")
-@Schema(description = "VlsAnnotationImageEntity对象")
+@Schema(description = "VlsAnnotationImageEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class AnnotationImage extends TenantEntity {
 
@@ -30,47 +30,47 @@ public class AnnotationImage extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 标注项目ID
+	 * Label itemsID
 	 */
-	@Schema(description = "标注项目ID")
+	@Schema(description = "Label itemsID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long annotationId;
 	/**
-	 * 图片名称
+	 * Picture name
 	 */
-	@Schema(description = "图片名称")
+	@Schema(description = "Picture name")
 	private String imageName;
 	/**
-	 * 原始文件名
+	 * original file name
 	 */
-	@Schema(description = "原始文件名")
+	@Schema(description = "original file name")
 	private String originalName;
 	/**
-	 * 本地存储路径
+	 * local storage path
 	 */
-	@Schema(description = "本地存储路径")
+	@Schema(description = "local storage path")
 	private String localPath;
 	/**
-	 * 文件大小（字节）
+	 * file size(byte)
 	 */
-	@Schema(description = "文件大小（字节）")
+	@Schema(description = "file size(byte)")
 	private Long fileSize;
 	/**
-	 * 最后修改时间
+	 * last modified time
 	 */
-	@Schema(description = "最后修改时间")
+	@Schema(description = "last modified time")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date lastModified;
 	/**
-	 * 是否为导入的图片：0-否，1-是
+	 * Whether it is an imported picture: 0-no, 1-yes
 	 */
-	@Schema(description = "是否为导入的图片：0-否，1-是")
+	@Schema(description = "Whether it is an imported picture: 0-no, 1-yes")
 	private Integer isImported;
 	/**
-	 * 导入时间
+	 * Import time
 	 */
-	@Schema(description = "导入时间")
+	@Schema(description = "Import time")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date importTime;

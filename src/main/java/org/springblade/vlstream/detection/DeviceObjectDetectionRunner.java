@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 /**
- * 目标检测启动触发器：应用启动时触发一次目标检测任务刷新。
+ * Target detection start trigger: Trigger a target detection task refresh when the application starts. 
  */
 @Component
 @ConditionalOnProperty(value = "vlstream.object-detection.enabled", havingValue = "true", matchIfMissing = false)

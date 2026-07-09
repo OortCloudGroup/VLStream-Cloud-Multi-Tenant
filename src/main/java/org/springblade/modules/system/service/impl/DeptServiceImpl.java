@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 服务实现类
+ * Service implementation class
  *
  * @author Chill
  */
@@ -43,7 +43,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
 	@Override
 	public List<DeptVO> lazyList(String tenantId, Long parentId, Map<String, Object> param) {
-		// 设置租户ID
+		// Set up tenantID
 		if (AuthUtil.isAdministrator()) {
 			tenantId = StringPool.EMPTY;
 		}
@@ -51,11 +51,11 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 		if (Func.isNotEmpty(paramTenantId) && AuthUtil.isAdministrator()) {
 			tenantId = paramTenantId;
 		}
-		// 判断点击搜索但是没有查询条件的情况
+		// Determine the situation when you click to search but there are no query conditions
 		if (Func.isEmpty(param.get(PARENT_ID)) && param.size() == 1) {
 			parentId = 0L;
 		}
-		// 判断数据权限控制,非超管角色只可看到本级及以下数据
+		// Determine data permission control,Non-supervisory characters can only see data at this level and below.
 		if (Func.toLong(parentId) == 0L && !AuthUtil.isAdministrator()) {
 			Long deptId = Func.firstLong(AuthUtil.getDeptId());
 			Dept dept = getById(deptId);
@@ -63,7 +63,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 				parentId = dept.getParentId();
 			}
 		}
-		// 判断点击搜索带有查询条件的情况
+		// Determine the situation when click search contains query conditions
 		if (Func.isEmpty(param.get(PARENT_ID)) && param.size() > 1 && Func.toLong(parentId) == 0L) {
 			parentId = null;
 		}
@@ -120,7 +120,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 	public boolean removeDept(String ids) {
 		Long cnt = baseMapper.selectCount(Wrappers.<Dept>query().lambda().in(Dept::getParentId, Func.toLongList(ids)));
 		if (cnt > 0L) {
-			throw new ServiceException("请先删除子节点!");
+			throw new ServiceException("Please delete child nodes first!");
 		}
 		return removeByIds(Func.toLongList(ids));
 	}
@@ -135,7 +135,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 		if (dept.getParentId() > 0) {
 			Dept parent = getById(dept.getParentId());
 			if (Func.toLong(dept.getParentId()) == Func.toLong(dept.getId())) {
-				throw new ServiceException("父节点不可选择自身!");
+				throw new ServiceException("The parent node cannot select itself!");
 			}
 			dept.setTenantId(parent.getTenantId());
 			String ancestors = parent.getAncestors() + StringPool.COMMA + dept.getParentId();
@@ -166,7 +166,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 	public List<UserVO> deptLeaderInfo(Long deptId) {
 		Dept dept = this.getById(deptId);
 		if (Func.isEmpty(dept)) {
-			throw new ServiceException("部门不存在!");
+			throw new ServiceException("Department does not exist!");
 		}
 		if (StringUtil.isBlank(dept.getLeaderId())) {
 			return new ArrayList<>();

@@ -10,25 +10,25 @@ import org.springblade.vlstream.pojo.vo.SceneGovernanceVO;
 import java.util.List;
 
 /**
- * 场景治理表 服务类
+ * Scenario management table Service category
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsSceneGovernanceService extends BaseService<SceneGovernance> {
 	/**
-	 * 自定义分页
+	 * Custom paging
 	 *
-	 * @param page 分页参数
-	 * @param vlsSceneGovernance 查询参数
+	 * @param page Paging parameters
+	 * @param vlsSceneGovernance query parameters
 	 * @return IPage<VlsSceneGovernanceVO>
 	 */
 	IPage<SceneGovernanceVO> selectVlsSceneGovernancePage(IPage<SceneGovernanceVO> page, SceneGovernanceVO vlsSceneGovernance);
 
 	/**
-	 * 导出数据
+	 * Export data
 	 *
-	 * @param queryWrapper 查询条件
+	 * @param queryWrapper Query conditions
 	 * @return List<VlsSceneGovernanceExcel>
 	 */
 	List<VlsSceneGovernanceExcel> exportVlsSceneGovernance(Wrapper<SceneGovernance> queryWrapper);

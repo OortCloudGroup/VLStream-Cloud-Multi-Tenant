@@ -22,63 +22,63 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/onvif/service")
-@Tag(name = "协议-ONVIF控制", description = "ONVIF控制接口")
+@Tag(name = "protocol-ONVIFcontrol", description = "ONVIFcontrol interface")
 public class OnvifServiceController extends BladeController {
 
 	private final IOnvifService onvifService;
 
 	@GetMapping("/getDigitalChannel")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "获取数字通道")
+	@Operation(summary = "Get digital channel")
 	public R<Set<String>> getDigitalChannel(OnvifFetchStreamUrisDTO dto) {
 		return R.data(onvifService.getDigitalChannel(dto));
 	}
 
 	@GetMapping("/getInfo")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "获取设备信息")
+	@Operation(summary = "Get device information")
 	public R<OnvifStreamUrisVO> getOnvifDeviceInfo(OnvifFetchStreamUrisDTO dto) {
 		return R.data(onvifService.getOnvifDeviceInfo(dto));
 	}
 
 	@GetMapping("/getChannelToken")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "获取通道token")
+	@Operation(summary = "Get channeltoken")
 	public R<List<Map<String, String>>> getChannelToken(OnvifFetchStreamUrisDTO dto) {
 		return R.data(onvifService.getChannelToken(dto));
 	}
 
 	@GetMapping("/absoluteMove")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "绝对位置移动")
+	@Operation(summary = "Absolute position movement")
 	public R<Void> absoluteMove(OnvifAbsoluteMoveDTO dto) {
 		return onvifService.generateAbsoluteMove(dto);
 	}
 
 	@GetMapping("/continuousMove")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "连续移动")
+	@Operation(summary = "continuous movement")
 	public R<Void> continuousMove(OnvifAbsoluteMoveDTO dto) {
 		return onvifService.generateContinuousMove(dto);
 	}
 
 	@GetMapping("/continuousMoveStop")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "连续移动停止")
+	@Operation(summary = "Continuous movement stops")
 	public R<Void> continuousMoveStop(OnvifAbsoluteMoveDTO dto) {
 		return onvifService.continuousMoveStop(dto);
 	}
 
 	@GetMapping("/getPresets")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "获取预置点")
+	@Operation(summary = "Get preset point")
 	public R<List<Map<String, String>>> getPresets(OnvifAbsoluteMoveDTO dto) {
 		return R.data(onvifService.getPresetList(dto));
 	}
 
 	@GetMapping("/gotoPreset")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "跳转预置点")
+	@Operation(summary = "Jump to preset point")
 	public R<Void> gotoPreset(OnvifPresetsDTO dto) {
 		onvifService.gotoPreset(dto);
 		return R.success("OK");
@@ -86,7 +86,7 @@ public class OnvifServiceController extends BladeController {
 
 	@GetMapping("/removePreset")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "删除预置点")
+	@Operation(summary = "Delete preset point")
 	public R<Void> removePreset(OnvifPresetsDTO dto) {
 		onvifService.removePreset(dto);
 		return R.success("OK");
@@ -94,7 +94,7 @@ public class OnvifServiceController extends BladeController {
 
 	@GetMapping("/addPreset")
 	@ApiOperationSupport(order = 10)
-	@Operation(summary = "添加预置点")
+	@Operation(summary = "Add preset point")
 	public R<Void> addPreset(OnvifPresetsDTO dto) {
 		onvifService.addPreset(dto);
 		return R.success("OK");

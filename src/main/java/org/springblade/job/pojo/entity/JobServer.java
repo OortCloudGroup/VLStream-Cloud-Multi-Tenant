@@ -9,43 +9,43 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * 任务服务表 实体类
+ * task service table Entity class
  *
  * @author Oort
  */
 @Data
 @TableName("blade_job_server")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "任务服务表")
+@Schema(description = "task service table")
 public class JobServer extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 任务服务名称
+	 * Task service name
 	 */
-	@Schema(description = "任务服务名称")
+	@Schema(description = "Task service name")
 	private String jobServerName;
 	/**
-	 * 任务服务器地址
+	 * Task server address
 	 */
-	@Schema(description = "任务服务器地址")
+	@Schema(description = "Task server address")
 	private String jobServerUrl;
 	/**
-	 * 任务应用名称
+	 * Task application name
 	 */
-	@Schema(description = "任务应用名称")
+	@Schema(description = "Task application name")
 	private String jobAppName;
 	/**
-	 * 任务应用密码
+	 * Task application password
 	 */
-	@Schema(description = "任务应用密码")
+	@Schema(description = "Task application password")
 	private String jobAppPassword;
 	/**
-	 * 任务备注
+	 * Task notes
 	 */
-	@Schema(description = "任务备注")
+	@Schema(description = "Task notes")
 	private String jobRemark;
 
 }

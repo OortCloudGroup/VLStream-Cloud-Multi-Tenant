@@ -39,7 +39,7 @@ import static org.springblade.common.constant.CommonConstant.API_SCOPE_CATEGORY;
 import static org.springblade.common.constant.CommonConstant.DATA_SCOPE_CATEGORY;
 
 /**
- * 服务实现类
+ * Service implementation class
  *
  * @author Chill
  */
@@ -74,19 +74,19 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	}
 
 	private boolean grantRoleMenu(List<Long> roleIds, List<Long> menuIds) {
-		// 防止越权配置超管角色
+		// Prevent unauthorized configuration of super-administrative roles
 		Long administratorCount = baseMapper.selectCount(Wrappers.<Role>query().lambda().eq(Role::getRoleAlias, RoleConstant.ADMINISTRATOR).in(Role::getId, roleIds));
 		if (!AuthUtil.isAdministrator() && administratorCount > 0L) {
-			throw new ServiceException("无权配置超管角色!");
+			throw new ServiceException("No permission to configure super management role!");
 		}
-		// 防止越权配置管理员角色
+		// Prevent unauthorized configuration of administrator roles
 		Long adminCount = baseMapper.selectCount(Wrappers.<Role>query().lambda().eq(Role::getRoleAlias, RoleConstant.ADMIN).in(Role::getId, roleIds));
 		if (!AuthUtil.isAdmin() && adminCount > 0L) {
-			throw new ServiceException("无权配置管理员角色!");
+			throw new ServiceException("No permission to configure administrator role!");
 		}
-		// 删除角色配置的菜单集合
+		// Delete the role configuration menu collection
 		roleMenuService.remove(Wrappers.<RoleMenu>update().lambda().in(RoleMenu::getRoleId, roleIds));
-		// 组装配置
+		// Assembly configuration
 		List<RoleMenu> roleMenus = new ArrayList<>();
 		roleIds.forEach(roleId -> menuIds.forEach(menuId -> {
 			RoleMenu roleMenu = new RoleMenu();
@@ -94,9 +94,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 			roleMenu.setMenuId(menuId);
 			roleMenus.add(roleMenu);
 		}));
-		// 新增配置
+		// New configuration
 		roleMenuService.saveBatch(roleMenus);
-		// 递归设置下属角色菜单集合
+		// Recursively set subordinate role menu collections
 		recursionRoleMenu(roleIds, menuIds);
 		return true;
 	}
@@ -104,21 +104,21 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	private void recursionRoleMenu(List<Long> roleIds, List<Long> menuIds) {
 		roleIds.forEach(roleId -> baseMapper.selectList(Wrappers.<Role>query().lambda().eq(Role::getParentId, roleId)).forEach(role -> {
 			List<RoleMenu> roleMenuList = roleMenuService.list(Wrappers.<RoleMenu>query().lambda().eq(RoleMenu::getRoleId, role.getId()));
-			// 子节点过滤出父节点删除的菜单集合
+			// Child nodes filter out the menu collection deleted by the parent node
 			List<Long> collectRoleMenuIds = roleMenuList.stream().map(RoleMenu::getMenuId).filter(menuId -> !menuIds.contains(menuId)).collect(Collectors.toList());
 			if (collectRoleMenuIds.size() > 0) {
-				// 删除子节点权限外的菜单集合
+				// Delete menu collections outside the permissions of child nodes
 				roleMenuService.remove(Wrappers.<RoleMenu>update().lambda().eq(RoleMenu::getRoleId, role.getId()).in(RoleMenu::getMenuId, collectRoleMenuIds));
-				// 递归设置下属角色菜单集合
+				// Recursively set subordinate role menu collections
 				recursionRoleMenu(Collections.singletonList(role.getId()), menuIds);
 			}
 		}));
 	}
 
 	private boolean grantDataScope(List<Long> roleIds, List<Long> dataScopeIds) {
-		// 删除角色配置的数据权限集合
+		// Delete the data permission set configured by the role
 		roleScopeService.remove(Wrappers.<RoleScope>update().lambda().eq(RoleScope::getScopeCategory, DATA_SCOPE_CATEGORY).in(RoleScope::getRoleId, roleIds));
-		// 组装配置
+		// Assembly configuration
 		List<RoleScope> roleDataScopes = new ArrayList<>();
 		roleIds.forEach(roleId -> dataScopeIds.forEach(scopeId -> {
 			RoleScope roleScope = new RoleScope();
@@ -127,15 +127,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 			roleScope.setScopeId(scopeId);
 			roleDataScopes.add(roleScope);
 		}));
-		// 新增配置
+		// New configuration
 		roleScopeService.saveBatch(roleDataScopes);
 		return true;
 	}
 
 	private boolean grantApiScope(List<Long> roleIds, List<Long> apiScopeIds) {
-		// 删除角色配置的接口权限集合
+		// Delete the interface permission set configured by the role
 		roleScopeService.remove(Wrappers.<RoleScope>update().lambda().eq(RoleScope::getScopeCategory, API_SCOPE_CATEGORY).in(RoleScope::getRoleId, roleIds));
-		// 组装配置
+		// Assembly configuration
 		List<RoleScope> roleApiScopes = new ArrayList<>();
 		roleIds.forEach(roleId -> apiScopeIds.forEach(scopeId -> {
 			RoleScope roleScope = new RoleScope();
@@ -144,7 +144,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 			roleScope.setRoleId(roleId);
 			roleApiScopes.add(roleScope);
 		}));
-		// 新增配置
+		// New configuration
 		roleScopeService.saveBatch(roleApiScopes);
 		return true;
 	}
@@ -172,7 +172,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	public boolean submit(Role role) {
 		if (!AuthUtil.isAdministrator()) {
 			if (Func.toStr(role.getRoleAlias()).equals(RoleConstant.ADMINISTRATOR)) {
-				throw new ServiceException("无权限创建超管角色！");
+				throw new ServiceException("No permission to create super management role! ");
 			}
 		}
 		if (Func.isEmpty(role.getParentId())) {
@@ -182,7 +182,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 		if (role.getParentId() > 0) {
 			Role parent = getById(role.getParentId());
 			if (Func.toLong(role.getParentId()) == Func.toLong(role.getId())) {
-				throw new ServiceException("父节点不可选择自身!");
+				throw new ServiceException("The parent node cannot select itself!");
 			}
 			role.setTenantId(parent.getTenantId());
 		}
@@ -211,24 +211,24 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	public boolean removeRole(String ids) {
 		Long cnt = baseMapper.selectCount(Wrappers.<Role>query().lambda().in(Role::getParentId, Func.toLongList(ids)));
 		if (cnt > 0L) {
-			throw new ServiceException("请先删除子节点!");
+			throw new ServiceException("Please delete child nodes first!");
 		}
 		return removeByIds(Func.toLongList(ids));
 	}
 
 	@Override
 	public List<Role> alias(String tenantId) {
-		// 获取所有角色数据
+		// Get all character data
 		List<Role> roles = baseMapper.selectList(Wrappers.<Role>lambdaQuery().eq(Role::getTenantId, tenantId));
 
-		// 根据 roleAlias 对角色进行分组
+		// according to roleAlias Group roles
 		Map<String, List<String>> aliasToNamesMap = roles.stream()
 			.collect(Collectors.groupingBy(Role::getRoleAlias,
 				Collectors.mapping(Role::getRoleName, Collectors.toList())));
 
-		// 创建新的角色列表，每个角色的 roleName 是 roleAlias 后跟括号内的所有 roleName
+		// Create a new role list, for each role roleName yes roleAlias followed by everything in parentheses roleName
 		return aliasToNamesMap.entrySet().stream()
-			// 过滤掉超级管理员角色
+			// Filter out super administrator roles
 			.filter(entry -> !StringUtil.equals(RoleConstant.ADMINISTRATOR, entry.getKey()))
 			.map(entry -> {
 				String roleAlias = entry.getKey();

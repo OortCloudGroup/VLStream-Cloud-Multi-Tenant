@@ -10,20 +10,20 @@ import java.io.ByteArrayOutputStream;
 import java.util.Properties;
 
 /**
- * SSH连接服务类
+ * SSHConnection service class
  */
 @Slf4j
 @Service
 public class SSHService {
 
     /**
-     * SSH连接配置
+     * SSHConnection configuration
      */
     private static final int CONNECT_TIMEOUT = 30000;
     private static final int SESSION_TIMEOUT = 30000;
 
     /**
-     * 执行SSH命令
+     * implementSSHOrder
      */
     public SSHExecutionResult executeCommand(String host, int port, String username, String password, String command) {
         Session session = null;
@@ -31,39 +31,39 @@ public class SSHService {
         SSHExecutionResult result = new SSHExecutionResult();
 
         try {
-            // 创建JSch实例
+            // createJSchExample
             JSch jsch = new JSch();
 
-            // 创建会话
+            // Create session
             session = jsch.getSession(username, host, port);
             session.setPassword(password);
 
-            // 设置连接属性
+            // Set connection properties
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
 
-            // 连接
+            // connect
             session.connect(CONNECT_TIMEOUT);
-            log.info("SSH连接成功: {}@{}:{}", username, host, port);
+            log.info("SSHConnection successful: {}@{}:{}", username, host, port);
 
-            // 创建执行通道
+            // Create execution channel
             channel = (ChannelExec) session.openChannel("exec");
             channel.setCommand(command);
 
-            // 获取输出流
+            // Get output stream
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             channel.setOutputStream(outputStream);
 
-            // 获取错误流
+            // Get error stream
             ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
             channel.setErrStream(errorStream);
 
-            // 执行命令
+            // execute command
             channel.connect(SESSION_TIMEOUT);
-            log.info("SSH命令执行: {}", command);
+            log.info("SSHcommand execution: {}", command);
 
-            // 等待命令执行完成
+            // Wait for command execution to complete
             while (!channel.isClosed()) {
                 try {
                     Thread.sleep(100);
@@ -73,31 +73,31 @@ public class SSHService {
                 }
             }
 
-            // 获取执行结果，使用UTF-8编码确保中文正确显示
+            // Get execution results, useUTF-8Encoding ensures correct display of Chinese characters
             String output = outputStream.toString("UTF-8");
             String error = errorStream.toString("UTF-8");
 
             int exitStatus = channel.getExitStatus();
 
-            // 设置结果
+            // Set result
             result.setSuccess(exitStatus == 0 || exitStatus == -1);
             result.setOutput(output);
             result.setErrorMsg(error);
 
-            log.info("SSH命令执行完成，输出长度: {}, 错误长度: {}", output.length(), error.length());
+            log.info("SSHCommand execution completed, Output length: {}, wrong length: {}", output.length(), error.length());
 //            if (org.bytedeco.librealsense.error.length() > 0) {
-//                log.warn("SSH命令执行错误信息: {}", error);
+//                log.warn("SSHCommand execution error message: {}", error);
 //            }
 //            if (output.length() > 0) {
-//                log.info("SSH命令执行输出: {}", output);
+//                log.info("SSHCommand execution output: {}", output);
 //            }
 
         } catch (Exception e) {
-            log.error("SSH命令执行失败: {}", e.getMessage(), e);
+            log.error("SSHCommand execution failed: {}", e.getMessage(), e);
             result.setSuccess(false);
             result.setErrorMsg(e.getMessage());
         } finally {
-            // 关闭连接
+            // close connection
             if (channel != null) {
                 channel.disconnect();
             }
@@ -110,7 +110,7 @@ public class SSHService {
     }
 
     /**
-     * 测试SSH连接
+     * testSSHconnect
      */
     public boolean testConnection(String host, int port, String username, String password) {
         Session session = null;
@@ -124,10 +124,10 @@ public class SSHService {
             session.setConfig(config);
 
             session.connect(CONNECT_TIMEOUT);
-            log.info("SSH连接测试成功: {}@{}:{}", username, host, port);
+            log.info("SSHConnection test successful: {}@{}:{}", username, host, port);
             return true;
         } catch (Exception e) {
-            log.error("SSH连接测试失败: {}", e.getMessage(), e);
+            log.error("SSHConnection test failed: {}", e.getMessage(), e);
             return false;
         } finally {
             if (session != null) {
@@ -137,7 +137,7 @@ public class SSHService {
     }
 
     /**
-     * SSH执行结果类
+     * SSHExecution result class
      */
     public static class SSHExecutionResult {
         private boolean success;

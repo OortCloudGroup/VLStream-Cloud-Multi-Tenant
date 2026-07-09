@@ -25,83 +25,83 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * 数据审计表 控制器
+ * Data audit table controller
  *
  * @author Oort
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/record-data")
-@Tag(name = "数据审计表", description = "数据审计表接口")
+@Tag(name = "Data audit table", description = "Data audit table interface")
 public class RecordDataController extends BladeController {
 
 	private final IRecordDataService recordDataService;
 
 	/**
-	 * 数据审计表 详情
+	 * Data audit table Details
 	 */
 	@IsAdmin
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description  = "传入recordData")
+	@Operation(summary = "Details", description  = "incomingrecordData")
 	public R<RecordDataVO> detail(RecordData recordData) {
 		RecordData detail = recordDataService.getOne(Condition.getQueryWrapper(recordData));
 		return R.data(RecordDataWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 数据审计表 分页
+	 * Data audit table Pagination
 	 */
 	@IsAdmin
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description  = "传入recordData")
+	@Operation(summary = "Pagination", description  = "incomingrecordData")
 	public R<IPage<RecordDataVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> recordData, Query query) {
 		IPage<RecordData> pages = recordDataService.page(Condition.getPage(query.setDescs(BladeConstant.DB_PRIMARY_KEY)), Condition.getQueryWrapper(recordData, RecordData.class));
 		return R.data(RecordDataWrapper.build().pageVO(pages));
 	}
 
 	/**
-	 * 数据审计表 新增
+	 * Data audit table New
 	 */
 	@IsAdministrator
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "新增", description  = "传入recordData")
+	@Operation(summary = "New", description  = "incomingrecordData")
 	public R save(@Valid @RequestBody RecordData recordData) {
 		return R.status(recordDataService.save(recordData));
 	}
 
 	/**
-	 * 数据审计表 修改
+	 * Data audit table Revise
 	 */
 	@IsAdministrator
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "修改", description  = "传入recordData")
+	@Operation(summary = "Revise", description  = "incomingrecordData")
 	public R update(@Valid @RequestBody RecordData recordData) {
 		return R.status(recordDataService.updateById(recordData));
 	}
 
 	/**
-	 * 数据审计表 新增或修改
+	 * Data audit table Add or modify
 	 */
 	@IsAdministrator
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "新增或修改", description  = "传入recordData")
+	@Operation(summary = "Add or modify", description  = "incomingrecordData")
 	public R submit(@Valid @RequestBody RecordData recordData) {
 		return R.status(recordDataService.saveOrUpdate(recordData));
 	}
 
 	/**
-	 * 数据审计表 删除
+	 * Data audit table delete
 	 */
 	@IsAdministrator
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "删除", description  = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "delete", description  = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(recordDataService.removeByIds(Func.toLongList(ids)));
 	}
 

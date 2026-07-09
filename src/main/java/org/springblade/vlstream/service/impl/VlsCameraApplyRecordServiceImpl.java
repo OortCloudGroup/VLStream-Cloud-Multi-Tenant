@@ -22,7 +22,7 @@ import org.springframework.util.Assert;
 import java.util.Date;
 
 /**
- * 摄像头申请审批记录 服务实现类
+ * Camera application approval record Service implementation class
  */
 @Service
 @RequiredArgsConstructor
@@ -34,7 +34,7 @@ public class VlsCameraApplyRecordServiceImpl extends BaseServiceImpl<VlsCameraAp
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean submit(CameraApplySubmitDTO cameraApplySubmitDTO) {
 		DeviceInfo deviceInfo = vlsDeviceInfoService.getById(cameraApplySubmitDTO.getDeviceInfoId());
-		Assert.notNull(deviceInfo, "设备不存在");
+		Assert.notNull(deviceInfo, "Device does not exist");
 
 		CameraApplyRecord cameraApplyRecord = new CameraApplyRecord();
 		cameraApplyRecord.setDeviceInfoId(cameraApplySubmitDTO.getDeviceInfoId());
@@ -50,8 +50,8 @@ public class VlsCameraApplyRecordServiceImpl extends BaseServiceImpl<VlsCameraAp
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean approve(CameraApplyApproveDTO cameraApplyApproveDTO) {
 		CameraApplyRecord cameraApplyRecord = getById(cameraApplyApproveDTO.getId());
-		Assert.notNull(cameraApplyRecord, "申请记录不存在");
-		Assert.isTrue(CameraApplyStatusEnum.pending.equals(cameraApplyRecord.getApplyStatus()), "当前状态不允许审批通过");
+		Assert.notNull(cameraApplyRecord, "Application record does not exist");
+		Assert.isTrue(CameraApplyStatusEnum.pending.equals(cameraApplyRecord.getApplyStatus()), "The current status does not allow approval to pass");
 
 		CameraApplyRecord updateCameraApplyRecord = new CameraApplyRecord();
 		updateCameraApplyRecord.setId(cameraApplyRecord.getId());
@@ -66,8 +66,8 @@ public class VlsCameraApplyRecordServiceImpl extends BaseServiceImpl<VlsCameraAp
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean reject(CameraApplyRejectDTO cameraApplyRejectDTO) {
 		CameraApplyRecord cameraApplyRecord = getById(cameraApplyRejectDTO.getId());
-		Assert.notNull(cameraApplyRecord, "申请记录不存在");
-		Assert.isTrue(CameraApplyStatusEnum.pending.equals(cameraApplyRecord.getApplyStatus()), "当前状态不允许驳回");
+		Assert.notNull(cameraApplyRecord, "Application record does not exist");
+		Assert.isTrue(CameraApplyStatusEnum.pending.equals(cameraApplyRecord.getApplyStatus()), "The current status does not allow rejection");
 
 		CameraApplyRecord updateCameraApplyRecord = new CameraApplyRecord();
 		updateCameraApplyRecord.setId(cameraApplyRecord.getId());
@@ -82,8 +82,8 @@ public class VlsCameraApplyRecordServiceImpl extends BaseServiceImpl<VlsCameraAp
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean complete(CameraApplyCompleteDTO cameraApplyCompleteDTO) {
 		CameraApplyRecord cameraApplyRecord = getById(cameraApplyCompleteDTO.getId());
-		Assert.notNull(cameraApplyRecord, "申请记录不存在");
-		Assert.isTrue(CameraApplyStatusEnum.approved.equals(cameraApplyRecord.getApplyStatus()), "仅审批通过记录允许完结");
+		Assert.notNull(cameraApplyRecord, "Application record does not exist");
+		Assert.isTrue(CameraApplyStatusEnum.approved.equals(cameraApplyRecord.getApplyStatus()), "Only approved records are allowed to be completed");
 
 		CameraApplyRecord updateCameraApplyRecord = new CameraApplyRecord();
 		updateCameraApplyRecord.setId(cameraApplyRecord.getId());

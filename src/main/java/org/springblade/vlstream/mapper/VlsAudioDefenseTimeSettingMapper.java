@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.vlstream.pojo.entity.AudioDefenseTimeSetting;
 
 /**
- * 音频布防时间设置表 Mapper 接口
+ * Audio arming time setting table Mapper interface
  */
 public interface VlsAudioDefenseTimeSettingMapper extends BaseMapper<AudioDefenseTimeSetting> {
 }

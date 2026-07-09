@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 行政区划表 控制器
+ * Administrative division table controller
  *
  * @author Chill
  */
@@ -45,148 +45,148 @@ import java.util.Map;
 @AllArgsConstructor
 @PreAuth(menu = "region")
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/region")
-@Tag(name = "行政区划", description = "行政区划")
+@Tag(name = "Administrative division", description = "Administrative division")
 public class RegionController extends BladeController {
 
 	private final IRegionService regionService;
 
 	/**
-	 * 详情
+	 * Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入region")
+	@Operation(summary = "Details", description = "incomingregion")
 	public R<RegionVO> detail(Region region) {
 		Region detail = regionService.getOne(Condition.getQueryWrapper(region));
 		return R.data(RegionWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 分页 行政区划表
+	 * Pagination Administrative division table
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入region")
+	@Operation(summary = "Pagination", description = "incomingregion")
 	public R<IPage<Region>> list(Region region, Query query) {
 		IPage<Region> pages = regionService.page(Condition.getPage(query), Condition.getQueryWrapper(region));
 		return R.data(pages);
 	}
 
 	/**
-	 * 懒加载列表
+	 * Lazy loading list
 	 */
 	@GetMapping("/lazy-list")
 	@Parameters({
-		@Parameter(name = "code", description = "区划编号", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "name", description = "区划名称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
+		@Parameter(name = "code", description = "Zoning number", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "name", description = "Zoning name", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "懒加载列表", description = "传入menu")
+	@Operation(summary = "Lazy loading list", description = "incomingmenu")
 	public R<List<RegionVO>> lazyList(String parentCode, @Parameter(hidden = true) @RequestParam Map<String, Object> menu) {
 		List<RegionVO> list = regionService.lazyList(parentCode, menu);
 		return R.data(RegionWrapper.build().listNodeLazyVO(list));
 	}
 
 	/**
-	 * 懒加载列表
+	 * Lazy loading list
 	 */
 	@GetMapping("/lazy-tree")
 	@Parameters({
-		@Parameter(name = "code", description = "区划编号", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
-		@Parameter(name = "name", description = "区划名称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
+		@Parameter(name = "code", description = "Zoning number", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+		@Parameter(name = "name", description = "Zoning name", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "懒加载列表", description = "传入menu")
+	@Operation(summary = "Lazy loading list", description = "incomingmenu")
 	public R<List<RegionVO>> lazyTree(String parentCode, @Parameter(hidden = true) @RequestParam Map<String, Object> menu) {
 		List<RegionVO> list = regionService.lazyTree(parentCode, menu);
 		return R.data(RegionWrapper.build().listNodeLazyVO(list));
 	}
 
 	/**
-	 * 新增 行政区划表
+	 * New Administrative division table
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "新增", description = "传入region")
+	@Operation(summary = "New", description = "incomingregion")
 	public R save(@Valid @RequestBody Region region) {
 		return R.status(regionService.save(region));
 	}
 
 	/**
-	 * 修改 行政区划表
+	 * Revise Administrative division table
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "修改", description = "传入region")
+	@Operation(summary = "Revise", description = "incomingregion")
 	public R update(@Valid @RequestBody Region region) {
 		return R.status(regionService.updateById(region));
 	}
 
 	/**
-	 * 新增或修改 行政区划表
+	 * Add or modify Administrative division table
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "新增或修改", description = "传入region")
+	@Operation(summary = "Add or modify", description = "incomingregion")
 	public R submit(@Valid @RequestBody Region region) {
 		return R.status(regionService.submit(region));
 	}
 
 
 	/**
-	 * 删除 行政区划表
+	 * delete Administrative division table
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "删除", description = "传入主键")
-	public R remove(@Parameter(description = "主键", required = true) @RequestParam String id) {
+	@Operation(summary = "delete", description = "Pass in primary key")
+	public R remove(@Parameter(description = "primary key", required = true) @RequestParam String id) {
 		return R.status(regionService.removeRegion(id));
 	}
 
 	/**
-	 * 行政区划下拉数据源
+	 * Administrative division drop-down data source
 	 */
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "下拉数据源", description = "传入tenant")
+	@Operation(summary = "Drop down data source", description = "incomingtenant")
 	public R<List<Region>> select(@RequestParam(required = false, defaultValue = "00") String code) {
 		List<Region> list = regionService.list(Wrappers.<Region>query().lambda().eq(Region::getParentCode, code));
 		return R.data(list);
 	}
 
 	/**
-	 * 导入行政区划数据
+	 * Import administrative division data
 	 */
 	@PostMapping("import-region")
 	@ApiOperationSupport(order = 10)
-	@Operation(summary = "导入行政区划", description = "传入excel")
+	@Operation(summary = "Import administrative divisions", description = "incomingexcel")
 	public R importRegion(MultipartFile file, Integer isCovered) {
 		RegionImporter regionImporter = new RegionImporter(regionService, isCovered == 1);
 		ExcelUtil.save(file, regionImporter, RegionExcel.class);
-		return R.success("操作成功");
+		return R.success("Operation successful");
 	}
 
 	/**
-	 * 导出行政区划数据
+	 * Export administrative division data
 	 */
 	@GetMapping("export-region")
 	@ApiOperationSupport(order = 11)
-	@Operation(summary = "导出行政区划", description = "传入user")
+	@Operation(summary = "Export administrative divisions", description = "incominguser")
 	public void exportRegion(@Parameter(hidden = true) @RequestParam Map<String, Object> region, HttpServletResponse response) {
 		QueryWrapper<Region> queryWrapper = Condition.getQueryWrapper(region, Region.class);
 		List<RegionExcel> list = regionService.exportRegion(queryWrapper);
-		ExcelUtil.export(response, "行政区划数据" + DateUtil.time(), "行政区划数据表", list, RegionExcel.class);
+		ExcelUtil.export(response, "Administrative division data" + DateUtil.time(), "Administrative division data table", list, RegionExcel.class);
 	}
 
 	/**
-	 * 导出模板
+	 * Export template
 	 */
 	@GetMapping("export-template")
 	@ApiOperationSupport(order = 12)
-	@Operation(summary = "导出模板")
+	@Operation(summary = "Export template")
 	public void exportUser(HttpServletResponse response) {
 		List<RegionExcel> list = new ArrayList<>();
-		ExcelUtil.export(response, "行政区划模板", "行政区划表", list, RegionExcel.class);
+		ExcelUtil.export(response, "Administrative division template", "Administrative division table", list, RegionExcel.class);
 	}
 
 

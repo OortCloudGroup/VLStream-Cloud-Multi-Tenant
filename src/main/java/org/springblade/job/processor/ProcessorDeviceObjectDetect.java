@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 场景治理摄像头检测任务：触发 detection 包下所有算法会话刷新（按 JobParams 中的摄像头ID集合）。
+ * Scene management camera detection tasks: trigger detection All algorithm sessions under the package are refreshed(according to JobParams camera inIDgather). 
  */
 @Slf4j
 @Component
@@ -37,7 +37,7 @@ public class ProcessorDeviceObjectDetect implements BasicProcessor {
         }
 
         log.info("============== ProcessorDeviceObjectDetect#process ==============");
-        log.info("taskContext参数：{}", JSONUtil.toJsonStr(taskContext));
+        log.info("taskContextparameter: {}", JSONUtil.toJsonStr(taskContext));
         log.info("cameraIds={}", cameraIds);
 
         try {

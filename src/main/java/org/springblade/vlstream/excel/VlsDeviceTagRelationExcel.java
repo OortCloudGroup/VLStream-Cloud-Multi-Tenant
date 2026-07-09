@@ -12,7 +12,7 @@ import java.io.Serial;
 
 
 /**
- * 设备标签关联表 Excel实体类
+ * Device tag association table ExcelEntity class
  *
  * @author Oort
  * @since 2025-12-23
@@ -27,16 +27,16 @@ public class VlsDeviceTagRelationExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 设备ID，关联device_info.id
+	 * equipmentID, associationdevice_info.id
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("设备ID，关联device_info.id")
+	@ExcelProperty("equipmentID, associationdevice_info.id")
 	private Long deviceId;
 	/**
-	 * 标签ID，关联tag_management.id
+	 * LabelID, associationtag_management.id
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("标签ID，关联tag_management.id")
+	@ExcelProperty("LabelID, associationtag_management.id")
 	private Long tagId;
 
 }

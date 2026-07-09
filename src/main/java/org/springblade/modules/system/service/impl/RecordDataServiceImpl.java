@@ -7,7 +7,7 @@ import org.springblade.modules.system.service.IRecordDataService;
 import org.springframework.stereotype.Service;
 
 /**
- * 数据审计表 服务实现类
+ * Data audit table Service implementation class
  *
  * @author Oort
  */

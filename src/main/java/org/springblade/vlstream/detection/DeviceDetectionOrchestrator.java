@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 场景治理检测编排器：按摄像头（设备）ID集合触发 detection 包下全部算法的会话刷新/停止。
+ * Scenario management detection orchestrator: press camera(equipment)IDCollection trigger detection Session refresh for all algorithms under the package/stop. 
  */
 @Service
 @RequiredArgsConstructor

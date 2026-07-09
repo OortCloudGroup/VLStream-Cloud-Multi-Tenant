@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
- * MQTT消息发送服务
+ * MQTTMessage sending service
  */
 @Slf4j
 @Service
@@ -26,7 +26,7 @@ public class VlsMqttPublishService {
 
 	public boolean publish(String topic, Object payload) {
 		if (StringUtils.isBlank(topic) || !StringUtils.startsWith(topic, "oortcloud/")) {
-			log.error("MQTT消息发送失败，topic仅允许oortcloud/#: topic={}", topic);
+			log.error("MQTTMessage sending failed, topiconly allowedoortcloud/#: topic={}", topic);
 			return false;
 		}
 
@@ -39,7 +39,7 @@ public class VlsMqttPublishService {
 			mqttClient.publish(topic, mqttMessage);
 			return true;
 		} catch (Exception publishException) {
-			log.error("MQTT消息发送异常: topic={}", topic, publishException);
+			log.error("MQTTMessage sending exception: topic={}", topic, publishException);
 			return false;
 		} finally {
 			closeMqttClient(mqttClient);
@@ -77,12 +77,12 @@ public class VlsMqttPublishService {
 				mqttClient.disconnect();
 			}
 		} catch (MqttException disconnectException) {
-			log.warn("关闭MQTT连接失败", disconnectException);
+			log.warn("closureMQTTConnection failed", disconnectException);
 		}
 		try {
 			mqttClient.close();
 		} catch (MqttException closeException) {
-			log.warn("关闭MQTT客户端失败", closeException);
+			log.warn("closureMQTTClient failed", closeException);
 		}
 	}
 

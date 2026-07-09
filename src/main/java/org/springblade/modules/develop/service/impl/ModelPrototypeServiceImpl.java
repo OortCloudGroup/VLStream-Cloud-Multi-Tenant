@@ -47,7 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 数据原型表 服务实现类
+ * Data prototype table Service implementation class
  *
  * @author Chill
  */
@@ -99,7 +99,7 @@ public class ModelPrototypeServiceImpl extends BaseServiceImpl<ModelPrototypeMap
 	@Override
 	public ConfigBuilder getConfigBuilder(Datasource datasource, String tableName) {
 		StrategyConfig.Builder builder = new StrategyConfig.Builder();
-		//表前缀过滤，目前官方仅支持一个前缀，可自行修改为sys_或tb_或其他业务表前缀
+		//Table prefix filtering, Currently, only one prefix is ​​officially supported, You can modify it yourself tosys_ortb_or other business table prefix
 		//builder.likeTable(new LikeTable("blade_", SqlLike.RIGHT));
 		if (StringUtil.isNotBlank(tableName)) {
 			builder.addInclude(tableName);

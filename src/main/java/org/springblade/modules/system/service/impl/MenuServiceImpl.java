@@ -59,7 +59,7 @@ import static org.springblade.common.constant.CommonConstant.DATA_SCOPE_CATEGORY
 import static org.springblade.core.cache.constant.CacheConstant.MENU_CACHE;
 
 /**
- * 服务实现类
+ * Service implementation class
  *
  * @author Chill
  */
@@ -97,29 +97,29 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		}
 		List<Menu> allMenus = baseMapper.allMenu();
 		List<Menu> roleMenus;
-		// 超级管理员并且不是顶部菜单请求则返回全部菜单
+		// If the super administrator and the request is not the top menu, the entire menu will be returned.
 		if (AuthUtil.isAdministrator() && Func.isEmpty(topMenuId)) {
 			roleMenus = allMenus;
 		}
-		// 非超级管理员并且不是顶部菜单请求则返回对应角色权限菜单
+		// If the request is not a super administrator and is not the top menu, the corresponding role permission menu will be returned.
 		else if (!AuthUtil.isAdministrator() && Func.isEmpty(topMenuId)) {
-			// 角色配置对应菜单
+			// Role configuration corresponding menu
 			List<Menu> roleIdMenus = baseMapper.roleMenuByRoleId(Func.toLongList(roleId));
-			// 反向递归角色菜单所有父级
+			// Reverse recursive character menu all parents
 			List<Menu> routes = new LinkedList<>(roleIdMenus);
 			roleIdMenus.forEach(roleMenu -> recursion(allMenus, routes, roleMenu));
 			roleMenus = tenantPackageMenu(routes);
 		}
-		// 顶部菜单请求返回对应角色权限菜单
+		// The top menu request returns the corresponding role permissions menu
 		else {
-			// 角色配置对应菜单
+			// Role configuration corresponding menu
 			List<Menu> roleIdMenus = baseMapper.roleMenuByRoleId(Func.toLongList(roleId));
-			// 反向递归角色菜单所有父级
+			// Reverse recursive character menu all parents
 			List<Menu> routes = new LinkedList<>(roleIdMenus);
 			roleIdMenus.forEach(roleMenu -> recursion(allMenus, routes, roleMenu));
-			// 顶部配置对应菜单
+			// Top configuration corresponding menu
 			List<Menu> topIdMenus = baseMapper.roleMenuByTopMenuId(topMenuId);
-			// 筛选匹配角色对应的权限菜单
+			// Filter the permission menu corresponding to matching roles
 			roleMenus = tenantPackageMenu(topIdMenus.stream().filter(x ->
 				routes.stream().anyMatch(route -> route.getId().longValue() == x.getId().longValue())
 			).collect(Collectors.toList()));
@@ -179,28 +179,28 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	}
 
 	/**
-	 * 租户菜单权限自定义筛选
+	 * Tenant menu permissions custom filtering
 	 */
 	private List<TreeNode> tenantPackageTree(List<TreeNode> menuTree, String tenantId) {
 		TenantPackage tenantPackage = SysCache.getTenantPackage(tenantId);
 		if (!AuthUtil.isAdministrator() && Func.isNotEmpty(tenantPackage) && tenantPackage.getId() > 0L) {
 			List<Long> menuIds = Func.toLongList(tenantPackage.getMenuId());
-			// 筛选出两者菜单交集集合
+			// Filter out the intersection set of the two menus
 			List<TreeNode> collect = menuTree.stream().filter(x -> menuIds.contains(x.getId())).toList();
-			// 创建递归基础集合
+			// Create a recursive base collection
 			List<TreeNode> packageTree = new LinkedList<>(collect);
-			// 递归筛选出菜单集合所有父级
+			// Recursively filter out all parents of a menu collection
 			collect.forEach(treeNode -> recursionParent(menuTree, packageTree, treeNode));
-			// 递归筛选出菜单集合所有子级
+			// Recursively filter out all children of a menu collection
 			collect.forEach(treeNode -> recursionChild(menuTree, packageTree, treeNode));
-			// 合并在一起返回最终集合
+			// Combined together to return the final set
 			return packageTree;
 		}
 		return menuTree;
 	}
 
 	/**
-	 * 父节点递归
+	 * Parent node recursion
 	 */
 	public void recursionParent(List<TreeNode> menuTree, List<TreeNode> packageTree, TreeNode treeNode) {
 		Optional<TreeNode> node = menuTree.stream().filter(x -> Func.equals(x.getId(), treeNode.getParentId())).findFirst();
@@ -211,7 +211,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	}
 
 	/**
-	 * 子节点递归
+	 * Child node recursion
 	 */
 	public void recursionChild(List<TreeNode> menuTree, List<TreeNode> packageTree, TreeNode treeNode) {
 		List<TreeNode> nodes = menuTree.stream().filter(x -> Func.equals(x.getParentId(), treeNode.getId())).collect(Collectors.toList());
@@ -224,7 +224,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	}
 
 	/**
-	 * 租户菜单权限自定义筛选
+	 * Tenant menu permissions custom filtering
 	 */
 	private List<Menu> tenantPackageMenu(List<Menu> menu) {
 		TenantPackage tenantPackage = SysCache.getTenantPackage(AuthUtil.getTenantId());
@@ -282,7 +282,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	public boolean removeMenu(String ids) {
 		Long cnt = baseMapper.selectCount(Wrappers.<Menu>query().lambda().in(Menu::getParentId, Func.toLongList(ids)));
 		if (cnt > 0L) {
-			throw new ServiceException("请先删除子节点!");
+			throw new ServiceException("Please delete child nodes first!");
 		}
 		return removeByIds(Func.toLongList(ids));
 	}
@@ -291,37 +291,37 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	public boolean submit(Menu menu) {
 		boolean isNewMenu = menu.getId() == null;
 
-		// 验证code和name唯一性
+		// verifycodeandnameuniqueness
 		LambdaQueryWrapper<Menu> menuQueryWrapper = Wrappers.<Menu>lambdaQuery()
 			.and(!isNewMenu, w -> w.ne(Menu::getId, menu.getId()))
 			.and(w -> w.eq(Menu::getCode, menu.getCode())
 				.or(o -> o.eq(Menu::getName, menu.getName()).eq(Menu::getCategory, MENU_CATEGORY)));
 
 		if (baseMapper.selectCount(menuQueryWrapper) > 0L) {
-			throw new ServiceException("菜单名或编号已存在!");
+			throw new ServiceException("Menu name or number already exists!");
 		}
 
-		// 验证path唯一性
+		// verifypathuniqueness
 		if (Func.isNotBlank(menu.getPath())) {
 			LambdaQueryWrapper<Menu> pathQueryWrapper = Wrappers.<Menu>lambdaQuery()
 				.eq(Menu::getPath, menu.getPath())
 				.ne(!isNewMenu, Menu::getId, menu.getId());
 
 			if (baseMapper.selectCount(pathQueryWrapper) > 0L) {
-				throw new ServiceException("菜单路径已存在!");
+				throw new ServiceException("Menu path already exists!");
 			}
 		}
 
-		// 处理父节点
+		// Process parent node
 		if (menu.getParentId() == null) {
 			menu.setParentId(BladeConstant.TOP_PARENT_ID);
 		}
 
-		// 验证父节点类型（新增或父节点变更时）
+		// Verify parent node type(When a new node is added or the parent node is changed)
 		if (isNewMenu || menu.getParentId() != null) {
 			Menu parentMenu = baseMapper.selectById(menu.getParentId());
 			if (parentMenu != null && parentMenu.getCategory() != 1) {
-				throw new ServiceException("父节点只可选择菜单类型!");
+				throw new ServiceException("The parent node can only select the menu type!");
 			}
 		}
 

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 接口类型枚举
+ * Interface type enumeration
  *
  * @author
  * @since 2025-07-28
@@ -14,14 +14,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum InterfaceTypeEnum {
 	/**
-	 * 接口
+	 * interface
 	 */
-	INTERFACE("INTERFACE", "接口"),
+	INTERFACE("INTERFACE", "interface"),
 
 	/**
-	 * 回调
+	 * callback
 	 */
-	CALLBACK("CALLBACK", "回调");
+	CALLBACK("CALLBACK", "callback");
 
 	@EnumValue
 	private final String code;

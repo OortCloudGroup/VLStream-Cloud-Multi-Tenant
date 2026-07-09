@@ -8,7 +8,7 @@ import tech.powerjob.worker.core.processor.TaskContext;
 import tech.powerjob.worker.core.processor.sdk.BasicProcessor;
 
 /**
- * 场景治理摄像头检测任务（兼容类名）：复用 ProcessorDeviceObjectDetect 的实现。
+ * Scene management camera detection tasks(Compatible class name): Reuse ProcessorDeviceObjectDetect realization. 
  */
 @Slf4j
 @Component

@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 算法仓库表 控制器
+ * Algorithm warehouse table controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -40,28 +40,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAlgorithmRepository")
-@Tag(name = "算法仓库表", description = "算法仓库表接口")
+@Tag(name = "Algorithm warehouse table", description = "Algorithm warehouse table interface")
 public class VlsAlgorithmRepositoryController extends BladeController {
 
 	private final IVlsAlgorithmRepositoryService vlsAlgorithmRepositoryService;
 
 	/**
-	 * 算法仓库表 详情
+	 * Algorithm warehouse table Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入vlsAlgorithmRepository")
+	@Operation(summary = "Details", description = "incomingvlsAlgorithmRepository")
 	public R<AlgorithmRepositoryVO> detail(AlgorithmRepository vlsAlgorithmRepository) {
 		AlgorithmRepository detail = vlsAlgorithmRepositoryService.getOne(Condition.getQueryWrapper(vlsAlgorithmRepository));
 		return R.data(VlsAlgorithmRepositoryWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 算法仓库表 分页
+	 * Algorithm warehouse table Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmRepository")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmRepository")
 	public R<IPage<AlgorithmRepositoryVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmRepository, Query query) {
 		IPage<AlgorithmRepository> pages = vlsAlgorithmRepositoryService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAlgorithmRepository, AlgorithmRepository.class));
 		return R.data(VlsAlgorithmRepositoryWrapper.build().pageVO(pages));
@@ -69,63 +69,63 @@ public class VlsAlgorithmRepositoryController extends BladeController {
 
 
 	/**
-	 * 算法仓库表 自定义分页
+	 * Algorithm warehouse table Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmRepository")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmRepository")
 	public R<IPage<AlgorithmRepositoryVO>> page(AlgorithmRepositoryVO vlsAlgorithmRepository, Query query) {
 		IPage<AlgorithmRepositoryVO> pages = vlsAlgorithmRepositoryService.selectVlsAlgorithmRepositoryPage(Condition.getPage(query), vlsAlgorithmRepository);
 		return R.data(pages);
 	}
 
 	/**
-	 * 算法仓库表 新增
+	 * Algorithm warehouse table New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入vlsAlgorithmRepository")
+	@Operation(summary = "New", description = "incomingvlsAlgorithmRepository")
 	public R save(@Valid @RequestBody AlgorithmRepository vlsAlgorithmRepository) {
 		return R.status(vlsAlgorithmRepositoryService.save(vlsAlgorithmRepository));
 	}
 
 	/**
-	 * 算法仓库表 修改
+	 * Algorithm warehouse table Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入vlsAlgorithmRepository")
+	@Operation(summary = "Revise", description = "incomingvlsAlgorithmRepository")
 	public R update(@Valid @RequestBody AlgorithmRepository vlsAlgorithmRepository) {
 		return R.status(vlsAlgorithmRepositoryService.updateById(vlsAlgorithmRepository));
 	}
 
 	/**
-	 * 算法仓库表 新增或修改
+	 * Algorithm warehouse table Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入vlsAlgorithmRepository")
+	@Operation(summary = "Add or modify", description = "incomingvlsAlgorithmRepository")
 	public R submit(@Valid @RequestBody AlgorithmRepository vlsAlgorithmRepository) {
 		return R.status(vlsAlgorithmRepositoryService.saveOrUpdate(vlsAlgorithmRepository));
 	}
 
 	/**
-	 * 算法仓库表 删除
+	 * Algorithm warehouse table delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsAlgorithmRepositoryService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAlgorithmRepository")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description = "传入vlsAlgorithmRepository")
+	@Operation(summary = "Export data", description = "incomingvlsAlgorithmRepository")
 	public void exportVlsAlgorithmRepository(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmRepository, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<AlgorithmRepository> queryWrapper = Condition.getQueryWrapper(vlsAlgorithmRepository, AlgorithmRepository.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -133,194 +133,194 @@ public class VlsAlgorithmRepositoryController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsAlgorithmRepositoryEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAlgorithmRepositoryExcel> list = vlsAlgorithmRepositoryService.exportVlsAlgorithmRepository(queryWrapper);
-		ExcelUtil.export(response, "算法仓库表数据" + DateUtil.time(), "算法仓库表数据表", list, VlsAlgorithmRepositoryExcel.class);
+		ExcelUtil.export(response, "Algorithm warehouse table data" + DateUtil.time(), "Algorithm warehouse table data table", list, VlsAlgorithmRepositoryExcel.class);
 	}
 
 	/**
-	 * 查询所有启用的算法仓库
+	 * Query所有enablealgorithmstorehouse
 	 */
 	@GetMapping("/enabled")
-	@Operation(summary = "查询所有启用的算法仓库", description = "获取状态为启用的所有算法仓库")
+	@Operation(summary = "Query所有enablealgorithmstorehouse", description = "Get all algorithm repositories with status enabled")
 	public R<List<AlgorithmRepository>> getEnabledRepositories() {
-		log.info("查询所有启用的算法仓库");
+		log.info("Query所有enablealgorithmstorehouse");
 
 		List<AlgorithmRepository> repositories = vlsAlgorithmRepositoryService.getEnabledRepositories();
 		return R.data(repositories);
 	}
 
 	/**
-	 * 根据类型查询算法仓库
+	 * Query algorithm warehouse based on type
 	 */
 	@GetMapping("/type/{repositoryType}")
-	@Operation(summary = "根据类型查询算法仓库", description = "根据仓库类型获取算法仓库列表")
+	@Operation(summary = "Query algorithm warehouse based on type", description = "Get the list of algorithm warehouses based on warehouse type")
 	public R<List<AlgorithmRepository>> getRepositoriesByType(
-		@Parameter(description = "仓库类型", example = "extended") @PathVariable String repositoryType) {
+		@Parameter(description = "Warehouse type", example = "extended") @PathVariable String repositoryType) {
 
-		log.info("根据类型查询算法仓库：{}", repositoryType);
+		log.info("Query algorithm warehouse based on type: {}", repositoryType);
 
 		List<AlgorithmRepository> repositories = vlsAlgorithmRepositoryService.getByRepositoryType(repositoryType);
 		return R.data(repositories);
 	}
 
 	/**
-	 * 根据ID查询算法仓库详情
+	 * according toIDQuery algorithm warehouse details
 	 */
 	@GetMapping("/{id}")
-	@Operation(summary = "查询算法仓库详情", description = "根据ID获取算法仓库详细信息")
+	@Operation(summary = "Query algorithm warehouse details", description = "according toIDGet algorithm warehouse details")
 	public R<AlgorithmRepository> getRepositoryById(
-		@Parameter(description = "仓库ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "storehouseID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("查询算法仓库详情：ID={}", id);
+		log.info("Query algorithm warehouse details: ID={}", id);
 
 		AlgorithmRepository repository = vlsAlgorithmRepositoryService.getById(id);
 		if (repository == null) {
-			return R.fail("算法仓库不存在");
+			return R.fail("Algorithm warehouse does not exist");
 		}
 
 		return R.data(repository);
 	}
 
 	/**
-	 * 创建算法仓库
+	 * Create algorithm warehouse
 	 */
 	@PostMapping
-	@Operation(summary = "创建算法仓库", description = "新增算法仓库")
+	@Operation(summary = "Create algorithm warehouse", description = "Add algorithm warehouse")
 	public R<String> createRepository(@Valid @RequestBody AlgorithmRepository repository) {
-		log.info("创建算法仓库：{}", repository.getName());
+		log.info("Create algorithm warehouse: {}", repository.getName());
 
 		boolean success = vlsAlgorithmRepositoryService.createRepository(repository);
 		if (success) {
-			return R.success("算法仓库创建成功");
+			return R.success("Algorithm warehouse created successfully");
 		} else {
-			return R.fail("算法仓库创建失败，名称可能已存在");
+			return R.fail("Algorithm warehouse creation failed, name may already exist");
 		}
 	}
 
 	/**
-	 * 更新算法仓库
+	 * Update algorithm repository
 	 */
 	@PutMapping("/{id}")
-	@Operation(summary = "更新算法仓库", description = "根据ID更新算法仓库信息")
+	@Operation(summary = "Update algorithm repository", description = "according toIDUpdate algorithm warehouse information")
 	public R<String> updateRepository(
-		@Parameter(description = "仓库ID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "storehouseID", example = "1") @PathVariable @NotNull Long id,
 		@Valid @RequestBody AlgorithmRepository repository) {
 
-		log.info("更新算法仓库：ID={}", id);
+		log.info("Update algorithm repository: ID={}", id);
 
 		repository.setId(id);
 		boolean success = vlsAlgorithmRepositoryService.updateRepository(repository);
 
 		if (success) {
-			return R.success("算法仓库更新成功");
+			return R.success("Algorithm warehouse updated successfully");
 		} else {
-			return R.fail("算法仓库更新失败");
+			return R.fail("Algorithm warehouse update failed");
 		}
 	}
 
 	/**
-	 * 删除算法仓库
+	 * Delete algorithm repository
 	 */
 	@DeleteMapping("/{id}")
-	@Operation(summary = "删除算法仓库", description = "根据ID删除算法仓库（软删除）")
+	@Operation(summary = "Delete algorithm repository", description = "according toIDDelete algorithm repository(soft delete)")
 	public R<String> deleteRepository(
-		@Parameter(description = "仓库ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "storehouseID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("删除算法仓库：ID={}", id);
+		log.info("Delete algorithm repository: ID={}", id);
 
 		boolean success = vlsAlgorithmRepositoryService.deleteRepository(id);
 		if (success) {
-			return R.success("算法仓库删除成功");
+			return R.success("Algorithm warehouse deleted successfully");
 		} else {
-			return R.fail("算法仓库删除失败，基础预置算法库不允许删除");
+			return R.fail("Algorithm warehouse deletion failed, Basic preset algorithm library is not allowed to be deleted");
 		}
 	}
 
 	/**
-	 * 批量删除算法仓库
+	 * Batch deletion of algorithm warehouse
 	 */
 	@DeleteMapping("/batch")
-	@Operation(summary = "批量删除算法仓库", description = "根据ID列表批量删除算法仓库")
+	@Operation(summary = "Batch deletion of algorithm warehouse", description = "according toIDList batch deletion algorithm warehouse")
 	public R<String> batchDeleteRepositories(@RequestBody List<Long> ids) {
-		log.info("批量删除算法仓库：IDs={}", ids);
+		log.info("Batch deletion of algorithm warehouse: IDs={}", ids);
 
 		if (ids == null || ids.isEmpty()) {
-			return R.fail("请选择要删除的算法仓库");
+			return R.fail("Please select the algorithm repository to delete");
 		}
 
 		boolean success = vlsAlgorithmRepositoryService.batchDeleteRepositories(ids);
 		if (success) {
-			return R.success("算法仓库批量删除成功");
+			return R.success("Algorithm warehouse batch deletion successful");
 		} else {
-			return R.fail("算法仓库批量删除失败，部分仓库不允许删除");
+			return R.fail("Algorithm warehouse batch deletion failed, Some warehouses are not allowed to be deleted");
 		}
 	}
 
 	/**
-	 * 更新仓库状态
+	 * Update warehouse status
 	 */
 	@PutMapping("/{id}/status")
-	@Operation(summary = "更新仓库状态", description = "启用或禁用算法仓库")
+	@Operation(summary = "Update warehouse status", description = "Enable or disable algorithm repository")
 	public R<String> updateRepositoryStatus(
-		@Parameter(description = "仓库ID", example = "1") @PathVariable @NotNull Long id,
-		@Parameter(description = "新状态", example = "enabled") @RequestParam @NotNull String status) {
+		@Parameter(description = "storehouseID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "new status", example = "enabled") @RequestParam @NotNull String status) {
 
-		log.info("更新算法仓库状态：ID={}, Status={}", id, status);
+		log.info("Update algorithm warehouse status: ID={}, Status={}", id, status);
 
 		boolean success = vlsAlgorithmRepositoryService.updateRepositoryStatus(id, status);
 		if (success) {
-			return R.success("算法仓库状态更新成功");
+			return R.success("Algorithm warehouse status updated successfully");
 		} else {
-			return R.fail("算法仓库状态更新失败");
+			return R.fail("Algorithm warehouse status update failed");
 		}
 	}
 
 	/**
-	 * 批量更新仓库状态
+	 * Update warehouse status in batches
 	 */
 	@PutMapping("/batch/status")
-	@Operation(summary = "批量更新仓库状态", description = "批量启用或禁用算法仓库")
+	@Operation(summary = "Update warehouse status in batches", description = "Enable or disable algorithm warehouses in batches")
 	public R<String> batchUpdateRepositoryStatus(
 		@RequestBody List<Long> ids,
-		@Parameter(description = "新状态", example = "enabled") @RequestParam @NotNull String status) {
+		@Parameter(description = "new status", example = "enabled") @RequestParam @NotNull String status) {
 
-		log.info("批量更新算法仓库状态：IDs={}, Status={}", ids, status);
+		log.info("Batch update algorithm warehouse status: IDs={}, Status={}", ids, status);
 
 		if (ids == null || ids.isEmpty()) {
-			return R.fail("请选择要更新的算法仓库");
+			return R.fail("Please select the algorithm repository to update");
 		}
 
 		boolean success = vlsAlgorithmRepositoryService.batchUpdateRepositoryStatus(ids, status);
 		if (success) {
-			return R.success("算法仓库状态批量更新成功");
+			return R.success("Algorithm warehouse status batch update successful");
 		} else {
-			return R.fail("算法仓库状态批量更新失败");
+			return R.fail("Algorithm warehouse status batch update failed");
 		}
 	}
 
 	/**
-	 * 统计算法仓库数量
+	 * Statistical algorithm warehouse quantity
 	 */
 	@GetMapping("/count")
-	@Operation(summary = "统计算法仓库数量", description = "获取算法仓库总数")
+	@Operation(summary = "Statistical algorithm warehouse quantity", description = "Get the total number of algorithm warehouses")
 	public R<Long> countRepositories() {
-		log.info("统计算法仓库数量");
+		log.info("Statistical algorithm warehouse quantity");
 
 		Long count = vlsAlgorithmRepositoryService.countRepositories();
 		return R.data(count);
 	}
 
 	/**
-	 * 刷新仓库算法数量
+	 * Refresh warehouse algorithm quantity
 	 */
 	@PutMapping("/{id}/refresh-count")
-	@Operation(summary = "刷新仓库算法数量", description = "重新计算并更新仓库的算法数量")
+	@Operation(summary = "Refresh warehouse algorithm quantity", description = "Recalculate and update the number of algorithms for the warehouse")
 	public R<String> refreshAlgorithmCount(
-		@Parameter(description = "仓库ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "storehouseID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("刷新算法仓库算法数量：ID={}", id);
+		log.info("Refresh algorithm warehouse algorithm number: ID={}", id);
 
 		vlsAlgorithmRepositoryService.updateAlgorithmCount(id);
-		return R.success("算法数量刷新成功");
+		return R.success("Algorithm quantity refreshed successfully");
 	}
 
 }

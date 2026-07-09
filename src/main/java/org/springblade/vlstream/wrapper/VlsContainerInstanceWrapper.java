@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.vo.ContainerInstanceVO;
 import java.util.Objects;
 
 /**
- * 容器实例表 包装类,返回视图层所需的字段
+ * Container instance table Packaging,Returns the fields required by the view layer
  *
  * @author Oort
  * @since 2025-12-23

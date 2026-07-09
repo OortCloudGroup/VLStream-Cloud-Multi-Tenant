@@ -3,58 +3,58 @@ package org.springblade.vlstream.pojo.dto;
 import lombok.Data;
 
 /**
- * 统一用户中心用户信息DTO
+ * Unified user center user informationDTO
  */
 @Data
 public class UserCenterUser {
 
     /**
-     * 用户ID
+     * userID
      */
     private String userId;
 
     /**
-     * 租户ID
+     * tenantID
      */
     private String tenantId;
 
     /**
-     * 登录账号
+     * Login account
      */
     private String loginId;
 
     /**
-     * 用户姓名
+     * Username
      */
     private String userName;
 
     /**
-     * 登录时间
+     * Login time
      */
     private String loginTime;
 
     /**
-     * 最后请求时间
+     * last request time
      */
     private String lastRequestTime;
 
     /**
-     * 登录IP
+     * Log inIP
      */
     private String loginIP;
 
     /**
-     * 登录类型
+     * Login type
      */
     private Integer loginType;
 
     /**
-     * 客户端类型
+     * client type
      */
     private String client;
 
     /**
-     * 访问令牌
+     * access token
      */
     private String accessToken;
 }

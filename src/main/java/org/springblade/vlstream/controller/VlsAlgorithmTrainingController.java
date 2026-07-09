@@ -46,7 +46,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * 算法训练任务表 控制器
+ * Algorithm training task list controller
  *
  * @author Oort
  * @since 2025-12-23
@@ -54,7 +54,7 @@ import java.util.concurrent.Future;
 @Slf4j
 @RestController
 @RequestMapping("/vlsAlgorithmTraining")
-@Tag(name = "算法训练任务表", description = "算法训练任务表接口")
+@Tag(name = "Algorithm training task list", description = "Algorithm training task list interface")
 public class VlsAlgorithmTrainingController extends BladeController {
 
 	private static final String RKNN_MODEL_ZOO_PATH = "/data/work/ultralytics_yolov8-main/rknn_model_zoo-main";
@@ -85,22 +85,22 @@ public class VlsAlgorithmTrainingController extends BladeController {
 	private VlsSshProperties sshProperties;
 
 	/**
-	 * 算法训练任务表 详情
+	 * Algorithm training task list Details
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "详情", description = "传入vlsAlgorithmTraining")
+	@Operation(summary = "Details", description = "incomingvlsAlgorithmTraining")
 	public R<AlgorithmTrainingVO> detail(AlgorithmTraining vlsAlgorithmTraining) {
 		AlgorithmTraining detail = vlsAlgorithmTrainingService.getOne(Condition.getQueryWrapper(vlsAlgorithmTraining));
 		return R.data(VlsAlgorithmTrainingWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * 算法训练任务表 分页
+	 * Algorithm training task list Pagination
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmTraining")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmTraining")
 	public R<IPage<AlgorithmTrainingVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmTraining, Query query) {
 		IPage<AlgorithmTraining> pages = vlsAlgorithmTrainingService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAlgorithmTraining, AlgorithmTraining.class));
 		return R.data(VlsAlgorithmTrainingWrapper.build().pageVO(pages));
@@ -108,11 +108,11 @@ public class VlsAlgorithmTrainingController extends BladeController {
 
 
 	/**
-	 * 算法训练任务表 自定义分页
+	 * Algorithm training task list Custom paging
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "分页", description = "传入vlsAlgorithmTraining")
+	@Operation(summary = "Pagination", description = "incomingvlsAlgorithmTraining")
 	public R<IPage<AlgorithmTrainingVO>> page(AlgorithmTrainingVO vlsAlgorithmTraining, Query query) {
 		IPage<AlgorithmTrainingVO> pages = vlsAlgorithmTrainingService.selectVlsAlgorithmTrainingPage(Condition.getPage(query), vlsAlgorithmTraining);
 		for (AlgorithmTrainingVO training : pages.getRecords()) {
@@ -125,52 +125,52 @@ public class VlsAlgorithmTrainingController extends BladeController {
 	}
 
 	/**
-	 * 算法训练任务表 新增
+	 * Algorithm training task list New
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "传入vlsAlgorithmTraining")
+	@Operation(summary = "New", description = "incomingvlsAlgorithmTraining")
 	public R save(@Valid @RequestBody AlgorithmTraining vlsAlgorithmTraining) {
 		return R.status(vlsAlgorithmTrainingService.save(vlsAlgorithmTraining));
 	}
 
 	/**
-	 * 算法训练任务表 修改
+	 * Algorithm training task list Revise
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "传入vlsAlgorithmTraining")
+	@Operation(summary = "Revise", description = "incomingvlsAlgorithmTraining")
 	public R update(@Valid @RequestBody AlgorithmTraining vlsAlgorithmTraining) {
 		return R.status(vlsAlgorithmTrainingService.updateById(vlsAlgorithmTraining));
 	}
 
 	/**
-	 * 算法训练任务表 新增或修改
+	 * Algorithm training task list Add or modify
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "新增或修改", description = "传入vlsAlgorithmTraining")
+	@Operation(summary = "Add or modify", description = "incomingvlsAlgorithmTraining")
 	public R submit(@Valid @RequestBody AlgorithmTraining vlsAlgorithmTraining) {
 		return R.status(vlsAlgorithmTrainingService.saveOrUpdate(vlsAlgorithmTraining));
 	}
 
 	/**
-	 * 算法训练任务表 删除
+	 * Algorithm training task list delete
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "逻辑删除", description = "传入ids")
-	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+	@Operation(summary = "tombstone", description = "incomingids")
+	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
 		return R.status(vlsAlgorithmTrainingService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * 导出数据
+	 * Export data
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAlgorithmTraining")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "导出数据", description = "传入vlsAlgorithmTraining")
+	@Operation(summary = "Export data", description = "incomingvlsAlgorithmTraining")
 	public void exportVlsAlgorithmTraining(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithmTraining, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<AlgorithmTraining> queryWrapper = Condition.getQueryWrapper(vlsAlgorithmTraining, AlgorithmTraining.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -178,175 +178,175 @@ public class VlsAlgorithmTrainingController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsAlgorithmTrainingEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAlgorithmTrainingExcel> list = vlsAlgorithmTrainingService.exportVlsAlgorithmTraining(queryWrapper);
-		ExcelUtil.export(response, "算法训练任务表数据" + DateUtil.time(), "算法训练任务表数据表", list, VlsAlgorithmTrainingExcel.class);
+		ExcelUtil.export(response, "Algorithm training task table data" + DateUtil.time(), "Algorithm training task table data table", list, VlsAlgorithmTrainingExcel.class);
 	}
 
 	/**
-	 * 根据ID查询训练任务详情
+	 * according toIDQuery training task details
 	 */
 	@GetMapping("/{id}")
-	@Operation(summary = "查询训练任务详情", description = "根据ID获取训练任务详细信息")
+	@Operation(summary = "Query training task details", description = "according toIDGet training task details")
 	public R<AlgorithmTraining> getTrainingById(
-		@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("查询训练任务详情：ID={}", id);
+		log.info("Query training task details: ID={}", id);
 
 		AlgorithmTraining training = vlsAlgorithmTrainingService.selectAlgorithmTrainingById(id);
 		if (training == null) {
-			return R.fail("训练任务不存在");
+			return R.fail("The training task does not exist");
 		}
 
 		return R.data(training);
 	}
 
 	/**
-	 * 新增训练任务
+	 * Add new training tasks
 	 */
 	@PostMapping
-	@Operation(summary = "创建训练任务", description = "新增训练任务")
+	@Operation(summary = "Create a training task", description = "Add new training tasks")
 	public R<String> createTraining(@Valid @RequestBody AlgorithmTraining training) {
 
 		training.setTrainStatus(AlgorithmTrainingStatusEnum.pending);
-		log.info("创建训练任务：{}", training);
+		log.info("Create a training task: {}", training);
 
 		int result = vlsAlgorithmTrainingService.insertAlgorithmTraining(training);
 		if (result > 0) {
-			return R.success("创建成功");
+			return R.success("Created successfully");
 		} else {
-			return R.fail("创建失败");
+			return R.fail("Creation failed");
 		}
 	}
 
 	/**
-	 * 修改训练任务
+	 * Modify training tasks
 	 */
 	@PutMapping("/{id}")
-	@Operation(summary = "更新训练任务", description = "根据ID更新训练任务信息")
+	@Operation(summary = "Update training tasks", description = "according toIDUpdate training task information")
 	public R<String> updateTraining(
-		@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id,
 		@Valid @RequestBody AlgorithmTraining training) {
 
-		log.info("更新训练任务：ID={}, 数据={}", id, training);
+		log.info("Update training tasks: ID={}, data={}", id, training);
 
 		training.setId(id);
 		int result = vlsAlgorithmTrainingService.updateAlgorithmTraining(training);
 		if (result > 0) {
-			return R.success("更新成功");
+			return R.success("Update successful");
 		} else {
-			return R.fail("更新失败");
+			return R.fail("Update failed");
 		}
 	}
 
 	/**
-	 * 更新训练状态
+	 * Update training status
 	 */
 	@PutMapping("/{id}/status")
-	@Operation(summary = "更新训练状态", description = "更新指定训练任务的状态")
+	@Operation(summary = "Update training status", description = "Update the status of a specified training task")
 	public R<String> updateTrainingStatus(
-		@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id,
 		@RequestBody Map<String, String> statusUpdate) {
 
 		String trainStatus = statusUpdate.get("trainStatus");
-		log.info("更新训练状态：ID={}, 状态={}", id, trainStatus);
+		log.info("Update training status: ID={}, state={}", id, trainStatus);
 
 		try {
-			// 获取现有的训练任务
+			// Get existing training tasks
 			AlgorithmTraining training = vlsAlgorithmTrainingService.selectAlgorithmTrainingById(id);
 			if (training == null) {
-				return R.fail("训练任务不存在");
+				return R.fail("The training task does not exist");
 			}
 
-			// 更新状态
+			// update status
 			training.setTrainStatus(AlgorithmTrainingStatusEnum.of(trainStatus));
 			int result = vlsAlgorithmTrainingService.updateAlgorithmTraining(training);
 
 			if (result > 0) {
-				log.info("训练状态更新成功：ID={}, 新状态={}", id, trainStatus);
-				return R.success("状态更新成功");
+				log.info("Training status updated successfully: ID={}, new status={}", id, trainStatus);
+				return R.success("Status updated successfully");
 			} else {
-				return R.fail("状态更新失败");
+				return R.fail("Status update failed");
 			}
 		} catch (Exception e) {
-			log.error("更新训练状态异常：ID={}, 错误={}", id, e.getMessage());
-			return R.fail("状态更新异常：" + e.getMessage());
+			log.error("Update training status exception: ID={}, mistake={}", id, e.getMessage());
+			return R.fail("Status update exception: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 删除训练任务
+	 * Delete training tasks
 	 */
 	@DeleteMapping("/{id}")
-	@Operation(summary = "删除训练任务", description = "根据ID删除训练任务")
+	@Operation(summary = "Delete training tasks", description = "according toIDDelete training tasks")
 	public R<String> deleteTraining(
-		@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("删除训练任务：ID={}", id);
+		log.info("Delete training tasks: ID={}", id);
 
 		int result = vlsAlgorithmTrainingService.deleteAlgorithmTrainingById(id);
 		if (result > 0) {
-			return R.success("删除成功");
+			return R.success("Delete successfully");
 		} else {
-			return R.fail("删除失败");
+			return R.fail("Delete failed");
 		}
 	}
 
 	/**
-	 * 批量删除训练任务
+	 * Delete training tasks in batches
 	 */
 	@DeleteMapping("/batch")
-	@Operation(summary = "批量删除训练任务", description = "根据ID列表批量删除训练任务")
+	@Operation(summary = "Delete training tasks in batches", description = "according toIDList batch deletion of training tasks")
 	public R<String> batchDeleteTraining(@RequestBody List<Long> ids) {
 
-		log.info("批量删除训练任务：IDs={}", ids);
+		log.info("Delete training tasks in batches: IDs={}", ids);
 
 		if (ids == null || ids.isEmpty()) {
-			return R.fail("请选择要删除的训练任务");
+			return R.fail("Please select the training task to delete");
 		}
 
 		int result = vlsAlgorithmTrainingService.deleteAlgorithmTrainingByIds(ids.toArray(new Long[0]));
 		if (result > 0) {
-			return R.success("批量删除成功");
+			return R.success("Batch deletion successful");
 		} else {
-			return R.fail("批量删除失败");
+			return R.fail("Batch deletion failed");
 		}
 	}
 
 	/**
-	 * 开始训练任务
+	 * Start training task
 	 */
 	@PostMapping("/{id}/start")
-	@Operation(summary = "开始训练任务", description = "开始指定的训练任务")
+	@Operation(summary = "Start training task", description = "Start the specified training task")
 	public R<RemoteTrainingService.StartResult> startTraining(
-		@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id,
-		@Parameter(description = "训练轮次") @RequestParam(defaultValue = "10") Integer epochs,
-		@Parameter(description = "数据集id") @RequestParam Long datasetId,
-		@Parameter(description = "批大小") @RequestParam(defaultValue = "16") Integer batchSize,
-		@Parameter(description = "图像尺寸") @RequestParam(required = false) Integer imgSize,
-		@Parameter(description = "额外训练参数") @RequestParam(required = false) String extraParams) {
+		@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "training rounds") @RequestParam(defaultValue = "10") Integer epochs,
+		@Parameter(description = "Datasetid") @RequestParam Long datasetId,
+		@Parameter(description = "batch size") @RequestParam(defaultValue = "16") Integer batchSize,
+		@Parameter(description = "Image size") @RequestParam(required = false) Integer imgSize,
+		@Parameter(description = "Additional training parameters") @RequestParam(required = false) String extraParams) {
 
-		log.info("=== 开始训练任务 ===");
-		log.info("训练任务ID: {}", id);
+		log.info("=== Start training task ===");
+		log.info("training tasksID: {}", id);
 
 		try {
 			AlgorithmTraining training = vlsAlgorithmTrainingService.selectAlgorithmTrainingById(id);
 			if (training == null) {
-				return R.fail("训练任务不存在");
+				return R.fail("The training task does not exist");
 			}
 			AlgorithmAnnotation annotation = algorithmAnnotationService.getById(datasetId);
 			if (annotation == null) {
-				return R.fail("数据集不存在");
+				return R.fail("Data set does not exist");
 			}
 			if (annotation.getDatasetPath() == null || annotation.getDatasetPath().trim().isEmpty()) {
-				return R.fail("未配置有效的数据集路径");
+				return R.fail("No valid dataset path configured");
 			}
 
 			Algorithm algorithm = training.getAlgorithmId() != null ? algorithmService.getById(training.getAlgorithmId()) : null;
 			if (algorithm == null) {
-				return R.fail("算法不存在");
+				return R.fail("Algorithm does not exist");
 			}
 			String baseModel = algorithm.getPtModelFilePath();
 			if (StringUtils.isBlank(baseModel)) {
-				return R.fail("算法基础模型路径为空");
+				return R.fail("The algorithm base model path is empty");
 			}
 
 			Map<String, Object> config = parseConfigParams(training.getConfigParams());
@@ -375,37 +375,37 @@ public class VlsAlgorithmTrainingController extends BladeController {
 			update.setLogPath(startResult.getLogPath());
 			vlsAlgorithmTrainingService.updateAlgorithmTraining(update);
 
-			log.info("训练任务{}已启动，日志路径: {}", id, startResult.getLogPath());
+			log.info("training tasks{}Started, Log path: {}", id, startResult.getLogPath());
 			return R.data(startResult);
 		} catch (Exception e) {
-			log.error("触发训练任务失败: {}", e.getMessage(), e);
-			return R.fail("触发训练任务失败: " + e.getMessage());
+			log.error("Failed to trigger training task: {}", e.getMessage(), e);
+			return R.fail("Failed to trigger training task: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 转换模型
+	 * Transformation model
 	 */
 	@PostMapping("/{id}/convert-model")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "转换模型", description = "把pt模型转换为onnx和rknn")
+	@Operation(summary = "Transformation model", description = "BundleptThe model is converted toonnxandrknn")
 	public R<String> convertModel(
-		@Parameter(description = "模型训练ID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "Model trainingID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("模型训练: id={}", id);
+		log.info("Model training: id={}", id);
 		AlgorithmTraining training = vlsAlgorithmTrainingService.selectAlgorithmTrainingById(id);
 		if (training == null) {
-			return R.fail("找不到模型训练");
+			return R.fail("Model training not found");
 		}
 		String ptModelPath = training.getModelOutputPath();
 		if (ptModelPath == null || ptModelPath.isEmpty()) {
-			return R.fail("模型路径不能为空");
+			return R.fail("Model path cannot be empty");
 		}
 		String datasetPath = resolveDatasetPath(training);
 		AlgorithmTraining trainingSnapshot = training;
 		String datasetPathSnapshot = datasetPath;
 
-		log.info("数据集路径：{}", datasetPathSnapshot);
+		log.info("Dataset path: {}", datasetPathSnapshot);
 		Thread convertThread = new Thread(() -> {
 			ExecutorService executor = Executors.newFixedThreadPool(2);
 			try {
@@ -466,47 +466,47 @@ public class VlsAlgorithmTrainingController extends BladeController {
 				update.setInt8RknnModelOutputPath(int8RknnPath);
 				int updateResult = vlsAlgorithmTrainingService.updateAlgorithmTraining(update);
 				if (updateResult > 0) {
-					log.info("模型路径更新成功: id={}, onnxPath={}, rknnPath={}, int8RknnPath={}", id, onnxPath, rk3588RknnPath, int8RknnPath);
+					log.info("Model path updated successfully: id={}, onnxPath={}, rknnPath={}, int8RknnPath={}", id, onnxPath, rk3588RknnPath, int8RknnPath);
 				} else {
-					log.warn("模型路径更新失败: id={}, onnxPath={}, rknnPath={}, int8RknnPath={}", id, onnxPath, rk3588RknnPath, int8RknnPath);
+					log.warn("Model path update failed: id={}, onnxPath={}, rknnPath={}, int8RknnPath={}", id, onnxPath, rk3588RknnPath, int8RknnPath);
 				}
 			} catch (Exception exception) {
-				log.error("模型转换异常: id={}, error={}", id, exception.getMessage(), exception);
+				log.error("Model conversion exception: id={}, error={}", id, exception.getMessage(), exception);
 			} finally {
 				executor.shutdown();
 			}
 		});
 		convertThread.setName("model-convert-" + id);
 		convertThread.start();
-		return R.success("模型转换成功");
+		return R.success("Model conversion successful");
 	}
 
 	/**
-	 * 诊断远程服务器conda环境
+	 * Diagnosing a remote servercondaenvironment
 	 */
 	@GetMapping("/diagnose-conda")
-	@Operation(summary = "诊断conda环境", description = "检查远程服务器上的conda安装情况")
+	@Operation(summary = "diagnosiscondaenvironment", description = "Check the remote servercondaInstallation status")
 	public R<String> diagnoseConda() {
 		try {
-			// 构建诊断命令
+			// Build diagnostic commands
 			StringBuilder diagCmd = new StringBuilder();
-			diagCmd.append("echo '=== 环境诊断 ===' && ");
+			diagCmd.append("echo '=== Environmental diagnostics ===' && ");
 			diagCmd.append("echo 'PATH: '$PATH && ");
-			diagCmd.append("echo '=== 查找conda ===' && ");
+			diagCmd.append("echo '=== Findconda ===' && ");
 			diagCmd.append("which conda 2>/dev/null || echo 'conda not in PATH' && ");
 			diagCmd.append("find /home -name 'conda' -type f 2>/dev/null | head -5 && ");
 			diagCmd.append("find /opt -name 'conda' -type f 2>/dev/null | head -5 && ");
 			diagCmd.append("find /usr -name 'conda' -type f 2>/dev/null | head -5 && ");
-			diagCmd.append("echo '=== 查找conda.sh ===' && ");
+			diagCmd.append("echo '=== Findconda.sh ===' && ");
 			diagCmd.append("find /home -name 'conda.sh' -type f 2>/dev/null | head -5 && ");
 			diagCmd.append("find /opt -name 'conda.sh' -type f 2>/dev/null | head -5 && ");
-			diagCmd.append("echo '=== 查找yolo ===' && ");
+			diagCmd.append("echo '=== Findyolo ===' && ");
 			diagCmd.append("which yolo 2>/dev/null || echo 'yolo not in PATH' && ");
 			diagCmd.append("find /home -name 'yolo' -type f 2>/dev/null | head -3 && ");
-			diagCmd.append("echo '=== Python环境 ===' && ");
+			diagCmd.append("echo '=== Pythonenvironment ===' && ");
 			diagCmd.append("which python 2>/dev/null || echo 'python not found' && ");
 			diagCmd.append("which python3 2>/dev/null || echo 'python3 not found' && ");
-			diagCmd.append("echo '=== 完成 ==='");
+			diagCmd.append("echo '=== Finish ==='");
 
 			SSHService.SSHExecutionResult result = sshService.executeCommand(
 				sshProperties.getHost(),
@@ -517,29 +517,29 @@ public class VlsAlgorithmTrainingController extends BladeController {
 			);
 
 			if (result.isSuccess()) {
-				log.info("Conda诊断成功: {}", result.getOutput());
-				return R.success("Conda诊断结果:\n" + result.getOutput());
+				log.info("CondaDiagnosis successful: {}", result.getOutput());
+				return R.success("CondaDiagnosis results:\n" + result.getOutput());
 			} else {
-				log.error("Conda诊断失败: {}", result.getErrorMsg());
-				return R.fail("Conda诊断失败: " + result.getErrorMsg());
+				log.error("CondaDiagnosis failed: {}", result.getErrorMsg());
+				return R.fail("CondaDiagnosis failed: " + result.getErrorMsg());
 			}
 		} catch (Exception e) {
-			log.error("Conda诊断异常: {}", e.getMessage(), e);
-			return R.fail("Conda诊断异常: " + e.getMessage());
+			log.error("CondaDiagnostic anomalies: {}", e.getMessage(), e);
+			return R.fail("CondaDiagnostic anomalies: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 停止训练任务
+	 * Stop training task
 	 */
 	@PostMapping("/{id}/stop")
-	@Operation(summary = "停止训练任务", description = "停止指定的训练任务")
-	public R<String> stopTraining(@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id) {
+	@Operation(summary = "Stop training task", description = "Stop the specified training task")
+	public R<String> stopTraining(@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("停止训练任务: ID={}", id);
+		log.info("Stop training task: ID={}", id);
 		AlgorithmTraining training = vlsAlgorithmTrainingService.selectAlgorithmTrainingById(id);
 		if (training == null) {
-			return R.fail("找不到训练任务");
+			return R.fail("Training task not found");
 		}
 
 		boolean stopped = remoteTrainingService.stopTraining(id, training.getLogPath());
@@ -549,25 +549,25 @@ public class VlsAlgorithmTrainingController extends BladeController {
 			update.setTrainStatus(AlgorithmTrainingStatusEnum.stop);
 			update.setEndTime(new Date());
 			vlsAlgorithmTrainingService.updateAlgorithmTraining(update);
-			return R.success("训练任务已停止");
+			return R.success("Training task has been stopped");
 		}
-		return R.fail("训练任务停止失败");
+		return R.fail("Training task stop failed");
 	}
 
 	/**
-	 * 获取训练日志
+	 * Get training log
 	 */
 	@GetMapping("/{id}/logs")
-	@Operation(summary = "获取训练状态", description = "获取指定训练任务的日志")
+	@Operation(summary = "Get training status", description = "Get the logs of the specified training task")
 	public R<RemoteTrainingService.LogResult> getTrainingLogs(
-		@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id,
 		@RequestParam(value = "logPath", required = false) String logPath,
 		@RequestParam(value = "lines", defaultValue = "200") Integer lines) {
 
-		log.info("获取训练日志：ID={}?logPath={}", id, logPath);
+		log.info("Get training log: ID={}?logPath={}", id, logPath);
 		AlgorithmTraining training = vlsAlgorithmTrainingService.selectAlgorithmTrainingById(id);
 		if (training == null) {
-			return R.fail("找不到训练任务");
+			return R.fail("Training task not found");
 		}
 		Algorithm algorithm = training.getAlgorithmId() != null ? algorithmService.getById(training.getAlgorithmId()) : null;
 		RemoteTrainingService.LogResult logResult = remoteTrainingService.getTrainingLogs(
@@ -581,18 +581,18 @@ public class VlsAlgorithmTrainingController extends BladeController {
 	}
 
 	/**
-	 * 获取训练状态
+	 * Get training status
 	 */
 	@GetMapping("/{id}/status")
-	@Operation(summary = "获取训练状态", description = "获取指定训练任务的状态")
+	@Operation(summary = "Get training status", description = "Get the status of the specified training task")
 	public R<RemoteTrainingService.TrainingProgress> getTrainingStatus(
-		@Parameter(description = "训练任务ID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "training tasksID", example = "1") @PathVariable @NotNull Long id,
 		@RequestParam(value = "logPath", required = false) String logPath) {
 
-		log.info("获取训练状态：ID={}?logPath={}", id, logPath);
+		log.info("Get training status: ID={}?logPath={}", id, logPath);
 		AlgorithmTraining training = vlsAlgorithmTrainingService.selectAlgorithmTrainingById(id);
 		if (training == null) {
-			return R.fail("找不到训练任务");
+			return R.fail("Training task not found");
 		}
 		RemoteTrainingService.TrainingProgress progress = remoteTrainingService.getProgress(id, logPath);
 		if (progress != null && progress.isCompleted()) {
@@ -614,10 +614,10 @@ public class VlsAlgorithmTrainingController extends BladeController {
 			return convertFuture.get();
 		} catch (InterruptedException interruptedException) {
 			Thread.currentThread().interrupt();
-			log.warn("模型转换异常: id={}, format={}", trainingId, format);
+			log.warn("Model conversion exception: id={}, format={}", trainingId, format);
 			return null;
 		} catch (ExecutionException executionException) {
-			log.warn("模型转换异常: id={}, format={}, error={}", trainingId, format, executionException.getMessage());
+			log.warn("Model conversion exception: id={}, format={}, error={}", trainingId, format, executionException.getMessage());
 			return null;
 		}
 	}
@@ -684,13 +684,13 @@ public class VlsAlgorithmTrainingController extends BladeController {
 			return objectMapper.readValue(configJson, new TypeReference<Map<String, Object>>() {
 			});
 		} catch (Exception e) {
-			log.warn("解析异常: {}", e.getMessage());
+			log.warn("parsing exception: {}", e.getMessage());
 			return Collections.emptyMap();
 		}
 	}
 
 	/**
-	 * 获取配置
+	 * Get configuration
 	 */
 	private Integer getIntFromConfig(Map<String, Object> config, String key, Integer fallback, Integer defaultValue) {
 		if (config != null && config.containsKey(key)) {
@@ -742,10 +742,10 @@ public class VlsAlgorithmTrainingController extends BladeController {
 	}
 
 	@GetMapping("/download-model")
-	@Operation(summary = "下载模型文件", description = "从远程服务器下载训练好的模型文件")
+	@Operation(summary = "Download model file", description = "Download the trained model file from the remote server")
 	public void downloadModel(@RequestParam String id, @RequestParam String type, HttpServletResponse response) {
 		try {
-			log.info("下载模型文件: {}", type);
+			log.info("Download model file: {}", type);
 
 			AlgorithmModel algorithmModel = algorithmModelService.getById(id);
 			if (algorithmModel == null) {
@@ -767,7 +767,7 @@ public class VlsAlgorithmTrainingController extends BladeController {
 				response.getWriter().write("Model file path is empty");
 				return;
 			}
-			// 从远程服务器下载文件
+			// Download files from remote server
 			SSHService.SSHExecutionResult result = sshService.executeCommand(
 				sshProperties.getHost(),
 				sshProperties.getPort(),
@@ -777,11 +777,11 @@ public class VlsAlgorithmTrainingController extends BladeController {
 			);
 
 			if (result.isSuccess() && !result.getOutput().trim().isEmpty()) {
-				// 清理base64内容，移除可能的换行符和其他字符
+				// clean upbase64content, Remove possible newlines and other characters
 				String base64Content = result.getOutput().trim().replaceAll("\\s+", "");
-				log.info("Base64内容长度: {}", base64Content.length());
+				log.info("Base64content length: {}", base64Content.length());
 
-				// 解码base64内容
+				// decodingbase64content
 				byte[] fileContent = java.util.Base64.getDecoder().decode(base64Content);
 
 				String fileName = downloadPath.substring(downloadPath.lastIndexOf('/') + 1);
@@ -791,7 +791,7 @@ public class VlsAlgorithmTrainingController extends BladeController {
 				response.setHeader("Content-Disposition", "attachment; filename*=UTF-8''" + encodedFileName);
 				response.setContentLength(fileContent.length);
 
-				// 写入响应
+				// Write response
 				response.getOutputStream().write(fileContent);
 				response.getOutputStream().flush();
 
@@ -812,20 +812,20 @@ public class VlsAlgorithmTrainingController extends BladeController {
 					}
 				}
 
-				log.info("模型文件下载成功: {}", fileName);
+				log.info("Model file downloaded successfully: {}", fileName);
 			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().write("Model file not found: " + downloadPath);
-				log.error("模型文件不存在: {}", downloadPath);
+				log.error("Model file does not exist: {}", downloadPath);
 			}
 
 		} catch (Exception e) {
-			log.error("下载模型文件失败: {}", e.getMessage(), e);
+			log.error("Failed to download model file: {}", e.getMessage(), e);
 			try {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				response.getWriter().write("Download failed: " + e.getMessage());
 			} catch (Exception ex) {
-				log.error("写入错误响应失败: {}", ex.getMessage());
+				log.error("Writing error response failed: {}", ex.getMessage());
 			}
 		}
 	}

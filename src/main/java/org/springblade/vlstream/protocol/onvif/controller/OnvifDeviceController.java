@@ -20,14 +20,14 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/onvif/device")
-@Tag(name = "协议-ONVIF设备", description = "ONVIF设备接口")
+@Tag(name = "protocol-ONVIFequipment", description = "ONVIFDevice interface")
 public class OnvifDeviceController extends BladeController {
 
 	private final IOnvifDeviceService onvifDeviceService;
 
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "分页", description = "查询ONVIF设备")
+	@Operation(summary = "Pagination", description = "QueryONVIFequipment")
 	public R<IPage<OnvifDeviceEntity>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> params, Query query) {
 		IPage<OnvifDeviceEntity> pages = onvifDeviceService.page(Condition.getPage(query), Condition.getQueryWrapper(params, OnvifDeviceEntity.class));
 		return R.data(pages);
@@ -35,40 +35,40 @@ public class OnvifDeviceController extends BladeController {
 
 	@GetMapping("/deviceList")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "列表", description = "查询ONVIF设备列表")
+	@Operation(summary = "list", description = "QueryONVIFDevice list")
 	public R<List<OnvifDeviceEntity>> deviceList(OnvifDeviceEntity query) {
 		return R.data(onvifDeviceService.list(Condition.getQueryWrapper(query)));
 	}
 
 	@GetMapping("/{id}")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "详情", description = "查询ONVIF设备详情")
+	@Operation(summary = "Details", description = "QueryONVIFDevice details")
 	public R<OnvifDeviceEntity> detail(@PathVariable Long id) {
 		return R.data(onvifDeviceService.getById(id));
 	}
 
 	@PostMapping
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "新增", description = "新增ONVIF设备")
+	@Operation(summary = "New", description = "NewONVIFequipment")
 	public R<OnvifDeviceEntity> add(@RequestBody OnvifDeviceEntity entity) {
 		OnvifDeviceEntity exists = onvifDeviceService.getOneByIp(entity == null ? null : entity.getIp());
 		if (exists != null) {
-			return R.fail("设备已存在");
+			return R.fail("Device already exists");
 		}
 		boolean saved = onvifDeviceService.save(entity);
-		return saved ? R.data(entity) : R.fail("新增失败");
+		return saved ? R.data(entity) : R.fail("Failed to add");
 	}
 
 	@PutMapping
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "修改", description = "修改ONVIF设备")
+	@Operation(summary = "Revise", description = "ReviseONVIFequipment")
 	public R<Boolean> edit(@RequestBody OnvifDeviceEntity entity) {
 		return R.status(onvifDeviceService.updateById(entity));
 	}
 
 	@DeleteMapping("/{id}")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "删除", description = "删除ONVIF设备")
+	@Operation(summary = "delete", description = "deleteONVIFequipment")
 	public R<Boolean> remove(@PathVariable Long id) {
 		return R.status(onvifDeviceService.removeById(id));
 	}

@@ -36,7 +36,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 单设备姿态估计会话：加载模型并对视频流进行姿态估计，在产生结果时截图上传并创建事件；支持异常重启与资源清理。
+ * Single-device pose estimation session: Load the model and perform pose estimation on the video stream, Upload screenshots and create events when results are generated; Support abnormal restart and resource cleanup. 
  */
 @Slf4j
 public class DevicePoseDetectionSession implements DeviceDetectionSession {
@@ -108,7 +108,7 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
 
     public void stop(String reason) {
         stopRequested.set(true);
-        log.info("停止姿态估计: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+        log.info("Stop pose estimation: deviceId={}, deviceName={}, algorithmId={}, reason={}",
             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
         stopDetector();
         cleanupTempModelFile();
@@ -131,12 +131,12 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
             this.detector = streamDetector;
             try {
                 streamDetector.startDetection();
-                log.info("开始姿态估计: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
+                log.info("Start pose estimation: deviceId={}, deviceName={}, algorithmId={}, streamUrl={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, streamUrl);
                 return;
             } catch (Exception startException) {
                 retryTimes++;
-                log.error("启动姿态估计器失败: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
+                log.error("Failed to start attitude estimator: deviceId={}, deviceName={}, algorithmId={}, retryTimes={}, error={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, retryTimes, startException.getMessage(), startException);
                 stopDetector();
                 if (retryTimes > MAX_START_RETRY_TIMES) {
@@ -171,7 +171,7 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
                         }
                         snapshotImage = DetectionSessionSupport.copyForSnapshot(image, log);
                         if (snapshotImage == null) {
-                            log.warn("设备 {} 复制截图失败，跳过", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to copy screenshot, jump over", deviceInfo.getDeviceName());
                             return;
                         }
                         for (Joints joint : joints) {
@@ -185,23 +185,23 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
                         File snapFile = snapshot.toFile();
                         try {
                             ImageUtils.save(snapshotImage, snapFile.getName(), snapFile.getParent());
-                            log.info("姿态估计截图已保存: deviceId={}, deviceName={}, time={}, path={}",
+                            log.info("Pose estimation screenshot saved: deviceId={}, deviceName={}, time={}, path={}",
                                 deviceInfo.getId(), deviceInfo.getDeviceName(), now, snapshot.toAbsolutePath());
                         } catch (Exception saveException) {
-                            log.warn("设备 {} 保存截图失败", deviceInfo.getDeviceName(), saveException);
+                            log.warn("equipment {} Failed to save screenshot", deviceInfo.getDeviceName(), saveException);
                             return;
                         }
 
                         FileResponseDto fileResponseDto = DetectionSessionSupport.uploadSnapshot(fileUploadService, snapFile);
                         if (fileResponseDto == null || StringUtils.isBlank(fileResponseDto.getUrl())) {
-                            log.warn("设备 {} 上传截图失败，跳过事件创建", deviceInfo.getDeviceName());
+                            log.warn("equipment {} Failed to upload screenshot, Skip event creation", deviceInfo.getDeviceName());
                             return;
                         }
                         createEvent(deviceInfo, algorithm, joints, fileResponseDto.getUrl());
-                        log.info("姿态估计事件已创建: deviceId={}, deviceName={}, algorithmId={}, joints={}",
+                        log.info("Pose estimation event created: deviceId={}, deviceName={}, algorithmId={}, joints={}",
                             deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, joints.length);
                     } catch (Exception detectException) {
-                        log.warn("设备 {} 姿态估计回调处理失败", deviceInfo.getDeviceName(), detectException);
+                        log.warn("equipment {} Attitude estimation callback processing failed", deviceInfo.getDeviceName(), detectException);
                         scheduleDetectorRestart("detectException");
                     } finally {
                         detectionInProgress.set(false);
@@ -211,14 +211,14 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
 
                 @Override
                 public void onStreamEnded() {
-                    log.info("姿态估计视频流结束: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("End of pose estimation video stream: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamEnded");
                 }
 
                 @Override
                 public void onStreamDisconnected() {
-                    log.info("姿态估计视频流断开: deviceId={}, deviceName={}, algorithmId={}",
+                    log.info("Pose estimation video stream disconnected: deviceId={}, deviceName={}, algorithmId={}",
                         deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId);
                     scheduleDetectorRestart("streamDisconnected");
                 }
@@ -238,7 +238,7 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
                 if (stopRequested.get()) {
                     return;
                 }
-                log.info("已触发重启姿态估计: deviceId={}, deviceName={}, algorithmId={}, reason={}",
+                log.info("Restart attitude estimation triggered: deviceId={}, deviceName={}, algorithmId={}, reason={}",
                     deviceInfo.getId(), deviceInfo.getDeviceName(), algorithmId, reason);
                 stopDetector();
                 Thread.sleep(START_RETRY_DELAY_MILLIS);
@@ -273,12 +273,12 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
         try {
             currentDetector.stopDetection();
         } catch (Exception stopException) {
-            log.warn("停止姿态估计器失败", stopException);
+            log.warn("Stop pose estimator failed", stopException);
         }
         try {
             currentDetector.close();
         } catch (Exception closeException) {
-            log.warn("关闭姿态估计器失败", closeException);
+            log.warn("Failed to close pose estimator", closeException);
         }
     }
 
@@ -312,7 +312,7 @@ public class DevicePoseDetectionSession implements DeviceDetectionSession {
                              Algorithm algorithm,
                              Joints[] joints,
                              String snapshotPath) {
-        String eventDesc = "设备 " + deviceInfo.getDeviceName() + " 检测到姿态";
+        String eventDesc = "equipment " + deviceInfo.getDeviceName() + " gesture detected";
         DetectionSessionSupport.createEvent(eventManagementService, deviceInfo, algorithm, eventDesc, joints, snapshotPath);
     }
 }

@@ -3,78 +3,78 @@ package org.springblade.common.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
 /**
- * 字段类型枚举类
+ * Field type enumeration class
  */
 public enum FieldTypeEnum {
 	/**
-	 * 字符串类型
+	 * string type
 	 */
-	STRING("STRING", "字符串"),
+	STRING("STRING", "string"),
 
 	/**
-	 * 整数类型
+	 * integer type
 	 */
-	INT("INT", "整数"),
+	INT("INT", "integer"),
 
 	/**
-	 * 大整数类型
+	 * large integer type
 	 */
-	BIGINT("BIGINT", "大整数"),
+	BIGINT("BIGINT", "large integer"),
 
 	/**
-	 * 长整数类型
+	 * long integer type
 	 */
-	LONG("LONG", "长整数"),
+	LONG("LONG", "long integer"),
 
 	/**
-	 * 浮点数类型
+	 * floating point type
 	 */
-	FLOAT("FLOAT", "浮点数"),
+	FLOAT("FLOAT", "floating point number"),
 
 	/**
-	 * 双精度浮点数类型
+	 * Double precision floating point type
 	 */
-	DOUBLE("DOUBLE", "双精度浮点数"),
+	DOUBLE("DOUBLE", "Double precision floating point number"),
 
 	/**
-	 * 布尔类型
+	 * Boolean type
 	 */
-	BOOLEAN("BOOLEAN", "布尔值"),
+	BOOLEAN("BOOLEAN", "Boolean value"),
 
 	/**
-	 * 字符串类型
+	 * string type
 	 */
-	CHAR("CHAR", "定长字符串"),
+	CHAR("CHAR", "Fixed length string"),
 
 	/**
-	 * 短整型类型
+	 * Short type
 	 */
-	SHORT("SHORT", "短整型"),
+	SHORT("SHORT", "Short"),
 
 	/**
-	 * 高精度
+	 * High precision
 	 */
-	DECIMAL("DECIMAL", "高精度"),
+	DECIMAL("DECIMAL", "High precision"),
 
 	/**
-	 * 日期类型
+	 * date type
 	 */
-	DATE("DATE", "日期"),
+	DATE("DATE", "date"),
 
 	/**
-	 * 时间戳类型
+	 * timestamp type
 	 */
-	DATE_TIME("DATE_TIME", "日期时间"),
+	DATE_TIME("DATE_TIME", "date time"),
 
 	/**
-	 * 字符串类型
+	 * string type
 	 */
-	TEXT("TEXT", "大字符串"),
+	TEXT("TEXT", "large string"),
 
 	/**
-	 * 字符串类型
+	 * string type
 	 */
-	LONGTEXT("LONGTEXT", "超大字符串"),
+	LONGTEXT("LONGTEXT", "Very large string"),
 
 	/**
 	 * JSON
@@ -84,12 +84,12 @@ public enum FieldTypeEnum {
 	/**
 	 * POINT
 	 */
-	POINT("POINT", "点坐标"),
+	POINT("POINT", "Point coordinates"),
 
 	/**
 	 * GEOMETRY
 	 */
-	GEOMETRY("GEOMETRY", "面坐标");
+	GEOMETRY("GEOMETRY", "Surface coordinates");
 
 	@EnumValue
 	private final String code;
@@ -109,10 +109,10 @@ public enum FieldTypeEnum {
 	}
 
 	/**
-	 * 根据code获取枚举值
+	 * according tocodeGet enumeration value
 	 *
-	 * @param code 类型代码
-	 * @return 对应的枚举值
+	 * @param code type code
+	 * @return The corresponding enumeration value
 	 */
 	public static FieldTypeEnum fromCode(String code) {
 		for (FieldTypeEnum fieldType : FieldTypeEnum.values()) {

@@ -3,13 +3,13 @@ package org.springblade.vlstream.pojo.dto;
 import lombok.Data;
 
 /**
- * 租户请求DTO
+ * Tenant requestDTO
  */
 @Data
 public class TenantRequest {
 
     /**
-     * 租户短语
+     * tenant phrase
      */
     private String phrase;
 

@@ -13,14 +13,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 算法模型表 实体类
+ * Algorithm model table Entity class
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_algorithm_model")
-@Schema(description = "VlsAlgorithmModelEntity对象")
+@Schema(description = "VlsAlgorithmModelEntityobject")
 @EqualsAndHashCode(callSuper = true)
 public class AlgorithmModel extends TenantEntity {
 
@@ -28,81 +28,81 @@ public class AlgorithmModel extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 模型名称
+	 * Model name
 	 */
-	@Schema(description = "模型名称")
+	@Schema(description = "Model name")
 	private String modelName;
 	/**
-	 * 算法ID
+	 * algorithmID
 	 */
-	@Schema(description = "算法ID")
+	@Schema(description = "algorithmID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long algorithmId;
 	/**
-	 * 训练任务ID
+	 * training tasksID
 	 */
-	@Schema(description = "训练任务ID")
+	@Schema(description = "training tasksID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long trainingId;
 	/**
-	 * 模型版本
+	 * model version
 	 */
-	@Schema(description = "模型版本")
+	@Schema(description = "model version")
 	private Integer version;
 	/**
-	 * 模型格式：ONNX,PyTorch,TensorFlow
+	 * Model format: ONNX,PyTorch,TensorFlow
 	 */
-	@Schema(description = "模型格式：ONNX,PyTorch,TensorFlow")
+	@Schema(description = "Model format: ONNX,PyTorch,TensorFlow")
 	private String modelFormat;
 	/**
-	 * 模型大小
+	 * Model size
 	 */
-	@Schema(description = "模型大小")
+	@Schema(description = "Model size")
 	private String modelSize;
 	/**
-	 * 模型文件路径
+	 * Model file path
 	 */
-	@Schema(description = "模型文件路径")
+	@Schema(description = "Model file path")
 	private String modelPath;
 	/**
-	 * onnx模型文件路径
+	 * onnxModel file path
 	 */
-	@Schema(description = "onnx模型文件路径")
+	@Schema(description = "onnxModel file path")
 	private String onnxModelPath;
 	/**
-	 * rknn模型文件路径
+	 * rknnModel file path
 	 */
-	@Schema(description = "rknn模型文件路径")
+	@Schema(description = "rknnModel file path")
 	private String rknnModelPath;
 	/**
-	 * int8 rknn模型输出路径
+	 * int8 rknnModel output path
 	 */
-	@Schema(description = "int8 rknn模型输出路径")
+	@Schema(description = "int8 rknnModel output path")
 	private String int8RknnModelOutputPath;
 	/**
-	 * 模型准确率
+	 * Model accuracy
 	 */
-	@Schema(description = "模型准确率")
+	@Schema(description = "Model accuracy")
 	private BigDecimal accuracy;
 	/**
-	 * 模型描述
+	 * Model description
 	 */
-	@Schema(description = "模型描述")
+	@Schema(description = "Model description")
 	private String description;
 	/**
-	 * 下载次数
+	 * Number of downloads
 	 */
-	@Schema(description = "下载次数")
+	@Schema(description = "Number of downloads")
 	private Integer downloadCount;
 	/**
-	 * 部署次数
+	 * Deployment times
 	 */
-	@Schema(description = "部署次数")
+	@Schema(description = "Deployment times")
 	private Integer deployCount;
 	/**
-	 * 发布时间
+	 * Release time
 	 */
-	@Schema(description = "发布时间")
+	@Schema(description = "Release time")
 	private LocalDateTime publishTime;
 
 }

@@ -6,14 +6,14 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-@Schema(description = "RTSP 历史播放参数")
+@Schema(description = "RTSP Historical playback parameters")
 public class AlarmClockDTO {
-	@Schema(description = "设备ID")
+	@Schema(description = "equipmentID")
 	private Long id;
 
-	@Schema(description = "开始时间")
+	@Schema(description = "start time")
 	private Date startTime;
 
-	@Schema(description = "结束时间")
+	@Schema(description = "end time")
 	private Date endTime;
 }

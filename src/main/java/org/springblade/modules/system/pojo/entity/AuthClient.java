@@ -10,74 +10,74 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * 实体类
+ * Entity class
  *
  * @author Oort
  */
 @Data
 @TableName("blade_client")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "AuthClient对象")
+@Schema(description = "AuthClientobject")
 public class AuthClient extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 客户端id
+	 * clientid
 	 */
-	@Schema(description = "客户端id")
+	@Schema(description = "clientid")
 	private String clientId;
 	/**
-	 * 客户端密钥
+	 * client key
 	 */
-	@Schema(description = "客户端密钥")
+	@Schema(description = "client key")
 	private String clientSecret;
 	/**
-	 * 资源集合
+	 * Resource collection
 	 */
-	@Schema(description = "资源集合")
+	@Schema(description = "Resource collection")
 	private String resourceIds;
 	/**
-	 * 授权范围
+	 * Authorization scope
 	 */
-	@Schema(description = "授权范围")
+	@Schema(description = "Authorization scope")
 	private String scope;
 	/**
-	 * 授权类型
+	 * Authorization type
 	 */
-	@Schema(description = "授权类型")
+	@Schema(description = "Authorization type")
 	private String authorizedGrantTypes;
 	/**
-	 * 回调地址
+	 * callback address
 	 */
-	@Schema(description = "回调地址")
+	@Schema(description = "callback address")
 	private String webServerRedirectUri;
 	/**
-	 * 权限
+	 * Permissions
 	 */
-	@Schema(description = "权限")
+	@Schema(description = "Permissions")
 	private String authorities;
 	/**
-	 * 令牌过期秒数
+	 * Token expiration seconds
 	 */
-	@Schema(description = "令牌过期秒数")
+	@Schema(description = "Token expiration seconds")
 	private Integer accessTokenValidity;
 	/**
-	 * 刷新令牌过期秒数
+	 * Refresh token expiration seconds
 	 */
-	@Schema(description = "刷新令牌过期秒数")
+	@Schema(description = "Refresh token expiration seconds")
 	private Integer refreshTokenValidity;
 	/**
-	 * 附加说明
+	 * Additional notes
 	 */
 	@JsonIgnore
-	@Schema(description = "附加说明")
+	@Schema(description = "Additional notes")
 	private String additionalInformation;
 	/**
-	 * 自动授权
+	 * Automatic authorization
 	 */
-	@Schema(description = "自动授权")
+	@Schema(description = "Automatic authorization")
 	private String autoapprove;
 
 
