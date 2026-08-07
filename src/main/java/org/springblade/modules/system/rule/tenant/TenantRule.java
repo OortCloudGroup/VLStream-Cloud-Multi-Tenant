@@ -19,30 +19,30 @@ import static org.springblade.common.constant.TenantConstant.DEFAULT_ACCOUNT_NUM
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_RULE;
 
 /**
- * Tenant build
+ * 租户构建
  *
  * @author Chill
  */
-@LiteRuleComponent(id = TENANT_RULE, name = "Tenant build")
+@LiteRuleComponent(id = TENANT_RULE, name = "租户构建")
 public class TenantRule extends RuleComponent {
 	@Override
 	public void process() {
-		// Get context
+		// 获取上下文
 		TenantContext contextBean = this.getContextBean(TenantContext.class);
 		Tenant tenant = contextBean.getTenant();
 		TenantId tenantIdGenerator = contextBean.getTenantIdGenerator();
 		ITenantService tenantService = contextBean.getTenantService();
 
-		// Get tenantsID
+		// 获取租户ID
 		List<Tenant> tenants = tenantService.list(Wrappers.<Tenant>query().lambda().eq(Tenant::getIsDeleted, BladeConstant.DB_NOT_DELETED));
 		List<String> codes = tenants.stream().map(Tenant::getTenantId).collect(Collectors.toList());
 		String tenantId = getTenantId(tenantIdGenerator, codes);
 		tenant.setTenantId(tenantId);
-		// Get the account quota configured by parameters
+		// 获取参数配置的账号额度
 		int accountNumber = Func.toInt(ParamCache.getValue(ACCOUNT_NUMBER_KEY), DEFAULT_ACCOUNT_NUMBER);
 		tenant.setAccountNumber(accountNumber);
 
-		// Set context
+		// 设置上下文
 		contextBean.setTenant(tenant);
 
 	}

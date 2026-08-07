@@ -46,7 +46,7 @@ import static org.springblade.common.constant.CommonConstant.DEFAULT_PARAM_PASSW
 import static org.springblade.core.cache.constant.CacheConstant.USER_CACHE;
 
 /**
- * Service implementation class
+ * 服务实现类
  *
  * @author Chill
  */
@@ -79,7 +79,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			}
 			Long tenantCount = baseMapper.selectCount(Wrappers.<User>query().lambda().eq(User::getTenantId, tenantId));
 			if (accountNumber != null && accountNumber > 0 && accountNumber <= tenantCount) {
-				throw new ServiceException("The current tenant has reached the maximum account quota!");
+				throw new ServiceException("当前租户已到最大账号额度!");
 			}
 		}
 		if (Func.isNotEmpty(user.getPassword())) {
@@ -87,11 +87,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		}
 		Long userCount = baseMapper.selectCount(Wrappers.<User>query().lambda().eq(User::getTenantId, tenantId).eq(User::getAccount, user.getAccount()));
 		if (userCount > 0L && Func.isEmpty(user.getId())) {
-			throw new ServiceException(StringUtil.format("current user [{}] Already exists!", user.getAccount()));
+			throw new ServiceException(StringUtil.format("当前用户 [{}] 已存在!", user.getAccount()));
 		}
 		Long phoneCount = baseMapper.selectCount(Wrappers.<User>query().lambda().eq(User::getTenantId, tenantId).eq(User::getPhone, user.getPhone()));
 		if (phoneCount > 0L && StringUtil.isNotBlank(user.getPhone())) {
-			throw new ServiceException(StringUtil.format("Current mobile phone [{}] Already exists!", user.getPhone()));
+			throw new ServiceException(StringUtil.format("当前手机 [{}] 已存在!", user.getPhone()));
 		}
 		CacheUtil.clear(USER_CACHE);
 		return save(user) && submitUserDept(user);
@@ -108,7 +108,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 				.ne(User::getId, user.getId())
 		);
 		if (userCount > 0L) {
-			throw new ServiceException(StringUtil.format("current user [{}] Already exists!", user.getAccount()));
+			throw new ServiceException(StringUtil.format("当前用户 [{}] 已存在!", user.getAccount()));
 		}
 		Long phoneCount = baseMapper.selectCount(
 			Wrappers.<User>query().lambda()
@@ -117,7 +117,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 				.ne(User::getId, user.getId())
 		);
 		if (phoneCount > 0L && StringUtil.isNotBlank(user.getPhone())) {
-			throw new ServiceException(StringUtil.format("Current mobile phone [{}] Already exists!", user.getPhone()));
+			throw new ServiceException(StringUtil.format("当前手机 [{}] 已存在!", user.getPhone()));
 		}
 		CacheUtil.clear(USER_CACHE);
 		return submitUserInfo(user) && submitUserDept(user);
@@ -125,9 +125,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
 	@Override
 	public boolean updateUserInfo(User user) {
-		// Users modify their own information to force specify the current requesting account.ID
+		// 用户修改自身信息强制指定当前请求账号的ID
 		user.setId(AuthUtil.getUserId());
-		// Users modify their own information to force the role to be ignored、department、post、Account and other fields
+		// 用户修改自身信息强制忽略角色、部门、岗位、账号等字段
 		user.setRoleId(null);
 		user.setDeptId(null);
 		user.setPostId(null);
@@ -145,7 +145,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 				.ne(User::getId, user.getId())
 		);
 		if (phoneCount > 0L && StringUtil.isNotBlank(user.getPhone())) {
-			throw new ServiceException(StringUtil.format("Current mobile phone [{}] Already exists!", user.getPhone()));
+			throw new ServiceException(StringUtil.format("当前手机 [{}] 已存在!", user.getPhone()));
 		}
 		user.setPassword(null);
 		return updateById(user);
@@ -256,7 +256,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			List<String> roleAlias = roleService.getRoleAliases(user.getRoleId());
 			userInfo.setRoles(roleAlias);
 		}
-		// According to each user platform, Create correspondingdetailsurface, Write the result set via query todetailField
+		// 根据每个用户平台，建立对应的detail表，通过查询将结果集写入到detail字段
 		Kv detail = Kv.create().set("type", userType.getName());
 		if (userType == UserType.WEB) {
 			UserWeb userWeb = new UserWeb();
@@ -326,10 +326,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public boolean updatePassword(Long userId, String oldPassword, String newPassword, String newPassword1) {
 		User user = getById(userId);
 		if (!newPassword.equals(newPassword1)) {
-			throw new ServiceException("Please enter the correct confirmation password!");
+			throw new ServiceException("请输入正确的确认密码!");
 		}
 		if (!user.getPassword().equals(DigestUtil.hex(oldPassword))) {
-			throw new ServiceException("The original password is incorrect!");
+			throw new ServiceException("原密码不正确!");
 		}
 		return this.update(Wrappers.<User>update().lambda().set(User::getPassword, DigestUtil.hex(newPassword)).eq(User::getId, userId));
 	}
@@ -338,7 +338,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	@Transactional(rollbackFor = Exception.class)
 	public boolean removeUser(String userIds) {
 		if (Func.contains(Func.toLongArray(userIds), AuthUtil.getUserId())) {
-			throw new ServiceException("This account cannot be deleted!");
+			throw new ServiceException("不能删除本账号!");
 		}
 		boolean tempUser = this.deleteLogic(Func.toLongList(userIds));
 		boolean tempUserDept = userDeptService.remove(Wrappers.<UserDept>lambdaQuery().in(UserDept::getUserId, Func.toLongList(userIds)));
@@ -354,7 +354,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			CacheUtil.clear(USER_CACHE);
 			return true;
 		} else {
-			throw new ServiceException("Failed to delete user!");
+			throw new ServiceException("删除用户失败!");
 		}
 	}
 
@@ -363,21 +363,21 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public void importUser(List<UserExcel> data, Boolean isCovered) {
 		data.forEach(userExcel -> {
 			User user = Objects.requireNonNull(BeanUtil.copyProperties(userExcel, User.class));
-			// Set up user platform
+			// 设置用户平台
 			user.setUserType(Func.toInt(DictCache.getKey(DictEnum.USER_TYPE, userExcel.getUserTypeName()), 1));
-			// Set up departmentID
+			// 设置部门ID
 			user.setDeptId(Func.toStrWithEmpty(SysCache.getDeptIds(userExcel.getTenantId(), userExcel.getDeptName()), StringPool.EMPTY));
-			// Set up positionsID
+			// 设置岗位ID
 			user.setPostId(Func.toStrWithEmpty(SysCache.getPostIds(userExcel.getTenantId(), userExcel.getPostName()), StringPool.EMPTY));
-			// Set up rolesID
+			// 设置角色ID
 			user.setRoleId(Func.toStrWithEmpty(SysCache.getRoleIds(userExcel.getTenantId(), userExcel.getRoleName()), StringPool.EMPTY));
-			// Set up tenantID
+			// 设置租户ID
 			if (!AuthUtil.isAdministrator() || StringUtil.isBlank(user.getTenantId())) {
 				user.setTenantId(AuthUtil.getTenantId());
 			}
-			// Overwrite data
+			// 覆盖数据
 			if (isCovered) {
-				// Check if the user exists
+				// 查询用户是否存在
 				User oldUser = UserCache.getUser(userExcel.getTenantId(), userExcel.getAccount());
 				if (oldUser != null && oldUser.getId() != null) {
 					user.setId(oldUser.getId());
@@ -385,7 +385,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 					return;
 				}
 			}
-			// Get default password configuration
+			// 获取默认密码配置
 			String initPassword = ParamCache.getValue(DEFAULT_PARAM_PASSWORD);
 			user.setPassword(initPassword);
 			this.submit(user);
@@ -409,11 +409,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public boolean registerGuest(User user, Long oauthId) {
 		Tenant tenant = SysCache.getTenant(user.getTenantId());
 		if (tenant == null || tenant.getId() == null) {
-			throw new ServiceException("Tenant information error!");
+			throw new ServiceException("租户信息错误!");
 		}
 		UserOauth userOauth = userOauthService.getById(oauthId);
 		if (userOauth == null || userOauth.getId() == null) {
-			throw new ServiceException("Third-party login information error!");
+			throw new ServiceException("第三方登陆信息错误!");
 		}
 		user.setRealName(user.getName());
 		user.setAvatar(userOauth.getAvatar());
@@ -434,7 +434,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public boolean registerUser(User user) {
 		Tenant tenant = SysCache.getTenant(user.getTenantId());
 		if (tenant == null || tenant.getId() == null) {
-			throw new OAuth2Exception("Tenant information error!");
+			throw new OAuth2Exception("租户信息错误!");
 		}
 		user.setRealName(user.getName());
 		user.setRoleId(StringPool.MINUS_ONE);
@@ -505,7 +505,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	@Override
 	public boolean unlock(String userIds) {
 		if (StringUtil.isBlank(userIds)) {
-			throw new ServiceException("Please select at least one user!");
+			throw new ServiceException("请至少选择一个用户!");
 		}
 		List<User> userList = baseMapper.selectList(Wrappers.<User>lambdaQuery().in(User::getId, Func.toLongList(userIds)));
 		userList.forEach(user -> bladeRedis.del(CacheNames.tenantKey(user.getTenantId(), CacheNames.ACCOUNT_FAIL_KEY, user.getAccount())));
@@ -515,7 +515,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	@Override
 	public boolean auditPass(String userIds) {
 		if (StringUtil.isBlank(userIds)) {
-			throw new ServiceException("Please select at least one user!");
+			throw new ServiceException("请至少选择一个用户!");
 		}
 		List<User> userList = baseMapper.selectList(Wrappers.<User>lambdaQuery().in(User::getId, Func.toLongList(userIds)));
 		userList.forEach(user -> {
@@ -523,7 +523,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			boolean deptTemp = StringUtil.isBlank(user.getDeptId()) || user.getDeptId().equals(StringPool.MINUS_ONE);
 			boolean postTemp = StringUtil.isBlank(user.getPostId()) || user.getPostId().equals(StringPool.MINUS_ONE);
 			if (roleTemp || deptTemp || postTemp) {
-				throw new ServiceException("Please give account number first [" + user.getAccount() + "] Assign roles、department、Approval will be approved after the post is completed!");
+				throw new ServiceException("请先给账号 [" + user.getAccount() + "] 分配角色、部门、岗位后再审批通过!");
 			}
 		});
 		return changeStatus(Func.toLongList(userIds), StatusType.ACTIVE.getType());
@@ -532,7 +532,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	@Override
 	public boolean auditRefuse(String userIds) {
 		if (StringUtil.isBlank(userIds)) {
-			throw new ServiceException("Please select at least one user!");
+			throw new ServiceException("请至少选择一个用户!");
 		}
 		return changeStatus(Func.toLongList(userIds), StatusType.DISABLED.getType());
 	}
@@ -541,7 +541,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public boolean setLeader(Long userId) {
 		User user = this.getById(userId);
 		if (Func.isEmpty(user)) {
-			throw new ServiceException("User does not exist!");
+			throw new ServiceException("用户不存在!");
 		}
 		Integer isLeader = user.getIsLeader();
 		return this.update(Wrappers.<User>update().lambda().set(
@@ -553,7 +553,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public List<UserVO> leaderInfo(Long userId) {
 		User user = this.getById(userId);
 		if (Func.isEmpty(user)) {
-			throw new ServiceException("User does not exist!");
+			throw new ServiceException("用户不存在!");
 		}
 		if (StringUtil.isBlank(user.getLeaderId())) {
 			return new ArrayList<>();

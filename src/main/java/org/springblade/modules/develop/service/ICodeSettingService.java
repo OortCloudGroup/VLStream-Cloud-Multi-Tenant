@@ -29,14 +29,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springblade.modules.develop.pojo.entity.CodeSetting;
 
 /**
- * Code generator configuration table Service category
+ * 代码生成器配置表 服务类
  *
  * @author Oort
  */
 public interface ICodeSettingService extends IService<CodeSetting> {
 
 	/**
-	 * startup configuration
+	 * 启动配置
 	 *
 	 * @param id
 	 * @return

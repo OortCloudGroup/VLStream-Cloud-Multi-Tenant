@@ -15,10 +15,10 @@ public class BladePasswordHandler extends OAuth2PasswordHandler {
 	}
 
 	/**
-	 * Determine whether the password matches
+	 * 判断密码是否匹配
 	 *
-	 * @param rawPassword     The original password submitted when requesting
-	 * @param encodedPassword Database encrypted password
+	 * @param rawPassword     请求时提交的原密码
+	 * @param encodedPassword 数据库加密后的密码
 	 * @return boolean
 	 */
 	@Override
@@ -27,10 +27,10 @@ public class BladePasswordHandler extends OAuth2PasswordHandler {
 	}
 
 	/**
-	 * Encryption password rules
+	 * 加密密码规则
 	 *
-	 * @param rawPassword password
-	 * @return Encrypted password
+	 * @param rawPassword 密码
+	 * @return 加密后的密码
 	 */
 	@Override
 	public String encode(String rawPassword) {

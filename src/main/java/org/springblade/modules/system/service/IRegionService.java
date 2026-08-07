@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Administrative division table Service category
+ * 行政区划表 服务类
  *
  * @author Chill
  */
 public interface IRegionService extends IService<Region> {
 
 	/**
-	 * submit
+	 * 提交
 	 *
 	 * @param region
 	 * @return
@@ -25,7 +25,7 @@ public interface IRegionService extends IService<Region> {
 	boolean submit(Region region);
 
 	/**
-	 * delete
+	 * 删除
 	 *
 	 * @param id
 	 * @return
@@ -33,7 +33,7 @@ public interface IRegionService extends IService<Region> {
 	boolean removeRegion(String id);
 
 	/**
-	 * Lazy loading list
+	 * 懒加载列表
 	 *
 	 * @param parentCode
 	 * @param param
@@ -42,7 +42,7 @@ public interface IRegionService extends IService<Region> {
 	List<RegionVO> lazyList(String parentCode, Map<String, Object> param);
 
 	/**
-	 * Lazy loading list
+	 * 懒加载列表
 	 *
 	 * @param parentCode
 	 * @param param
@@ -51,7 +51,7 @@ public interface IRegionService extends IService<Region> {
 	List<RegionVO> lazyTree(String parentCode, Map<String, Object> param);
 
 	/**
-	 * Import zoning data
+	 * 导入区划数据
 	 *
 	 * @param data
 	 * @param isCovered
@@ -60,7 +60,7 @@ public interface IRegionService extends IService<Region> {
 	void importRegion(List<RegionExcel> data, Boolean isCovered);
 
 	/**
-	 * Export zoning data
+	 * 导出区划数据
 	 *
 	 * @param queryWrapper
 	 * @return

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Packaging,Returns the fields required by the view layer
+ * 包装类,返回视图层所需的字段
  *
  * @author Chill
  */

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * Device Face Detection Task Manager: Scan device configuration regularly and maintain face detection sessions. 
+ * 设备人脸检测任务管理器：定时扫描设备配置并维护人脸检测会话。
  */
 @Slf4j
 @Component
@@ -30,14 +30,14 @@ public class DeviceFaceDetectionManager extends AbstractDeviceDetectionManager<D
         }
         String streamUrl = resolveStreamUrl(deviceInfo);
         if (StringUtils.isBlank(streamUrl)) {
-            log.warn("equipment {} No flow address configured, Skip face detection", deviceInfo.getDeviceName());
+            log.warn("设备 {} 未配置流地址，跳过人脸检测", deviceInfo.getDeviceName());
             return null;
         }
 
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.faceDetect,
-            "Face detection",
+            "人脸检测",
             this::resolveDefaultModelSourcePath,
             null
         );
@@ -74,22 +74,22 @@ public class DeviceFaceDetectionManager extends AbstractDeviceDetectionManager<D
 
     @Override
     protected String getMissingConfigReason() {
-        return "The device is not configured with a face detection algorithm or the configuration is incomplete.";
+        return "设备未配置人脸检测算法或配置不完整";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "Device face detection configuration changes";
+        return "设备人脸检测配置发生变化";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "Refresh device face detection task failed";
+        return "刷新设备人脸检测任务失败";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "Stop device face detection failure: deviceId={}, reason={}";
+        return "停止设备人脸检测失败: deviceId={}, reason={}";
     }
 
 }

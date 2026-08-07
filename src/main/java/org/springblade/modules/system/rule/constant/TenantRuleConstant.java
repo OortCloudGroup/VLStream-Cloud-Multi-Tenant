@@ -1,42 +1,42 @@
 package org.springblade.modules.system.rule.constant;
 
 /**
- * Tenant rule constants
+ * 租户规则常量
  *
  * @author Oort
  */
 public interface TenantRuleConstant {
 	/**
-	 * Tenant rule chainID
+	 * 租户规则链ID
 	 */
 	String TENANT_CHAIN_ID = "tenantChain";
 
 	/**
-	 * Tenant rules
+	 * 租户规则
 	 */
 	String TENANT_RULE = "tenantRule";
 	/**
-	 * role rules
+	 * 角色规则
 	 */
 	String TENANT_ROLE_RULE = "tenantRoleRule";
 	/**
-	 * Character menu rules
+	 * 角色菜单规则
 	 */
 	String TENANT_ROLE_MENU_RULE = "tenantRoleMenuRule";
 	/**
-	 * department rules
+	 * 部门规则
 	 */
 	String TENANT_DEPT_RULE = "tenantDeptRule";
 	/**
-	 * Job rules
+	 * 岗位规则
 	 */
 	String TENANT_POST_RULE = "tenantPostRule";
 	/**
-	 * Dictionary business rules
+	 * 字典业务规则
 	 */
 	String TENANT_DICT_BIZ_RULE = "tenantDictBizRule";
 	/**
-	 * User rules
+	 * 用户规则
 	 */
 	String TENANT_USER_RULE = "tenantUserRule";
 }

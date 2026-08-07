@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Scenario management table View entity class
+ * 场景治理表 视图实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -18,10 +18,10 @@ public class SceneGovernanceVO extends SceneGovernance {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "Algorithm name")
+	@Schema(description = "算法名称")
 	private String algorithmName;
 
-	@Schema(description = "Camera name")
+	@Schema(description = "摄像头名称")
 	private String camerasName;
 
 }

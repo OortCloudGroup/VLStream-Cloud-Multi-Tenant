@@ -20,8 +20,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Authentication Processor
- * Unified processing of pre-certification verification、Authentication successful/Failure callback and other logic
+ * 认证处理器
+ * 统一处理认证前校验、认证成功/失败回调等逻辑
  *
  * @author Oort
  */
@@ -35,29 +35,29 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 	private final BladeLockHandler lockHandler;
 
 	/**
-	 * Custom weak password list
+	 * 自定义弱密码列表
 	 */
 	private static final List<String> WEAK_PASSWORDS = List.of("admin", "administrator", "hr", "manager", "boss");
 
 	/**
-	 * Verification before certification
+	 * 认证前校验
 	 *
-	 * @param request request information
+	 * @param request 请求信息
 	 * @return boolean
 	 */
 	@Override
 	public OAuth2Validation preValidation(OAuth2Request request) {
 		if (request.isPassword() || request.isCaptchaCode()) {
-			// Weak password verification in production environment
+			// 生产环境弱密码校验
 			if (bladeProperties.isProd() && isWeakPassword(request.getPassword())) {
 				return buildValidationFailure(ExceptionCode.INVALID_USER_PASSWORD);
 			}
-			// Determine whether the account is locked
+			// 判断账号是否锁定
 			OAuth2Validation accountValidation = lockHandler.validateAccountLock(request.getTenantId(), request.getUsername());
 			if (!accountValidation.isSuccess()) {
 				return accountValidation;
 			}
-			// judgeIPWhether to lock
+			// 判断IP是否锁定
 			OAuth2Validation ipValidation = lockHandler.validateIpLock(request.getTenantId());
 			if (!ipValidation.isSuccess()) {
 				return ipValidation;
@@ -67,30 +67,30 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 	}
 
 	/**
-	 * Failure callback before authentication
+	 * 认证前失败回调
 	 *
-	 * @param validation Failure message
+	 * @param validation 失败信息
 	 */
 	@Override
 	public void preFailure(OAuth2Request request, OAuth2Validation validation) {
-		// Handle authentication failure, Increase the number of errors
+		// 处理认证失败，增加错误次数
 		lockHandler.handleAuthFailure(request.getTenantId(), request.getUsername());
 
-		log.error("user: {}, Authentication failed, Reason for failure: {}", request.getUsername(), validation.getMessage());
+		log.error("用户：{}，认证失败，失败原因：{}", request.getUsername(), validation.getMessage());
 	}
 
 	/**
-	 * Certification verification
+	 * 认证校验
 	 *
-	 * @param user    User information
-	 * @param request request information
+	 * @param user    用户信息
+	 * @param request 请求信息
 	 * @return boolean
 	 */
 	@Override
 	public OAuth2Validation authValidation(OAuth2User user, OAuth2Request request) {
-		// password mode、refreshtokenmodel、Verification code mode needs to verify tenant status
+		// 密码模式、刷新token模式、验证码模式需要校验租户状态
 		if (request.isPassword() || request.isRefreshToken() || request.isCaptchaCode()) {
-			// Tenant verification
+			// 租户校验
 			OAuth2Validation tenantValidation = validateTenant(user.getTenantId());
 			if (!tenantValidation.isSuccess()) {
 				return tenantValidation;
@@ -100,59 +100,59 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 	}
 
 	/**
-	 * Authentication success callback
+	 * 认证成功回调
 	 *
-	 * @param user User information
+	 * @param user 用户信息
 	 */
 	@Override
 	public void authSuccessful(OAuth2User user, OAuth2Request request) {
-		// Processing authentication successful, Clear error count
+		// 处理认证成功，清空错误次数
 		lockHandler.handleAuthSuccess(user.getTenantId(), user.getAccount());
 
-		log.info("user: {}, Authentication successful", user.getAccount());
+		log.info("用户：{}，认证成功", user.getAccount());
 	}
 
 	/**
-	 * Authentication failure callback
+	 * 认证失败回调
 	 *
-	 * @param user       User information
-	 * @param validation Failure message
+	 * @param user       用户信息
+	 * @param validation 失败信息
 	 */
 	@Override
 	public void authFailure(OAuth2User user, OAuth2Request request, OAuth2Validation validation) {
-		// Custom authentication failure callback
+		// 自定义认证失败回调
 	}
 
 	/**
-	 * Determine whether the password is weak
+	 * 判断是否为弱密码
 	 *
-	 * @param rawPassword Encrypted password
+	 * @param rawPassword 加密密码
 	 * @return boolean
 	 */
 	private boolean isWeakPassword(String rawPassword) {
-		// Get public key
+		// 获取公钥
 		String publicKey = oAuth2Properties.getPublicKey();
-		// Get private key
+		// 获取私钥
 		String privateKey = oAuth2Properties.getPrivateKey();
-		// Decrypt password
+		// 解密密码
 		String decryptPassword = SM2Util.decrypt(rawPassword, publicKey, privateKey);
 		return WEAK_PASSWORDS.stream()
 			.anyMatch(weakPass -> weakPass.equalsIgnoreCase(decryptPassword));
 	}
 
 	/**
-	 * Tenant authorization verification
+	 * 租户授权校验
 	 *
-	 * @param tenantId tenantid
+	 * @param tenantId 租户id
 	 * @return OAuth2Validation
 	 */
 	private OAuth2Validation validateTenant(String tenantId) {
-		// Tenant verification
+		// 租户校验
 		Tenant tenant = SysCache.getTenant(tenantId);
 		if (tenant == null) {
 			return buildValidationFailure(ExceptionCode.USER_TENANT_NOT_FOUND);
 		}
-		// Tenant authorization time verification
+		// 租户授权时间校验
 		Date expireTime = tenant.getExpireTime();
 		if (tenantProperties.getLicense()) {
 			String licenseKey = tenant.getLicenseKey();

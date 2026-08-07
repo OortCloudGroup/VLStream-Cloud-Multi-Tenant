@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.system.pojo.entity.AuthClient;
 
 /**
- *  Service category
+ *  服务类
  *
  * @author Chill
  */

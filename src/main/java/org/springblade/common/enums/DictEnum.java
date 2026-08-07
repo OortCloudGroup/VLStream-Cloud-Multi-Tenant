@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * System dictionary enumeration class
+ * 系统字典枚举类
  *
  * @author Chill
  */
@@ -13,63 +13,63 @@ import lombok.Getter;
 public enum DictEnum {
 
 	/**
-	 * gender
+	 * 性别
 	 */
 	SEX("sex"),
 	/**
-	 * notification type
+	 * 通知类型
 	 */
 	NOTICE("notice"),
 	/**
-	 * Menu type
+	 * 菜单类型
 	 */
 	MENU_CATEGORY("menu_category"),
 	/**
-	 * Button function
+	 * 按钮功能
 	 */
 	BUTTON_FUNC("button_func"),
 	/**
-	 * whether
+	 * 是否
 	 */
 	YES_NO("yes_no"),
 	/**
-	 * Process type
+	 * 流程类型
 	 */
 	FLOW("flow"),
 	/**
-	 * Institution type
+	 * 机构类型
 	 */
 	ORG_CATEGORY("org_category"),
 	/**
-	 * Data permissions
+	 * 数据权限
 	 */
 	DATA_SCOPE_TYPE("data_scope_type"),
 	/**
-	 * Interface permissions
+	 * 接口权限
 	 */
 	API_SCOPE_TYPE("api_scope_type"),
 	/**
-	 * Permission type
+	 * 权限类型
 	 */
 	SCOPE_CATEGORY("scope_category"),
 	/**
-	 * Object storage type
+	 * 对象存储类型
 	 */
 	OSS("oss"),
 	/**
-	 * SMS service type
+	 * 短信服务类型
 	 */
 	SMS("sms"),
 	/**
-	 * Position type
+	 * 岗位类型
 	 */
 	POST_CATEGORY("post_category"),
 	/**
-	 * Administrative division
+	 * 行政区划
 	 */
 	REGION("region"),
 	/**
-	 * User platform
+	 * 用户平台
 	 */
 	USER_TYPE("user_type"),
 	;

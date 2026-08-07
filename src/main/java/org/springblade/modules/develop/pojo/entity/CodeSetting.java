@@ -37,54 +37,54 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Code generator configuration table Entity class
+ * 代码生成器配置表 实体类
  *
  * @author Oort
  */
 @Data
 @TableName("blade_code_setting")
-@Schema(description = "CodeSettingobject")
+@Schema(description = "CodeSetting对象")
 public class CodeSetting implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary key
+	 * 主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "primary key")
+	@Schema(description = "主键")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 	/**
-	 * name
+	 * 名称
 	 */
-	@Schema(description = "name")
+	@Schema(description = "名称")
 	private String name;
 	/**
-	 * serial number
+	 * 编号
 	 */
-	@Schema(description = "serial number")
+	@Schema(description = "编号")
 	private String code;
 	/**
-	 * Classification[1:Default configuration 2:form design]
+	 * 分类[1:默认配置 2:表单设计]
 	 */
-	@Schema(description = "business status", hidden = true)
+	@Schema(description = "业务状态", hidden = true)
 	private Integer category;
 	/**
-	 * Configuration items
+	 * 配置项
 	 */
-	@Schema(description = "Configuration items")
+	@Schema(description = "配置项")
 	private String settings;
 	/**
-	 * state[1:normal]
+	 * 状态[1:正常]
 	 */
-	@Schema(description = "business status", hidden = true)
+	@Schema(description = "业务状态", hidden = true)
 	private Integer status;
 	/**
-	 * Has it been deleted?
+	 * 是否已删除
 	 */
-	@Schema(description = "Has it been deleted?")
+	@Schema(description = "是否已删除")
 	private Integer isDeleted;
 
 }

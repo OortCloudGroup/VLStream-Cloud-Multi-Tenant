@@ -14,30 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * View entity class
+ * 视图实体类
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "DictVOobject")
+@Schema(description = "DictVO对象")
 public class DictVO extends Dict implements INode<DictVO> {
 	@Serial
 	private static final long serialVersionUID = 1L;
 	/**
-	 * primary keyID
+	 * 主键ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 
 	/**
-	 * parent nodeID
+	 * 父节点ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long parentId;
 
 	/**
-	 * descendant node
+	 * 子孙节点
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<DictVO> children;
@@ -51,7 +51,7 @@ public class DictVO extends Dict implements INode<DictVO> {
 	}
 
 	/**
-	 * Superior dictionary
+	 * 上级字典
 	 */
 	private String parentName;
 }

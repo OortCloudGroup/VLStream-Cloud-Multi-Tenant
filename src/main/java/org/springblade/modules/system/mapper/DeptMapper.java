@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Mapper interface
+ * Mapper 接口
  *
  * @author Chill
  */
 public interface DeptMapper extends BaseMapper<Dept> {
 
 	/**
-	 * Lazy loading of department list
+	 * 懒加载部门列表
 	 *
 	 * @param tenantId
 	 * @param parentId
@@ -25,7 +25,7 @@ public interface DeptMapper extends BaseMapper<Dept> {
 	List<DeptVO> lazyList(String tenantId, Long parentId, Map<String, Object> param);
 
 	/**
-	 * Get tree nodes
+	 * 获取树形节点
 	 *
 	 * @param tenantId
 	 * @return
@@ -33,7 +33,7 @@ public interface DeptMapper extends BaseMapper<Dept> {
 	List<DeptVO> tree(String tenantId);
 
 	/**
-	 * Lazy loading to obtain tree nodes
+	 * 懒加载获取树形节点
 	 *
 	 * @param tenantId
 	 * @param parentId
@@ -42,7 +42,7 @@ public interface DeptMapper extends BaseMapper<Dept> {
 	List<DeptVO> lazyTree(String tenantId, Long parentId);
 
 	/**
-	 * Get department name
+	 * 获取部门名
 	 *
 	 * @param ids
 	 * @return

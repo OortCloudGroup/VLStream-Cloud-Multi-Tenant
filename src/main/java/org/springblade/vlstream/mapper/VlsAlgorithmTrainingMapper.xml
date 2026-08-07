@@ -269,7 +269,6 @@
             <if test="taskName != null">#{taskName},</if>
             <if test="algorithmId != null">#{algorithmId},</if>
             <if test="datasetId != null">#{datasetId},</if>
-            <if test="trainType != null">#{trainType},</if>
             <if test="trainStatus != null">#{trainStatus},</if>
             <if test="progress != null">#{progress},</if>
             <if test="epochCurrent != null">#{epochCurrent},</if>

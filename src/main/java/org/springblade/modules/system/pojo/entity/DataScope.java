@@ -11,64 +11,64 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Oort
  */
 @Data
 @TableName("blade_scope_data")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "DataScopeobject")
+@Schema(description = "DataScope对象")
 public class DataScope extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Menu main key
+	 * 菜单主键
 	 */
-	@Schema(description = "Menu main key")
+	@Schema(description = "菜单主键")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long menuId;
 	/**
-	 * Resource number
+	 * 资源编号
 	 */
-	@Schema(description = "Resource number")
+	@Schema(description = "资源编号")
 	private String resourceCode;
 	/**
-	 * Data permission name
+	 * 数据权限名称
 	 */
-	@Schema(description = "Data permission name")
+	@Schema(description = "数据权限名称")
 	private String scopeName;
 	/**
-	 * Visible fields for data permissions
+	 * 数据权限可见字段
 	 */
-	@Schema(description = "Visible fields for data permissions")
+	@Schema(description = "数据权限可见字段")
 	private String scopeField;
 	/**
-	 * Data permission class name
+	 * 数据权限类名
 	 */
-	@Schema(description = "Data permission class name")
+	@Schema(description = "数据权限类名")
 	private String scopeClass;
 	/**
-	 * Data permission fields
+	 * 数据权限字段
 	 */
-	@Schema(description = "Data permission fields")
+	@Schema(description = "数据权限字段")
 	private String scopeColumn;
 	/**
-	 * Data permission type
+	 * 数据权限类型
 	 */
-	@Schema(description = "Data permission type")
+	@Schema(description = "数据权限类型")
 	private Integer scopeType;
 	/**
-	 * Data permission value range
+	 * 数据权限值域
 	 */
-	@Schema(description = "Data permission value range")
+	@Schema(description = "数据权限值域")
 	private String scopeValue;
 	/**
-	 * Data permission remarks
+	 * 数据权限备注
 	 */
-	@Schema(description = "Data permission remarks")
+	@Schema(description = "数据权限备注")
 	private String remark;
 
 

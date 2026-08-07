@@ -4,7 +4,7 @@ package org.springblade.vlstream.service;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Dataset service interface
+ * 数据集服务接口
  *
  * @author VLStream Team
  * @since 1.0.0
@@ -12,42 +12,42 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface DatasetService {
 
 	/**
-	 * Connect to remote server
+	 * 连接远程服务器
 	 *
-	 * @param host     Server address
-	 * @param username username
-	 * @param password password
-	 * @param path     Dataset path
-	 * @return Is the connection successful?
+	 * @param host     服务器地址
+	 * @param username 用户名
+	 * @param password 密码
+	 * @param path     数据集路径
+	 * @return 是否连接成功
 	 */
 	boolean connectToServer(String host, String username, String password, String path);
 
 	/**
-	 * Get the list of dataset files
+	 * 获取数据集文件列表
 	 *
-	 * @param host Server address
-	 * @param path Dataset path
-	 * @return file list
+	 * @param host 服务器地址
+	 * @param path 数据集路径
+	 * @return 文件列表
 	 */
 	Object getDatasetFiles(String host, String path);
 
 	/**
-	 * Get file content
+	 * 获取文件内容
 	 *
-	 * @param host     Server address
-	 * @param path     Dataset path
-	 * @param filename file name
-	 * @return File content
+	 * @param host     服务器地址
+	 * @param path     数据集路径
+	 * @param filename 文件名
+	 * @return 文件内容
 	 */
 	String getFileContent(String host, String path, String filename);
 
 	/**
-	 * Download file
+	 * 下载文件
 	 *
-	 * @param host     Server address
-	 * @param path     Dataset path
-	 * @param filename file name
-	 * @param response HTTPresponse object
+	 * @param host     服务器地址
+	 * @param path     数据集路径
+	 * @param filename 文件名
+	 * @param response HTTP响应对象
 	 */
 	void downloadFile(String host, String path, String filename, HttpServletResponse response);
 }

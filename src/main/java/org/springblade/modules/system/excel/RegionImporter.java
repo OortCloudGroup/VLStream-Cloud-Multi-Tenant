@@ -7,7 +7,7 @@ import org.springblade.modules.system.service.IRegionService;
 import java.util.List;
 
 /**
- * Administrative division data import class
+ * 行政区划数据导入类
  *
  * @author Chill
  */

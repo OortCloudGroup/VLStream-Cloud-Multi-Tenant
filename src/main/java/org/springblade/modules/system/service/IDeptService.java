@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface IDeptService extends IService<Dept> {
 
 	/**
-	 * Lazy loading of department list
+	 * 懒加载部门列表
 	 *
 	 * @param tenantId
 	 * @param parentId
@@ -26,7 +26,7 @@ public interface IDeptService extends IService<Dept> {
 	List<DeptVO> lazyList(String tenantId, Long parentId, Map<String, Object> param);
 
 	/**
-	 * tree structure
+	 * 树形结构
 	 *
 	 * @param tenantId
 	 * @return
@@ -34,7 +34,7 @@ public interface IDeptService extends IService<Dept> {
 	List<DeptVO> tree(String tenantId);
 
 	/**
-	 * Lazy loading tree structure
+	 * 懒加载树形结构
 	 *
 	 * @param tenantId
 	 * @param parentId
@@ -43,7 +43,7 @@ public interface IDeptService extends IService<Dept> {
 	List<DeptVO> lazyTree(String tenantId, Long parentId);
 
 	/**
-	 * Get departmentID
+	 * 获取部门ID
 	 *
 	 * @param tenantId
 	 * @param deptNames
@@ -52,7 +52,7 @@ public interface IDeptService extends IService<Dept> {
 	String getDeptIds(String tenantId, String deptNames);
 
 	/**
-	 * Get departmentID
+	 * 获取部门ID
 	 *
 	 * @param tenantId
 	 * @param deptNames
@@ -61,7 +61,7 @@ public interface IDeptService extends IService<Dept> {
 	String getDeptIdsByFuzzy(String tenantId, String deptNames);
 
 	/**
-	 * Get department name
+	 * 获取部门名
 	 *
 	 * @param deptIds
 	 * @return
@@ -69,7 +69,7 @@ public interface IDeptService extends IService<Dept> {
 	List<String> getDeptNames(String deptIds);
 
 	/**
-	 * Get subdepartmentID
+	 * 获取子部门ID
 	 *
 	 * @param deptId
 	 * @return
@@ -77,7 +77,7 @@ public interface IDeptService extends IService<Dept> {
 	List<Dept> getDeptChild(Long deptId);
 
 	/**
-	 * Delete department
+	 * 删除部门
 	 *
 	 * @param ids
 	 * @return
@@ -85,7 +85,7 @@ public interface IDeptService extends IService<Dept> {
 	boolean removeDept(String ids);
 
 	/**
-	 * submit
+	 * 提交
 	 *
 	 * @param dept
 	 * @return
@@ -93,7 +93,7 @@ public interface IDeptService extends IService<Dept> {
 	boolean submit(Dept dept);
 
 	/**
-	 * Department information query
+	 * 部门信息查询
 	 *
 	 * @param deptName
 	 * @param parentId
@@ -102,9 +102,9 @@ public interface IDeptService extends IService<Dept> {
 	List<DeptVO> search(String deptName, Long parentId);
 
 	/**
-	 * Get department manager information
+	 * 获取部门的主管信息
 	 *
-	 * @param deptId departmentid
+	 * @param deptId 部门id
 	 * @return
 	 */
 	List<UserVO> deptLeaderInfo(Long deptId);

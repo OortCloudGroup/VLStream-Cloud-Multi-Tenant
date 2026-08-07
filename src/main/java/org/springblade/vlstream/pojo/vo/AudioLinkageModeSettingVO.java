@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.AudioLinkageModeSetting;
 import java.io.Serial;
 
 /**
- * Audio linkage mode setting table View entity class
+ * 音频联动方式设置表 视图实体类
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

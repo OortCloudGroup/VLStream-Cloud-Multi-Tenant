@@ -8,14 +8,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
 
 /**
- * Job list Mapper interface
+ * 岗位表 Mapper 接口
  *
  * @author Chill
  */
 public interface PostMapper extends BaseMapper<Post> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
 	 * @param page
 	 * @param post
@@ -24,7 +24,7 @@ public interface PostMapper extends BaseMapper<Post> {
 	List<PostVO> selectPostPage(IPage page, PostVO post);
 
 	/**
-	 * Get job title
+	 * 获取岗位名
 	 *
 	 * @param ids
 	 * @return

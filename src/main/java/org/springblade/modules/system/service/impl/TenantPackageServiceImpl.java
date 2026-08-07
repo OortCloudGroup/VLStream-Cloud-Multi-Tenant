@@ -7,7 +7,7 @@ import org.springblade.modules.system.service.ITenantPackageService;
 import org.springframework.stereotype.Service;
 
 /**
- * Tenant product table Service implementation class
+ * 租户产品表 服务实现类
  *
  * @author Oort
  */

@@ -9,7 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import java.util.Properties;
 
 /**
- * Start parameter expansion
+ * 启动参数拓展
  *
  * @author smallchil
  */
@@ -21,7 +21,7 @@ public class LauncherServiceImpl implements LauncherService {
 		Properties props = System.getProperties();
 		PropsUtil.setProperty(props, "spring.cloud.sentinel.transport.dashboard", LauncherConstant.sentinelAddr(profile));
 		PropsUtil.setProperty(props, "spring.datasource.dynamic.enabled", "true");
-		// turn onelklog
+		// 开启elk日志
 		//PropsUtil.setProperty(props, "blade.log.elk.destination", LauncherConstant.elkAddr(profile));
 	}
 

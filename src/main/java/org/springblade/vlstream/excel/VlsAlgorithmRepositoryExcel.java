@@ -12,7 +12,7 @@ import java.io.Serial;
 
 
 /**
- * Algorithm warehouse table ExcelEntity class
+ * 算法仓库表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -27,28 +27,28 @@ public class VlsAlgorithmRepositoryExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Algorithm warehouse name
+	 * 算法仓库名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Algorithm warehouse name")
+	@ExcelProperty("算法仓库名称")
 	private String name;
 	/**
-	 * Number of algorithms owned
+	 * 拥有算法数量
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Number of algorithms owned")
+	@ExcelProperty("拥有算法数量")
 	private Integer algorithmCount;
 	/**
-	 * Warehouse type: basic-Basic presets, extended-Expand
+	 * 仓库类型：basic-基础预置, extended-扩展
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Warehouse type: basic-Basic presets, extended-Expand")
+	@ExcelProperty("仓库类型：basic-基础预置, extended-扩展")
 	private String repositoryType;
 	/**
-	 * Remark
+	 * 备注
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Remark")
+	@ExcelProperty("备注")
 	private String remark;
 
 }

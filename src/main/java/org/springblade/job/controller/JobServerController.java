@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * task service table controller
+ * 任务服务表 控制器
  *
  * @author Oort
  */
@@ -32,90 +32,90 @@ import java.util.Map;
 @AllArgsConstructor
 @IsAdmin
 @RequestMapping(AppConstant.APPLICATION_JOB_NAME + "/job-server")
-@Tag(name = "task service table", description = "Task service table interface")
+@Tag(name = "任务服务表", description = "任务服务表接口")
 public class JobServerController extends BladeController {
 
 	private final IJobServerService jobServerService;
 
 	/**
-	 * task service table Details
+	 * 任务服务表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingjobServer")
+	@Operation(summary = "详情", description = "传入jobServer")
 	public R<JobServer> detail(JobServer jobServer) {
 		JobServer detail = jobServerService.getOne(Condition.getQueryWrapper(jobServer));
 		return R.data(detail);
 	}
 
 	/**
-	 * task service table Pagination
+	 * 任务服务表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingjobServer")
+	@Operation(summary = "分页", description = "传入jobServer")
 	public R<IPage<JobServer>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> jobServer, Query query) {
 		IPage<JobServer> pages = jobServerService.page(Condition.getPage(query), Condition.getQueryWrapper(jobServer, JobServer.class));
 		return R.data(pages);
 	}
 
 	/**
-	 * task service table Custom paging
+	 * 任务服务表 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description = "incomingjobServer")
+	@Operation(summary = "分页", description = "传入jobServer")
 	public R<IPage<JobServerVO>> page(JobServerVO jobServer, Query query) {
 		IPage<JobServerVO> pages = jobServerService.selectJobServerPage(Condition.getPage(query), jobServer);
 		return R.data(pages);
 	}
 
 	/**
-	 * task service table New
+	 * 任务服务表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingjobServer")
+	@Operation(summary = "新增", description = "传入jobServer")
 	public R save(@Valid @RequestBody JobServer jobServer) {
 		return R.status(jobServerService.save(jobServer));
 	}
 
 	/**
-	 * task service table Revise
+	 * 任务服务表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingjobServer")
+	@Operation(summary = "修改", description = "传入jobServer")
 	public R update(@Valid @RequestBody JobServer jobServer) {
 		return R.status(jobServerService.updateById(jobServer));
 	}
 
 	/**
-	 * task service table Add or modify
+	 * 任务服务表 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingjobServer")
+	@Operation(summary = "新增或修改", description = "传入jobServer")
 	public R submit(@Valid @RequestBody JobServer jobServer) {
 		return R.status(jobServerService.submitAndSync(jobServer));
 	}
 
 	/**
-	 * task service table delete
+	 * 任务服务表 删除
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(jobServerService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Application service information list
+	 * 应用服务信息 列表
 	 */
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Application service information", description = "Application service information")
+	@Operation(summary = "应用服务信息", description = "应用服务信息")
 	public R select() {
 		List<JobServer> list = jobServerService.list();
 		list.forEach(jobServer -> jobServer.setJobAppName(
@@ -126,14 +126,14 @@ public class JobServerController extends BladeController {
 	}
 
 	/**
-	 * Task service data synchronization
+	 * 任务服务数据同步
 	 */
 	@PostMapping("sync")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "Task service data synchronization", description = "Task service data synchronization")
+	@Operation(summary = "任务服务数据同步", description = "任务服务数据同步")
 	public R sync() {
 		jobServerService.list().forEach(jobServerService::sync);
-		return R.success("Synchronization completed");
+		return R.success("同步完毕");
 	}
 
 

@@ -10,68 +10,68 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Algorithm model queryDTO
+ * 算法模型查询DTO
  *
  * @author VLStream Team
  * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "AlgorithmModelQueryDTO", description = "Algorithm model query parameters")
+@ApiModel(value = "AlgorithmModelQueryDTO", description = "算法模型查询参数")
 public class AlgorithmModelQueryDTO {
 
-    @ApiModelProperty(value = "Current page number", example = "1")
+    @ApiModelProperty(value = "当前页码", example = "1")
     private Integer current = 1;
 
-    @ApiModelProperty(value = "page size", example = "10")
+    @ApiModelProperty(value = "每页大小", example = "10")
     private Integer size = 10;
 
-    @ApiModelProperty(value = "Model name(fuzzy search)")
+    @ApiModelProperty(value = "模型名称（模糊搜索）")
     private String modelName;
 
-    @ApiModelProperty(value = "algorithmID")
+    @ApiModelProperty(value = "算法ID")
     private Long algorithmId;
 
-    @ApiModelProperty(value = "training tasksID")
+    @ApiModelProperty(value = "训练任务ID")
     private Long trainingId;
 
-    @ApiModelProperty(value = "model version")
+    @ApiModelProperty(value = "模型版本")
     private String version;
 
-    @ApiModelProperty(value = "Model format")
+    @ApiModelProperty(value = "模型格式")
     private String modelFormat;
 
-    @ApiModelProperty(value = "Model status")
+    @ApiModelProperty(value = "模型状态")
     private String status;
 
-    @ApiModelProperty(value = "Creator")
+    @ApiModelProperty(value = "创建人")
     private Long createdBy;
 
-    @ApiModelProperty(value = "minimum accuracy")
+    @ApiModelProperty(value = "最小准确率")
     private BigDecimal minAccuracy;
 
-    @ApiModelProperty(value = "maximum accuracy")
+    @ApiModelProperty(value = "最大准确率")
     private BigDecimal maxAccuracy;
 
-    @ApiModelProperty(value = "Release time-start range")
+    @ApiModelProperty(value = "发布时间-开始范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime publishTimeBegin;
 
-    @ApiModelProperty(value = "Release time-end range")
+    @ApiModelProperty(value = "发布时间-结束范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime publishTimeEnd;
 
-    @ApiModelProperty(value = "creation time-start range")
+    @ApiModelProperty(value = "创建时间-开始范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createdTimeBegin;
 
-    @ApiModelProperty(value = "creation time-end range")
+    @ApiModelProperty(value = "创建时间-结束范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createdTimeEnd;
 
-    @ApiModelProperty(value = "sort field", example = "created_time")
+    @ApiModelProperty(value = "排序字段", example = "created_time")
     private String orderBy = "created_time";
 
-    @ApiModelProperty(value = "sort by", example = "desc")
+    @ApiModelProperty(value = "排序方式", example = "desc")
     private String order = "desc";
 }

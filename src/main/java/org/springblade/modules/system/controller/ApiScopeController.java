@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 
 /**
- * Interface permission controller
+ * 接口权限控制器
  *
  * @author Oort
  */
@@ -34,61 +34,61 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @AllArgsConstructor
 @IsAdmin
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/api-scope")
-@Tag(name = "Interface permissions", description = "Interface permissions")
+@Tag(name = "接口权限", description = "接口权限")
 public class ApiScopeController extends BladeController {
 
 	private final IApiScopeService apiScopeService;
 
 	/**
-	 * Details
+	 * 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingdataScope")
+	@Operation(summary = "详情", description = "传入dataScope")
 	public R<ApiScope> detail(ApiScope dataScope) {
 		ApiScope detail = apiScopeService.getOne(Condition.getQueryWrapper(dataScope));
 		return R.data(detail);
 	}
 
 	/**
-	 * Pagination
+	 * 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingdataScope")
+	@Operation(summary = "分页", description = "传入dataScope")
 	public R<IPage<ApiScopeVO>> list(ApiScope dataScope, Query query) {
 		IPage<ApiScope> pages = apiScopeService.page(Condition.getPage(query), Condition.getQueryWrapper(dataScope));
 		return R.data(ApiScopeWrapper.build().pageVO(pages));
 	}
 
 	/**
-	 * New
+	 * 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "New", description = "incomingdataScope")
+	@Operation(summary = "新增", description = "传入dataScope")
 	public R save(@Valid @RequestBody ApiScope dataScope) {
 		CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
 		return R.status(apiScopeService.save(dataScope));
 	}
 
 	/**
-	 * Revise
+	 * 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "Revise", description = "incomingdataScope")
+	@Operation(summary = "修改", description = "传入dataScope")
 	public R update(@Valid @RequestBody ApiScope dataScope) {
 		CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
 		return R.status(apiScopeService.updateById(dataScope));
 	}
 
 	/**
-	 * Add or modify
+	 * 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Add or modify", description = "incomingdataScope")
+	@Operation(summary = "新增或修改", description = "传入dataScope")
 	public R submit(@Valid @RequestBody ApiScope dataScope) {
 		CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
 		return R.status(apiScopeService.saveOrUpdate(dataScope));
@@ -96,12 +96,12 @@ public class ApiScopeController extends BladeController {
 
 
 	/**
-	 * delete
+	 * 删除
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		CacheUtil.clear(SYS_CACHE, Boolean.FALSE);
 		return R.status(apiScopeService.deleteLogic(Func.toLongList(ids)));
 	}

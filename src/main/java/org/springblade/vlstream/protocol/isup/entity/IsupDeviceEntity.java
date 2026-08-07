@@ -12,95 +12,95 @@ import java.math.BigDecimal;
 
 @Data
 @TableName("vls_isup_device")
-@Schema(description = "ISUPEquipment table")
+@Schema(description = "ISUP设备表")
 @EqualsAndHashCode(callSuper = true)
 public class IsupDeviceEntity extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "departmentID")
+	@Schema(description = "部门ID")
 	private Long deptId;
 
-	@Schema(description = "equipmentID")
+	@Schema(description = "设备ID")
 	private String deviceId;
 
-	@Schema(description = "name")
+	@Schema(description = "名称")
 	private String name;
 
-	@Schema(description = "aisle")
+	@Schema(description = "通道")
 	private String channel;
 
-	@Schema(description = "Play path")
+	@Schema(description = "播放路径")
 	private String url;
 
-	@Schema(description = "Registration information size")
+	@Schema(description = "注册信息大小")
 	private Integer dwSize;
 
-	@Schema(description = "Network element type")
+	@Schema(description = "网络单元类型")
 	private Integer dwNetUnitType;
 
-	@Schema(description = "Firmware version")
+	@Schema(description = "固件版本")
 	private String firmwareVersion;
 
-	@Schema(description = "equipmentIPaddress")
+	@Schema(description = "设备IP地址")
 	private String ipAddress;
 
-	@Schema(description = "Device port")
+	@Schema(description = "设备端口")
 	private Integer port;
 
-	@Schema(description = "Device reserved fields")
+	@Schema(description = "设备保留字段")
 	private String deviceRes;
 
-	@Schema(description = "Device type")
+	@Schema(description = "设备类型")
 	private Integer devType;
 
-	@Schema(description = "Manufacturer's identification")
+	@Schema(description = "制造商标识")
 	private Integer manufacture;
 
-	@Schema(description = "username")
+	@Schema(description = "用户名")
 	private String userName;
 
-	@Schema(description = "password")
+	@Schema(description = "密码")
 	private String password;
 
-	@Schema(description = "Device serial number")
+	@Schema(description = "设备序列号")
 	private String deviceSerial;
 
-	@Schema(description = "Reliable transmission flag")
+	@Schema(description = "可靠传输标志")
 	private Integer reliableTransmission;
 
-	@Schema(description = "WebSockettransfer flag")
+	@Schema(description = "WebSocket传输标志")
 	private Integer websocketTransmission;
 
-	@Schema(description = "Redirect support")
+	@Schema(description = "重定向支持")
 	private Integer supportRedirect;
 
-	@Schema(description = "Device protocol version")
+	@Schema(description = "设备协议版本")
 	private String devProtocolVersion;
 
 	@Schema(description = "SessionKey")
 	private String sessionKey;
 
-	@Schema(description = "Resource type")
+	@Schema(description = "资源类型")
 	private String res;
 
-	@Schema(description = "reserved fields")
+	@Schema(description = "保留字段")
 	private Integer marketType;
 
-	@Schema(description = "userID")
+	@Schema(description = "用户ID")
 	private Integer luserId;
 
-	@Schema(description = "state")
+	@Schema(description = "状态")
 	@TableField("status")
 	private String deviceStatus;
 
-	@Schema(description = "latitude")
+	@Schema(description = "纬度")
 	private BigDecimal lat;
 
-	@Schema(description = "longitude")
+	@Schema(description = "经度")
 	private BigDecimal lng;
 
-	@Schema(description = "Map location address")
+	@Schema(description = "地图定位地址")
 	private String addressMap;
 }

@@ -10,74 +10,74 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Oort
  */
 @Data
 @TableName("blade_client")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "AuthClientobject")
+@Schema(description = "AuthClient对象")
 public class AuthClient extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * clientid
+	 * 客户端id
 	 */
-	@Schema(description = "clientid")
+	@Schema(description = "客户端id")
 	private String clientId;
 	/**
-	 * client key
+	 * 客户端密钥
 	 */
-	@Schema(description = "client key")
+	@Schema(description = "客户端密钥")
 	private String clientSecret;
 	/**
-	 * Resource collection
+	 * 资源集合
 	 */
-	@Schema(description = "Resource collection")
+	@Schema(description = "资源集合")
 	private String resourceIds;
 	/**
-	 * Authorization scope
+	 * 授权范围
 	 */
-	@Schema(description = "Authorization scope")
+	@Schema(description = "授权范围")
 	private String scope;
 	/**
-	 * Authorization type
+	 * 授权类型
 	 */
-	@Schema(description = "Authorization type")
+	@Schema(description = "授权类型")
 	private String authorizedGrantTypes;
 	/**
-	 * callback address
+	 * 回调地址
 	 */
-	@Schema(description = "callback address")
+	@Schema(description = "回调地址")
 	private String webServerRedirectUri;
 	/**
-	 * Permissions
+	 * 权限
 	 */
-	@Schema(description = "Permissions")
+	@Schema(description = "权限")
 	private String authorities;
 	/**
-	 * Token expiration seconds
+	 * 令牌过期秒数
 	 */
-	@Schema(description = "Token expiration seconds")
+	@Schema(description = "令牌过期秒数")
 	private Integer accessTokenValidity;
 	/**
-	 * Refresh token expiration seconds
+	 * 刷新令牌过期秒数
 	 */
-	@Schema(description = "Refresh token expiration seconds")
+	@Schema(description = "刷新令牌过期秒数")
 	private Integer refreshTokenValidity;
 	/**
-	 * Additional notes
+	 * 附加说明
 	 */
 	@JsonIgnore
-	@Schema(description = "Additional notes")
+	@Schema(description = "附加说明")
 	private String additionalInformation;
 	/**
-	 * Automatic authorization
+	 * 自动授权
 	 */
-	@Schema(description = "Automatic authorization")
+	@Schema(description = "自动授权")
 	private String autoapprove;
 
 

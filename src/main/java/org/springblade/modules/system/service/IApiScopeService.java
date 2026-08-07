@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.system.pojo.entity.ApiScope;
 
 /**
- *  Service category
+ *  服务类
  *
  * @author Oort
  */

@@ -3,17 +3,22 @@ package org.springblade.vlstream.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.tenant.TenantUtil;
 import org.springblade.vlstream.enums.EventLevelEnum;
 import org.springblade.vlstream.enums.EventStatusEnum;
 import org.springblade.vlstream.excel.VlsEventManagementExcel;
 import org.springblade.vlstream.mapper.VlsEventManagementMapper;
+import org.springblade.vlstream.pojo.entity.DeviceInfo;
 import org.springblade.vlstream.pojo.entity.EventManagement;
 import org.springblade.vlstream.pojo.vo.EventManagementVO;
+import org.springblade.vlstream.service.IVlsDeviceInfoService;
 import org.springblade.vlstream.service.IVlsEventManagementService;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * event management table Service implementation class
+ * 事件管理表 服务实现类
  *
  * @author Oort
  * @since 2025-12-23
@@ -33,9 +38,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class VlsEventManagementServiceImpl extends BaseServiceImpl<VlsEventManagementMapper, EventManagement> implements IVlsEventManagementService {
 
+	private final IVlsDeviceInfoService vlsDeviceInfoService;
+
 	@Override
-	public IPage<EventManagementVO> selectVlsEventManagementPage(IPage<EventManagementVO> page, EventManagementVO vlsEventManagement) {
-		return page.setRecords(baseMapper.selectVlsEventManagementPage(page, vlsEventManagement));
+	public IPage<EventManagementVO> selectVlsEventManagementPage(IPage<EventManagementVO> page, Wrapper<EventManagement> queryWrapper) {
+		return page.setRecords(baseMapper.selectVlsEventManagementPage(page, queryWrapper));
 	}
 
 	@Override
@@ -94,6 +101,40 @@ public class VlsEventManagementServiceImpl extends BaseServiceImpl<VlsEventManag
 		}
 		boolean saved = save(eventManagement);
 		return saved;
+	}
+
+	/**
+	 * 根据上报设备归属租户创建事件。
+	 *
+	 * @param eventManagement 事件信息
+	 * @return 是否创建成功
+	 */
+	@Override
+	public boolean createReportedEvent(EventManagement eventManagement) {
+		if (eventManagement == null) {
+			throw new ServiceException("事件信息不能为空");
+		}
+		String reportDevice = eventManagement.getReportDevice();
+		if (StringUtils.isBlank(reportDevice)) {
+			throw new ServiceException("上报设备不能为空");
+		}
+		DeviceInfo deviceInfo = TenantUtil.ignore(() -> vlsDeviceInfoService.getOne(
+			Wrappers.<DeviceInfo>lambdaQuery().eq(DeviceInfo::getDeviceId, reportDevice)
+		));
+		if (deviceInfo == null) {
+			log.warn("事件上报失败: reportDevice={}, 原因=上报设备不存在", reportDevice);
+			throw new ServiceException("上报设备不存在");
+		}
+		if (StringUtils.isBlank(deviceInfo.getTenantId())) {
+			log.warn("事件上报失败: reportDevice={}, 原因=上报设备未配置租户", reportDevice);
+			throw new ServiceException("上报设备未配置租户");
+		}
+		eventManagement.setTenantId(deviceInfo.getTenantId());
+		boolean created = createEvent(eventManagement);
+		if (created) {
+			log.info("事件上报成功: reportDevice={}, tenantId={}", reportDevice, deviceInfo.getTenantId());
+		}
+		return created;
 	}
 
 	@Override

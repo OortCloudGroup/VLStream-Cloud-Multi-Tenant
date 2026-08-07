@@ -49,7 +49,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * controller
+ * 控制器
  *
  * @author Chill
  */
@@ -63,7 +63,7 @@ public class LogErrorController {
 	private final ILogErrorService errorLogService;
 
 	/**
-	 * Query single item
+	 * 查询单条
 	 */
 	@IsAdmin
 	@GetMapping("/detail")
@@ -73,7 +73,7 @@ public class LogErrorController {
 	}
 
 	/**
-	 * Query multiple items(Pagination)
+	 * 查询多条(分页)
 	 */
 	@IsAdmin
 	@GetMapping("/list")

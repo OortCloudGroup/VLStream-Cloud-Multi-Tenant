@@ -7,7 +7,7 @@ import org.springblade.vlstream.service.IVlsResourceTypeService;
 import org.springframework.stereotype.Service;
 
 /**
- * Resource type configuration table Service implementation class
+ * 资源类型配置表 服务实现类
  */
 @Service
 public class VlsResourceTypeServiceImpl extends BaseServiceImpl<VlsResourceTypeMapper, ResourceType> implements IVlsResourceTypeService {

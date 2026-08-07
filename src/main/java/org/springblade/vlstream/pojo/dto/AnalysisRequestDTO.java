@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Intelligent analysis request form Data transfer object entity class
+ * 智能分析请求表 数据传输对象实体类
  *
  * @author Oort
  * @since 2025-12-23

@@ -16,12 +16,12 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Camera incident policy controller
+ * 摄像头事件策略 控制器
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsRecordEventStrategy")
-@Tag(name = "Camera incident policy", description = "Camera event policy interface")
+@Tag(name = "摄像头事件策略", description = "摄像头事件策略接口")
 public class VlsRecordEventStrategyController extends BladeController {
 
 	private final IVlsRecordEventStrategyService recordEventStrategyService;
@@ -29,7 +29,7 @@ public class VlsRecordEventStrategyController extends BladeController {
 	private final VlsMqttProperties vlsMqttProperties;
 
 	private static final Map<String, Object> DEFAULT_PROTECTION_TIME = Map.of(
-		"frequency", "every day",
+		"frequency", "每天",
 		"time_periods", List.of(
 			Map.of("start", "08:00:00", "end", "12:00:00"),
 			Map.of("start", "14:00:00", "end", "18:00:00")
@@ -37,7 +37,7 @@ public class VlsRecordEventStrategyController extends BladeController {
 	);
 
 	@GetMapping("/{deviceId}")
-	@Operation(summary = "Get event policy", description = "Get event policy based on device number")
+	@Operation(summary = "获取事件策略", description = "根据设备编号获取事件策略")
 	public R<RecordEventStrategy> getByDeviceId(@PathVariable String deviceId) {
 		RecordEventStrategy detail = recordEventStrategyService.getByDeviceId(deviceId);
 		if (detail == null) {
@@ -52,23 +52,23 @@ public class VlsRecordEventStrategyController extends BladeController {
 	}
 
 	@PostMapping
-	@Operation(summary = "Save event policy", description = "Save or update event policy(Contains trigger action、Alarm frequency、Alarm level、Alarm mode、recipient、Period configuration)")
+	@Operation(summary = "保存事件策略", description = "保存或更新事件策略(含触发动作、告警频率、告警级别、告警方式、接收人、周期配置)")
 	public R<Boolean> saveOrUpdate(@RequestBody RecordEventStrategy recordEventStrategy) {
 		boolean success = recordEventStrategyService.saveOrUpdateStrategy(recordEventStrategy);
 		if (!success) {
-			return R.fail("Save failed");
+			return R.fail("保存失败");
 		}
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsRecordEventStrategyTopic(), recordEventStrategy);
 		if (!publishSuccess) {
-			return R.fail("Saved successfully, butMQTTMessage sending failed");
+			return R.fail("保存成功，但MQTT消息发送失败");
 		}
 		return R.data(true);
 	}
 
 	@DeleteMapping("/{deviceId}")
-	@Operation(summary = "Delete event policy", description = "Delete event policy based on device number")
+	@Operation(summary = "删除事件策略", description = "根据设备编号删除事件策略")
 	public R<Boolean> deleteByDeviceId(@PathVariable String deviceId) {
 		boolean success = recordEventStrategyService.deleteByDeviceId(deviceId);
-		return success ? R.data(true) : R.fail("Delete failed");
+		return success ? R.data(true) : R.fail("删除失败");
 	}
 }

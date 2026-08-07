@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Label image information table controller
+ * 标注图片信息表 控制器
  *
  * @author Oort
  * @since 2025-12-23
@@ -42,28 +42,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAnnotationImage")
-@Tag(name = "Label image information table", description = "Annotation picture information table interface")
+@Tag(name = "标注图片信息表", description = "标注图片信息表接口")
 public class VlsAnnotationImageController extends BladeController {
 
 	private final IVlsAnnotationImageService vlsAnnotationImageService;
 
 	/**
-	 * Label image information table Details
+	 * 标注图片信息表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description  = "incomingvlsAnnotationImage")
+	@Operation(summary = "详情", description  = "传入vlsAnnotationImage")
 	public R<AnnotationImageVO> detail(AnnotationImage vlsAnnotationImage) {
 		AnnotationImage detail = vlsAnnotationImageService.getOne(Condition.getQueryWrapper(vlsAnnotationImage));
 		return R.data(VlsAnnotationImageWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * Label image information table Pagination
+	 * 标注图片信息表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description  = "incomingvlsAnnotationImage")
+	@Operation(summary = "分页", description  = "传入vlsAnnotationImage")
 	public R<IPage<AnnotationImageVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAnnotationImage, Query query) {
 		IPage<AnnotationImage> pages = vlsAnnotationImageService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAnnotationImage, AnnotationImage.class));
 		return R.data(VlsAnnotationImageWrapper.build().pageVO(pages));
@@ -71,63 +71,63 @@ public class VlsAnnotationImageController extends BladeController {
 
 
 	/**
-	 * Label image information table Custom paging
+	 * 标注图片信息表 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description  = "incomingvlsAnnotationImage")
+	@Operation(summary = "分页", description  = "传入vlsAnnotationImage")
 	public R<IPage<AnnotationImageVO>> page(AnnotationImageVO vlsAnnotationImage, Query query) {
 		IPage<AnnotationImageVO> pages = vlsAnnotationImageService.selectVlsAnnotationImagePage(Condition.getPage(query), vlsAnnotationImage);
 		return R.data(pages);
 	}
 
 	/**
-	 * Label image information table New
+	 * 标注图片信息表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description  = "incomingvlsAnnotationImage")
+	@Operation(summary = "新增", description  = "传入vlsAnnotationImage")
 	public R save(@Valid @RequestBody AnnotationImage vlsAnnotationImage) {
 		return R.status(vlsAnnotationImageService.save(vlsAnnotationImage));
 	}
 
 	/**
-	 * Label image information table Revise
+	 * 标注图片信息表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description  = "incomingvlsAnnotationImage")
+	@Operation(summary = "修改", description  = "传入vlsAnnotationImage")
 	public R update(@Valid @RequestBody AnnotationImage vlsAnnotationImage) {
 		return R.status(vlsAnnotationImageService.updateById(vlsAnnotationImage));
 	}
 
 	/**
-	 * Label image information table Add or modify
+	 * 标注图片信息表 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description  = "incomingvlsAnnotationImage")
+	@Operation(summary = "新增或修改", description  = "传入vlsAnnotationImage")
 	public R submit(@Valid @RequestBody AnnotationImage vlsAnnotationImage) {
 		return R.status(vlsAnnotationImageService.saveOrUpdate(vlsAnnotationImage));
 	}
 
 	/**
-	 * Label image information table delete
+	 * 标注图片信息表 删除
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description  = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description  = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(vlsAnnotationImageService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Export data
+	 * 导出数据
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAnnotationImage")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Export data", description  = "incomingvlsAnnotationImage")
+	@Operation(summary = "导出数据", description  = "传入vlsAnnotationImage")
 	public void exportVlsAnnotationImage(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAnnotationImage, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<AnnotationImage> queryWrapper = Condition.getQueryWrapper(vlsAnnotationImage, AnnotationImage.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -135,11 +135,11 @@ public class VlsAnnotationImageController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsAnnotationImageEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAnnotationImageExcel> list = vlsAnnotationImageService.exportVlsAnnotationImage(queryWrapper);
-		ExcelUtil.export(response, "Label image information table data" + DateUtil.time(), "Label image information table data table", list, VlsAnnotationImageExcel.class);
+		ExcelUtil.export(response, "标注图片信息表数据" + DateUtil.time(), "标注图片信息表数据表", list, VlsAnnotationImageExcel.class);
 	}
 
 	/**
-	 * Upload annotated images
+	 * 上传标注图片
 	 */
 	@PostMapping("/upload")
 	public ResponseEntity<?> uploadImages(
@@ -149,19 +149,19 @@ public class VlsAnnotationImageController extends BladeController {
 			List<AnnotationImage> images = vlsAnnotationImageService.uploadImages(files, annotationId);
 			Map<String, Object> response = new HashMap<>();
 			response.put("success", true);
-			response.put("message", "Image uploaded successfully");
+			response.put("message", "图片上传成功");
 			response.put("data", images);
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Image upload failed: " + e.getMessage());
+			errorResponse.put("message", "图片上传失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}
 
 	/**
-	 * Get all images of the dataset
+	 * 获取数据集的所有图片
 	 */
 	@GetMapping("/dataset/{annotationId}")
 	public ResponseEntity<?> getImagesByDataset(@PathVariable Long annotationId) {
@@ -174,13 +174,13 @@ public class VlsAnnotationImageController extends BladeController {
 		} catch (Exception e) {
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Failed to get image list: " + e.getMessage());
+			errorResponse.put("message", "获取图片列表失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}
 
 	/**
-	 * Get image details
+	 * 获取图片详情
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getImageById(@PathVariable Long id) {
@@ -197,13 +197,13 @@ public class VlsAnnotationImageController extends BladeController {
 		} catch (Exception e) {
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Failed to obtain image details: " + e.getMessage());
+			errorResponse.put("message", "获取图片详情失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}
 
 	/**
-	 * Update image annotation information
+	 * 更新图片标注信息
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateImage(@PathVariable Long id, @RequestBody AnnotationImage image) {
@@ -212,19 +212,19 @@ public class VlsAnnotationImageController extends BladeController {
 			AnnotationImage updatedImage = vlsAnnotationImageService.updateImage(image);
 			Map<String, Object> response = new HashMap<>();
 			response.put("success", true);
-			response.put("message", "Picture information updated successfully");
+			response.put("message", "图片信息更新成功");
 			response.put("data", updatedImage);
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Failed to update picture information: " + e.getMessage());
+			errorResponse.put("message", "更新图片信息失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}
 
 	/**
-	 * Delete picture
+	 * 删除图片
 	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteImage(@PathVariable Long id) {
@@ -232,18 +232,18 @@ public class VlsAnnotationImageController extends BladeController {
 			vlsAnnotationImageService.deleteImage(id);
 			Map<String, Object> response = new HashMap<>();
 			response.put("success", true);
-			response.put("message", "Picture deleted successfully");
+			response.put("message", "图片删除成功");
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Failed to delete picture: " + e.getMessage());
+			errorResponse.put("message", "删除图片失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}
 
 	/**
-	 * Delete pictures in batches
+	 * 批量删除图片
 	 */
 	@DeleteMapping("/batch")
 	public ResponseEntity<?> batchDeleteImages(@RequestBody List<Long> ids) {
@@ -251,18 +251,18 @@ public class VlsAnnotationImageController extends BladeController {
 			vlsAnnotationImageService.batchDeleteImages(ids);
 			Map<String, Object> response = new HashMap<>();
 			response.put("success", true);
-			response.put("message", "Batch deletion successful");
+			response.put("message", "批量删除成功");
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Batch deletion failed: " + e.getMessage());
+			errorResponse.put("message", "批量删除失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}
 
 	/**
-	 * Get dataset statistics
+	 * 获取数据集统计信息
 	 */
 	@GetMapping("/dataset/{datasetId}/stats")
 	public ResponseEntity<?> getDatasetStats(@PathVariable Long datasetId) {
@@ -275,40 +275,40 @@ public class VlsAnnotationImageController extends BladeController {
 		} catch (Exception e) {
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Failed to obtain statistics: " + e.getMessage());
+			errorResponse.put("message", "获取统计信息失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}
 
 	/**
-	 * Save image information in batches toannotation_imagesurface
+	 * 批量保存图片信息到annotation_image表
 	 *
-	 * @param annotationImages Picture information list
-	 * @return Save results
+	 * @param annotationImages 图片信息列表
+	 * @return 保存结果
 	 */
 	@PostMapping("/images/batch")
 	public ResponseEntity<?> batchSaveImages(@RequestBody List<AnnotationImage> annotationImages) {
 		try {
-			log.info("Save image information in batches, quantity: {}", annotationImages.size());
+			log.info("批量保存图片信息，数量: {}", annotationImages.size());
 
 			boolean success = vlsAnnotationImageService.batchSaveImages(annotationImages);
 			if (success) {
 				Map<String, Object> response = new HashMap<>();
 				response.put("success", true);
-				response.put("message", "Successfully saved image information in batches");
+				response.put("message", "批量保存图片信息成功");
 				response.put("data", annotationImages.size());
 				return ResponseEntity.ok(response);
 			} else {
 				Map<String, Object> errorResponse = new HashMap<>();
 				errorResponse.put("success", false);
-				errorResponse.put("message", "Failed to save image information in batches");
+				errorResponse.put("message", "批量保存图片信息失败");
 				return ResponseEntity.badRequest().body(errorResponse);
 			}
 		} catch (Exception e) {
-			log.error("Failed to save image information in batches", e);
+			log.error("批量保存图片信息失败", e);
 			Map<String, Object> errorResponse = new HashMap<>();
 			errorResponse.put("success", false);
-			errorResponse.put("message", "Failed to save image information in batches: " + e.getMessage());
+			errorResponse.put("message", "批量保存图片信息失败: " + e.getMessage());
 			return ResponseEntity.badRequest().body(errorResponse);
 		}
 	}

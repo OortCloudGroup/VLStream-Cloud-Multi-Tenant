@@ -11,14 +11,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Video recording record sheet Entity class
+ * 视频录制记录表 实体类
  *
  * @author Oort
  * @since 2025-12-25
  */
 @Data
 @TableName("vls_video_record")
-@Schema(description = "VlsVideoRecordEntityobject")
+@Schema(description = "VlsVideoRecordEntity对象")
 @EqualsAndHashCode(callSuper = true)
 public class VideoRecord extends TenantEntity {
 
@@ -30,69 +30,69 @@ public class VideoRecord extends TenantEntity {
 	@Schema(description = "stream")
 	private String stream;
 	/**
-	 * equipmentID
+	 * 设备ID
 	 */
-	@Schema(description = "equipmentID")
+	@Schema(description = "设备ID")
 	private Long deviceId;
 	/**
-	 * Device name
+	 * 设备名称
 	 */
-	@Schema(description = "Device name")
+	@Schema(description = "设备名称")
 	private String deviceName;
 	/**
-	 * Video file name
+	 * 视频文件名
 	 */
-	@Schema(description = "Video file name")
+	@Schema(description = "视频文件名")
 	private String fileName;
 	/**
-	 * Video file path
+	 * 视频文件路径
 	 */
-	@Schema(description = "Video file path")
+	@Schema(description = "视频文件路径")
 	private String filePath;
 	/**
-	 * file size(byte)
+	 * 文件大小(字节)
 	 */
-	@Schema(description = "file size(byte)")
+	@Schema(description = "文件大小(字节)")
 	private Long fileSize;
 	/**
-	 * on demandurl
+	 * 点播url
 	 */
-	@Schema(description = "on demandurl")
+	@Schema(description = "点播url")
 	private String url;
 	/**
-	 * Video duration(Second)
+	 * 视频时长(秒)
 	 */
-	@Schema(description = "Video duration(Second)")
+	@Schema(description = "视频时长(秒)")
 	private Integer duration;
 	/**
-	 * video format
+	 * 视频格式
 	 */
-	@Schema(description = "video format")
+	@Schema(description = "视频格式")
 	private String format;
 	/**
-	 * Recording start time
+	 * 录制开始时间
 	 */
-	@Schema(description = "Recording start time")
+	@Schema(description = "录制开始时间")
 	private LocalDateTime recordStartTime;
 	/**
-	 * Recording end time
+	 * 录制结束时间
 	 */
-	@Schema(description = "Recording end time")
+	@Schema(description = "录制结束时间")
 	private LocalDateTime recordEndTime;
 	/**
-	 * recording date(for grouping by date)
+	 * 录制日期(用于按日期分组)
 	 */
-	@Schema(description = "recording date(for grouping by date)")
+	@Schema(description = "录制日期(用于按日期分组)")
 	private LocalDate recordDate;
 	/**
-	 * Recording status
+	 * 录制状态
 	 */
-	@Schema(description = "Recording status")
+	@Schema(description = "录制状态")
 	private String recordStatus;
 	/**
-	 * thumbnail path
+	 * 缩略图路径
 	 */
-	@Schema(description = "thumbnail path")
+	@Schema(description = "缩略图路径")
 	private String thumbnailPath;
 
 }

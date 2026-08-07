@@ -16,24 +16,24 @@ import java.util.List;
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_DICT_BIZ_RULE;
 
 /**
- * Tenant business dictionary construction
+ * 租户业务字典构建
  *
  * @author Chill
  */
-@LiteRuleComponent(id = TENANT_DICT_BIZ_RULE, name = "Tenant business dictionary construction")
+@LiteRuleComponent(id = TENANT_DICT_BIZ_RULE, name = "租户业务字典构建")
 public class TenantDictBizRule extends RuleComponent {
 	@Override
 	public void process() {
-		// Get context
+		// 获取上下文
 		TenantContext contextBean = this.getContextBean(TenantContext.class);
 		Tenant tenant = contextBean.getTenant();
 		IDictBizService dictBizService = contextBean.getDictBizService();
 
-		// Default business dictionary corresponding to the new tenant
+		// 新建租户对应的默认业务字典
 		LinkedList<DictBiz> dictBizs = new LinkedList<>();
 		List<DictBiz> dictBizList = getDictBizs(dictBizService, tenant.getTenantId(), dictBizs);
 
-		// Set context
+		// 设置上下文
 		contextBean.setDictBizList(dictBizList);
 
 	}

@@ -30,7 +30,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * Multi-tenant configuration
+ * 多租户配置
  *
  * @author Chill
  */

@@ -3,46 +3,46 @@ package org.springblade.common.constant;
 import org.springblade.core.launch.constant.AppConstant;
 
 /**
- * startup constants
+ * 启动常量
  *
  * @author Chill
  */
 public interface LauncherConstant {
 
 	/**
-	 * sentinel dev address
+	 * sentinel dev 地址
 	 */
 	String SENTINEL_DEV_ADDR = "127.0.0.1:8858";
 
 	/**
-	 * sentinel prod address
+	 * sentinel prod 地址
 	 */
 	String SENTINEL_PROD_ADDR = "10.211.55.5:8858";
 
 	/**
-	 * sentinel test address
+	 * sentinel test 地址
 	 */
 	String SENTINEL_TEST_ADDR = "172.30.0.58:8858";
 
 	/**
-	 * elk dev address
+	 * elk dev 地址
 	 */
 	String ELK_DEV_ADDR = "127.0.0.1:9000";
 
 	/**
-	 * elk prod address
+	 * elk prod 地址
 	 */
 	String ELK_PROD_ADDR = "172.30.0.58:9000";
 
 	/**
-	 * elk test address
+	 * elk test 地址
 	 */
 	String ELK_TEST_ADDR = "172.30.0.58:9000";
 
 	/**
-	 * Dynamic acquisitionsentineladdress
+	 * 动态获取sentinel地址
 	 *
-	 * @param profile environment variables
+	 * @param profile 环境变量
 	 * @return addr
 	 */
 	static String sentinelAddr(String profile) {
@@ -54,9 +54,9 @@ public interface LauncherConstant {
 	}
 
 	/**
-	 * Dynamic acquisitionelkaddress
+	 * 动态获取elk地址
 	 *
-	 * @param profile environment variables
+	 * @param profile 环境变量
 	 * @return addr
 	 */
 	static String elkAddr(String profile) {

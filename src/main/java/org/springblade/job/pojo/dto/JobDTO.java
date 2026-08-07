@@ -6,7 +6,7 @@ import org.springblade.job.pojo.entity.JobServer;
 import tech.powerjob.client.PowerJobClient;
 
 /**
- * mission dataDTO
+ * 任务数据DTO
  *
  * @author Chill
  */
@@ -14,17 +14,17 @@ import tech.powerjob.client.PowerJobClient;
 public class JobDTO {
 
 	/**
-	 * Task information class
+	 * 任务信息类
 	 */
 	private JobInfo jobInfo;
 
 	/**
-	 * Task service class
+	 * 任务服务类
 	 */
 	private JobServer jobServer;
 
 	/**
-	 * Task client class
+	 * 任务客户端类
 	 */
 	private PowerJobClient powerJobClient;
 

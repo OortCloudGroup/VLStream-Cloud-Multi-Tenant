@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springblade.core.log.model.LogError;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */

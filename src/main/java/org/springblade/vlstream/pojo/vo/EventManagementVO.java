@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * event management table View entity class
+ * 事件管理表 视图实体类
  *
  * @author Oort
  * @since 2025-12-23

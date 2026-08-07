@@ -1,7 +1,7 @@
 package org.springblade.vlstream.detection;
 
 /**
- * Device detection session abstraction: Used to determine whether the configuration matches, and manage the launch of sessions/Stop life cycle. 
+ * 设备检测会话抽象：用于判断配置是否匹配，并管理会话的启动/停止生命周期。
  */
 public interface DeviceDetectionSession {
 

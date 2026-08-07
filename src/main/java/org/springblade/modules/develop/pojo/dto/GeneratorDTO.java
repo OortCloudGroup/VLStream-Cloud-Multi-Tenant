@@ -34,7 +34,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * code generationDTO
+ * 代码生成DTO
  *
  * @author Chill
  */
@@ -45,109 +45,109 @@ public class GeneratorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Upper level menu main key
+	 * 上级菜单主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "Upper level menu main key")
+	@Schema(description = "上级菜单主键")
 	private Long menuId;
 
 	/**
-	 * Data source primary key
+	 * 数据源主键
 	 */
-	@Schema(description = "Data source primary key")
+	@Schema(description = "数据源主键")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long datasourceId;
 	/**
-	 * Model number
+	 * 模型编号
 	 */
-	@Schema(description = "Model number")
+	@Schema(description = "模型编号")
 	private String modelCode;
 	/**
-	 * Physical table name
+	 * 物理表名
 	 */
-	@Schema(description = "Physical table name")
+	@Schema(description = "物理表名")
 	private String modelTable;
 	/**
-	 * form design
+	 * 表单设计
 	 */
-	@Schema(description = "form design")
+	@Schema(description = "表单设计")
 	private String modelForm;
 	/**
-	 * Model class name
+	 * 模型类名
 	 */
-	@Schema(description = "Model class name")
+	@Schema(description = "模型类名")
 	private String modelClass;
 
 	/**
-	 * module name
+	 * 模块名称
 	 */
-	@Schema(description = "Service name")
+	@Schema(description = "服务名称")
 	private String serviceName;
 
 	/**
-	 * module name
+	 * 模块名称
 	 */
-	@Schema(description = "module name")
+	@Schema(description = "模块名称")
 	private String codeName;
 
 	/**
-	 * table name
+	 * 表名
 	 */
-	@Schema(description = "table name")
+	@Schema(description = "表名")
 	private String tableName;
 
 	/**
-	 * Entity name
+	 * 实体名
 	 */
-	@Schema(description = "table prefix")
+	@Schema(description = "表前缀")
 	private String tablePrefix;
 
 	/**
-	 * primary key name
+	 * 主键名
 	 */
-	@Schema(description = "primary key name")
+	@Schema(description = "主键名")
 	private String pkName;
 
 	/**
-	 * Backend package name
+	 * 后端包名
 	 */
-	@Schema(description = "Backend package name")
+	@Schema(description = "后端包名")
 	private String packageName;
 
 	/**
-	 * Basic business model
+	 * 基础业务模式
 	 */
-	@Schema(description = "Basic business model")
+	@Schema(description = "基础业务模式")
 	private Integer baseMode;
 
 	/**
-	 * wrapper pattern
+	 * 包装器模式
 	 */
-	@Schema(description = "wrapper pattern")
+	@Schema(description = "包装器模式")
 	private Integer wrapMode;
 
 	/**
-	 * remote call mode
+	 * 远程调用模式
 	 */
-	@Schema(description = "remote call mode")
+	@Schema(description = "远程调用模式")
 	private Integer feignMode;
 
 	/**
-	 * coding style
+	 * 代码风格
 	 */
-	@Schema(description = "coding style")
+	@Schema(description = "代码风格")
 	private String codeStyle;
 
 	/**
-	 * backend path
+	 * 后端路径
 	 */
-	@Schema(description = "backend path")
+	@Schema(description = "后端路径")
 	private String apiPath;
 
 	/**
-	 * frontend path
+	 * 前端路径
 	 */
-	@Schema(description = "frontend path")
+	@Schema(description = "前端路径")
 	private String webPath;
 
 }

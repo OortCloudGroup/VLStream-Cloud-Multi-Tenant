@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * Camera application approval status
+ * 摄像头申请审批状态
  */
 @Getter
 public enum CameraApplyStatusEnum {
 
-	pending("pending", "Pending approval"),
-	approved("approved", "Passed"),
-	rejected("rejected", "Dismissed"),
-	completed("completed", "Completed");
+	pending("pending", "待审批"),
+	approved("approved", "已通过"),
+	rejected("rejected", "已驳回"),
+	completed("completed", "已完成");
 
 	@EnumValue
 	private final String code;

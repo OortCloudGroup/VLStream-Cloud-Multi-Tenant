@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 /**
- * Report configuration class
+ * 报表配置类
  *
  * @author Chill
  */
@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 public class BladeReportConfiguration {
 
 	/**
-	 * Optional data sources for custom reports
+	 * 自定义报表可选数据源
 	 */
 	@Bean
 	public ReportDataSource reportDataSource(DataSource dataSource) {

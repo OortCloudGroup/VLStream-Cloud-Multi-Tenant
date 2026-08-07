@@ -13,80 +13,80 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_dict")
-@Schema(description = "Dictobject")
+@Schema(description = "Dict对象")
 public class Dict implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary key
+	 * 主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "primary key")
+	@Schema(description = "主键")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * Parent primary key
+	 * 父主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "Parent primary key")
+	@Schema(description = "父主键")
 	private Long parentId;
 
 	/**
-	 * dictionary code
+	 * 字典码
 	 */
-	@Schema(description = "dictionary code")
+	@Schema(description = "字典码")
 	private String code;
 
 	/**
-	 * Dictionary value
+	 * 字典值
 	 */
-	@Schema(description = "Dictionary value")
+	@Schema(description = "字典值")
 	private String dictKey;
 
 	/**
-	 * Dictionary name
+	 * 字典名称
 	 */
-	@Schema(description = "Dictionary name")
+	@Schema(description = "字典名称")
 	private String dictValue;
 
 	/**
-	 * sort
+	 * 排序
 	 */
-	@Schema(description = "sort")
+	@Schema(description = "排序")
 	private Integer sort;
 
 	/**
-	 * Dictionary notes
+	 * 字典备注
 	 */
-	@Schema(description = "Dictionary notes")
+	@Schema(description = "字典备注")
 	private String remark;
 
 	/**
-	 * Has it been archived?
+	 * 是否已封存
 	 */
-	@Schema(description = "Has it been archived?")
+	@Schema(description = "是否已封存")
 	private Integer isSealed;
 
 	/**
-	 * business status
+	 * 业务状态
 	 */
-	@Schema(description = "business status")
+	@Schema(description = "业务状态")
 	private Integer status;
 
 	/**
-	 * Has it been deleted?
+	 * 是否已删除
 	 */
 	@TableLogic
-	@Schema(description = "Has it been deleted?")
+	@Schema(description = "是否已删除")
 	private Integer isDeleted;
 
 

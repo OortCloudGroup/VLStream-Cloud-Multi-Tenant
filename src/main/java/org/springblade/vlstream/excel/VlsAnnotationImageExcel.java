@@ -13,7 +13,7 @@ import java.io.Serial;
 
 
 /**
- * Label image information table ExcelEntity class
+ * 标注图片信息表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -28,52 +28,52 @@ public class VlsAnnotationImageExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Label itemsID
+	 * 标注项目ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Label itemsID")
+	@ExcelProperty("标注项目ID")
 	private Long annotationId;
 	/**
-	 * Picture name
+	 * 图片名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Picture name")
+	@ExcelProperty("图片名称")
 	private String imageName;
 	/**
-	 * original file name
+	 * 原始文件名
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("original file name")
+	@ExcelProperty("原始文件名")
 	private String originalName;
 	/**
-	 * local storage path
+	 * 本地存储路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("local storage path")
+	@ExcelProperty("本地存储路径")
 	private String localPath;
 	/**
-	 * file size(byte)
+	 * 文件大小（字节）
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("file size(byte)")
+	@ExcelProperty("文件大小（字节）")
 	private Long fileSize;
 	/**
-	 * last modified time
+	 * 最后修改时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("last modified time")
+	@ExcelProperty("最后修改时间")
 	private LocalDateTime lastModified;
 	/**
-	 * Whether it is an imported picture: 0-no, 1-yes
+	 * 是否为导入的图片：0-否，1-是
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Whether it is an imported picture: 0-no, 1-yes")
+	@ExcelProperty("是否为导入的图片：0-否，1-是")
 	private Byte isImported;
 	/**
-	 * Import time
+	 * 导入时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Import time")
+	@ExcelProperty("导入时间")
 	private LocalDateTime importTime;
 
 }

@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.CameraOsdSetting;
 import java.io.Serial;
 
 /**
- * cameraOSDSetting table View entity class
+ * 摄像机OSD设置表 视图实体类
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

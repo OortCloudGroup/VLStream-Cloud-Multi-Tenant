@@ -33,7 +33,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Tag management table controller
+ * 标签管理表 控制器
  *
  * @author Oort
  * @since 2025-12-23
@@ -42,28 +42,28 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsTagManagement")
-@Tag(name = "Tag management table", description = "Tag management table interface")
+@Tag(name = "标签管理表", description = "标签管理表接口")
 public class VlsTagManagementController extends BladeController {
 
 	private final IVlsTagManagementService vlsTagManagementService;
 
 	/**
-	 * Tag management table Details
+	 * 标签管理表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description  = "incomingvlsTagManagement")
+	@Operation(summary = "详情", description  = "传入vlsTagManagement")
 	public R<TagManagementVO> detail(TagManagement vlsTagManagement) {
 		TagManagement detail = vlsTagManagementService.getOne(Condition.getQueryWrapper(vlsTagManagement));
 		return R.data(VlsTagManagementWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * Tag management table Pagination
+	 * 标签管理表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description  = "incomingvlsTagManagement")
+	@Operation(summary = "分页", description  = "传入vlsTagManagement")
 	public R<IPage<TagManagementVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsTagManagement, Query query) {
 		IPage<TagManagement> pages = vlsTagManagementService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsTagManagement, TagManagement.class));
 		return R.data(VlsTagManagementWrapper.build().pageVO(pages));
@@ -71,63 +71,63 @@ public class VlsTagManagementController extends BladeController {
 
 
 	/**
-	 * Tag management table Custom paging
+	 * 标签管理表 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description  = "incomingvlsTagManagement")
+	@Operation(summary = "分页", description  = "传入vlsTagManagement")
 	public R<IPage<TagManagementVO>> page(TagManagementVO vlsTagManagement, Query query) {
 		IPage<TagManagementVO> pages = vlsTagManagementService.selectVlsTagManagementPage(Condition.getPage(query), vlsTagManagement);
 		return R.data(pages);
 	}
 
 	/**
-	 * Tag management table New
+	 * 标签管理表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description  = "incomingvlsTagManagement")
+	@Operation(summary = "新增", description  = "传入vlsTagManagement")
 	public R save(@Valid @RequestBody TagManagement vlsTagManagement) {
 		return R.status(vlsTagManagementService.save(vlsTagManagement));
 	}
 
 	/**
-	 * Tag management table Revise
+	 * 标签管理表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description  = "incomingvlsTagManagement")
+	@Operation(summary = "修改", description  = "传入vlsTagManagement")
 	public R update(@Valid @RequestBody TagManagement vlsTagManagement) {
 		return R.status(vlsTagManagementService.updateById(vlsTagManagement));
 	}
 
 	/**
-	 * Tag management table Add or modify
+	 * 标签管理表 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description  = "incomingvlsTagManagement")
+	@Operation(summary = "新增或修改", description  = "传入vlsTagManagement")
 	public R submit(@Valid @RequestBody TagManagement vlsTagManagement) {
 		return R.status(vlsTagManagementService.saveOrUpdate(vlsTagManagement));
 	}
 
 	/**
-	 * Tag management table delete
+	 * 标签管理表 删除
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description  = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description  = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(vlsTagManagementService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Export data
+	 * 导出数据
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsTagManagement")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Export data", description  = "incomingvlsTagManagement")
+	@Operation(summary = "导出数据", description  = "传入vlsTagManagement")
 	public void exportVlsTagManagement(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsTagManagement, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<TagManagement> queryWrapper = Condition.getQueryWrapper(vlsTagManagement, TagManagement.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -135,32 +135,32 @@ public class VlsTagManagementController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsTagManagementEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsTagManagementExcel> list = vlsTagManagementService.exportVlsTagManagement(queryWrapper);
-		ExcelUtil.export(response, "Tag management table data" + DateUtil.time(), "Tag management table data table", list, VlsTagManagementExcel.class);
+		ExcelUtil.export(response, "标签管理表数据" + DateUtil.time(), "标签管理表数据表", list, VlsTagManagementExcel.class);
 	}
 
 	@GetMapping("/tree")
-	@ApiOperation("Get tag tree structure(for left navigation)")
+	@ApiOperation("获取标签树形结构（用于左侧导航）")
 	public R<List<Map<String, Object>>> getTagTree() {
 		try {
-			// Get private label and public label data
+			// 获取自有标签和公共标签数据
 			List<TagManagement> ownTags = vlsTagManagementService.getTagsByCategory("own");
 			List<TagManagement> publicTags = vlsTagManagementService.getTagsByCategory("public");
 
-			// Build return structure
+			// 构建返回结构
 			Map<String, Object> result = new HashMap<>();
 
-			// Build your own tag tree structure
+			// 构建自有标签树形结构
 			Map<String, Object> ownRoot = new HashMap<>();
 			ownRoot.put("id", "own");
-			ownRoot.put("tagName", "private label");
+			ownRoot.put("tagName", "自有标签");
 			ownRoot.put("categoryType", "own");
 			ownRoot.put("level", 0);
 			ownRoot.put("children", buildTreeStructure(ownTags));
 
-			// Build a public tag tree structure
+			// 构建公共标签树形结构
 			Map<String, Object> publicRoot = new HashMap<>();
 			publicRoot.put("id", "public");
-			publicRoot.put("tagName", "public tags");
+			publicRoot.put("tagName", "公共标签");
 			publicRoot.put("categoryType", "public");
 			publicRoot.put("level", 0);
 			publicRoot.put("children", buildTreeStructure(publicTags));
@@ -171,24 +171,24 @@ public class VlsTagManagementController extends BladeController {
 
 			return R.data(data);
 		} catch (Exception e) {
-			log.error("Failed to get tag tree", e);
-			return R.fail("Failed to get tag tree: " + e.getMessage());
+			log.error("获取标签树失败", e);
+			return R.fail("获取标签树失败: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * Build a tree structure
+	 * 构建树形结构
 	 */
 	private List<Map<String, Object>> buildTreeStructure(List<TagManagement> tags) {
 		List<Map<String, Object>> result = new ArrayList<>();
 
-		// Get all label types(level=1)
+		// 获取所有标签类型（level=1）
 		List<TagManagement> categories = tags.stream()
 			.filter(tag -> tag.getLevel() == 1)
 			.sorted(Comparator.comparing(TagManagement::getSortOrder))
 			.collect(Collectors.toList());
 
-		// Build subtags for each tag type
+		// 为每个标签类型构建子标签
 		for (TagManagement category : categories) {
 			Map<String, Object> categoryNode = new HashMap<>();
 			categoryNode.put("id", category.getId());
@@ -205,7 +205,7 @@ public class VlsTagManagementController extends BladeController {
 			categoryNode.put("createTime", category.getCreateTime());
 			categoryNode.put("updateTime", category.getUpdateTime());
 
-			// Get all specific tags under this type
+			// 获取该类型下的所有具体标签
 			List<TagManagement> subTags = tags.stream()
 				.filter(tag -> tag.getLevel() == 2 && Objects.equals(tag.getParentId(), category.getId()))
 				.sorted(Comparator.comparing(TagManagement::getSortOrder))
@@ -240,139 +240,139 @@ public class VlsTagManagementController extends BladeController {
 	}
 
 	@GetMapping("/tree/{tagType}")
-	@ApiOperation("Get tag tree based on type")
-	public R<List<TagManagementDTO>> getTagTreeByType(@ApiParam(value = "Tag type(own-own, public-public)", required = true) @PathVariable String tagType) {
+	@ApiOperation("根据类型获取标签树")
+	public R<List<TagManagementDTO>> getTagTreeByType(@ApiParam(value = "标签类型(own-自有, public-公共)", required = true) @PathVariable String tagType) {
 		try {
 			List<TagManagementDTO> tagTree = vlsTagManagementService.getTagTreeByType(tagType);
 			return R.data(tagTree);
 		} catch (Exception e) {
-			log.error("Failed to get tag tree, type: {}", tagType, e);
-			return R.fail("Failed to get tag tree: " + e.getMessage());
+			log.error("获取标签树失败，类型: {}", tagType, e);
+			return R.fail("获取标签树失败: " + e.getMessage());
 		}
 	}
 
 	@PostMapping
-	@ApiOperation("Create tags")
+	@ApiOperation("创建标签")
 	public R<TagManagement> createTag(@RequestBody TagManagement tagManagement) {
 		try {
 			TagManagement createdTag = vlsTagManagementService.createTag(tagManagement);
 			return R.data(createdTag);
 		} catch (Exception e) {
-			log.error("Failed to create label", e);
-			return R.fail("Failed to create label: " + e.getMessage());
+			log.error("创建标签失败", e);
+			return R.fail("创建标签失败: " + e.getMessage());
 		}
 	}
 
 	@PutMapping("/{id}")
-	@ApiOperation("renewLabel")
+	@ApiOperation("更新标签")
 	public R<TagManagement> updateTag(
-		@ApiParam(value = "LabelID", required = true) @PathVariable Long id,
+		@ApiParam(value = "标签ID", required = true) @PathVariable Long id,
 		@RequestBody TagManagement tagManagement) {
 		try {
 			tagManagement.setId(id);
 			TagManagement updatedTag = vlsTagManagementService.updateTag(tagManagement);
 			return R.data(updatedTag);
 		} catch (Exception e) {
-			log.error("Failed to update label, ID: {}", id, e);
-			return R.fail("Failed to update label: " + e.getMessage());
+			log.error("更新标签失败，ID: {}", id, e);
+			return R.fail("更新标签失败: " + e.getMessage());
 		}
 	}
 
 	@DeleteMapping("/{id}")
-	@ApiOperation("Delete tag")
+	@ApiOperation("删除标签")
 	public R<Void> deleteTag(
-		@ApiParam(value = "LabelID", required = true) @PathVariable Long id) {
+		@ApiParam(value = "标签ID", required = true) @PathVariable Long id) {
 		try {
 			boolean success = vlsTagManagementService.deleteTag(id);
 			if (success) {
 				return R.success();
 			} else {
-				return R.fail("Failed to delete tag");
+				return R.fail("删除标签失败");
 			}
 		} catch (Exception e) {
-			log.error("Failed to delete tag, ID: {}", id, e);
-			return R.fail("Failed to delete tag: " + e.getMessage());
+			log.error("删除标签失败，ID: {}", id, e);
+			return R.fail("删除标签失败: " + e.getMessage());
 		}
 	}
 
 	@DeleteMapping("/batch")
-	@ApiOperation("Delete tags in batches")
+	@ApiOperation("批量删除标签")
 	public R<Void> deleteTags(@RequestBody List<Long> tagIds) {
 		try {
 			boolean success = vlsTagManagementService.deleteTags(tagIds);
 			if (success) {
 				return R.success();
 			} else {
-				return R.fail("Failed to delete tags in batches");
+				return R.fail("批量删除标签失败");
 			}
 		} catch (Exception e) {
-			log.error("Failed to delete tags in batches, IDs: {}", tagIds, e);
-			return R.fail("Failed to delete tags in batches: " + e.getMessage());
+			log.error("批量删除标签失败，IDs: {}", tagIds, e);
+			return R.fail("批量删除标签失败: " + e.getMessage());
 		}
 	}
 
 	@PutMapping("/{id}/move")
-	@ApiOperation("Move label")
+	@ApiOperation("移动标签")
 	public R<Void> moveTag(
-		@ApiParam(value = "LabelID", required = true) @PathVariable Long id,
-		@ApiParam(value = "target parentID") @RequestParam(required = false) Long targetParentId,
-		@ApiParam(value = "Target location") @RequestParam(required = false) Integer targetPosition) {
+		@ApiParam(value = "标签ID", required = true) @PathVariable Long id,
+		@ApiParam(value = "目标父级ID") @RequestParam(required = false) Long targetParentId,
+		@ApiParam(value = "目标位置") @RequestParam(required = false) Integer targetPosition) {
 		try {
 			boolean success = vlsTagManagementService.moveTag(id, targetParentId, targetPosition);
 			if (success) {
 				return R.success();
 			} else {
-				return R.fail("Failed to move label");
+				return R.fail("移动标签失败");
 			}
 		} catch (Exception e) {
-			log.error("Failed to move label, ID: {}", id, e);
-			return R.fail("Failed to move label: " + e.getMessage());
+			log.error("移动标签失败，ID: {}", id, e);
+			return R.fail("移动标签失败: " + e.getMessage());
 		}
 	}
 
 	@PutMapping("/{id}/toggle-status")
-	@ApiOperation("enable/Disable tag")
+	@ApiOperation("启用/禁用标签")
 	public R<Void> toggleTagStatus(
-		@ApiParam(value = "LabelID", required = true) @PathVariable Long id,
-		@ApiParam(value = "Whether to enable", required = true) @RequestParam boolean isActive) {
+		@ApiParam(value = "标签ID", required = true) @PathVariable Long id,
+		@ApiParam(value = "是否启用", required = true) @RequestParam boolean isActive) {
 		try {
 			boolean success = vlsTagManagementService.toggleTagStatus(id, isActive);
 			if (success) {
 				return R.success();
 			} else {
-				return R.fail("Failed to switch label status");
+				return R.fail("切换标签状态失败");
 			}
 		} catch (Exception e) {
-			log.error("Failed to switch label status, ID: {}", id, e);
-			return R.fail("Failed to switch label status: " + e.getMessage());
+			log.error("切换标签状态失败，ID: {}", id, e);
+			return R.fail("切换标签状态失败: " + e.getMessage());
 		}
 	}
 
 	@GetMapping("/{id}/stats")
-	@ApiOperation("Get tag usage statistics")
+	@ApiOperation("获取标签使用统计")
 	public R<TagManagement> getTagUsageStats(
-		@ApiParam(value = "LabelID", required = true) @PathVariable Long id) {
+		@ApiParam(value = "标签ID", required = true) @PathVariable Long id) {
 		try {
 			TagManagement tagStats = vlsTagManagementService.getTagUsageStats(id);
 			return R.data(tagStats);
 		} catch (Exception e) {
-			log.error("Failed to obtain tag statistics, ID: {}", id, e);
-			return R.fail("Failed to obtain tag statistics: " + e.getMessage());
+			log.error("获取标签统计失败，ID: {}", id, e);
+			return R.fail("获取标签统计失败: " + e.getMessage());
 		}
 	}
 
 	@GetMapping("/check-name")
-	@ApiOperation("Check if tag name is duplicated")
+	@ApiOperation("检查标签名称是否重复")
 	public R<Boolean> checkTagName(
-		@ApiParam(value = "Tag name", required = true) @RequestParam String tagName,
-		@ApiParam(value = "parentID") @RequestParam(required = false) Long parentId,
-		@ApiParam(value = "excludedID") @RequestParam(required = false) Long excludeId) {
+		@ApiParam(value = "标签名称", required = true) @RequestParam String tagName,
+		@ApiParam(value = "父级ID") @RequestParam(required = false) Long parentId,
+		@ApiParam(value = "排除的ID") @RequestParam(required = false) Long excludeId) {
 		try {
 			boolean isDuplicate = vlsTagManagementService.isTagNameDuplicate(tagName, parentId, excludeId);
 			return R.data(isDuplicate);
 		} catch (Exception e) {
-			log.error("Checking tag name failed", e);
-			return R.fail("Checking tag name failed: " + e.getMessage());
+			log.error("检查标签名称失败", e);
+			return R.fail("检查标签名称失败: " + e.getMessage());
 		}
 	}
 }

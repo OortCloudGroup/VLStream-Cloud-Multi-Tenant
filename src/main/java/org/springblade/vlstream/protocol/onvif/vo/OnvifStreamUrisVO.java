@@ -7,19 +7,19 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Data
-@Schema(description = "ONVIF Device information and stream address")
+@Schema(description = "ONVIF 设备信息与流地址")
 public class OnvifStreamUrisVO {
 
-	@Schema(description = "Equipment manufacturer")
+	@Schema(description = "设备厂商")
 	private String firm;
 
-	@Schema(description = "Device model")
+	@Schema(description = "设备型号")
 	private String model;
 
-	@Schema(description = "Firmware version")
+	@Schema(description = "固件版本")
 	private String firmwareVersion;
 
-	@Schema(description = "stream address list")
+	@Schema(description = "流地址列表")
 	private Map<String, String> streamUris = new LinkedHashMap<>();
 
 	public void addStreamUri(String token, String uri) {

@@ -10,95 +10,95 @@ import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface IRoleService extends IService<Role> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Pagination
-	 * @param role Role
-	 * @return Pagination
+	 * @param page 分页
+	 * @param role 角色
+	 * @return 分页
 	 */
 	IPage<RoleVO> selectRolePage(IPage<RoleVO> page, RoleVO role);
 
 	/**
-	 * tree structure
+	 * 树形结构
 	 *
-	 * @param tenantId tenantid
-	 * @return role list
+	 * @param tenantId 租户id
+	 * @return 角色列表
 	 */
 	List<RoleVO> tree(String tenantId);
 
 	/**
-	 * Permission configuration
+	 * 权限配置
 	 *
-	 * @param roleIds      Roleidgather
-	 * @param menuIds      menuidgather
-	 * @param dataScopeIds Data permissionsidgather
-	 * @param apiScopeIds  Interface permissionsidgather
-	 * @return Is it successful?
+	 * @param roleIds      角色id集合
+	 * @param menuIds      菜单id集合
+	 * @param dataScopeIds 数据权限id集合
+	 * @param apiScopeIds  接口权限id集合
+	 * @return 是否成功
 	 */
 	boolean grant(@NotEmpty List<Long> roleIds, List<Long> menuIds, List<Long> dataScopeIds, List<Long> apiScopeIds);
 
 	/**
-	 * Get roleID
+	 * 获取角色ID
 	 *
-	 * @param tenantId  tenantid
-	 * @param roleNames Character name
-	 * @return Roleid
+	 * @param tenantId  租户id
+	 * @param roleNames 角色名
+	 * @return 角色id
 	 */
 	String getRoleIds(String tenantId, String roleNames);
 
 	/**
-	 * Get character name
+	 * 获取角色名
 	 *
-	 * @param roleIds Roleid
-	 * @return Character name
+	 * @param roleIds 角色id
+	 * @return 角色名
 	 */
 	List<String> getRoleNames(String roleIds);
 
 	/**
-	 * Get character name
+	 * 获取角色名
 	 *
-	 * @param roleIds Roleid
-	 * @return role alias
+	 * @param roleIds 角色id
+	 * @return 角色别名
 	 */
 	List<String> getRoleAliases(String roleIds);
 
 	/**
-	 * submit
+	 * 提交
 	 *
-	 * @param role Role
+	 * @param role 角色
 	 * @return boolean
 	 */
 	boolean submit(Role role);
 
 	/**
-	 * Role information query
+	 * 角色信息查询
 	 *
-	 * @param roleName Character name
-	 * @param parentId parentid
-	 * @return role list
+	 * @param roleName 角色名
+	 * @param parentId 父级id
+	 * @return 角色列表
 	 */
 	List<RoleVO> search(String roleName, Long parentId);
 
 	/**
-	 * Delete role
+	 * 删除角色
 	 *
-	 * @param ids primary key set
+	 * @param ids 主键集合
 	 * @return boolean
 	 */
 	boolean removeRole(String ids);
 
 	/**
-	 * Get a list of role aliases
+	 * 获取角色别名列表
 	 *
-	 * @param tenantId tenantid
-	 * @return Alias ​​list
+	 * @param tenantId 租户id
+	 * @return 别名列表
 	 */
 	List<Role> alias(String tenantId);
 

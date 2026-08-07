@@ -10,7 +10,7 @@ import org.springblade.vlstream.pojo.entity.TagManagement;
 import java.io.Serial;
 
 /**
- * Device tag association table Data transfer object entity class
+ * 设备标签关联表 数据传输对象实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -21,20 +21,20 @@ public class DeviceTagRelationDTO extends DeviceTagRelation {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	// The following are related objects, Does not correspond to database fields
-	@Schema(description = "Device information", hidden = true)
+	// 以下为关联对象，不对应数据库字段
+	@Schema(description = "设备信息", hidden = true)
 	private DeviceInfo deviceInfo;
 
-	@Schema(description = "Label information", hidden = true)
+	@Schema(description = "标签信息", hidden = true)
 	private TagManagement tagInfo;
 
-	@Schema(description = "Tag name", hidden = true)
+	@Schema(description = "标签名称", hidden = true)
 	private String tagName;
 
-	@Schema(description = "Tag type", hidden = true)
+	@Schema(description = "标签类型", hidden = true)
 	private String categoryType;
 
-	@Schema(description = "Label color", hidden = true)
+	@Schema(description = "标签颜色", hidden = true)
 	private String tagColor;
 
 }

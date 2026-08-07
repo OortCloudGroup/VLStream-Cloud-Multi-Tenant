@@ -5,14 +5,14 @@ import org.springblade.core.log.model.LogError;
 import org.springblade.core.log.model.LogUsual;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface ILogService {
 
 	/**
-	 * Save general log
+	 * 保存通用日志
 	 *
 	 * @param log
 	 * @return
@@ -20,7 +20,7 @@ public interface ILogService {
 	Boolean saveUsualLog(LogUsual log);
 
 	/**
-	 * Save operation log
+	 * 保存操作日志
 	 *
 	 * @param log
 	 * @return
@@ -28,7 +28,7 @@ public interface ILogService {
 	Boolean saveApiLog(LogApi log);
 
 	/**
-	 * Save error log
+	 * 保存错误日志
 	 *
 	 * @param log
 	 * @return

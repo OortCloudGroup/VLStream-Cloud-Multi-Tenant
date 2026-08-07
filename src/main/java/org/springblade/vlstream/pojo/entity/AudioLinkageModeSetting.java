@@ -11,42 +11,42 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * Audio linkage mode setting table Entity class
+ * 音频联动方式设置表 实体类
  */
 @Data
 @TableName("vls_audio_linkage_mode_setting")
-@Schema(description = "AudioLinkageModeSettingobject")
+@Schema(description = "AudioLinkageModeSetting对象")
 @EqualsAndHashCode(callSuper = true)
 public class AudioLinkageModeSetting extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "Device primary keyID")
+	@Schema(description = "设备主键ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long deviceId;
 
-	@Schema(description = "Regular linkage:0no1yes")
+	@Schema(description = "常规联动:0否1是")
 	private Integer conventionalLinkageEnabled;
 
-	@Schema(description = "Email linkage:0no1yes")
+	@Schema(description = "邮件联动:0否1是")
 	private Integer emailLinkageEnabled;
 
-	@Schema(description = "Upload center:0no1yes")
+	@Schema(description = "上传中心:0否1是")
 	private Integer uploadCenterLinkageEnabled;
 
-	@Schema(description = "Linked alarm output:0no1yes")
+	@Schema(description = "联动报警输出:0否1是")
 	private Integer alarmOutputLinkageEnabled;
 
-	@Schema(description = "Alarm output channel")
+	@Schema(description = "报警输出通道")
 	private String alarmOutputChannel;
 
-	@Schema(description = "Video linkage:0no1yes")
+	@Schema(description = "录像联动:0否1是")
 	private Integer recordLinkageEnabled;
 
-	@Schema(description = "Video channel")
+	@Schema(description = "录像通道")
 	private String recordChannel;
 
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 }

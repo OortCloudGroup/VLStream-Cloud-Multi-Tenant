@@ -13,33 +13,33 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * Scenario management table Entity class
+ * 场景治理表 实体类
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_scene_governance")
-@Schema(description = "VlsSceneGovernanceEntityobject")
+@Schema(description = "VlsSceneGovernanceEntity对象")
 @EqualsAndHashCode(callSuper = true)
 public class SceneGovernance extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "name")
+	@Schema(description = "名称")
 	private String name;
 
-	@Schema(description = "describe")
+	@Schema(description = "描述")
 	private String description;
 
-	@Schema(description = "execution type")
+	@Schema(description = "执行类型")
 	private String cronExpression;
 
-	@Schema(description = "area")
+	@Schema(description = "区域")
 	private String location;
 
-	@Schema(description = "Camera")
+	@Schema(description = "摄像头")
 	private String cameras;
 
 }

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Organization chart Service implementation class
+ * 组织机构表 服务实现类
  *
  * @author Oort
  * @since 2025-08-09

@@ -17,14 +17,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Algorithm training task list Entity class
+ * 算法训练任务表 实体类
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_algorithm_training")
-@Schema(description = "VlsAlgorithmTrainingEntityobject")
+@Schema(description = "VlsAlgorithmTrainingEntity对象")
 @EqualsAndHashCode(callSuper = true)
 public class AlgorithmTraining extends TenantEntity {
 
@@ -32,135 +32,135 @@ public class AlgorithmTraining extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Task name
+	 * 任务名称
 	 */
-	@Schema(description = "Task name")
+	@Schema(description = "任务名称")
 	private String taskName;
 	/**
-	 * algorithmID
+	 * 算法ID
 	 */
-	@Schema(description = "algorithmID")
+	@Schema(description = "算法ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long algorithmId;
 	/**
-	 * DatasetID
+	 * 数据集ID
 	 */
-	@Schema(description = "DatasetID")
+	@Schema(description = "数据集ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long datasetId;
 	/**
-	 * training status: pending-wait,training-in training,completed-Finish,failed-fail
+	 * 训练状态：pending-等待,training-训练中,completed-完成,failed-失败
 	 */
-	@Schema(description = "training status")
+	@Schema(description = "训练状态")
 	private AlgorithmTrainingStatusEnum trainStatus;
 	/**
-	 * Training progress percentage
+	 * 训练进度百分比
 	 */
-	@Schema(description = "Training progress percentage")
+	@Schema(description = "训练进度百分比")
 	private Integer progress;
 	/**
-	 * current round
+	 * 当前轮次
 	 */
-	@Schema(description = "current round")
+	@Schema(description = "当前轮次")
 	private Integer epochCurrent;
 	/**
-	 * total rounds
+	 * 总轮次
 	 */
-	@Schema(description = "total rounds")
+	@Schema(description = "总轮次")
 	private Integer epochTotal;
 	/**
-	 * Accuracy
+	 * 准确率
 	 */
-	@Schema(description = "Accuracy")
+	@Schema(description = "准确率")
 	private BigDecimal accuracy;
 	/**
-	 * Accuracy
+	 * 精确率
 	 */
-	@Schema(description = "Accuracy")
+	@Schema(description = "精确率")
 	private BigDecimal precisionValue;
 	/**
-	 * Recall
+	 * 召回率
 	 */
-	@Schema(description = "Recall")
+	@Schema(description = "召回率")
 	private BigDecimal recallValue;
 	/**
-	 * mAPvalue
+	 * mAP值
 	 */
-	@Schema(description = "mAPvalue")
+	@Schema(description = "mAP值")
 	private BigDecimal mapValue;
 	/**
-	 * loss value
+	 * 损失值
 	 */
-	@Schema(description = "loss value")
+	@Schema(description = "损失值")
 	private BigDecimal lossValue;
 	/**
-	 * GPUUsage rate
+	 * GPU使用率
 	 */
-	@Schema(description = "GPUUsage rate")
+	@Schema(description = "GPU使用率")
 	private String gpuUsage;
 	/**
-	 * start time
+	 * 开始时间
 	 */
-	@Schema(description = "start time")
+	@Schema(description = "开始时间")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date startTime;
 	/**
-	 * end time
+	 * 结束时间
 	 */
-	@Schema(description = "end time")
+	@Schema(description = "结束时间")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date endTime;
 	/**
-	 * Estimated time
+	 * 预计时间
 	 */
-	@Schema(description = "Estimated time")
+	@Schema(description = "预计时间")
 	private String estimatedTime;
 	/**
-	 * Model output path
+	 * 模型输出路径
 	 */
-	@Schema(description = "Model output path")
+	@Schema(description = "模型输出路径")
 	private String modelOutputPath;
 	/**
-	 * onnxModel output path
+	 * onnx模型输出路径
 	 */
-	@Schema(description = "onnxModel output path")
+	@Schema(description = "onnx模型输出路径")
 	private String onnxModelOutputPath;
 	/**
-	 * rknnModel output path
+	 * rknn模型输出路径
 	 */
-	@Schema(description = "rknnModel output path")
+	@Schema(description = "rknn模型输出路径")
 	private String rknnModelOutputPath;
 	/**
-	 * int8 rknnModel output path
+	 * int8 rknn模型输出路径
 	 */
-	@Schema(description = "int8 rknnModel output path")
+	@Schema(description = "int8 rknn模型输出路径")
 	private String int8RknnModelOutputPath;
 	/**
-	 * Log path
+	 * 日志路径
 	 */
-	@Schema(description = "Log path")
+	@Schema(description = "日志路径")
 	private String logPath;
 	/**
-	 * training parameters
+	 * 训练参数
 	 */
-	@Schema(description = "training parameters")
+	@Schema(description = "训练参数")
 	private String configParams;
 	/**
-	 * error message
+	 * 错误信息
 	 */
-	@Schema(description = "error message")
+	@Schema(description = "错误信息")
 	private String errorMessage;
 	/**
-	 * Model file path
+	 * 模型文件路径
 	 */
-	@Schema(description = "Model file path")
+	@Schema(description = "模型文件路径")
 	private String modelPath;
 	/**
-	 * completion time
+	 * 完成时间
 	 */
-	@Schema(description = "completion time")
+	@Schema(description = "完成时间")
 	private String completedAt;
 
 }

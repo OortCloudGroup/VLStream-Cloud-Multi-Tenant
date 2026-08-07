@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Equipment information table View entity class
+ * 设备信息表 视图实体类
  *
  * @author Oort
  * @since 2025-12-23

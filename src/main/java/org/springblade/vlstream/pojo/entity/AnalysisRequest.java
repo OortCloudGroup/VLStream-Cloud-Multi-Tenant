@@ -14,14 +14,14 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * Intelligent analysis request form Entity class
+ * 智能分析请求表 实体类
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_analysis_request")
-@Schema(description = "VlsAnalysisRequestEntityobject")
+@Schema(description = "VlsAnalysisRequestEntity对象")
 @EqualsAndHashCode(callSuper = true)
 public class AnalysisRequest extends TenantEntity {
 
@@ -29,73 +29,73 @@ public class AnalysisRequest extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Analysis name
+	 * 分析名称
 	 */
-	@Schema(description = "Analysis name")
+	@Schema(description = "分析名称")
 	private String analysisName;
 	/**
-	 * Analysis type
+	 * 分析类型
 	 */
-	@Schema(description = "Analysis type")
+	@Schema(description = "分析类型")
 	private String analysisType;
 	/**
-	 * equipmentIDlist, comma separated
+	 * 设备ID列表，逗号分隔
 	 */
-	@Schema(description = "equipmentIDlist, comma separated")
+	@Schema(description = "设备ID列表，逗号分隔")
 	private String deviceIds;
 	/**
-	 * analysis area
+	 * 分析区域
 	 */
-	@Schema(description = "analysis area, comma separated")
+	@Schema(description = "分析区域，逗号分隔")
 	private String regionInfo;
 	/**
-	 * time range
+	 * 时间范围
 	 */
-	@Schema(description = "time range")
+	@Schema(description = "时间范围")
 	private String timeRange;
 	/**
-	 * Analyze pictures
+	 * 分析图片
 	 */
-	@Schema(description = "Analyze pictures")
+	@Schema(description = "分析图片")
 	private String images;
 	/**
-	 * Request status
+	 * 请求状态
 	 */
-	@Schema(description = "Request status")
+	@Schema(description = "请求状态")
 	private AnalysisRequestStatusEnum requestStatus;
 	/**
-	 * Processing progress percentage
+	 * 处理进度百分比
 	 */
-	@Schema(description = "Processing progress percentage")
+	@Schema(description = "处理进度百分比")
 	private Integer progress;
 	/**
-	 * Result file path
+	 * 结果文件路径
 	 */
-	@Schema(description = "Result file path")
+	@Schema(description = "结果文件路径")
 	private String resultPath;
 	/**
-	 * Start processing time
+	 * 开始处理时间
 	 */
-	@Schema(description = "Start processing time")
+	@Schema(description = "开始处理时间")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date startTime;
 	/**
-	 * completion time
+	 * 完成时间
 	 */
-	@Schema(description = "completion time")
+	@Schema(description = "完成时间")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date completeTime;
 	/**
-	 * error message
+	 * 错误信息
 	 */
-	@Schema(description = "error message")
+	@Schema(description = "错误信息")
 	private String errorMessage;
 	/**
-	 * Description information
+	 * 描述信息
 	 */
-	@Schema(description = "Description information")
+	@Schema(description = "描述信息")
 	private String description;
 
 }

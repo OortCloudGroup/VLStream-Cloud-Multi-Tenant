@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface IDictService extends IService<Dict> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
 	 * @param page
 	 * @param dict
@@ -26,38 +26,38 @@ public interface IDictService extends IService<Dict> {
 	IPage<DictVO> selectDictPage(IPage<DictVO> page, DictVO dict);
 
 	/**
-	 * tree structure
+	 * 树形结构
 	 *
 	 * @return
 	 */
 	List<DictVO> tree();
 
 	/**
-	 * tree structure
+	 * 树形结构
 	 *
 	 * @return
 	 */
 	List<DictVO> parentTree();
 
 	/**
-	 * Get the dictionary table corresponding to Chinese
+	 * 获取字典表对应中文
 	 *
-	 * @param code    dictionary number
-	 * @param dictKey Dictionary number
+	 * @param code    字典编号
+	 * @param dictKey 字典序号
 	 * @return
 	 */
 	String getValue(String code, String dictKey);
 
 	/**
-	 * Get dictionary table
+	 * 获取字典表
 	 *
-	 * @param code dictionary number
+	 * @param code 字典编号
 	 * @return
 	 */
 	List<Dict> getList(String code);
 
 	/**
-	 * Add or modify
+	 * 新增或修改
 	 *
 	 * @param dict
 	 * @return
@@ -65,7 +65,7 @@ public interface IDictService extends IService<Dict> {
 	boolean submit(Dict dict);
 
 	/**
-	 * delete dictionary
+	 * 删除字典
 	 *
 	 * @param ids
 	 * @return
@@ -73,7 +73,7 @@ public interface IDictService extends IService<Dict> {
 	boolean removeDict(String ids);
 
 	/**
-	 * top list
+	 * 顶级列表
 	 *
 	 * @param dict
 	 * @param query
@@ -82,7 +82,7 @@ public interface IDictService extends IService<Dict> {
 	IPage<DictVO> parentList(Map<String, Object> dict, Query query);
 
 	/**
-	 * sublist
+	 * 子列表
 	 *
 	 * @param dict
 	 * @param parentId

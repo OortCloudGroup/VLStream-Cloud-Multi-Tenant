@@ -17,11 +17,39 @@
     </resultMap>
 
     <select id="selectVlsAlgorithmPage" resultMap="vlsAlgorithmResultMap">
-        select * from vls_algorithm where is_deleted = 0 order by create_time desc
+        SELECT a.*, r.name AS repository_name
+        FROM vls_algorithm a
+        LEFT JOIN vls_algorithm_repository r
+            ON a.repository_id = r.id
+            AND r.tenant_id = #{tenantId}
+            AND r.is_deleted = 0
+        WHERE a.is_deleted = 0
+          AND a.tenant_id = #{tenantId}
+        <if test="vlsAlgorithm.repositoryId != null">
+            AND a.repository_id = #{vlsAlgorithm.repositoryId}
+        </if>
+        <if test="vlsAlgorithm.name != null and vlsAlgorithm.name != ''">
+            AND a.name LIKE CONCAT('%', #{vlsAlgorithm.name}, '%')
+        </if>
+        <if test="vlsAlgorithm.category != null">
+            AND a.category = #{vlsAlgorithm.category}
+        </if>
+        ORDER BY a.create_time DESC
     </select>
 
     <select id="exportVlsAlgorithm" resultType="org.springblade.vlstream.excel.VlsAlgorithmExcel">
         SELECT * FROM vls_algorithm ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectByIdsAndTenantId" resultType="org.springblade.vlstream.pojo.entity.Algorithm">
+        SELECT *
+        FROM vls_algorithm
+        WHERE is_deleted = 0
+          AND tenant_id = #{tenantId}
+          AND id IN
+        <foreach collection="algorithmIds" item="algorithmId" open="(" separator="," close=")">
+            #{algorithmId}
+        </foreach>
     </select>
 
 </mapper>

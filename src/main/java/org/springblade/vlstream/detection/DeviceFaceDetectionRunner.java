@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 /**
- * Face detection start trigger: Trigger a face detection task refresh when the application starts. 
+ * 人脸检测启动触发器：应用启动时触发一次人脸检测任务刷新。
  */
 @Component
 @ConditionalOnProperty(value = "vlstream.face-detection.enabled", havingValue = "true", matchIfMissing = false)

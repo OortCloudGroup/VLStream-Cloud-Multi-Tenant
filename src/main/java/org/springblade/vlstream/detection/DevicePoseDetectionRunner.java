@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 /**
- * Attitude estimation start trigger: Trigger a pose estimation task refresh when the application starts. 
+ * 姿态估计启动触发器：应用启动时触发一次姿态估计任务刷新。
  */
 @Component
 @ConditionalOnProperty(value = "vlstream.pose-detection.enabled", havingValue = "true", matchIfMissing = false)

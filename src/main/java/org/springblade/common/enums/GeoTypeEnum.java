@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Geometry type enum
+ * 几何类型枚举
  *
  * @author
  * @since 2025-07-28
@@ -15,43 +15,43 @@ import lombok.Getter;
 public enum GeoTypeEnum {
 
 	/**
-	 * point
+	 * 点
 	 */
-	Point("Point", "point"),
+	Point("Point", "点"),
 	/**
-	 * Wire
+	 * 线
 	 */
-	LineString("LineString", "Wire"),
+	LineString("LineString", "线"),
 	/**
-	 * noodle
+	 * 面
 	 */
-	Polygon("Polygon", "noodle"),
+	Polygon("Polygon", "面"),
 	/**
-	 * More
+	 * 多点
 	 */
-	MultiPoint("MultiPoint", "More"),
+	MultiPoint("MultiPoint", "多点"),
 	/**
-	 * multiple lines
+	 * 多条线
 	 */
-	MultiLineString("MultiLineString", "multiple lines"),
+	MultiLineString("MultiLineString", "多条线"),
 	/**
-	 * polygon
+	 * 多边形
 	 */
-	MultiPolygon("MultiPolygon", "polygon"),
+	MultiPolygon("MultiPolygon", "多边形"),
 	/**
-	 * geometry
+	 * 几何
 	 */
-	Geometry("Geometry", "geometry");
+	Geometry("Geometry", "几何");
 
 	@EnumValue
 	private final String value;
 	private final String description;
 
 	/**
-	 * Get enum based on value
+	 * 根据值获取枚举
 	 *
-	 * @param value value
-	 * @return enumerate
+	 * @param value 值
+	 * @return 枚举
 	 */
 	public static GeoTypeEnum fromValue(String value) {
 		for (GeoTypeEnum geoTypeEnum : GeoTypeEnum.values()) {

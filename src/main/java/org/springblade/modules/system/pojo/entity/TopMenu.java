@@ -9,43 +9,43 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * Top menu table entity class
+ * 顶部菜单表实体类
  *
  * @author Oort
  */
 @Data
 @TableName("blade_top_menu")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "top menu table")
+@Schema(description = "顶部菜单表")
 public class TopMenu extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Top menu number
+	 * 顶部菜单编号
 	 */
-	@Schema(description = "Top menu number")
+	@Schema(description = "顶部菜单编号")
 	private String code;
 	/**
-	 * Top menu name
+	 * 顶部菜单名
 	 */
-	@Schema(description = "Top menu name")
+	@Schema(description = "顶部菜单名")
 	private String name;
 	/**
-	 * Top menu resources
+	 * 顶部菜单资源
 	 */
-	@Schema(description = "Top menu resources")
+	@Schema(description = "顶部菜单资源")
 	private String source;
 	/**
-	 * Top menu routing
+	 * 顶部菜单路由
 	 */
-	@Schema(description = "Top menu routing")
+	@Schema(description = "顶部菜单路由")
 	private String path;
 	/**
-	 * Top menu sorting
+	 * 顶部菜单排序
 	 */
-	@Schema(description = "Top menu sorting")
+	@Schema(description = "顶部菜单排序")
 	private Integer sort;
 
 

@@ -36,49 +36,49 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * Data model table entity class
+ * 数据模型表实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_model")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "Data model table")
+@Schema(description = "数据模型表")
 public class Model extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Data source primary key
+	 * 数据源主键
 	 */
-	@Schema(description = "Data source primary key")
+	@Schema(description = "数据源主键")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long datasourceId;
 	/**
-	 * Model name
+	 * 模型名称
 	 */
-	@Schema(description = "Model name")
+	@Schema(description = "模型名称")
 	private String modelName;
 	/**
-	 * Model number
+	 * 模型编号
 	 */
-	@Schema(description = "Model number")
+	@Schema(description = "模型编号")
 	private String modelCode;
 	/**
-	 * Physical table name
+	 * 物理表名
 	 */
-	@Schema(description = "Physical table name")
+	@Schema(description = "物理表名")
 	private String modelTable;
 	/**
-	 * Model class name
+	 * 模型类名
 	 */
-	@Schema(description = "Model class name")
+	@Schema(description = "模型类名")
 	private String modelClass;
 	/**
-	 * Model remarks
+	 * 模型备注
 	 */
-	@Schema(description = "Model remarks")
+	@Schema(description = "模型备注")
 	private String modelRemark;
 
 

@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface IMenuService extends IService<Menu> {
 
 	/**
-	 * Lazy loading list
+	 * 懒加载列表
 	 *
 	 * @param parentId
 	 * @param param
@@ -27,7 +27,7 @@ public interface IMenuService extends IService<Menu> {
 	List<MenuVO> lazyList(Long parentId, Map<String, Object> param);
 
 	/**
-	 * Lazy loading menu list
+	 * 懒加载菜单列表
 	 *
 	 * @param parentId
 	 * @param param
@@ -36,7 +36,7 @@ public interface IMenuService extends IService<Menu> {
 	List<MenuVO> lazyMenuList(Long parentId, Map<String, Object> param);
 
 	/**
-	 * Menu tree structure
+	 * 菜单树形结构
 	 *
 	 * @param roleId
 	 * @param topMenuId
@@ -45,7 +45,7 @@ public interface IMenuService extends IService<Menu> {
 	List<MenuVO> routes(String roleId, Long topMenuId);
 
 	/**
-	 * Menu tree structure
+	 * 菜单树形结构
 	 *
 	 * @param roleId
 	 * @param topMenuId
@@ -54,7 +54,7 @@ public interface IMenuService extends IService<Menu> {
 	List<MenuVO> routesExt(String roleId, Long topMenuId);
 
 	/**
-	 * Button tree structure
+	 * 按钮树形结构
 	 *
 	 * @param roleId
 	 * @return
@@ -62,14 +62,14 @@ public interface IMenuService extends IService<Menu> {
 	List<MenuVO> buttons(String roleId);
 
 	/**
-	 * tree structure
+	 * 树形结构
 	 *
 	 * @return
 	 */
 	List<TreeNode> tree();
 
 	/**
-	 * Authorization tree structure
+	 * 授权树形结构
 	 *
 	 * @param user
 	 * @return
@@ -77,7 +77,7 @@ public interface IMenuService extends IService<Menu> {
 	List<TreeNode> grantTree(BladeUser user);
 
 	/**
-	 * Top menu tree structure
+	 * 顶部菜单树形结构
 	 *
 	 * @param user
 	 * @return
@@ -85,7 +85,7 @@ public interface IMenuService extends IService<Menu> {
 	List<TreeNode> grantTopTree(BladeUser user);
 
 	/**
-	 * Data permission authorization tree structure
+	 * 数据权限授权树形结构
 	 *
 	 * @param user
 	 * @return
@@ -93,7 +93,7 @@ public interface IMenuService extends IService<Menu> {
 	List<TreeNode> grantDataScopeTree(BladeUser user);
 
 	/**
-	 * Interface permission authorization tree structure
+	 * 接口权限授权树形结构
 	 *
 	 * @param user
 	 * @return
@@ -101,7 +101,7 @@ public interface IMenuService extends IService<Menu> {
 	List<TreeNode> grantApiScopeTree(BladeUser user);
 
 	/**
-	 * Node selected by default
+	 * 默认选中节点
 	 *
 	 * @param roleIds
 	 * @return
@@ -109,7 +109,7 @@ public interface IMenuService extends IService<Menu> {
 	List<String> roleTreeKeys(String roleIds);
 
 	/**
-	 * Node selected by default
+	 * 默认选中节点
 	 *
 	 * @param topMenuIds
 	 * @return
@@ -117,7 +117,7 @@ public interface IMenuService extends IService<Menu> {
 	List<String> topTreeKeys(String topMenuIds);
 
 	/**
-	 * Node selected by default
+	 * 默认选中节点
 	 *
 	 * @param roleIds
 	 * @return
@@ -125,7 +125,7 @@ public interface IMenuService extends IService<Menu> {
 	List<String> dataScopeTreeKeys(String roleIds);
 
 	/**
-	 * Node selected by default
+	 * 默认选中节点
 	 *
 	 * @param roleIds
 	 * @return
@@ -133,7 +133,7 @@ public interface IMenuService extends IService<Menu> {
 	List<String> apiScopeTreeKeys(String roleIds);
 
 	/**
-	 * Get configured role permissions
+	 * 获取配置的角色权限
 	 *
 	 * @param user
 	 * @return
@@ -141,7 +141,7 @@ public interface IMenuService extends IService<Menu> {
 	List<Kv> authRoutes(BladeUser user);
 
 	/**
-	 * delete menu
+	 * 删除菜单
 	 *
 	 * @param ids
 	 * @return
@@ -149,7 +149,7 @@ public interface IMenuService extends IService<Menu> {
 	boolean removeMenu(String ids);
 
 	/**
-	 * submit
+	 * 提交
 	 *
 	 * @param menu
 	 * @return

@@ -12,7 +12,7 @@ import java.io.Serial;
 
 
 /**
- * Algorithm annotation data table ExcelEntity class
+ * 算法标注数据表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -27,58 +27,58 @@ public class VlsAlgorithmAnnotationExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Label name
+	 * 标注名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Label name")
+	@ExcelProperty("标注名称")
 	private String annotationName;
 	/**
-	 * Dimension type: object_detection-Object detection,image_classification-Image classification,instance_segmentation-Instance splitting,semantic_segmentation-Semantic segmentation
+	 * 标注类型：object_detection-物体检测,image_classification-图像分类,instance_segmentation-实例分割,semantic_segmentation-语义分割
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Dimension type: object_detection-Object detection,image_classification-Image classification,instance_segmentation-Instance splitting,semantic_segmentation-Semantic segmentation")
+	@ExcelProperty("标注类型：object_detection-物体检测,image_classification-图像分类,instance_segmentation-实例分割,semantic_segmentation-语义分割")
 	private String annotationType;
 	/**
-	 * Dataset path
+	 * 数据集路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Dataset path")
+	@ExcelProperty("数据集路径")
 	private String datasetPath;
 	/**
-	 * total quantity
+	 * 总数量
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("total quantity")
+	@ExcelProperty("总数量")
 	private Integer totalCount;
 	/**
-	 * Quantity marked
+	 * 已标注数量
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Quantity marked")
+	@ExcelProperty("已标注数量")
 	private Integer annotatedCount;
 	/**
-	 * Annotation status: none-Not labeled,partial-Partial annotation,completed-Complete annotation
+	 * 标注状态：none-未标注,partial-部分标注,completed-完成标注
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Annotation status: none-Not labeled,partial-Partial annotation,completed-Complete annotation")
+	@ExcelProperty("标注状态：none-未标注,partial-部分标注,completed-完成标注")
 	private String annotationStatus;
 	/**
-	 * Mark progress percentage
+	 * 标注进度百分比
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Mark progress percentage")
+	@ExcelProperty("标注进度百分比")
 	private Integer progress;
 	/**
-	 * Labeling rules
+	 * 标注规则
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Labeling rules")
+	@ExcelProperty("标注规则")
 	private String annotationRules;
 	/**
-	 * Remark
+	 * 备注
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Remark")
+	@ExcelProperty("备注")
 	private String remark;
 
 }

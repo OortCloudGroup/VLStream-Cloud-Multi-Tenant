@@ -13,7 +13,7 @@ import java.io.Serial;
 
 
 /**
- * event management table ExcelEntity class
+ * 事件管理表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -28,94 +28,94 @@ public class VlsEventManagementExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * event description
+	 * 事件描述
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("event description")
+	@ExcelProperty("事件描述")
 	private String eventDesc;
 	/**
-	 * event type
+	 * 事件类型
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("event type")
+	@ExcelProperty("事件类型")
 	private String eventType;
 	/**
-	 * Report location
+	 * 上报位置
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Report location")
+	@ExcelProperty("上报位置")
 	private String reportLocation;
 	/**
-	 * Reporting equipment
+	 * 上报设备
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Reporting equipment")
+	@ExcelProperty("上报设备")
 	private String reportDevice;
 	/**
-	 * Report pictures
+	 * 上报图片
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Report pictures")
+	@ExcelProperty("上报图片")
 	private String reportImg;
 	/**
-	 * Reporting time
+	 * 上报时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Reporting time")
+	@ExcelProperty("上报时间")
 	private LocalDateTime reportTime;
 	/**
-	 * event level: low-Low,medium-middle,high-high,urgent-urgent
+	 * 事件级别：low-低,medium-中,high-高,urgent-紧急
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("event level: low-Low,medium-middle,high-high,urgent-urgent")
+	@ExcelProperty("事件级别：low-低,medium-中,high-高,urgent-紧急")
 	private String eventLevel;
 	/**
-	 * event status: pending-Pending,processing-Processing,completed-Completed,closed-Closed
+	 * 事件状态：pending-待处理,processing-处理中,completed-已完成,closed-已关闭
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("event status: pending-Pending,processing-Processing,completed-Completed,closed-Closed")
+	@ExcelProperty("事件状态：pending-待处理,processing-处理中,completed-已完成,closed-已关闭")
 	private String eventStatus;
 	/**
-	 * Executor
+	 * 执行人
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Executor")
+	@ExcelProperty("执行人")
 	private String executor;
 	/**
-	 * ExecutorIDlist
+	 * 执行人ID列表
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("ExecutorIDlist")
+	@ExcelProperty("执行人ID列表")
 	private String executorIds;
 	/**
-	 * event data
+	 * 事件数据
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("event data")
+	@ExcelProperty("事件数据")
 	private String eventData;
 	/**
-	 * Processing results
+	 * 处理结果
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Processing results")
+	@ExcelProperty("处理结果")
 	private String handleResult;
 	/**
-	 * feedback information
+	 * 反馈信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("feedback information")
+	@ExcelProperty("反馈信息")
 	private String feedbackInfo;
 	/**
-	 * Feedback picture
+	 * 反馈图片
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Feedback picture")
+	@ExcelProperty("反馈图片")
 	private String feedbackImg;
 	/**
-	 * feedback status
+	 * 反馈状态
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("feedback status")
+	@ExcelProperty("反馈状态")
 	private Integer feedbackStatus;
 
 }

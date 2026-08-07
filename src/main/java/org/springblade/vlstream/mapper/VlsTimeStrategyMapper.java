@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * time strategy table Mapper interface
+ * 时间策略表 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-23
@@ -18,18 +18,18 @@ import java.util.List;
 public interface VlsTimeStrategyMapper extends BaseMapper<TimeStrategy> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsTimeStrategy query parameters
+	 * @param page 分页参数
+	 * @param vlsTimeStrategy 查询参数
 	 * @return List<VlsTimeStrategyVO>
 	 */
 	List<TimeStrategyVO> selectVlsTimeStrategyPage(IPage page, TimeStrategyVO vlsTimeStrategy);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsTimeStrategyExcel>
 	 */
 	List<VlsTimeStrategyExcel> exportVlsTimeStrategy(@Param("ew") Wrapper<TimeStrategy> queryWrapper);

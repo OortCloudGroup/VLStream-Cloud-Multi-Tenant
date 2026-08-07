@@ -3,13 +3,13 @@ package org.springblade.vlstream.pojo.dto;
 import lombok.Data;
 
 /**
- * verifyTokenaskDTO
+ * 验证Token请求DTO
  */
 @Data
 public class VerifyTokenRequest {
 
     /**
-     * access token
+     * 访问令牌
      */
     private String accessToken;
 

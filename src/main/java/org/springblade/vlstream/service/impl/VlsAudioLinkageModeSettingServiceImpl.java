@@ -7,7 +7,7 @@ import org.springblade.vlstream.service.IVlsAudioLinkageModeSettingService;
 import org.springframework.stereotype.Service;
 
 /**
- * Audio linkage mode setting table Service implementation class
+ * 音频联动方式设置表 服务实现类
  */
 @Service
 public class VlsAudioLinkageModeSettingServiceImpl extends BaseServiceImpl<VlsAudioLinkageModeSettingMapper, AudioLinkageModeSetting> implements IVlsAudioLinkageModeSettingService {

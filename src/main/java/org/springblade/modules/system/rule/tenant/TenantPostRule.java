@@ -9,27 +9,27 @@ import org.springblade.modules.system.rule.context.TenantContext;
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_POST_RULE;
 
 /**
- * Tenant job creation
+ * 租户岗位构建
  *
  * @author Chill
  */
-@LiteRuleComponent(id = TENANT_POST_RULE, name = "Tenant job creation")
+@LiteRuleComponent(id = TENANT_POST_RULE, name = "租户岗位构建")
 public class TenantPostRule extends RuleComponent {
 	@Override
 	public void process() {
-		// Get context
+		// 获取上下文
 		TenantContext contextBean = this.getContextBean(TenantContext.class);
 		Tenant tenant = contextBean.getTenant();
 
-		// Default positions corresponding to new tenants
+		// 新建租户对应的默认岗位
 		Post post = new Post();
 		post.setTenantId(tenant.getTenantId());
 		post.setCategory(1);
 		post.setPostCode("ceo");
-		post.setPostName("CEO");
+		post.setPostName("首席执行官");
 		post.setSort(1);
 
-		// Set context
+		// 设置上下文
 		contextBean.setPost(post);
 
 	}

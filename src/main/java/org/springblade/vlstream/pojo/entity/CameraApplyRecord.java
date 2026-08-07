@@ -11,50 +11,50 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * Camera application approval record
+ * 摄像头申请审批记录
  */
 @Data
 @TableName("vls_camera_apply_record")
-@Schema(description = "CameraApplyRecordobject")
+@Schema(description = "CameraApplyRecord对象")
 @EqualsAndHashCode(callSuper = true)
 public class CameraApplyRecord extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "Device primary keyID")
+	@Schema(description = "设备主键ID")
 	private Long deviceInfoId;
 
-	@Schema(description = "Reason for application")
+	@Schema(description = "申请原因")
 	private String applyReason;
 
-	@Schema(description = "Application notes")
+	@Schema(description = "申请备注")
 	private String applyRemark;
 
-	@Schema(description = "applicant")
+	@Schema(description = "申请人")
 	private String applyUserName;
 
-	@Schema(description = "Application time")
+	@Schema(description = "申请时间")
 	private Date applyTime;
 
-	@Schema(description = "Approval status")
+	@Schema(description = "审批状态")
 	private CameraApplyStatusEnum applyStatus;
 
-	@Schema(description = "Approval comments")
+	@Schema(description = "审批意见")
 	private String approvalComment;
 
-	@Schema(description = "approver")
+	@Schema(description = "审批人")
 	private String approveUserName;
 
-	@Schema(description = "Approval time")
+	@Schema(description = "审批时间")
 	private Date approveTime;
 
-	@Schema(description = "Final remarks")
+	@Schema(description = "完结备注")
 	private String completeRemark;
 
-	@Schema(description = "finisher")
+	@Schema(description = "完结人")
 	private String completeUserName;
 
-	@Schema(description = "end time")
+	@Schema(description = "完结时间")
 	private Date completeTime;
 }

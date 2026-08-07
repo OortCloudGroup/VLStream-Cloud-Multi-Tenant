@@ -4,16 +4,16 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.system.pojo.entity.Param;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface IParamService extends BaseService<Param> {
 
 	/**
-	 * Get parameter value
+	 * 获取参数值
 	 *
-	 * @param paramKey parameterkey
+	 * @param paramKey 参数key
 	 * @return String
 	 */
 	String getValue(String paramKey);

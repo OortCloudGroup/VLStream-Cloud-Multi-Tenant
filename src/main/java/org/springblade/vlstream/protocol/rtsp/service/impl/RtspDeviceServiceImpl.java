@@ -19,11 +19,11 @@ public class RtspDeviceServiceImpl extends ServiceImpl<RtspDeviceMapper, RtspDev
 	@Override
 	public String buildPlaybackUrl(AlarmClockDTO alarmClockDTO) {
 		if (alarmClockDTO == null || alarmClockDTO.getId() == null) {
-			throw new IllegalArgumentException("equipmentIDcannot be empty");
+			throw new IllegalArgumentException("设备ID不能为空");
 		}
 		RtspDeviceEntity device = getById(alarmClockDTO.getId());
 		if (device == null) {
-			throw new IllegalArgumentException("Device does not exist");
+			throw new IllegalArgumentException("设备不存在");
 		}
 		String firm = device.getFirm();
 		if (RtspFirmConstants.HIKVISION.equalsIgnoreCase(firm)) {
@@ -40,7 +40,7 @@ public class RtspDeviceServiceImpl extends ServiceImpl<RtspDeviceMapper, RtspDev
 				+ ":554/cam/playback?channel=" + device.getChannel()
 				+ "&subtype=1&starttime=" + startTime + "&endtime=" + endTime;
 		}
-		throw new IllegalArgumentException("This manufacturer is not currently supported");
+		throw new IllegalArgumentException("暂不支持该厂商");
 	}
 
 	@Override

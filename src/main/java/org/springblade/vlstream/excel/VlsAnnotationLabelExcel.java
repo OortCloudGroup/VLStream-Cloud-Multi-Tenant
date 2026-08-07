@@ -12,7 +12,7 @@ import java.io.Serial;
 
 
 /**
- * Annotation label entity class ExcelEntity class
+ * 标注标签实体类 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -27,40 +27,40 @@ public class VlsAnnotationLabelExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Associated annotation itemsID
+	 * 关联的标注项目ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Associated annotation itemsID")
+	@ExcelProperty("关联的标注项目ID")
 	private Long annotationId;
 	/**
-	 * Tag name
+	 * 标签名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Tag name")
+	@ExcelProperty("标签名称")
 	private String name;
 	/**
-	 * Label color(hexadecimal)
+	 * 标签颜色(十六进制)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Label color(hexadecimal)")
+	@ExcelProperty("标签颜色(十六进制)")
 	private String color;
 	/**
-	 * Tag description
+	 * 标签描述
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Tag description")
+	@ExcelProperty("标签描述")
 	private String description;
 	/**
-	 * sort order
+	 * 排序顺序
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("sort order")
+	@ExcelProperty("排序顺序")
 	private Integer sortOrder;
 	/**
-	 * Usage statistics
+	 * 使用次数统计
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Usage statistics")
+	@ExcelProperty("使用次数统计")
 	private Integer usageCount;
 
 }

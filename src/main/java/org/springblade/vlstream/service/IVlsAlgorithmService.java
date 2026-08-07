@@ -11,38 +11,38 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Algorithm table Service category
+ * 算法表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAlgorithmService extends BaseService<Algorithm> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAlgorithm query parameters
+	 * @param page 分页参数
+	 * @param vlsAlgorithm 查询参数
 	 * @return IPage<VlsAlgorithmVO>
 	 */
 	IPage<AlgorithmVO> selectVlsAlgorithmPage(IPage<AlgorithmVO> page, AlgorithmVO vlsAlgorithm);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAlgorithmExcel>
 	 */
 	List<VlsAlgorithmExcel> exportVlsAlgorithm(Wrapper<Algorithm> queryWrapper);
 
 	/**
-	 * Paging query algorithm list
+	 * 分页查询算法列表
 	 *
-	 * @param page Paging parameters
-	 * @param repositoryId storehouseID
-	 * @param name Algorithm name(fuzzy query)
-	 * @param category Algorithm type
-	 * @param deployStatus Deployment status
-	 * @return Paginated results
+	 * @param page 分页参数
+	 * @param repositoryId 仓库ID
+	 * @param name 算法名称（模糊查询）
+	 * @param category 算法类型
+	 * @param deployStatus 部署状态
+	 * @return 分页结果
 	 */
 	IPage<Algorithm> selectAlgorithmPage(Page<Algorithm> page,
 										 Long repositoryId,
@@ -51,114 +51,114 @@ public interface IVlsAlgorithmService extends BaseService<Algorithm> {
 										 String deployStatus);
 
 	/**
-	 * According to warehouseIDQuery algorithm list
+	 * 根据仓库ID查询算法列表
 	 *
-	 * @param repositoryId storehouseID
-	 * @return Algorithm list
+	 * @param repositoryId 仓库ID
+	 * @return 算法列表
 	 */
 	List<Algorithm> getByRepositoryId(Long repositoryId);
 
 	/**
-	 * Query algorithm list according to classification
+	 * 根据分类查询算法列表
 	 *
-	 * @param category Algorithm classification
-	 * @return Algorithm list
+	 * @param category 算法分类
+	 * @return 算法列表
 	 */
 	List<Algorithm> getByCategory(String category);
 
 	/**
-	 * Create algorithm
+	 * 创建算法
 	 *
-	 * @param algorithm Algorithm information
-	 * @return Is it successful?
+	 * @param algorithm 算法信息
+	 * @return 是否成功
 	 */
 	boolean createAlgorithm(Algorithm algorithm);
 
 	/**
-	 * Update algorithm
+	 * 更新算法
 	 *
-	 * @param algorithm Algorithm information
-	 * @return Is it successful?
+	 * @param algorithm 算法信息
+	 * @return 是否成功
 	 */
 	boolean updateAlgorithm(Algorithm algorithm);
 
 	/**
-	 * Delete algorithm
+	 * 删除算法
 	 *
-	 * @param id algorithmID
-	 * @return Is it successful?
+	 * @param id 算法ID
+	 * @return 是否成功
 	 */
 	boolean deleteAlgorithm(Long id);
 
 	/**
-	 * Batch deletion algorithm
+	 * 批量删除算法
 	 *
-	 * @param ids algorithmIDlist
-	 * @return Is it successful?
+	 * @param ids 算法ID列表
+	 * @return 是否成功
 	 */
 	boolean batchDeleteAlgorithms(List<Long> ids);
 
 	/**
-	 * Update deployment status
+	 * 更新部署状态
 	 *
-	 * @param id algorithmID
-	 * @param deployStatus New deployment status
-	 * @return Is it successful?
+	 * @param id 算法ID
+	 * @param deployStatus 新部署状态
+	 * @return 是否成功
 	 */
 	boolean updateDeployStatus(Long id, String deployStatus);
 
 	/**
-	 * Update deployment status in batches
+	 * 批量更新部署状态
 	 *
-	 * @param ids algorithmIDlist
-	 * @param deployStatus New deployment status
-	 * @return Is it successful?
+	 * @param ids 算法ID列表
+	 * @param deployStatus 新部署状态
+	 * @return 是否成功
 	 */
 	boolean batchUpdateDeployStatus(List<Long> ids, String deployStatus);
 
 	/**
-	 * Deploy algorithm to device
+	 * 部署算法到设备
 	 *
-	 * @param algorithmId algorithmID
-	 * @param deviceIds equipmentIDlist
-	 * @return Is it successful?
+	 * @param algorithmId 算法ID
+	 * @param deviceIds 设备ID列表
+	 * @return 是否成功
 	 */
 	boolean deployAlgorithmToDevices(Long algorithmId, List<Long> deviceIds);
 
 	/**
-	 * Count the number of algorithms under a certain warehouse
+	 * 统计某仓库下的算法数量
 	 *
-	 * @param repositoryId storehouseID
-	 * @return Number of algorithms
+	 * @param repositoryId 仓库ID
+	 * @return 算法数量
 	 */
 	Long countByRepositoryId(Long repositoryId);
 
 	/**
-	 * Get algorithm classification statistics
+	 * 获取算法分类统计
 	 *
-	 * @return Classification statistics
+	 * @return 分类统计信息
 	 */
 	List<Map<String, Object>> getCategoryStatistics();
 
 	/**
-	 * Get algorithm type statistics
+	 * 获取算法类型统计
 	 *
-	 * @return Type statistics
+	 * @return 类型统计信息
 	 */
 	List<Map<String, Object>> getTypeStatistics();
 
 	/**
-	 * Get deployment status statistics
+	 * 获取部署状态统计
 	 *
-	 * @return Deployment status statistics
+	 * @return 部署状态统计信息
 	 */
 	List<Map<String, Object>> getDeployStatusStatistics();
 
 	/**
-	 * Algorithm evaluation
+	 * 算法评估
 	 *
-	 * @param algorithmId algorithmID
-	 * @return Assessment results
+	 * @param algorithmId 算法ID
+	 * @return 评估结果
 	 */
 	Map<String, Object> evaluateAlgorithm(Long algorithmId);
 

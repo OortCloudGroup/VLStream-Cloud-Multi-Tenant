@@ -34,7 +34,7 @@ import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 
 /**
- * Device detection task manager base class: Dynamically created based on device configuration/renew/Stop detection session, And clean it up when the system is shut down. 
+ * 设备检测任务管理器基类：按设备配置动态创建/更新/停止检测会话，并在系统关闭时统一清理。
  */
 public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSession> {
 
@@ -66,14 +66,14 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
     private final AtomicBoolean externalControlEnabled = new AtomicBoolean(false);
 
     /**
-     * enable/Turn off external control mode: After enabling, Scheduled refresh entries will no longer automatically maintain sessions., from outside(like PowerJob)trigger refresh. 
+     * 启用/关闭外部控制模式：启用后，定时刷新入口将不再自动维护会话，由外部（如 PowerJob）触发刷新。
      */
     public void setExternalControlEnabled(boolean enabled) {
         externalControlEnabled.set(enabled);
     }
 
     /**
-     * for @Scheduled Refresh entry called: Skip when external control mode is enabled. 
+     * 供 @Scheduled 调用的刷新入口：外部控制模式启用时跳过。
      */
     protected void scheduledRefreshSessionsInternal() {
         if (externalControlEnabled.get()) {
@@ -87,14 +87,14 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
     }
 
     /**
-     * Immediately refresh the session by the specified device collection(Only keep detection sessions for these devices). 
+     * 立即按指定设备集合刷新会话（仅保留这些设备对应的检测会话）。
      */
     public void refreshNowForDeviceIds(List<Long> deviceIds) {
         refreshSessionsForDeviceIdsInternal(deviceIds);
     }
 
     /**
-     * Immediately stop the detection session corresponding to the specified device collection. 
+     * 立即停止指定设备集合对应的检测会话。
      */
     public void stopNowForDeviceIds(List<Long> deviceIds, String reason) {
         if (deviceIds == null || deviceIds.isEmpty()) {
@@ -106,7 +106,7 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
     }
 
     /**
-     * Stop all detection sessions immediately. 
+     * 立即停止全部检测会话。
      */
     public void stopAllNow(String reason) {
         stopAllSessions(reason);
@@ -120,7 +120,7 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
             List<DeviceInfo> devices = deviceInfoService.list(Wrappers.<DeviceInfo>lambdaQuery()
                 .isNotNull(DeviceInfo::getAlgorithmId)
                 .ne(DeviceInfo::getAlgorithmId, StringUtils.EMPTY));
-            refreshSessionsByDeviceInfoList(devices, "Device configured with algorithm not found");
+            refreshSessionsByDeviceInfoList(devices, "未找到配置算法的设备");
         } catch (Exception exception) {
             logger.error(getRefreshErrorMessage(), exception);
         } finally {
@@ -134,12 +134,12 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
         }
         try {
             if (deviceIds == null || deviceIds.isEmpty()) {
-                stopAllSessions("No device specified to be tested");
+                stopAllSessions("未指定需要检测的设备");
                 return;
             }
 
             List<DeviceInfo> devices = deviceInfoService.listByIds(deviceIds);
-            refreshSessionsByDeviceInfoList(devices, "The device to be tested was not found");
+            refreshSessionsByDeviceInfoList(devices, "未找到需要检测的设备");
         } catch (Exception exception) {
             logger.error(getRefreshErrorMessage(), exception);
         } finally {
@@ -368,7 +368,7 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
             }
             Algorithm candidateAlgorithm = algorithmService.getById(candidateAlgorithmId);
             if (candidateAlgorithm == null) {
-                logger.warn("equipment {} algorithm {} does not exist, jump over{}", deviceInfo.getDeviceName(), candidateAlgorithmId, sceneName);
+                logger.warn("设备 {} 的算法 {} 不存在，跳过{}", deviceInfo.getDeviceName(), candidateAlgorithmId, sceneName);
                 continue;
             }
             if (candidateAlgorithm.getCategory() != algorithmCategory) {
@@ -378,11 +378,11 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
             AlgorithmModel latestModel = algorithmModelService.getLatestModelByAlgorithmId(candidateAlgorithmId);
             String candidateModelPath = modelPathResolver.apply(candidateAlgorithm, latestModel);
             if (StringUtils.isBlank(candidateModelPath)) {
-                logger.warn("equipment {} algorithm {} No available model path found, jump over{}", deviceInfo.getDeviceName(), candidateAlgorithmId, sceneName);
+                logger.warn("设备 {} 的算法 {} 未找到可用模型路径，跳过{}", deviceInfo.getDeviceName(), candidateAlgorithmId, sceneName);
                 continue;
             }
             if (modelPathValidator != null && !modelPathValidator.test(candidateModelPath, latestModel)) {
-                logger.warn("equipment {} algorithm {} Model verification failed, jump over{}: modelPath={}, modelFormat={}",
+                logger.warn("设备 {} 的算法 {} 模型校验不通过，跳过{}: modelPath={}, modelFormat={}",
                     deviceInfo.getDeviceName(), candidateAlgorithmId, sceneName, candidateModelPath,
                     latestModel != null ? latestModel.getModelFormat() : null);
                 continue;
@@ -394,7 +394,7 @@ public abstract class AbstractDeviceDetectionManager<S extends DeviceDetectionSe
 
     @PreDestroy
     public void shutdown() {
-        stopAllSessions("System shutdown");
+        stopAllSessions("系统关闭");
     }
 
     protected static class DesiredDeviceConfig {

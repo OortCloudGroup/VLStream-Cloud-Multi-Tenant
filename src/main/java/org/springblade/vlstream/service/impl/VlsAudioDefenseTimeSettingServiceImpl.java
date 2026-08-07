@@ -7,7 +7,7 @@ import org.springblade.vlstream.service.IVlsAudioDefenseTimeSettingService;
 import org.springframework.stereotype.Service;
 
 /**
- * Audio arming time setting table Service implementation class
+ * 音频布防时间设置表 服务实现类
  */
 @Service
 public class VlsAudioDefenseTimeSettingServiceImpl extends BaseServiceImpl<VlsAudioDefenseTimeSettingMapper, AudioDefenseTimeSetting> implements IVlsAudioDefenseTimeSettingService {

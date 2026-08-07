@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.system.pojo.entity.UserWeb;
 
 /**
- * Mapper interface
+ * Mapper 接口
  *
  * @author Chill
  */

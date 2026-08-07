@@ -20,7 +20,7 @@ import org.springblade.modules.system.service.IAuthClientService;
 import org.springframework.web.bind.annotation.*;
 
 /**
- *  application management controller
+ *  应用管理控制器
  *
  * @author Chill
  */
@@ -29,71 +29,71 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/client")
-@Tag(name = "Application management", description = "Application management")
+@Tag(name = "应用管理", description = "应用管理")
 public class AuthClientController extends BladeController {
 
 	private final IAuthClientService clientService;
 
 	/**
-	* Details
+	* 详情
 	*/
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingclient")
+	@Operation(summary = "详情", description = "传入client")
 	public R<AuthClient> detail(AuthClient authClient) {
 		AuthClient detail = clientService.getOne(Condition.getQueryWrapper(authClient));
 		return R.data(detail);
 	}
 
 	/**
-	* Pagination
+	* 分页
 	*/
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingclient")
+	@Operation(summary = "分页", description = "传入client")
 	public R<IPage<AuthClient>> list(AuthClient authClient, Query query) {
 		IPage<AuthClient> pages = clientService.page(Condition.getPage(query), Condition.getQueryWrapper(authClient));
 		return R.data(pages);
 	}
 
 	/**
-	* New
+	* 新增
 	*/
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "New", description = "incomingclient")
+	@Operation(summary = "新增", description = "传入client")
 	public R save(@Valid @RequestBody AuthClient authClient) {
 		return R.status(clientService.save(authClient));
 	}
 
 	/**
-	* Revise
+	* 修改
 	*/
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "Revise", description = "incomingclient")
+	@Operation(summary = "修改", description = "传入client")
 	public R update(@Valid @RequestBody AuthClient authClient) {
 		return R.status(clientService.updateById(authClient));
 	}
 
 	/**
-	* Add or modify
+	* 新增或修改
 	*/
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Add or modify", description = "incomingclient")
+	@Operation(summary = "新增或修改", description = "传入client")
 	public R submit(@Valid @RequestBody AuthClient authClient) {
 		return R.status(clientService.saveOrUpdate(authClient));
 	}
 
 
 	/**
-	* delete
+	* 删除
 	*/
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(clientService.deleteLogic(Func.toLongList(ids)));
 	}
 

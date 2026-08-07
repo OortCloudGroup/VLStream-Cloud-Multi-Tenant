@@ -31,24 +31,24 @@ import org.springblade.modules.develop.pojo.dto.GeneratorDTO;
 import java.util.List;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface IGenerateService {
 
 	/**
-	 * Generate code
+	 * 生成代码
 	 *
-	 * @param ids primary key set
+	 * @param ids 主键集合
 	 * @return boolean
 	 */
 	boolean code(List<Long> ids);
 
 	/**
-	 * Generate code quickly
+	 * 快速生成代码
 	 *
-	 * @param dto Configuration parameters
+	 * @param dto 配置参数
 	 * @return boolean
 	 */
 	boolean codeFast(GeneratorDTO dto);

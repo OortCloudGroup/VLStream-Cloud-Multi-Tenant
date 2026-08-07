@@ -13,68 +13,68 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_role")
-@Schema(description = "Roleobject")
+@Schema(description = "Role对象")
 public class Role implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary key
+	 * 主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "primary key")
+	@Schema(description = "主键")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * tenantID
+	 * 租户ID
 	 */
-	@Schema(description = "tenantID")
+	@Schema(description = "租户ID")
 	private String tenantId;
 
 	/**
-	 * Parent primary key
+	 * 父主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "Parent primary key")
+	@Schema(description = "父主键")
 	private Long parentId;
 
 	/**
-	 * Character name
+	 * 角色名
 	 */
-	@Schema(description = "Character name")
+	@Schema(description = "角色名")
 	private String roleName;
 
 	/**
-	 * sort
+	 * 排序
 	 */
-	@Schema(description = "sort")
+	@Schema(description = "排序")
 	private Integer sort;
 
 	/**
-	 * role alias
+	 * 角色别名
 	 */
-	@Schema(description = "role alias")
+	@Schema(description = "角色别名")
 	private String roleAlias;
 
 	/**
-	 * business status
+	 * 业务状态
 	 */
-	@Schema(description = "business status")
+	@Schema(description = "业务状态")
 	private Integer status;
 
 	/**
-	 * Has it been deleted?
+	 * 是否已删除
 	 */
 	@TableLogic
-	@Schema(description = "Has it been deleted?")
+	@Schema(description = "是否已删除")
 	private Integer isDeleted;
 
 

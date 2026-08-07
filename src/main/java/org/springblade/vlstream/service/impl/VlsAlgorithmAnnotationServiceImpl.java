@@ -59,7 +59,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * Algorithm annotation data table Service implementation class
+ * 算法标注数据表 服务实现类
  *
  * @author Oort
  * @since 2025-12-23
@@ -98,15 +98,15 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 														   String annotationName,
 														   String annotationType,
 														   String annotationStatus) {
-		log.info("Paging query algorithm annotation list, parameter: annotationName={}, annotationType={}, annotationStatus={}",
+		log.info("分页查询算法标注列表，参数：annotationName={}, annotationType={}, annotationStatus={}",
 			annotationName, annotationType, annotationStatus);
 
-		// Convert empty string tonull, so thatSQLQuery conditions are handled correctly
+		// 将空字符串转换为null，以便SQL查询条件正确处理
 		String finalAnnotationName = (annotationName != null && annotationName.trim().isEmpty()) ? null : annotationName;
 		String finalAnnotationType = (annotationType != null && annotationType.trim().isEmpty()) ? null : annotationType;
 		String finalAnnotationStatus = (annotationStatus != null && annotationStatus.trim().isEmpty()) ? null : annotationStatus;
 
-		log.info("Converted query parameters: annotationName={}, annotationType={}, annotationStatus={}",
+		log.info("转换后的查询参数：annotationName={}, annotationType={}, annotationStatus={}",
 			finalAnnotationName, finalAnnotationType, finalAnnotationStatus);
 
 		return algorithmAnnotationMapper.selectAnnotationPage(page, finalAnnotationName, finalAnnotationType, finalAnnotationStatus);
@@ -114,31 +114,31 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 
 	@Override
 	public List<AlgorithmAnnotation> getByAnnotationType(String annotationType) {
-		log.info("Query annotation list based on annotation type: {}", annotationType);
+		log.info("根据标注类型查询标注列表：{}", annotationType);
 		return algorithmAnnotationMapper.selectByAnnotationType(annotationType);
 	}
 
 	@Override
 	public List<AlgorithmAnnotation> getByAnnotationStatus(String annotationStatus) {
-		log.info("Query annotation list based on annotation status: {}", annotationStatus);
+		log.info("根据标注状态查询标注列表：{}", annotationStatus);
 		return algorithmAnnotationMapper.selectByAnnotationStatus(annotationStatus);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean createAnnotation(AlgorithmAnnotation annotation) {
-		log.info("Create algorithm annotations: {}", annotation.getAnnotationName());
+		log.info("创建算法标注：{}", annotation.getAnnotationName());
 
-		// Check if label names are duplicated
+		// 检查标注名称是否重复
 		QueryWrapper<AlgorithmAnnotation> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("annotation_name", annotation.getAnnotationName())
 			.eq("is_deleted", 0);
 		if (count(queryWrapper) > 0) {
-			log.warn("Label name already exists: {}", annotation.getAnnotationName());
+			log.warn("标注名称已存在：{}", annotation.getAnnotationName());
 			return false;
 		}
 
-		// Set default value
+		// 设置默认值
 		if (annotation.getTotalCount() == null) {
 			annotation.setTotalCount(0);
 		}
@@ -152,23 +152,23 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 			annotation.setProgress(0);
 		}
 
-		// The dataset path is set when saving the annotation, It is not automatically generated here
+		// 数据集路径在保存标注时设置，这里不自动生成
 		if (annotation.getDatasetPath() == null) {
 			annotation.setDatasetPath(null);
-			log.info("The dataset path will be set when saving the annotation");
+			log.info("数据集路径将在保存标注时设置");
 		}
 
-		// Calculate progress
+		// 计算进度
 		annotation.setProgress(calculateProgress(annotation.getAnnotatedCount(), annotation.getTotalCount()));
 
 		return save(annotation);
 	}
 
 	/**
-	 * Save annotation data to dataset file
+	 * 保存标注数据到数据集文件
 	 *
-	 * @param annotationId   markID
-	 * @return Is the save successful?
+	 * @param annotationId   标注ID
+	 * @return 是否保存成功
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public boolean saveAnnotationToDataset(Long annotationId) {
@@ -177,13 +177,13 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 		try {
 			AlgorithmAnnotation annotation = getById(annotationId);
 			if (annotation == null) {
-				log.warn("Annotation does not exist: ID={}", annotationId);
+				log.warn("标注不存在：ID={}", annotationId);
 				return false;
 			}
 
 			List<AnnotationImage> images = annotationImageService.getImagesByAnnotationId(annotationId);
 			if (images == null || images.isEmpty()) {
-				log.warn("Annotated image not found, Unable to generate dataset: annotationId={}", annotationId);
+				log.warn("未找到标注图片，无法生成数据集：annotationId={}", annotationId);
 				return false;
 			}
 
@@ -192,7 +192,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 			Map<String, List<AnnotationInstance>> instancesByImageName = new HashMap<>();
 			Map<Long, String> labelIdNameMap = new HashMap<>();
 
-			// Preload all labels under the current label, Establish labelId -> name mapping
+			// 预先加载当前标注下的全部标签，建立 labelId -> name 映射
 			List<AnnotationLabel> allLabels = annotationLabelService.getByAnnotationIdWithUsageCount(annotationId);
 			if (allLabels != null) {
 				for (AnnotationLabel label : allLabels) {
@@ -200,7 +200,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 				}
 			}
 
-			// according to imageId / imageName Aggregation instance, Collect tag names
+			// 按 imageId / imageName 聚合实例，收集标签名称
 			if (imageInstances != null) {
 				for (AnnotationInstance instance : imageInstances) {
 					if (instance.getImageId() != null) {
@@ -222,7 +222,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 			String datasetsRoot = CommonConstant.BASE_DATASETS_PATH + "vls";
 			String datasetPath = datasetsRoot + "/annotation_" + annotationId;
 
-			// Establish SFTP connect
+			// 建立 SFTP 连接
 			JSch jsch = new JSch();
 			session = jsch.getSession(sshProperties.getUsername(), sshProperties.getHost(), sshProperties.getPort());
 			session.setPassword(sshProperties.getPassword());
@@ -233,7 +233,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 			channel.connect(30000);
 			sftp = (ChannelSftp) channel;
 
-			// Create the dataset directory structure
+			// 创建数据集目录结构
 			createCompleteDatasetStructure(sftp, datasetPath);
 
 			Set<String> labelNames = new LinkedHashSet<>();
@@ -309,7 +309,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 				double imageWidth = dims[0] > 0 ? dims[0] : -1;
 				double imageHeight = dims[1] > 0 ? dims[1] : -1;
 
-				// Process and upload corresponding annotation files
+				// 处理并上传对应的标注文件
 				List<Map<String, Object>> annotationMaps = new ArrayList<>();
 				List<AnnotationInstance> perImageInstances = new ArrayList<>();
 				if (instancesByImageId.containsKey(image.getId())) {
@@ -319,7 +319,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 					perImageInstances.addAll(instancesByImageName.getOrDefault(imageName, new ArrayList<>()));
 				}
 				if (perImageInstances.isEmpty()) {
-					// reveal all the details: according to annotationId + imageName Query again
+					// 兜底：按 annotationId + imageName 重新查询
 					perImageInstances.addAll(annotationInstanceService.getByAnnotationIdAndImageName(annotationId, imageName));
 				}
 
@@ -348,13 +348,13 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 					uploadLabelFile(sftp, datasetPath, imageName, annotationMaps, labelIndexMap, imageWidth, imageHeight);
 				}
 
-				// Delete temporary files
+				// 删除临时文件
 				if (imageInfo.tempFile != null && imageInfo.tempFile.exists() && !imageInfo.tempFile.delete()) {
-					log.debug("Temporary picture deletion failed: {}", imageInfo.tempFile.getAbsolutePath());
+					log.debug("临时图片删除失败：{}", imageInfo.tempFile.getAbsolutePath());
 				}
 			}
 
-			// If the tag name is not collected in the loop, Fill the bottom of the pocket according to the label list under the label
+			// 若循环中未收集到标签名称，兜底按标注下的标签列表填充
 			if (labelNames.isEmpty() && allLabels != null) {
 				for (AnnotationLabel label : allLabels) {
 					if (label.getName() != null) {
@@ -364,7 +364,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 				}
 			}
 
-			// Generate and upload datasets YAML
+			// 生成并上传数据集 YAML
 			String datasetYamlContent = buildDatasetYaml(annotation, labelNames);
 			uploadDatasetYaml(sftp, datasetPath, datasetYamlContent);
 			List<String> cocoSubsetPaths = uploadedImageNames.stream()
@@ -381,13 +381,13 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 			updateWrapper.eq("id", annotationId).set("dataset_path", datasetPath + "/dataset.yaml");
 			boolean updateResult = update(updateWrapper);
 			if (!updateResult) {
-				log.warn("Failed to update dataset path: annotationId={}", annotationId);
+				log.warn("更新数据集路径失败：annotationId={}", annotationId);
 			}
 
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Failed to save annotation data to dataset: annotationId={}, error={}", annotationId, e.getMessage());
+			log.error("保存标注数据到数据集失败：annotationId={}, error={}", annotationId, e.getMessage());
 			return false;
 		} finally {
 			if (sftp != null && sftp.isConnected()) {
@@ -400,10 +400,10 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Parse annotated data
+	 * 解析标注数据
 	 *
-	 * @param annotationData JSONFormat annotation data
-	 * @return parsed data
+	 * @param annotationData JSON格式的标注数据
+	 * @return 解析后的数据
 	 */
 	private Map<String, Object> parseAnnotationData(String annotationData) {
 		try {
@@ -413,16 +413,16 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 
 			return JSONUtil.toBean(annotationData, Map.class);
 		} catch (Exception e) {
-			log.error("Failed to parse annotation data: {}", e.getMessage());
+			log.error("解析标注数据失败：{}", e.getMessage());
 			return new HashMap<>();
 		}
 	}
 
 	/**
-	 * Create remote directory
+	 * 创建远程目录
 	 *
-	 * @param sftp SFTPaisle
-	 * @param path directory path
+	 * @param sftp SFTP通道
+	 * @param path 目录路径
 	 */
 	private void createRemoteDirectory(ChannelSftp sftp, String path) throws SftpException {
 		String[] dirs = path.split("/");
@@ -437,30 +437,30 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 
 			try {
 				sftp.cd(currentPath);
-				log.debug("Directory already exists: {}", currentPath);
+				log.debug("目录已存在：{}", currentPath);
 			} catch (SftpException e) {
-				// Directory does not exist, create it
+				// 目录不存在，创建它
 				try {
 					sftp.mkdir(currentPath);
-					log.info("Create remote directory: {}", currentPath);
+					log.info("创建远程目录：{}", currentPath);
 				} catch (SftpException mkdirException) {
-					log.warn("Failed to create directory, may already exist: {}", currentPath);
+					log.warn("创建目录失败，可能已存在：{}", currentPath);
 				}
 			}
 		}
 	}
 
 	/**
-	 * Create a completeYOLODataset directory structure
+	 * 创建完整的YOLO数据集目录结构
 	 *
-	 * @param sftp        SFTPaisle
-	 * @param datasetPath Dataset path
+	 * @param sftp        SFTP通道
+	 * @param datasetPath 数据集路径
 	 */
 	private void createCompleteDatasetStructure(ChannelSftp sftp, String datasetPath) throws SftpException {
-		// Create master data set directory
+		// 创建主数据集目录
 		createRemoteDirectory(sftp, datasetPath);
 
-		// createYOLOStandard directory structure
+		// 创建YOLO标准目录结构
 		String[] subdirs = {
 			datasetPath + "/images/train",
 			datasetPath + "/images/val",
@@ -471,12 +471,12 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 		};
 
 		for (String subdir : subdirs) {
-			// Create recursively, Avoid the problem that the parent directory does not exist mkdir Report an error
+			// 递归创建，避免父目录不存在导致 mkdir 报错
 			createRemoteDirectory(sftp, subdir);
-			log.info("Make sure the subdirectory exists: {}", subdir);
+			log.info("确保子目录存在：{}", subdir);
 		}
 
-		log.info("completeYOLOThe creation of the data set directory structure is completed: {}", datasetPath);
+		log.info("完整的YOLO数据集目录结构创建完成：{}", datasetPath);
 	}
 
 	private ImageLocalInfo getDownloadResult(Future<ImageLocalInfo> downloadFuture, Long imageId) {
@@ -548,7 +548,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Read local image size
+	 * 读取本地图片尺寸
 	 */
 	private int[] readImageSize(String localPath) {
 		try {
@@ -557,13 +557,13 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 				return new int[]{img.getWidth(), img.getHeight()};
 			}
 		} catch (Exception e) {
-			log.warn("Failed to read image size: path={}, error={}", localPath, e.getMessage());
+			log.warn("读取图片尺寸失败：path={}, error={}", localPath, e.getMessage());
 		}
 		return new int[]{-1, -1};
 	}
 
 	/**
-	 * Upload annotation files to training/Verify directory
+	 * 上传标注文件到训练/验证目录
 	 */
 	private void uploadLabelFile(ChannelSftp sftp, String datasetPath, String imageName,
 								 List<Map<String, Object>> annotationMaps,
@@ -571,7 +571,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 								 double imageWidth, double imageHeight) throws Exception {
 		int dotIndex = imageName.lastIndexOf('.');
 		if (dotIndex <= 0) {
-			log.warn("Image name is missing extension, Skip annotation upload: {}", imageName);
+			log.warn("图片名称缺少扩展名，跳过标注上传：{}", imageName);
 			return;
 		}
 
@@ -587,15 +587,15 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 		String valLabelPath = datasetPath + "/labels/val/" + labelFileName;
 		sftp.put(localLabelFile.getAbsolutePath(), trainLabelPath);
 		sftp.put(localLabelFile.getAbsolutePath(), valLabelPath);
-		log.info("Annotation file upload completed: train={}, val={}", trainLabelPath, valLabelPath);
+		log.info("标注文件上传完成：train={}, val={}", trainLabelPath, valLabelPath);
 
 		if (!localLabelFile.delete()) {
-			log.debug("Deletion of temporary annotation file failed: {}", localLabelFile.getAbsolutePath());
+			log.debug("临时标注文件删除失败：{}", localLabelFile.getAbsolutePath());
 		}
 	}
 
 	/**
-	 * Upload dataset YAML document
+	 * 上传数据集 YAML 文件
 	 */
 	private void uploadDatasetYaml(ChannelSftp sftp, String datasetPath, String yamlContent) throws Exception {
 		String datasetFileName = "dataset.yaml";
@@ -604,10 +604,10 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 
 		String remoteYamlPath = datasetPath + "/" + datasetFileName;
 		sftp.put(localYamlFile.getAbsolutePath(), remoteYamlPath);
-		log.info("Dataset configuration file upload completed: {}", remoteYamlPath);
+		log.info("数据集配置文件上传完成：{}", remoteYamlPath);
 
 		if (!localYamlFile.delete()) {
-			log.debug("Temporary configuration file deletion failed: {}", localYamlFile.getAbsolutePath());
+			log.debug("临时配置文件删除失败：{}", localYamlFile.getAbsolutePath());
 		}
 	}
 
@@ -630,7 +630,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Extract image name from annotation instance, imageId When empty, it is used for back-up matching.
+	 * 从标注实例中提取图片名，imageId 为空时用于兜底匹配
 	 */
 	private String extractImageNameFromInstance(AnnotationInstance instance) {
 		if (instance == null) {
@@ -641,7 +641,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 			Object name = data.get("imageName");
 			return name == null ? null : name.toString();
 		} catch (Exception e) {
-			log.debug("Failed to parse label instance image name: {}", e.getMessage());
+			log.debug("解析标注实例图片名失败：{}", e.getMessage());
 			return null;
 		}
 	}
@@ -671,7 +671,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 					double imgW = imageWidth > 0 ? imageWidth : toDouble(annotation.get("imageWidth")) != null ? toDouble(annotation.get("imageWidth")) : 100.0;
 					double imgH = imageHeight > 0 ? imageHeight : toDouble(annotation.get("imageHeight")) != null ? toDouble(annotation.get("imageHeight")) : 100.0;
 
-					// Determine whether it has been normalized: All four values ​​are present(0,1]treated as relative proportions
+					// 判断是否已归一化：四个值都在(0,1]视为相对比例
 					boolean alreadyNormalized = x > 0 && x <= 1 && y > 0 && y <= 1 && width > 0 && width <= 1 && height > 0 && height <= 1;
 
 					double centerX;
@@ -691,7 +691,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 						normalizedHeight = height / imgH;
 					}
 
-					// crop to [0,1]
+					// 裁剪到 [0,1]
 					centerX = Math.min(Math.max(centerX, 0), 1);
 					centerY = Math.min(Math.max(centerY, 0), 1);
 					normalizedWidth = Math.min(Math.max(normalizedWidth, 0), 1);
@@ -710,7 +710,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 				}
 
 			} catch (Exception e) {
-				log.error("Failed to process annotation data: {}", e.getMessage());
+				log.error("处理标注数据失败：{}", e.getMessage());
 			}
 		}
 
@@ -718,11 +718,11 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Build a dataset YAML content
+	 * 构建数据集 YAML 内容
 	 */
 	private String buildDatasetYaml(AlgorithmAnnotation algorithmAnnotation, Set<String> labelNames) {
 		StringBuilder content = new StringBuilder();
-		// Use a relative path, Convenient for yolo Referenced under the project
+		// 使用相对上一级的路径，便于在 yolo 项目下引用
 		content.append("path: ../datasets/vls/annotation_").append(algorithmAnnotation.getId()).append("\n");
 		content.append("train: images/train\n");
 		content.append("val: images/val\n");
@@ -740,7 +740,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Convert any numeric type uniformly to Double, compatible Integer/Long/Double and numeric string. 
+	 * 将任意数值类型统一转为 Double，兼容 Integer/Long/Double 以及数字字符串。
 	 */
 	private Double toDouble(Object value) {
 		if (value == null) {
@@ -760,25 +760,25 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Generate data set file contents
+	 * 生成数据集文件内容
 	 *
-	 * @param annotationName Label name
-	 * @param imageInstances Label data
-	 * @return Dataset file contents
+	 * @param annotationName 标注名称
+	 * @param imageInstances 标注数据
+	 * @return 数据集文件内容
 	 */
 	private String generateDatasetContent(String annotationName, List<AnnotationInstance> imageInstances) {
 		StringBuilder content = new StringBuilder();
-		content.append("# YOLODataset configuration file\n");
-		content.append("# Label name: ").append(annotationName).append("\n");
-		content.append("# creation time: ").append(java.time.LocalDateTime.now()).append("\n\n");
+		content.append("# YOLO数据集配置文件\n");
+		content.append("# 标注名称: ").append(annotationName).append("\n");
+		content.append("# 创建时间: ").append(java.time.LocalDateTime.now()).append("\n\n");
 
-		content.append("# Dataset path configuration\n");
+		content.append("# 数据集路径配置\n");
 		content.append("path: ./vls\n");
 		content.append("train: images/train\n");
 		content.append("val: images/val\n");
 		content.append("test: images/test\n\n");
 
-		// Extract category information from annotated data
+		// 从标注数据中提取类别信息
 		Set<String> uniqueLabels = new HashSet<>();
 		for (AnnotationInstance annotationInstance : imageInstances) {
 			AnnotationLabel annotationLabel = annotationLabelService.getById(annotationInstance.getLabelId());
@@ -788,7 +788,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 			}
 		}
 
-		content.append("# Category configuration\n");
+		content.append("# 类别配置\n");
 		content.append("nc: ").append(uniqueLabels.size()).append("\n");
 		content.append("names: [");
 		if (!uniqueLabels.isEmpty()) {
@@ -796,24 +796,24 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 		}
 		content.append("]\n\n");
 
-		content.append("# Dataset information\n");
-		content.append("description: ").append(annotationName).append(" Label the dataset\n");
+		content.append("# 数据集信息\n");
+		content.append("description: ").append(annotationName).append(" 标注数据集\n");
 		content.append("total_images: ").append(imageInstances.size()).append("\n");
 		content.append("total_annotations: ").append(imageInstances.size()).append("\n");
 		content.append("unique_labels: ").append(uniqueLabels.size()).append("\n\n");
 
-		content.append("# Notice: This configuration file contains only basic settings\n");
-		content.append("# Actual training requires the following directory structure: \n");
-		content.append("# - images/train/ (training pictures)\n");
-		content.append("# - images/val/ (Verification picture)\n");
-		content.append("# - labels/train/ (training annotation)\n");
-		content.append("# - labels/val/ (Validate annotations)\n");
+		content.append("# 注意：此配置文件仅包含基本设置\n");
+		content.append("# 实际训练需要以下目录结构：\n");
+		content.append("# - images/train/ (训练图片)\n");
+		content.append("# - images/val/ (验证图片)\n");
+		content.append("# - labels/train/ (训练标注)\n");
+		content.append("# - labels/val/ (验证标注)\n");
 
 		return content.toString();
 	}
 
 	/**
-	 * Extract annotation list from annotation data
+	 * 从标注数据中提取标注列表
 	 */
 	@SuppressWarnings("unchecked")
 	private List<Map<String, Object>> extractAnnotations(Map<String, Object> annotationData) {
@@ -823,26 +823,26 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 				return (List<Map<String, Object>>) annotationsObj;
 			}
 		} catch (Exception e) {
-			log.error("Failed to extract annotation list: {}", e.getMessage());
+			log.error("提取标注列表失败：{}", e.getMessage());
 		}
 		return new ArrayList<>();
 	}
 
 	/**
-	 * Extract the number of images from annotated data
+	 * 从标注数据中提取图片数量
 	 */
 	private int extractImageCount(Map<String, Object> annotationData) {
 		try {
 			String imageName = (String) annotationData.get("imageName");
 			return imageName != null ? 1 : 0;
 		} catch (Exception e) {
-			log.error("Failed to extract the number of images: {}", e.getMessage());
+			log.error("提取图片数量失败：{}", e.getMessage());
 			return 0;
 		}
 	}
 
 	/**
-	 * Extract a list of image names from annotation data
+	 * 从标注数据中提取图片名称列表
 	 */
 	private List<String> extractImageNames(Map<String, Object> annotationData) {
 		try {
@@ -853,31 +853,31 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 				return imageNames;
 			}
 		} catch (Exception e) {
-			log.error("Failed to extract image name: {}", e.getMessage());
+			log.error("提取图片名称失败：{}", e.getMessage());
 		}
 		return new ArrayList<>();
 	}
 
 	/**
-	 * Generate dataset file name
+	 * 生成数据集文件名
 	 *
-	 * @param annotationName Label name
-	 * @return Dataset file name
+	 * @param annotationName 标注名称
+	 * @return 数据集文件名
 	 */
 	private String generateDatasetFileName(String annotationName) {
-		// Remove special characters, Keep only letters、Numbers and underscores
+		// 移除特殊字符，只保留字母、数字和下划线
 		String cleanName = annotationName.replaceAll("[^a-zA-Z0-9_]", "");
 
-		// Convert to lowercase
+		// 转换为小写
 		cleanName = cleanName.toLowerCase();
 
-		// Add timestamp to ensure uniqueness
+		// 添加时间戳确保唯一性
 		String timestamp = String.valueOf(System.currentTimeMillis());
 
-		// Generate dataset file name
+		// 生成数据集文件名
 		String datasetFileName = cleanName + timestamp + ".yaml";
 
-		log.info("Generate dataset file name: originalName={}, cleanName={}, datasetFileName={}",
+		log.info("生成数据集文件名：originalName={}, cleanName={}, datasetFileName={}",
 			annotationName, cleanName, datasetFileName);
 
 		return datasetFileName;
@@ -886,19 +886,19 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean updateAnnotation(AlgorithmAnnotation annotation) {
-		log.info("Update algorithm annotation: ID={}, Name={}", annotation.getId(), annotation.getAnnotationName());
+		log.info("更新算法标注：ID={}, Name={}", annotation.getId(), annotation.getAnnotationName());
 
-		// Get original annotation information
+		// 获取原标注信息
 		AlgorithmAnnotation existing = getById(annotation.getId());
 		if (existing == null) {
-			log.warn("Annotation does not exist: ID={}", annotation.getId());
+			log.warn("标注不存在：ID={}", annotation.getId());
 			return false;
 		}
 
-		// Recalculate progress
+		// 重新计算进度
 		annotation.setProgress(calculateProgress(annotation.getAnnotatedCount(), annotation.getTotalCount()));
 
-		// Automatically update label status
+		// 自动更新标注状态
 		annotation.setAnnotationStatus(AlgorithmAnnotationStatusEnum.of(calculateAnnotationStatus(annotation.getProgress())));
 
 		return updateById(annotation);
@@ -907,20 +907,20 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteAnnotation(Long id) {
-		log.info("Delete algorithm annotation: ID={}", id);
+		log.info("删除算法标注：ID={}", id);
 
 		AlgorithmAnnotation annotation = getById(id);
 		if (annotation == null) {
-			log.warn("Annotation does not exist: ID={}", id);
+			log.warn("标注不存在：ID={}", id);
 			return false;
 		}
 
-		// Delete related image files
+		// 删除相关的图片文件
 		try {
 			deleteAnnotationImages(annotation);
 		} catch (Exception e) {
-			log.error("Failed to delete annotated image file: ID={}, Error={}", id, e.getMessage());
-			// Do not block deletions, Only log errors
+			log.error("删除标注图片文件失败：ID={}, Error={}", id, e.getMessage());
+			// 不阻止删除操作，只记录错误
 		}
 
 		return removeById(id);
@@ -929,18 +929,18 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean batchDeleteAnnotations(List<Long> ids) {
-		log.info("Batch deletion of algorithm annotations: IDs={}", ids);
+		log.info("批量删除算法标注：IDs={}", ids);
 
-		// First obtain all annotation information to be deleted
+		// 先获取所有要删除的标注信息
 		List<AlgorithmAnnotation> annotations = listByIds(ids);
 
-		// Delete related image files
+		// 删除相关的图片文件
 		for (AlgorithmAnnotation annotation : annotations) {
 			try {
 				deleteAnnotationImages(annotation);
 			} catch (Exception e) {
-				log.error("Failed to delete annotated image file: ID={}, Error={}", annotation.getId(), e.getMessage());
-				// Do not block deletions, Only log errors
+				log.error("删除标注图片文件失败：ID={}, Error={}", annotation.getId(), e.getMessage());
+				// 不阻止删除操作，只记录错误
 			}
 		}
 
@@ -950,15 +950,15 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean updateAnnotationProgress(Long id, Integer annotatedCount) {
-		log.info("Update labeling progress: ID={}, AnnotatedCount={}", id, annotatedCount);
+		log.info("更新标注进度：ID={}, AnnotatedCount={}", id, annotatedCount);
 
 		AlgorithmAnnotation annotation = getById(id);
 		if (annotation == null) {
-			log.warn("Annotation does not exist: ID={}", id);
+			log.warn("标注不存在：ID={}", id);
 			return false;
 		}
 
-		// Calculate progress
+		// 计算进度
 		int progress = calculateProgress(annotatedCount, annotation.getTotalCount());
 		String status = calculateAnnotationStatus(progress);
 
@@ -974,7 +974,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean batchUpdateAnnotationStatus(List<Long> ids, String annotationStatus) {
-		log.info("Update annotation status in batches: IDs={}, Status={}", ids, annotationStatus);
+		log.info("批量更新标注状态：IDs={}, Status={}", ids, annotationStatus);
 
 		UpdateWrapper<AlgorithmAnnotation> updateWrapper = new UpdateWrapper<>();
 		updateWrapper.in("id", ids)
@@ -986,7 +986,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean startAnnotationTask(Long id) {
-		log.info("Start labeling task: ID={}", id);
+		log.info("开始标注任务：ID={}", id);
 
 		UpdateWrapper<AlgorithmAnnotation> updateWrapper = new UpdateWrapper<>();
 		updateWrapper.eq("id", id)
@@ -998,11 +998,11 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean completeAnnotationTask(Long id) {
-		log.info("Complete the labeling task: ID={}", id);
+		log.info("完成标注任务：ID={}", id);
 
 		AlgorithmAnnotation annotation = getById(id);
 		if (annotation == null) {
-			log.warn("Annotation does not exist: ID={}", id);
+			log.warn("标注不存在：ID={}", id);
 			return false;
 		}
 
@@ -1018,7 +1018,7 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean resetAnnotationTask(Long id) {
-		log.info("Reset labeling task: ID={}", id);
+		log.info("重置标注任务：ID={}", id);
 
 		UpdateWrapper<AlgorithmAnnotation> updateWrapper = new UpdateWrapper<>();
 		updateWrapper.eq("id", id)
@@ -1031,20 +1031,20 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 
 	@Override
 	public Map<String, Object> importAnnotationData(Long id, String dataPath) {
-		log.info("Import annotation data: ID={}, DataPath={}", id, dataPath);
+		log.info("导入标注数据：ID={}, DataPath={}", id, dataPath);
 
 		AlgorithmAnnotation annotation = getById(id);
 		if (annotation == null) {
-			log.warn("Annotation does not exist: ID={}", id);
+			log.warn("标注不存在：ID={}", id);
 			return null;
 		}
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("success", true);
-		result.put("message", "Import successful");
-		result.put("importedCount", 100); // Sample data
+		result.put("message", "导入成功");
+		result.put("importedCount", 100); // 示例数据
 
-		// Here you can add the actual import logic
+		// 这里可以添加实际的导入逻辑
 
 		return result;
 	}
@@ -1186,46 +1186,46 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 
 	@Override
 	public List<Map<String, Object>> getAnnotationTypeStatistics() {
-		log.info("Get annotation type statistics");
+		log.info("获取标注类型统计");
 		return algorithmAnnotationMapper.selectAnnotationTypeStatistics();
 	}
 
 	@Override
 	public List<Map<String, Object>> getAnnotationStatusStatistics() {
-		log.info("Get annotation status statistics");
+		log.info("获取标注状态统计");
 		return algorithmAnnotationMapper.selectAnnotationStatusStatistics();
 	}
 
 	@Override
 	public List<Map<String, Object>> getProgressStatistics() {
-		log.info("Get annotation progress statistics");
+		log.info("获取标注进度统计");
 		return algorithmAnnotationMapper.selectProgressStatistics();
 	}
 
 	@Override
 	public Map<String, Object> getWorkloadStatistics() {
-		log.info("Get annotation workload statistics");
+		log.info("获取标注工作量统计");
 		return algorithmAnnotationMapper.selectWorkloadStatistics();
 	}
 
 	@Override
 	public Map<String, Object> validateAnnotationData(Long id) {
-		log.info("Verify annotation data: ID={}", id);
+		log.info("验证标注数据：ID={}", id);
 
 		AlgorithmAnnotation annotation = getById(id);
 		if (annotation == null) {
-			log.warn("Annotation does not exist: ID={}", id);
+			log.warn("标注不存在：ID={}", id);
 			return null;
 		}
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("success", true);
-		result.put("message", "Verification successful");
+		result.put("message", "验证成功");
 		result.put("validCount", annotation.getAnnotatedCount());
 		result.put("invalidCount", 0);
 		result.put("validationDetails", new HashMap<>());
 
-		// Actual validation logic can be added here
+		// 这里可以添加实际的验证逻辑
 
 		return result;
 	}
@@ -1620,10 +1620,10 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Calculate annotation status based on progress
+	 * 根据进度计算标注状态
 	 *
-	 * @param progress progress percentage
-	 * @return Annotation status
+	 * @param progress 进度百分比
+	 * @return 标注状态
 	 */
 	private String calculateAnnotationStatus(int progress) {
 		if (progress == 0) {
@@ -1636,48 +1636,48 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Delete image files related to annotation
+	 * 删除标注相关的图片文件
 	 *
-	 * @param annotation Annotation information
+	 * @param annotation 标注信息
 	 */
 	private void deleteAnnotationImages(AlgorithmAnnotation annotation) {
 		if (annotation == null || annotation.getDatasetPath() == null) {
-			log.warn("Label or dataset path is empty, Skip picture deletion");
+			log.warn("标注或数据集路径为空，跳过图片删除");
 			return;
 		}
 
 		try {
 			String datasetPath = annotation.getDatasetPath();
-			log.info("Start deleting annotated image files: ID={}, DatasetPath={}", annotation.getId(), datasetPath);
+			log.info("开始删除标注图片文件：ID={}, DatasetPath={}", annotation.getId(), datasetPath);
 
-			// If the dataset path is a relative path, Convert to absolute path
+			// 如果数据集路径是相对路径，转换为绝对路径
 			String absolutePath = datasetPath;
 			if (!datasetPath.startsWith("/") && !datasetPath.contains(":")) {
-				// relative path, Based on current working directory
+				// 相对路径，基于当前工作目录
 				String currentDir = System.getProperty("user.dir");
 				absolutePath = currentDir + "/" + datasetPath;
 			}
 
 			java.io.File datasetDir = new java.io.File(absolutePath);
 			if (!datasetDir.exists()) {
-				log.warn("The dataset directory does not exist: {}", absolutePath);
+				log.warn("数据集目录不存在：{}", absolutePath);
 				return;
 			}
 
-			// Delete all image files in the directory
+			// 删除目录下的所有图片文件
 			deleteImageFiles(datasetDir);
-			log.info("Marked image file deletion completed: ID={}", annotation.getId());
+			log.info("标注图片文件删除完成：ID={}", annotation.getId());
 
 		} catch (Exception e) {
-			log.error("Failed to delete annotated image file: ID={}, Error={}", annotation.getId(), e.getMessage());
+			log.error("删除标注图片文件失败：ID={}, Error={}", annotation.getId(), e.getMessage());
 			throw e;
 		}
 	}
 
 	/**
-	 * Recursively delete image files in a directory
+	 * 递归删除目录下的图片文件
 	 *
-	 * @param directory Table of contents
+	 * @param directory 目录
 	 */
 	private void deleteImageFiles(java.io.File directory) {
 		if (!directory.exists() || !directory.isDirectory()) {
@@ -1688,21 +1688,21 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 		if (files != null) {
 			for (java.io.File file : files) {
 				if (file.isDirectory()) {
-					// Recursively delete subdirectories
+					// 递归删除子目录
 					deleteImageFiles(file);
-					// Delete empty directories
+					// 删除空目录
 					java.io.File[] nestedFiles = file.listFiles();
 					if (nestedFiles == null || nestedFiles.length == 0) {
 						file.delete();
-						log.debug("Delete empty directories: {}", file.getAbsolutePath());
+						log.debug("删除空目录：{}", file.getAbsolutePath());
 					}
 				} else if (isImageFile(file.getName())) {
-					// Delete picture files
+					// 删除图片文件
 					boolean deleted = file.delete();
 					if (deleted) {
-						log.debug("Delete picture files: {}", file.getAbsolutePath());
+						log.debug("删除图片文件：{}", file.getAbsolutePath());
 					} else {
-						log.warn("Failed to delete picture file: {}", file.getAbsolutePath());
+						log.warn("删除图片文件失败：{}", file.getAbsolutePath());
 					}
 				}
 			}
@@ -1710,10 +1710,10 @@ public class VlsAlgorithmAnnotationServiceImpl extends BaseServiceImpl<VlsAlgori
 	}
 
 	/**
-	 * Determine whether it is an image file
+	 * 判断是否为图片文件
 	 *
-	 * @param fileName file name
-	 * @return Is it an image file?
+	 * @param fileName 文件名
+	 * @return 是否为图片文件
 	 */
 	private boolean isImageFile(String fileName) {
 		if (fileName == null) {

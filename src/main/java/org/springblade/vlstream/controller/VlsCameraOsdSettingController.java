@@ -29,12 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * cameraOSDSetting table controller
+ * 摄像机OSD设置表 控制器
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsCameraOsdSetting")
-@Tag(name = "cameraOSDset up", description = "cameraOSDSet interface")
+@Tag(name = "摄像机OSD设置", description = "摄像机OSD设置接口")
 public class VlsCameraOsdSettingController extends BladeController {
 
 	private final IVlsCameraOsdSettingService vlsCameraOsdSettingService;
@@ -43,7 +43,7 @@ public class VlsCameraOsdSettingController extends BladeController {
 
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingcameraOsdSetting")
+	@Operation(summary = "详情", description = "传入cameraOsdSetting")
 	public R<CameraOsdSettingVO> detail(CameraOsdSetting cameraOsdSetting) {
 		CameraOsdSetting detail = vlsCameraOsdSettingService.getOne(Condition.getQueryWrapper(cameraOsdSetting));
 		if (detail == null) {
@@ -59,24 +59,24 @@ public class VlsCameraOsdSettingController extends BladeController {
 		defaultSetting.setShowDate(1);
 		defaultSetting.setShowWeek(1);
 		defaultSetting.setChannelName("IPdpme");
-		defaultSetting.setTimeFormat("24hour clock");
-		defaultSetting.setDateFormat("XXXXYearXXmoonXXday");
+		defaultSetting.setTimeFormat("24小时制");
+		defaultSetting.setDateFormat("XXXX年XX月XX日");
 		defaultSetting.setOverlay1Enabled(1);
 		defaultSetting.setOverlay1Text("");
 		defaultSetting.setOverlay2Enabled(1);
 		defaultSetting.setOverlay2Text("");
 		defaultSetting.setOverlay3Enabled(1);
 		defaultSetting.setOverlay3Text("");
-		defaultSetting.setOsdProperty("opaque、No flashing");
-		defaultSetting.setOsdFont("Adaptive");
-		defaultSetting.setOsdColor("Black and white automatic");
-		defaultSetting.setAlignMode("Adaptive");
+		defaultSetting.setOsdProperty("不透明、不闪烁");
+		defaultSetting.setOsdFont("自适应");
+		defaultSetting.setOsdColor("黑白自动");
+		defaultSetting.setAlignMode("自适应");
 		return defaultSetting;
 	}
 
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingcameraOsdSetting")
+	@Operation(summary = "分页", description = "传入cameraOsdSetting")
 	public R<IPage<CameraOsdSettingVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> cameraOsdSetting, Query query) {
 		IPage<CameraOsdSetting> pages = vlsCameraOsdSettingService.page(Condition.getPage(query), Condition.getQueryWrapper(cameraOsdSetting, CameraOsdSetting.class));
 		return R.data(VlsCameraOsdSettingWrapper.build().pageVO(pages));
@@ -84,7 +84,7 @@ public class VlsCameraOsdSettingController extends BladeController {
 
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "New", description = "incomingcameraOsdSetting")
+	@Operation(summary = "新增", description = "传入cameraOsdSetting")
 	public R save(@Valid @RequestBody CameraOsdSetting cameraOsdSetting) {
 		boolean success = vlsCameraOsdSettingService.save(cameraOsdSetting);
 		if (!success) {
@@ -92,21 +92,21 @@ public class VlsCameraOsdSettingController extends BladeController {
 		}
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsCameraOsdSettingTopic(), cameraOsdSetting);
 		if (!publishSuccess) {
-			return R.fail("Saved successfully, butMQTTMessage sending failed");
+			return R.fail("保存成功，但MQTT消息发送失败");
 		}
 		return R.status(true);
 	}
 
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "Revise", description = "incomingcameraOsdSetting")
+	@Operation(summary = "修改", description = "传入cameraOsdSetting")
 	public R update(@Valid @RequestBody CameraOsdSetting cameraOsdSetting) {
 		return R.status(vlsCameraOsdSettingService.updateById(cameraOsdSetting));
 	}
 
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Add or modify", description = "incomingcameraOsdSetting")
+	@Operation(summary = "新增或修改", description = "传入cameraOsdSetting")
 	public R submit(@Valid @RequestBody CameraOsdSetting cameraOsdSetting) {
 		boolean success = vlsCameraOsdSettingService.saveOrUpdate(cameraOsdSetting);
 		if (!success) {
@@ -114,24 +114,24 @@ public class VlsCameraOsdSettingController extends BladeController {
 		}
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsCameraOsdSettingTopic(), cameraOsdSetting);
 		if (!publishSuccess) {
-			return R.fail("Saved successfully, butMQTTMessage sending failed");
+			return R.fail("保存成功，但MQTT消息发送失败");
 		}
 		return R.status(true);
 	}
 
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(vlsCameraOsdSettingService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	@GetMapping("/restoreDefault")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "Restore defaults", description = "incomingdeviceId")
+	@Operation(summary = "恢复默认值", description = "传入deviceId")
 	public R<Boolean> restoreDefault(@RequestParam Long deviceId) {
 		if (deviceId == null) {
-			return R.fail("Device primary keyIDcannot be empty");
+			return R.fail("设备主键ID不能为空");
 		}
 		CameraOsdSetting defaultSetting = buildDefaultOsdSetting(deviceId);
 		CameraOsdSetting existedSetting = vlsCameraOsdSettingService.getOne(Wrappers.<CameraOsdSetting>lambdaQuery()

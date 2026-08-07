@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.ResourceSpec;
 import java.io.Serial;
 
 /**
- * Resource specification configuration table View entity class
+ * 资源规格配置表 视图实体类
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

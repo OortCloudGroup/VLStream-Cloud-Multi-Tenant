@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * Annotation label entity class Mapper interface
+ * 标注标签实体类 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-23
@@ -20,27 +20,27 @@ import java.util.List;
 public interface VlsAnnotationLabelMapper extends BaseMapper<AnnotationLabel> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAnnotationLabel query parameters
+	 * @param page 分页参数
+	 * @param vlsAnnotationLabel 查询参数
 	 * @return List<VlsAnnotationLabelVO>
 	 */
 	List<AnnotationLabelVO> selectVlsAnnotationLabelPage(IPage page, AnnotationLabelVO vlsAnnotationLabel);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAnnotationLabelExcel>
 	 */
 	List<VlsAnnotationLabelExcel> exportVlsAnnotationLabel(@Param("ew") Wrapper<AnnotationLabel> queryWrapper);
 
 	/**
-	 * According to the marked itemsIDQuery tag list(Contains usage statistics)
+	 * 根据标注项目ID查询标签列表（包含使用次数统计）
 	 *
-	 * @param annotationId Label itemsID
-	 * @return tag list
+	 * @param annotationId 标注项目ID
+	 * @return 标签列表
 	 */
 	@Select("SELECT al.*, " +
 		"COALESCE((SELECT COUNT(*) FROM vls_annotation_instance ai " +
@@ -51,11 +51,11 @@ public interface VlsAnnotationLabelMapper extends BaseMapper<AnnotationLabel> {
 	List<AnnotationLabel> selectByAnnotationIdWithUsageCount(@Param("annotationId") Long annotationId);
 
 	/**
-	 * Update label usage count
+	 * 更新标签的使用次数
 	 *
-	 * @param labelId LabelID
-	 * @param usageCount Number of uses
-	 * @return Update row count
+	 * @param labelId 标签ID
+	 * @param usageCount 使用次数
+	 * @return 更新行数
 	 */
 	@Update("UPDATE vls_annotation_label SET usage_count = #{usageCount} WHERE id = #{labelId}")
 	int updateUsageCount(@Param("labelId") Long labelId, @Param("usageCount") Integer usageCount);

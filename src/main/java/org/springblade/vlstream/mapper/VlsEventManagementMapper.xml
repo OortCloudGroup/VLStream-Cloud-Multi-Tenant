@@ -4,6 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="vlsEventManagementResultMap" type="org.springblade.vlstream.pojo.entity.EventManagement">
+        <result column="create_time" property="createTime"/>
         <result column="event_desc" property="eventDesc"/>
         <result column="event_type" property="eventType"/>
         <result column="report_location" property="reportLocation"/>
@@ -22,7 +23,7 @@
     </resultMap>
 
     <select id="selectVlsEventManagementPage" resultMap="vlsEventManagementResultMap">
-        select * from vls_event_management where is_deleted = 0 order by create_time desc
+        select * from vls_event_management ${ew.customSqlSegment} order by create_time desc
     </select>
 
     <select id="exportVlsEventManagement" resultType="org.springblade.vlstream.excel.VlsEventManagementExcel">

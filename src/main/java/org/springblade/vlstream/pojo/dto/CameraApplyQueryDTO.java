@@ -4,17 +4,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * Camera application paging query parameters
+ * 摄像头申请分页查询参数
  */
 @Data
 public class CameraApplyQueryDTO {
 
-	@Schema(description = "Device primary keyID")
+	@Schema(description = "设备主键ID")
 	private Long deviceInfoId;
 
-	@Schema(description = "Application status")
+	@Schema(description = "申请状态")
 	private String applyStatus;
 
-	@Schema(description = "applicant")
+	@Schema(description = "申请人")
 	private String applyUserName;
 }

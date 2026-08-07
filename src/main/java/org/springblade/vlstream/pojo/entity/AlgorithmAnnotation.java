@@ -10,14 +10,14 @@ import org.springblade.vlstream.enums.AlgorithmAnnotationStatusEnum;
 import java.io.Serial;
 
 /**
- * Algorithm annotation data table Entity class
+ * 算法标注数据表 实体类
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_algorithm_annotation")
-@Schema(description = "VlsAlgorithmAnnotationEntityobject")
+@Schema(description = "VlsAlgorithmAnnotationEntity对象")
 @EqualsAndHashCode(callSuper = true)
 public class AlgorithmAnnotation extends TenantEntity {
 
@@ -25,49 +25,49 @@ public class AlgorithmAnnotation extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Label name
+	 * 标注名称
 	 */
-	@Schema(description = "Label name")
+	@Schema(description = "标注名称")
 	private String annotationName;
 	/**
-	 * Dimension type: object_detection-Object detection,image_classification-Image classification,instance_segmentation-Instance splitting,semantic_segmentation-Semantic segmentation
+	 * 标注类型：object_detection-物体检测,image_classification-图像分类,instance_segmentation-实例分割,semantic_segmentation-语义分割
 	 */
-	@Schema(description = "Dimension type: object_detection-Object detection,image_classification-Image classification,instance_segmentation-Instance splitting,semantic_segmentation-Semantic segmentation")
+	@Schema(description = "标注类型：object_detection-物体检测,image_classification-图像分类,instance_segmentation-实例分割,semantic_segmentation-语义分割")
 	private String annotationType;
 	/**
-	 * Dataset path
+	 * 数据集路径
 	 */
-	@Schema(description = "Dataset path")
+	@Schema(description = "数据集路径")
 	private String datasetPath;
 	/**
-	 * total quantity
+	 * 总数量
 	 */
-	@Schema(description = "total quantity")
+	@Schema(description = "总数量")
 	private Integer totalCount;
 	/**
-	 * Quantity marked
+	 * 已标注数量
 	 */
-	@Schema(description = "Quantity marked")
+	@Schema(description = "已标注数量")
 	private Integer annotatedCount;
 	/**
-	 * Annotation status
+	 * 标注状态
 	 */
-	@Schema(description = "Annotation status")
+	@Schema(description = "标注状态")
 	private AlgorithmAnnotationStatusEnum annotationStatus;
 	/**
-	 * Mark progress percentage
+	 * 标注进度百分比
 	 */
-	@Schema(description = "Mark progress percentage")
+	@Schema(description = "标注进度百分比")
 	private Integer progress;
 	/**
-	 * Labeling rules
+	 * 标注规则
 	 */
-	@Schema(description = "Labeling rules")
+	@Schema(description = "标注规则")
 	private String annotationRules;
 	/**
-	 * Remark
+	 * 备注
 	 */
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 
 }

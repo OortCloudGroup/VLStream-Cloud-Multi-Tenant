@@ -1,15 +1,15 @@
-#Server configuration
+#服务器配置
 server:
-  port: 8080
+  port: 18080
   undertow:
     threads:
-      # set upIONumber of threads, It mainly performs non-blocking tasks,They will be responsible for multiple connections, Default settings for eachCPUcore one thread
+      # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
       io: 16
-      # Blocking task thread pool, When executing something likeservletRequest blocking operation, undertowWill get threads from this thread pool,Its value setting depends on the load of the system
+      # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
       worker: 400
-    # The following configurations will affectbuffer,ThesebufferWill be used for server connectionsIOoperate,somewhat similarnettyPooled memory management
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
     buffer-size: 1024
-    # Whether direct memory is allocated
+    # 是否分配的直接内存
     direct-buffers: true
 
 spring:
@@ -22,9 +22,9 @@ spring:
     #driver-class-name: com.yashandb.jdbc.Driver
     #driver-class-name: com.kingbase8.Driver
     druid:
-      # MySql、PostgreSQL、SqlServer、DaMengcheck
+      # MySql、PostgreSQL、SqlServer、DaMeng校验
       validation-query: select 1
-      # Oracle、YashanDBcheck
+      # Oracle、YashanDB校验
       #oracle: true
       #validation-query: select 1 from dual
       validation-query-timeout: 2000
@@ -47,49 +47,49 @@ spring:
         exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
         session-stat-enable: true
         session-stat-max-count: 10
-#Configure log address
+#配置日志地址
 logging:
   config: classpath:log/logback-${blade.env}.xml
 # mybatis
 mybatis-plus:
   mapper-locations: classpath:org/springblade/**/mapper/*Mapper.xml
-  #Entity scan, multiplepackageSeparate with commas or semicolons
+  #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: org.springblade.**.entity
   #typeEnumsPackage: org.springblade.dashboard.entity.enums
   global-config:
-    # closureMP3.0Comes with itbanner
+    # 关闭MP3.0自带的banner
     banner: false
     db-config:
-      #Primary key type  0:"databaseIDself-increasing", 1:"No operation", 2:"user inputID",3:"digitalsnowflake", 4:"Globally uniqueID UUID", 5:"string typesnowflake";
+      #主键类型  0:"数据库ID自增", 1:"不操作", 2:"用户输入ID",3:"数字型snowflake", 4:"全局唯一ID UUID", 5:"字符串型snowflake";
       id-type: assign_id
-      #Field strategy
+      #字段策略
       insert-strategy: not_null
       update-strategy: not_null
       where-strategy: not_null
-      #CamelCase Underscore Conversion
+      #驼峰下划线转换
       table-underline: true
-      # Tombstone configuration
-      # tombstone global value(1means deleted, This is alsoMybatis PlusThe default configuration of)
+      # 逻辑删除配置
+      # 逻辑删除全局值（1表示已删除，这也是Mybatis Plus的默认配置）
       logic-delete-value: 1
-      # Logical not deleting global values(0means not deleted, This is alsoMybatis PlusThe default configuration of)
+      # 逻辑未删除全局值（0表示未删除，这也是Mybatis Plus的默认配置）
       logic-not-delete-value: 0
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
     jdbc-type-for-null: 'null'
 
-#springdoc-openapiConfiguration
+#springdoc-openapi配置
 springdoc:
   default-flat-param-object: false
 
-#knife4jConfiguration
+#knife4j配置
 knife4j:
-  #Basic certification
+  #基础认证
   basic:
     enable: false
     username: blade
     password: blade
-  #Enhance configuration
+  #增强配置
   setting:
     enable-swagger-models: true
     enable-document-manage: true
@@ -103,10 +103,10 @@ knife4j:
     language: zh_cn
     footer-custom-content: Copyright © 2025 Oort All Rights Reserved
 
-#swaggerpublic information
+#swagger公共信息
 swagger:
-  title: VLStream Cloud Video stream management system interface document system
-  description: VLStream Cloud Video stream management system interface document system(Service nameapaas-vls-server)
+  title: VLStream Cloud 视频流管理系统接口文档系统
+  description: VLStream Cloud 视频流管理系统接口文档系统(服务名apaas-vls-server)
   version: 4.7.0.RELEASE
   license: Powered By OORT
   license-url:
@@ -115,7 +115,7 @@ swagger:
     email:
     url:
 
-#Third-party login configuration
+#第三方登陆配置
 social:
   oauth:
     GITHUB:
@@ -139,7 +139,7 @@ social:
       client-secret: 233************************************
       redirect-uri: ${social.domain}/oauth/redirect/dingtalk
 
-#Report configuration
+#报表配置
 report:
   enabled: false
   auth: false
@@ -147,81 +147,81 @@ report:
     provider:
       prefix: blade-
 
-#bladeConfiguration
+#blade配置
 blade:
-  #oauth2Configuration
+  #oauth2配置
   oauth2:
-    #enable oauth2
+    #启用 oauth2
     enabled: true
-    #use @org.springblade.test.Sm2KeyGenerator get,Used for state secretssm2Verification,Need to be consistent with the front end
+    #使用 @org.springblade.test.Sm2KeyGenerator 获取,用于国密sm2验签,需和前端保持一致
     public-key: ${BLADE_OAUTH2_PUBLIC_KEY:04bf94e3539e093211b73b2dc3f5900ed8933ddb58c6e14272a7d0a4e19564065300a2276bd621e742ecb176b7f352cd133484d66a759b50c9e3a6fedb447917cc}
-    #use @org.springblade.test.Sm2KeyGenerator get,Used for state secretssm2Decrypt,No front-end configuration required
+    #使用 @org.springblade.test.Sm2KeyGenerator 获取,用于国密sm2解密,前端无需配置
     private-key: ${BLADE_OAUTH2_PRIVATE_KEY:17d796ad64f197f9031ae27e44839ba5496519e787639d7df28747f3e01ebe22}
-  #tokenConfiguration
+  #token配置
   token:
-    #Is there a status
+    #是否有状态
     state: false
-    #Whether to log in as a single user
+    #是否单用户登录
     single: false
-    #Single user login scope
+    #单用户登录范围
     single-level: all
-    #tokensign use @org.springblade.test.SignKeyGenerator get
+    #token签名 使用 @org.springblade.test.SignKeyGenerator 获取
     sign-key: ${BLADE_TOKEN_SIGN_KEY:xvMyVPb2hPR0zFoXjVKzlfkDD2JUyEX0}
-    #tokenencryption use @org.springblade.test.CryptoKeyGenerator get
+    #token加密 使用 @org.springblade.test.CryptoKeyGenerator 获取
     crypto-key: ${BLADE_TOKEN_CRYPTO_KEY:wnUjLO3eoQLFpk6soVfh2O1EBbaDvFSX}
-  #Super key configuration
+  #超级密钥配置
   key:
-    #Enable super key
+    #启用超级密钥
     enabled: false
-    #Key encryption use @org.springblade.test.CryptoKeyGenerator get
+    #密钥加密 使用 @org.springblade.test.CryptoKeyGenerator 获取
     crypto-key: ${BLADE_KEY_CRYPTO_KEY}
-  #Interface configuration
+  #接口配置
   api:
-    #Message encryption configuration
+    #报文加密配置
     crypto:
-      #Enable packet encryption configuration
+      #启用报文加密配置
       enabled: false
-      #use @org.springblade.test.CryptoKeyGenerator get,Need to be consistent with the front end
+      #使用 @org.springblade.test.CryptoKeyGenerator 获取,需和前端保持一致
       aes-key: ${BLADE_API_CRYPTO_AES_KEY}
-      #use @org.springblade.test.CryptoKeyGenerator get,Need to be consistent with the front end
+      #使用 @org.springblade.test.CryptoKeyGenerator 获取,需和前端保持一致
       des-key: ${BLADE_API_CRYPTO_DES_KEY}
-  #jacksonConfiguration
+  #jackson配置
   jackson:
-    #nullAutomatically convert to null value
+    #null自动转空值
     null-to-empty: false
-    #Automatically convert large numbers to strings
+    #大数字自动转字符串
     big-num-to-string: false
-    #supporttexttext request,Turn on at the same time as message encryption
+    #支持text文本请求,与报文加密同时开启
     support-text-plain: false
-  #redisSerialization method
+  #redis序列化方式
   redis:
     serializer-type: json
-  #Log configuration
+  #日志配置
   log:
     request:
-      #Enable console request logging
+      #开启控制台请求日志
       enabled: true
-      #Console request log ignored
+      #控制台请求日志忽略
       skip-url:
-      #Enable error log storage
+      #开启错误日志入库
       error-log: true
-  #xssConfiguration
+  #xss配置
   xss:
     enabled: true
     skip-url:
       - /blade-chat/wechat
       - /blade-chat/qq
-  #Security framework configuration
+  #安全框架配置
   secure:
-    #strict mode
-    #Missing token field cancels authorization
+    #严格模式
+    #缺失令牌字段则取消授权
     strict-token: false
-    #Missing request headers cancel authorization
+    #缺失请求头则取消授权
     strict-header: false
-    #Interface release
+    #接口放行
     skip-url:
       - /swagger/api-docs.json
-    #Authorization authentication configuration
+    #授权认证配置
     auth:
       - method: ALL
         pattern: /blade-chat/wechat/**
@@ -241,18 +241,18 @@ blade:
       - method: POST
         pattern: /blade-desk/dashboard/submit
         expression: "hasAnyRole('administrator', 'admin', 'user')"
-    #Basic authentication configuration
+    #基础认证配置
     basic:
       - method: ALL
         pattern: /blade-desk/dashboard/info
         username: "blade"
         password: "blade"
-    #Dynamic signature authentication configuration
+    #动态签名认证配置
     sign:
       - method: ALL
         pattern: /blade-desk/dashboard/sign
         crypto: "sha1"
-    #Multi-terminal authentication configuration
+    #多终端认证配置
     client:
       - client-id: sword
         path-patterns:
@@ -260,22 +260,22 @@ blade:
       - client-id: saber
         path-patterns:
           - /blade-saber/**
-  #Multi-tenant configuration
+  #多租户配置
   tenant:
-    #Multi-tenant enhancements
+    #多租户增强
     enhance: true
-    #Multi-tenant licensing protection
+    #多租户授权保护
     license: false
-    #Dynamic database isolation function
+    #动态数据库隔离功能
     dynamic-datasource: false
-    #Dynamic database isolation global scan
+    #动态数据库隔离全局扫描
     dynamic-global: false
-    #Multi-tenant field name
+    #多租户字段名
     column: tenant_id
-    #Exclude multi-tenant logic
+    #排除多租户逻辑
     exclude-tables:
       - blade_user
-  #Sub-database and sub-table configuration
+  #分库分表配置
   sharding:
     enabled: false
 

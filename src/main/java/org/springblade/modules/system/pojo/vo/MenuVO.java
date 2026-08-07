@@ -14,37 +14,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * View entity class
+ * 视图实体类
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "MenuVOobject")
+@Schema(description = "MenuVO对象")
 public class MenuVO extends Menu implements INode<MenuVO> {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary keyID
+	 * 主键ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 
 	/**
-	 * parent nodeID
+	 * 父节点ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long parentId;
 
 	/**
-	 * descendant node
+	 * 子孙节点
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<MenuVO> children;
 
 	/**
-	 * Whether there are descendant nodes
+	 * 是否有子孙节点
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Boolean hasChildren;
@@ -58,22 +58,22 @@ public class MenuVO extends Menu implements INode<MenuVO> {
 	}
 
 	/**
-	 * Previous menu
+	 * 上级菜单
 	 */
 	private String parentName;
 
 	/**
-	 * Menu type
+	 * 菜单类型
 	 */
 	private String categoryName;
 
 	/**
-	 * Button function
+	 * 按钮功能
 	 */
 	private String actionName;
 
 	/**
-	 * Whether a new window opens
+	 * 是否新窗口打开
 	 */
 	private String isOpenName;
 }

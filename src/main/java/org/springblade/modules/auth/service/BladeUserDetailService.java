@@ -24,45 +24,45 @@ public class BladeUserDetailService implements OAuth2UserService {
 
 	@Override
 	public OAuth2User loadByUserId(String userId, OAuth2Request request) {
-		// Get user parameters
+		// 获取用户参数
 		String userType = Optional.ofNullable(request.getUserType())
 			.filter(s -> !StringUtil.isBlank(s))
 			.orElse(UserType.WEB.getName());
 
-		// Get user information
+		// 获取用户信息
 		UserInfo userInfo = userService.userInfo(Func.toLong(userId), UserType.of(userType));
 
-		// buildoauth2User information
+		// 构建oauth2用户信息
 		return TokenUtil.convertUser(userInfo, request);
 	}
 
 	@Override
 	public OAuth2User loadByUsername(String username, OAuth2Request request) {
-		// Get user parameters
+		// 获取用户参数
 		String userType = Optional.ofNullable(request.getUserType())
 			.filter(s -> !StringUtil.isBlank(s))
 			.orElse(UserType.WEB.getName());
 		String tenantId = request.getTenantId();
 
-		// Get user information
+		// 获取用户信息
 		UserInfo userInfo = userService.userInfo(tenantId, username, UserType.of(userType));
 
-		// buildoauth2User information
+		// 构建oauth2用户信息
 		return TokenUtil.convertUser(userInfo, request);
 	}
 
 	@Override
 	public OAuth2User loadByPhone(String phone, OAuth2Request request) {
-		// Get user parameters
+		// 获取用户参数
 		String userType = Optional.ofNullable(request.getUserType())
 			.filter(s -> !StringUtil.isBlank(s))
 			.orElse(UserType.WEB.getName());
 		String tenantId = request.getTenantId();
 
-		// Get user information
+		// 获取用户信息
 		UserInfo userInfo = userService.userInfoByPhone(tenantId, phone, UserType.of(userType));
 
-		// buildoauth2User information
+		// 构建oauth2用户信息
 		return TokenUtil.convertUser(userInfo, request);
 	}
 

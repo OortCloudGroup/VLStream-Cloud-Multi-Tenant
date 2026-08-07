@@ -34,7 +34,7 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * code modelDTO
+ * 代码模型DTO
  *
  * @author Chill
  */
@@ -46,7 +46,7 @@ public class ModelDTO extends Model {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Code modeling prototype
+	 * 代码建模原型
 	 */
 	private List<ModelPrototype> prototypes;
 

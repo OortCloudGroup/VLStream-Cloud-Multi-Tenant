@@ -9,37 +9,37 @@ import org.springblade.modules.system.pojo.entity.User;
 import org.springblade.modules.system.pojo.entity.UserInfo;
 
 /**
- * Certification tools
+ * 认证工具类
  *
  * @author Chill
  */
 public class TokenUtil {
 
 	/**
-	 * system user converted toOAuth2Standard user
+	 * 系统用户转换为OAuth2标准用户
 	 *
-	 * @param userInfo User information
-	 * @param request  request information
+	 * @param userInfo 用户信息
+	 * @param request  请求信息
 	 * @return OAuth2User
 	 */
 	public static OAuth2User convertUser(UserInfo userInfo, OAuth2Request request) {
-		// Return if emptynull
+		// 为空则返回null
 		if (userInfo == null) {
 			return null;
 		}
 		User user = userInfo.getUser();
 		String userDept = request.getUserDept();
 		String userRole = request.getUserRole();
-		// Separately designated departments
+		// 单独指定部门
 		if (Func.isNotEmpty(userDept) && user.getDeptId().contains(userDept)) {
 			user.setDeptId(userDept);
 		}
-		// Specify roles individually
+		// 单独指定角色
 		if (Func.isNotEmpty(userRole) && user.getRoleId().contains(userRole)) {
 			user.setRoleId(userRole);
 			userInfo.setRoles(SysCache.getRoleAliases(userRole));
 		}
-		// buildoauth2Required user information
+		// 构建oauth2所需用户信息
 		OAuth2UserDetail userDetail = new OAuth2UserDetail();
 		userDetail.setUserId(String.valueOf(user.getId()));
 		userDetail.setOauthId(userInfo.getOauthId());

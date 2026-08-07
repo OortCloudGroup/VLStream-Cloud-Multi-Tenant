@@ -13,7 +13,7 @@ import java.io.Serial;
 
 
 /**
- * Equipment information table ExcelEntity class
+ * 设备信息表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -28,160 +28,160 @@ public class VlsDeviceInfoExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Device name
+	 * 设备名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device name")
+	@ExcelProperty("设备名称")
 	private String deviceName;
 	/**
-	 * Device number, unique identifier
+	 * 设备编号，唯一标识
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device number, unique identifier")
+	@ExcelProperty("设备编号，唯一标识")
 	private String deviceId;
 	/**
-	 * Video stream address (RTSP/HTTPwait)
+	 * 视频流地址 (RTSP/HTTP等)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Video stream address (RTSP/HTTPwait)")
+	@ExcelProperty("视频流地址 (RTSP/HTTP等)")
 	private String streamUrl;
 	/**
-	 * Device image path
+	 * 设备图像路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device image path")
+	@ExcelProperty("设备图像路径")
 	private String imagePath;
 	/**
-	 * Device location/Installation location
+	 * 设备位置/安装地点
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device location/Installation location")
+	@ExcelProperty("设备位置/安装地点")
 	private String position;
 	/**
-	 * Device type (Dome machine monitoring、PTZ、Bolt, etc.)
+	 * 设备类型 (球机监控、云台、枪机等)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device type (Dome machine monitoring、PTZ、Bolt, etc.)")
+	@ExcelProperty("设备类型 (球机监控、云台、枪机等)")
 	private String deviceType;
 	/**
-	 * Equipment brand (Hikvision、Dahua、Uniview etc.)
+	 * 设备品牌 (海康威视、大华、宇视等)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Equipment brand (Hikvision、Dahua、Uniview etc.)")
+	@ExcelProperty("设备品牌 (海康威视、大华、宇视等)")
 	private String brand;
 	/**
-	 * Device model
+	 * 设备型号
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device model")
+	@ExcelProperty("设备型号")
 	private String model;
 	/**
-	 * IPaddress (supportIPv4andIPv6)
+	 * IP地址 (支持IPv4和IPv6)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("IPaddress (supportIPv4andIPv6)")
+	@ExcelProperty("IP地址 (支持IPv4和IPv6)")
 	private String ipAddress;
 	/**
-	 * port number
+	 * 端口号
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("port number")
+	@ExcelProperty("端口号")
 	private Integer port;
 	/**
-	 * Login username
+	 * 登录用户名
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Login username")
+	@ExcelProperty("登录用户名")
 	private String username;
 	/**
-	 * Login password
+	 * 登录密码
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Login password")
+	@ExcelProperty("登录密码")
 	private String password;
 	/**
-	 * Device description information
+	 * 设备描述信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device description information")
+	@ExcelProperty("设备描述信息")
 	private String description;
 	/**
-	 * Remarks
+	 * 备注信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Remarks")
+	@ExcelProperty("备注信息")
 	private String remark;
 	/**
-	 * Location description
+	 * 位置描述
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Location description")
+	@ExcelProperty("位置描述")
 	private String location;
 	/**
-	 * longitude
+	 * 经度
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("longitude")
+	@ExcelProperty("经度")
 	private BigDecimal longitude;
 	/**
-	 * latitude
+	 * 纬度
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("latitude")
+	@ExcelProperty("纬度")
 	private BigDecimal latitude;
 	/**
-	 * Manufacturer
+	 * 厂商
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Manufacturer")
+	@ExcelProperty("厂商")
 	private String manufacturer;
 	/**
-	 * Video stream path
+	 * 视频流路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Video stream path")
+	@ExcelProperty("视频流路径")
 	private String streamPath;
 	/**
-	 * height position(high altitude/ground/underground/other)
+	 * 高度位置(高空/地面/地下/其他)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("height position(high altitude/ground/underground/other)")
+	@ExcelProperty("高度位置(高空/地面/地下/其他)")
 	private String heightPosition;
 	/**
-	 * Detailed address
+	 * 详细地址
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Detailed address")
+	@ExcelProperty("详细地址")
 	private String address;
 	/**
-	 * Zoning options(JSONFormat)
+	 * 区划选择(JSON格式)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Zoning options(JSONFormat)")
+	@ExcelProperty("区划选择(JSON格式)")
 	private String region;
 	/**
-	 * Creator
+	 * 创建人
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Creator")
+	@ExcelProperty("创建人")
 	private String creator;
 	/**
-	 * RTSPaddress
+	 * RTSP地址
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("RTSPaddress")
+	@ExcelProperty("RTSP地址")
 	private String rtspUrl;
 	/**
-	 * device tag
+	 * 设备标签
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("device tag")
+	@ExcelProperty("设备标签")
 	private String tag;
 	/**
-	 * algorithmid
+	 * 算法id
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("algorithmid")
+	@ExcelProperty("算法id")
 	private String algorithmId;
 
 }

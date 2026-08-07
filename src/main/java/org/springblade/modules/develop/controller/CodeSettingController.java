@@ -52,7 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Code generator configuration table controller
+ * 代码生成器配置表 控制器
  *
  * @author Oort
  */
@@ -60,61 +60,61 @@ import java.util.Map;
 @AllArgsConstructor
 @IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_DEVELOP_NAME + "/code-setting")
-@Tag(name = "Code generator configuration table", description = "Code generator configuration table interface")
+@Tag(name = "代码生成器配置表", description = "代码生成器配置表接口")
 public class CodeSettingController extends BladeController {
 
 	private final ICodeSettingService codeSettingService;
 	private final IModelPrototypeService modelPrototypeService;
 
 	/**
-	 * Code generator configuration table Details
+	 * 代码生成器配置表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingcodeSetting")
+	@Operation(summary = "详情", description = "传入codeSetting")
 	public R<CodeSetting> detail(CodeSetting codeSetting) {
 		CodeSetting detail = codeSettingService.getOne(Condition.getQueryWrapper(codeSetting));
 		return R.data(detail);
 	}
 
 	/**
-	 * Code generator configuration table Pagination
+	 * 代码生成器配置表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingcodeSetting")
+	@Operation(summary = "分页", description = "传入codeSetting")
 	public R<IPage<CodeSetting>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> codeSetting, Query query) {
 		IPage<CodeSetting> pages = codeSettingService.page(Condition.getPage(query), Condition.getQueryWrapper(codeSetting, CodeSetting.class).orderByDesc("id"));
 		return R.data(pages);
 	}
 
 	/**
-	 * Code generator configuration table New
+	 * 代码生成器配置表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "New", description = "incomingcodeSetting")
+	@Operation(summary = "新增", description = "传入codeSetting")
 	public R save(@Valid @RequestBody CodeSetting codeSetting) {
 		return R.status(codeSettingService.save(codeSetting));
 	}
 
 	/**
-	 * Code generator configuration table Revise
+	 * 代码生成器配置表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "Revise", description = "incomingcodeSetting")
+	@Operation(summary = "修改", description = "传入codeSetting")
 	public R update(@Valid @RequestBody CodeSetting codeSetting) {
 		return R.status(codeSettingService.updateById(codeSetting));
 	}
 
 	/**
-	 * Code generator configuration table Add or modify
+	 * 代码生成器配置表 新增或修改
 	 */
 	@XssIgnore
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Add or modify", description = "incomingcodeSetting")
+	@Operation(summary = "新增或修改", description = "传入codeSetting")
 	public R submit(@Valid @RequestBody CodeSetting codeSetting) {
 		boolean temp = codeSettingService.saveOrUpdate(codeSetting);
 		if (temp) {
@@ -125,60 +125,60 @@ public class CodeSettingController extends BladeController {
 	}
 
 	/**
-	 * Code generator configuration table delete
+	 * 代码生成器配置表 删除
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "delete", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(codeSettingService.removeByIds(Func.toLongList(ids)));
 	}
 
 
 	/**
-	 * Code generator configuration table enable
+	 * 代码生成器配置表 启用
 	 */
 	@PostMapping("/enable")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "Configuration enabled", description = "incomingid")
-	public R enable(@Parameter(description = "primary key", required = true) @RequestParam Long id) {
+	@Operation(summary = "配置启用", description = "传入id")
+	public R enable(@Parameter(description = "主键", required = true) @RequestParam Long id) {
 		return R.status(codeSettingService.enable(id));
 	}
 
 	/**
-	 * Code generator configuration table Enable details
+	 * 代码生成器配置表 启用详情
 	 */
 	@GetMapping("/enable-detail")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Details", description = "incomingcodeSetting")
+	@Operation(summary = "详情", description = "传入codeSetting")
 	public R<CodeSetting> enableDetail() {
 		CodeSetting detail = codeSettingService.getOne(Wrappers.<CodeSetting>lambdaQuery().eq(CodeSetting::getStatus, BladeConstant.DB_STATUS_2).eq(CodeSetting::getIsDeleted, BladeConstant.DB_NOT_DELETED));
 		return R.data(detail);
 	}
 
 	/**
-	 * Form designer selection
+	 * 表单设计器选择
 	 */
 	@GetMapping("/table-form")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "Form designer selection", description = "tableName")
+	@Operation(summary = "表单设计器选择", description = "tableName")
 	public R<List<CodeSetting>> formSelect(String tableName) {
 		return R.data(codeSettingService.list(Wrappers.<CodeSetting>lambdaQuery().eq(CodeSetting::getCode, tableName).eq(CodeSetting::getCategory, 2)));
 	}
 
 
 	/**
-	 * Get field information
+	 * 获取字段信息
 	 */
 	@GetMapping("/table-prototype")
 	@ApiOperationSupport(order = 10)
-	@Operation(summary = "Physical table field information", description = "incomingtableNameanddatasourceId")
+	@Operation(summary = "物理表字段信息", description = "传入tableName与datasourceId")
 	public R tablePrototype(String tableName, Long datasourceId) {
 		TableInfo tableInfo = modelPrototypeService.getTableInfo(tableName, datasourceId);
 		if (tableInfo != null) {
 			return R.data(tableInfo.getFields());
 		} else {
-			return R.fail("No relevant table information was obtained");
+			return R.fail("未获得相关表信息");
 		}
 	}
 }

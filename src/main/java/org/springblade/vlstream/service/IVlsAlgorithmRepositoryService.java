@@ -10,37 +10,45 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * Algorithm warehouse table Service category
+ * 算法仓库表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAlgorithmRepositoryService extends BaseService<AlgorithmRepository> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAlgorithmRepository query parameters
+	 * @param page 分页参数
+	 * @param vlsAlgorithmRepository 查询参数
 	 * @return IPage<VlsAlgorithmRepositoryVO>
 	 */
 	IPage<AlgorithmRepositoryVO> selectVlsAlgorithmRepositoryPage(IPage<AlgorithmRepositoryVO> page, AlgorithmRepositoryVO vlsAlgorithmRepository);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAlgorithmRepositoryExcel>
 	 */
 	List<VlsAlgorithmRepositoryExcel> exportVlsAlgorithmRepository(Wrapper<AlgorithmRepository> queryWrapper);
 
 	/**
-	 * Paging query algorithm warehouse list
+	 * 查询当前服务端租户下的算法仓库。
 	 *
-	 * @param page Paging parameters
-	 * @param name Warehouse name(fuzzy query)
-	 * @param repositoryType Warehouse type
-	 * @param status state
-	 * @return Paginated results
+	 * @param repositoryId 仓库ID
+	 * @return 当前租户可访问的仓库，不存在或无权限时返回 null
+	 */
+	AlgorithmRepository getCurrentTenantRepository(Long repositoryId);
+
+	/**
+	 * 分页查询算法仓库列表
+	 *
+	 * @param page 分页参数
+	 * @param name 仓库名称（模糊查询）
+	 * @param repositoryType 仓库类型
+	 * @param status 状态
+	 * @return 分页结果
 	 */
 	IPage<AlgorithmRepository> selectRepositoryPage(Page<AlgorithmRepository> page,
 													String name,
@@ -48,81 +56,81 @@ public interface IVlsAlgorithmRepositoryService extends BaseService<AlgorithmRep
 													String status);
 
 	/**
-	 * Query所有enablealgorithmstorehouse
+	 * 查询所有启用的算法仓库
 	 *
-	 * @return List of enabled algorithm repositories
+	 * @return 启用的算法仓库列表
 	 */
 	List<AlgorithmRepository> getEnabledRepositories();
 
 	/**
-	 * Query algorithm warehouse based on type
+	 * 根据类型查询算法仓库
 	 *
-	 * @param repositoryType Warehouse type
-	 * @return Algorithm warehouse list
+	 * @param repositoryType 仓库类型
+	 * @return 算法仓库列表
 	 */
 	List<AlgorithmRepository> getByRepositoryType(String repositoryType);
 
 	/**
-	 * Create algorithm warehouse
+	 * 创建算法仓库
 	 *
-	 * @param repository Algorithm warehouse information
-	 * @return Is it successful?
+	 * @param repository 算法仓库信息
+	 * @return 是否成功
 	 */
 	boolean createRepository(AlgorithmRepository repository);
 
 	/**
-	 * Update algorithm repository
+	 * 更新算法仓库
 	 *
-	 * @param repository Algorithm warehouse information
-	 * @return Is it successful?
+	 * @param repository 算法仓库信息
+	 * @return 是否成功
 	 */
 	boolean updateRepository(AlgorithmRepository repository);
 
 	/**
-	 * Delete algorithm repository
+	 * 删除算法仓库
 	 *
-	 * @param id storehouseID
-	 * @return Is it successful?
+	 * @param id 仓库ID
+	 * @return 是否成功
 	 */
 	boolean deleteRepository(Long id);
 
 	/**
-	 * Batch deletion of algorithm warehouse
+	 * 批量删除算法仓库
 	 *
-	 * @param ids storehouseIDlist
-	 * @return Is it successful?
+	 * @param ids 仓库ID列表
+	 * @return 是否成功
 	 */
 	boolean batchDeleteRepositories(List<Long> ids);
 
 	/**
-	 * Update warehouse status
+	 * 更新仓库状态
 	 *
-	 * @param id storehouseID
-	 * @param status new status
-	 * @return Is it successful?
+	 * @param id 仓库ID
+	 * @param status 新状态
+	 * @return 是否成功
 	 */
 	boolean updateRepositoryStatus(Long id, String status);
 
 	/**
-	 * Update warehouse status in batches
+	 * 批量更新仓库状态
 	 *
-	 * @param ids storehouseIDlist
-	 * @param status new status
-	 * @return Is it successful?
+	 * @param ids 仓库ID列表
+	 * @param status 新状态
+	 * @return 是否成功
 	 */
 	boolean batchUpdateRepositoryStatus(List<Long> ids, String status);
 
 	/**
-	 * Statistical algorithm warehouse quantity
+	 * 统计算法仓库数量
 	 *
-	 * @return Total number of warehouses
+	 * @return 仓库总数
 	 */
 	Long countRepositories();
 
 	/**
-	 * Update the number of algorithms in the warehouse
+	 * 更新仓库的算法数量
 	 *
-	 * @param repositoryId storehouseID
+	 * @param repositoryId 仓库ID
 	 */
 	void updateAlgorithmCount(Long repositoryId);
 

@@ -14,7 +14,7 @@ import java.io.Serial;
 
 
 /**
- * Algorithm layout table ExcelEntity class
+ * 算法编排表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -29,82 +29,82 @@ public class VlsAlgorithmOrchestrationExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * arrangement name
+	 * 编排名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("arrangement name")
+	@ExcelProperty("编排名称")
 	private String orchestrationName;
 	/**
-	 * 编排describe
+	 * 编排描述
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("编排describe")
+	@ExcelProperty("编排描述")
 	private String orchestrationDesc;
 	/**
-	 * Trigger type: realtime-real time,scheduled-timing,manual-Manual
+	 * 触发类型：realtime-实时,scheduled-定时,manual-手动
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Trigger type: realtime-real time,scheduled-timing,manual-Manual")
+	@ExcelProperty("触发类型：realtime-实时,scheduled-定时,manual-手动")
 	private String triggerType;
 	/**
-	 * execution mode: serial-serial,parallel-parallel
+	 * 执行模式：serial-串行,parallel-并行
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("execution mode: serial-serial,parallel-parallel")
+	@ExcelProperty("执行模式：serial-串行,parallel-并行")
 	private String executeMode;
 	/**
-	 * Algorithm step configuration
+	 * 算法步骤配置
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Algorithm step configuration")
+	@ExcelProperty("算法步骤配置")
 	private String algorithmSteps;
 	/**
-	 * Enter configuration
+	 * 输入配置
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Enter configuration")
+	@ExcelProperty("输入配置")
 	private String inputConfig;
 	/**
-	 * 输出Configuration
+	 * 输出配置
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("输出Configuration")
+	@ExcelProperty("输出配置")
 	private String outputConfig;
 	/**
-	 * Number of associated devices
+	 * 关联设备数量
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Number of associated devices")
+	@ExcelProperty("关联设备数量")
 	private Integer deviceCount;
 	/**
-	 * Number of runs
+	 * 运行次数
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Number of runs")
+	@ExcelProperty("运行次数")
 	private Integer runCount;
 	/**
-	 * state: active-active,inactive-inactive,draft-draft
+	 * 状态：active-活跃,inactive-非活跃,draft-草稿
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("state: active-active,inactive-inactive,draft-draft")
+	@ExcelProperty("状态：active-活跃,inactive-非活跃,draft-草稿")
 	private String orchestrationStatus;
 	/**
-	 * Last running time
+	 * 最后运行时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Last running time")
+	@ExcelProperty("最后运行时间")
 	private LocalDateTime lastRunTime;
 	/**
-	 * average running time(Second)
+	 * 平均运行时间(秒)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("average running time(Second)")
+	@ExcelProperty("平均运行时间(秒)")
 	private Integer avgRunTime;
 	/**
-	 * success rate
+	 * 成功率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("success rate")
+	@ExcelProperty("成功率")
 	private BigDecimal successRate;
 
 }

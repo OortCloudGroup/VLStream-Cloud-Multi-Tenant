@@ -31,16 +31,16 @@ import org.springblade.modules.develop.pojo.entity.Model;
 import java.util.List;
 
 /**
- * Data model table Service category
+ * 数据模型表 服务类
  *
  * @author Chill
  */
 public interface IModelService extends BaseService<Model> {
 
 	/**
-	 * Delete model
+	 * 删除模型
 	 *
-	 * @param ids primary key set
+	 * @param ids 主键集合
 	 * @return boolean
 	 */
 	boolean delete(List<Long> ids);

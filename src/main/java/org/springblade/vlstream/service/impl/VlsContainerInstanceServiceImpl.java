@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Container instance table Service implementation class
+ * 容器实例表 服务实现类
  *
  * @author Oort
  * @since 2025-12-23
@@ -49,18 +49,18 @@ public class VlsContainerInstanceServiceImpl extends BaseServiceImpl<VlsContaine
 
 	@Override
 	public IPage<ContainerInstance> pageContainerInstances(Page<ContainerInstance> page, ContainerInstanceQueryDTO queryDTO) {
-		log.info("Paging query container instance, Current page: {}, page size: {}", page.getCurrent(), page.getSize());
+		log.info("分页查询容器实例，当前页: {}，每页大小: {}", page.getCurrent(), page.getSize());
 
 		return baseMapper.selectPageWithDetails(page, queryDTO);
 	}
 
 	@Override
 	public ContainerInstance getContainerInstanceById(Long id) {
-		log.info("according toIDQuery container instance details, ID: {}", id);
+		log.info("根据ID查询容器实例详情，ID: {}", id);
 
 		ContainerInstance instance = baseMapper.selectByIdWithDetails(id);
 		if (instance == null) {
-			throw new RuntimeException("Container instance does not exist, ID: " + id);
+			throw new RuntimeException("容器实例不存在，ID: " + id);
 		}
 
 		return instance;
@@ -69,46 +69,46 @@ public class VlsContainerInstanceServiceImpl extends BaseServiceImpl<VlsContaine
 	@Override
 	@Transactional
 	public ContainerInstance createContainerInstance(ContainerInstanceCreateDTO createDTO) {
-		log.info("Create container instance, Instance name: {}", createDTO.getInstanceName());
+		log.info("创建容器实例，实例名称: {}", createDTO.getInstanceName());
 
-		// Check for duplicate instance names
+		// 检查实例名称是否重复
 		if (checkInstanceNameExists(createDTO.getInstanceName(), null)) {
-			throw new RuntimeException("Instance name already exists: " + createDTO.getInstanceName());
+			throw new RuntimeException("实例名称已存在: " + createDTO.getInstanceName());
 		}
 
-		// Create container instance
+		// 创建容器实例
 		ContainerInstance instance = new ContainerInstance();
 		BeanUtils.copyProperties(createDTO, instance);
 
-		// Set default value
+		// 设置默认值
 		instance.setInstanceStatus("stopped");
 		instance.setHealthStatus("unknown");
 		instance.setRestartCount(0);
 
-		// Save to database
+		// 保存到数据库
 		save(instance);
 
-		log.info("Container instance created successfully, ID: {}", instance.getId());
+		log.info("容器实例创建成功，ID: {}", instance.getId());
 		return instance;
 	}
 
 	@Override
 	@Transactional
 	public ContainerInstance updateContainerInstance(ContainerInstanceUpdateDTO updateDTO) {
-		log.info("Update container instance, ID: {}", updateDTO.getId());
+		log.info("更新容器实例，ID: {}", updateDTO.getId());
 
 		ContainerInstance instance = getById(updateDTO.getId());
 		if (instance == null) {
-			throw new RuntimeException("Container instance does not exist, ID: " + updateDTO.getId());
+			throw new RuntimeException("容器实例不存在，ID: " + updateDTO.getId());
 		}
 
-		// Check for duplicate instance names(Exclude current instance)
+		// 检查实例名称是否重复（排除当前实例）
 		if (StringUtils.hasText(updateDTO.getInstanceName()) &&
 			checkInstanceNameExists(updateDTO.getInstanceName(), updateDTO.getId())) {
-			throw new RuntimeException("Instance name already exists: " + updateDTO.getInstanceName());
+			throw new RuntimeException("实例名称已存在: " + updateDTO.getInstanceName());
 		}
 
-		// Copy non-empty properties
+		// 复制非空属性
 		if (StringUtils.hasText(updateDTO.getInstanceName())) {
 			instance.setInstanceName(updateDTO.getInstanceName());
 		}
@@ -167,26 +167,26 @@ public class VlsContainerInstanceServiceImpl extends BaseServiceImpl<VlsContaine
 			instance.setLogsPath(updateDTO.getLogsPath());
 		}
 
-		// Update to database
+		// 更新到数据库
 		updateById(instance);
 
-		log.info("Container instance updated successfully, ID: {}", instance.getId());
+		log.info("容器实例更新成功，ID: {}", instance.getId());
 		return instance;
 	}
 
 	@Override
 	@Transactional
 	public boolean deleteContainerInstance(Long id) {
-		log.info("Delete container instance, ID: {}", id);
+		log.info("删除容器实例，ID: {}", id);
 
 		ContainerInstance instance = getById(id);
 		if (instance == null) {
-			throw new RuntimeException("Container instance does not exist, ID: " + id);
+			throw new RuntimeException("容器实例不存在，ID: " + id);
 		}
 
-		// Check if it can be deleted
+		// 检查是否可以删除
 		if ("running".equals(instance.getInstanceStatus()) || "starting".equals(instance.getInstanceStatus())) {
-			throw new RuntimeException("Container instance is running, cannot be deleted");
+			throw new RuntimeException("容器实例正在运行中，无法删除");
 		}
 
 		return removeById(id);
@@ -195,13 +195,13 @@ public class VlsContainerInstanceServiceImpl extends BaseServiceImpl<VlsContaine
 	@Override
 	@Transactional
 	public boolean deleteContainerInstanceBatch(List<Long> ids) {
-		log.info("Delete container instances in batches, quantity: {}", ids.size());
+		log.info("批量删除容器实例，数量: {}", ids.size());
 
-		// Check if there is a running instance
+		// 检查是否有运行中的实例
 		List<ContainerInstance> instances = listByIds(ids);
 		for (ContainerInstance instance : instances) {
 			if ("running".equals(instance.getInstanceStatus()) || "starting".equals(instance.getInstanceStatus())) {
-				throw new RuntimeException("There is a running container instance, cannot be deleted");
+				throw new RuntimeException("存在运行中的容器实例，无法删除");
 			}
 		}
 
@@ -226,42 +226,42 @@ public class VlsContainerInstanceServiceImpl extends BaseServiceImpl<VlsContaine
 	@Override
 	@Transactional
 	public boolean startContainer(Long id, String containerId) {
-		log.info("Start container instance, ID: {}", id);
+		log.info("启动容器实例，ID: {}", id);
 
 		ContainerInstance instance = getById(id);
 		if (instance == null) {
-			throw new RuntimeException("Container instance does not exist, ID: " + id);
+			throw new RuntimeException("容器实例不存在，ID: " + id);
 		}
 
 		if ("running".equals(instance.getInstanceStatus())) {
-			throw new RuntimeException("Container instance is already running");
+			throw new RuntimeException("容器实例已在运行中");
 		}
 
-		// This should be calledDocker APIStart container
-		// TODO: integratedDocker API
+		// 这里应该调用Docker API启动容器
+		// TODO: 集成Docker API
 
-		// update status
+		// 更新状态
 		return updateInstanceStatus(id, "starting", "unknown", containerId, new Date(), null);
 	}
 
 	@Override
 	@Transactional
 	public boolean stopContainer(Long id) {
-		log.info("Stop a container instance, ID: {}", id);
+		log.info("停止容器实例，ID: {}", id);
 
 		ContainerInstance instance = getById(id);
 		if (instance == null) {
-			throw new RuntimeException("Container instance does not exist, ID: " + id);
+			throw new RuntimeException("容器实例不存在，ID: " + id);
 		}
 
 		if ("stopped".equals(instance.getInstanceStatus())) {
-			throw new RuntimeException("Container instance stopped");
+			throw new RuntimeException("容器实例已停止");
 		}
 
-		// This should be calledDocker APIStop container
-		// TODO: integratedDocker API
+		// 这里应该调用Docker API停止容器
+		// TODO: 集成Docker API
 
-		// update status
+		// 更新状态
 		return updateInstanceStatus(id, "stopping", "unknown", instance.getContainerId(),
 			instance.getStartTime(), new Date());
 	}
@@ -269,20 +269,20 @@ public class VlsContainerInstanceServiceImpl extends BaseServiceImpl<VlsContaine
 	@Override
 	@Transactional
 	public boolean restartContainer(Long id) {
-		log.info("Restart container instance, ID: {}", id);
+		log.info("重启容器实例，ID: {}", id);
 
 		ContainerInstance instance = getById(id);
 		if (instance == null) {
-			throw new RuntimeException("Container instance does not exist, ID: " + id);
+			throw new RuntimeException("容器实例不存在，ID: " + id);
 		}
 
-		// This should be calledDocker APIRestart container
-		// TODO: integratedDocker API
+		// 这里应该调用Docker API重启容器
+		// TODO: 集成Docker API
 
-		// Increase the number of restarts
+		// 增加重启次数
 		increaseRestartCount(id);
 
-		// update status
+		// 更新状态
 		return updateInstanceStatus(id, "starting", "unknown", instance.getContainerId(),
 			new Date(), null);
 	}

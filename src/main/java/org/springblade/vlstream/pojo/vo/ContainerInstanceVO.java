@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Container instance table View entity class
+ * 容器实例表 视图实体类
  *
  * @author Oort
  * @since 2025-12-23

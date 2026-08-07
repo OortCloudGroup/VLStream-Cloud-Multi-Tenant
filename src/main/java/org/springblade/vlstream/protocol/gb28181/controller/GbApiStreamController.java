@@ -17,12 +17,12 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/stream")
-@Tag(name = "protocol-GB live broadcastAPI", description = "GB live broadcastAPI")
+@Tag(name = "协议-国标直播API", description = "国标直播API")
 public class GbApiStreamController {
 
 	private final IVlsDeviceInfoService deviceInfoService;
 
-	@Operation(summary = "Start live broadcast")
+	@Operation(summary = "开始直播")
 	@GetMapping("/start")
 	public Map<String, Object> start(@RequestParam String serial,
 								 @RequestParam(required = false) Integer channel,
@@ -36,7 +36,7 @@ public class GbApiStreamController {
 		DeviceInfo device = deviceInfoService.getByDeviceId(serial);
 		Map<String, Object> result = new HashMap<>();
 		if (device == null) {
-			result.put("error", "device[ " + serial + " ]not found");
+			result.put("error", "device[ " + serial + " ]未找到");
 			return result;
 		}
 		result.put("StreamID", device.getDeviceId());
@@ -57,7 +57,7 @@ public class GbApiStreamController {
 		return result;
 	}
 
-	@Operation(summary = "Stop live broadcast")
+	@Operation(summary = "停止直播")
 	@GetMapping("/stop")
 	@ResponseBody
 	public Map<String, Object> stop(@RequestParam String serial,
@@ -67,7 +67,7 @@ public class GbApiStreamController {
 		return new HashMap<>();
 	}
 
-	@Operation(summary = "Live broadcast keep alive")
+	@Operation(summary = "直播保活")
 	@GetMapping("/touch")
 	@ResponseBody
 	public Map<String, Object> touch(@RequestParam String serial,

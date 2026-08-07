@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.vlstream.pojo.entity.ResourceType;
 
 /**
- * Resource type configuration table Mapper interface
+ * 资源类型配置表 Mapper 接口
  */
 public interface VlsResourceTypeMapper extends BaseMapper<ResourceType> {
 }

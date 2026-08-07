@@ -20,19 +20,19 @@ public class LogErrorVO extends LogError {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Operate submitted data
+	 * 操作提交的数据
 	 */
 	@JsonIgnore
 	private String params;
 
 	/**
-	 * stack information
+	 * 堆栈信息
 	 */
 	@JsonIgnore
 	private String stackTrace;
 
 	/**
-	 * Exception message
+	 * 异常消息
 	 */
 	@JsonIgnore
 	private String message;

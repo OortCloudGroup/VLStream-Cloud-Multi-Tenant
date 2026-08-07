@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Data prototype table controller
+ * 数据原型表 控制器
  *
  * @author Chill
  */
@@ -56,90 +56,90 @@ import java.util.List;
 @AllArgsConstructor
 @IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_DEVELOP_NAME + "/model-prototype")
-@Tag(name = "Data prototype table", description = "Data prototype table interface")
+@Tag(name = "数据原型表", description = "数据原型表接口")
 public class ModelPrototypeController extends BladeController {
 
 	private final IModelPrototypeService modelPrototypeService;
 
 	/**
-	 * Details
+	 * 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingmodelPrototype")
+	@Operation(summary = "详情", description = "传入modelPrototype")
 	public R<ModelPrototype> detail(ModelPrototype modelPrototype) {
 		ModelPrototype detail = modelPrototypeService.getOne(Condition.getQueryWrapper(modelPrototype));
 		return R.data(detail);
 	}
 
 	/**
-	 * Pagination Data prototype table
+	 * 分页 数据原型表
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingmodelPrototype")
+	@Operation(summary = "分页", description = "传入modelPrototype")
 	public R<IPage<ModelPrototype>> list(ModelPrototype modelPrototype, Query query) {
 		IPage<ModelPrototype> pages = modelPrototypeService.page(Condition.getPage(query), Condition.getQueryWrapper(modelPrototype));
 		return R.data(pages);
 	}
 
 	/**
-	 * New Data prototype table
+	 * 新增 数据原型表
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingmodelPrototype")
+	@Operation(summary = "新增", description = "传入modelPrototype")
 	public R save(@Valid @RequestBody ModelPrototype modelPrototype) {
 		return R.status(modelPrototypeService.save(modelPrototype));
 	}
 
 	/**
-	 * Revise Data prototype table
+	 * 修改 数据原型表
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingmodelPrototype")
+	@Operation(summary = "修改", description = "传入modelPrototype")
 	public R update(@Valid @RequestBody ModelPrototype modelPrototype) {
 		return R.status(modelPrototypeService.updateById(modelPrototype));
 	}
 
 	/**
-	 * Add or modify Data prototype table
+	 * 新增或修改 数据原型表
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingmodelPrototype")
+	@Operation(summary = "新增或修改", description = "传入modelPrototype")
 	public R submit(@Valid @RequestBody ModelPrototype modelPrototype) {
 		return R.status(modelPrototypeService.saveOrUpdate(modelPrototype));
 	}
 
 	/**
-	 * Add or modify in batches Data prototype table
+	 * 批量新增或修改 数据原型表
 	 */
 	@PostMapping("/submit-list")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "Add or modify in batches", description = "incomingmodelPrototypegather")
+	@Operation(summary = "批量新增或修改", description = "传入modelPrototype集合")
 	public R submitList(@Valid @RequestBody List<ModelPrototype> modelPrototypes) {
 		return R.status(modelPrototypeService.submitList(modelPrototypes));
 	}
 
 	/**
-	 * delete Data prototype table
+	 * 删除 数据原型表
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(modelPrototypeService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Data prototype list
+	 * 数据原型列表
 	 */
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "Data prototype list", description = "Data prototype list")
-	public R<List<ModelPrototype>> select(@Parameter(description = "data modelId", required = true) @RequestParam Long modelId) {
+	@Operation(summary = "数据原型列表", description = "数据原型列表")
+	public R<List<ModelPrototype>> select(@Parameter(description = "数据模型Id", required = true) @RequestParam Long modelId) {
 		List<ModelPrototype> list = modelPrototypeService.list(Wrappers.<ModelPrototype>query().lambda().eq(ModelPrototype::getModelId, modelId));
 		list.forEach(prototype -> prototype.setJdbcComment(prototype.getJdbcName() + StringPool.COLON + StringPool.SPACE + prototype.getJdbcComment()));
 		return R.data(list);

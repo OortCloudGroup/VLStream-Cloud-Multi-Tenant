@@ -8,23 +8,23 @@ import org.springblade.modules.system.pojo.vo.OortDeptVO;
 import java.util.List;
 
 /**
- *  Single tenant department query service class
+ *  单租户部门查询服务类
  *
  * @author BladeX
  * @since 2025-09-04
  */
 public interface IOortDeptService extends BaseService<OortDeptEntity> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param oortDept query parameters
+	 * @param page 分页参数
+	 * @param oortDept 查询参数
 	 * @return IPage<OortDeptVO>
 	 */
 	IPage<OortDeptVO> selectOortDeptPage(IPage<OortDeptVO> page, OortDeptVO oortDept);
 
 	/**
-	 * Get departmentID
+	 * 获取部门ID
 	 *
 	 * @param tenantId
 	 * @param deptNames
@@ -33,7 +33,7 @@ public interface IOortDeptService extends BaseService<OortDeptEntity> {
 	String getDeptIds(String tenantId, String deptNames);
 
 	/**
-	 * Get departmentID
+	 * 获取部门ID
 	 *
 	 * @param tenantId
 	 * @param deptNames
@@ -42,7 +42,7 @@ public interface IOortDeptService extends BaseService<OortDeptEntity> {
 	String getDeptIdsByFuzzy(String tenantId, String deptNames);
 
 	/**
-	 * Get department name
+	 * 获取部门名
 	 *
 	 * @param deptIds
 	 * @return
@@ -50,7 +50,7 @@ public interface IOortDeptService extends BaseService<OortDeptEntity> {
 	List<String> getDeptNames(String deptIds);
 
 	/**
-	 * Get subdepartmentID
+	 * 获取子部门ID
 	 *
 	 * @param deptId
 	 * @return

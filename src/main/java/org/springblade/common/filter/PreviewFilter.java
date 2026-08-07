@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Presentation filter
+ * 演示过滤器
  *
  * @author Chill
  */
@@ -41,7 +41,7 @@ public class PreviewFilter implements Filter {
 		if (method.equals(get) || KEYS.stream().anyMatch(path::contains)) {
 			filterChain.doFilter(servletRequest, servletResponse);
 		} else {
-			throw new ServiceException("The demo environment is temporarily unavailable! ");
+			throw new ServiceException("演示环境暂时无法操作！");
 		}
 
 	}

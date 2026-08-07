@@ -15,82 +15,82 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_tenant")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "Tenantobject")
+@Schema(description = "Tenant对象")
 public class Tenant extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * tenantID
+	 * 租户ID
 	 */
-	@Schema(description = "tenantID")
+	@Schema(description = "租户ID")
 	private String tenantId;
 	/**
-	 * Tenant name
+	 * 租户名称
 	 */
-	@Schema(description = "Tenant name")
+	@Schema(description = "租户名称")
 	private String tenantName;
 	/**
-	 * Domain name address
+	 * 域名地址
 	 */
-	@Schema(description = "Domain name address")
+	@Schema(description = "域名地址")
 	private String domainUrl;
 	/**
-	 * System background
+	 * 系统背景
 	 */
-	@Schema(description = "System background")
+	@Schema(description = "系统背景")
 	private String backgroundUrl;
 	/**
-	 * Contact person
+	 * 联系人
 	 */
-	@Schema(description = "Contact person")
+	@Schema(description = "联系人")
 	private String linkman;
 	/**
-	 * Contact number
+	 * 联系电话
 	 */
-	@Schema(description = "Contact number")
+	@Schema(description = "联系电话")
 	private String contactNumber;
 	/**
-	 * Contact address
+	 * 联系地址
 	 */
-	@Schema(description = "Contact address")
+	@Schema(description = "联系地址")
 	private String address;
 	/**
-	 * Account limit
+	 * 账号额度
 	 */
-	@Schema(description = "Account limit")
+	@Schema(description = "账号额度")
 	private Integer accountNumber;
 	/**
-	 * Expiration time
+	 * 过期时间
 	 */
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
-	@Schema(description = "Expiration time")
+	@Schema(description = "过期时间")
 	private Date expireTime;
 	/**
-	 * product packageID
+	 * 产品包ID
 	 */
 	@JsonSerialize(nullsUsing = NullSerializer.class)
-	@Schema(description = "product packageID")
+	@Schema(description = "产品包ID")
 	private Long packageId;
 	/**
-	 * data sourceID
+	 * 数据源ID
 	 */
 	@JsonSerialize(nullsUsing = NullSerializer.class)
-	@Schema(description = "data sourceID")
+	@Schema(description = "数据源ID")
 	private Long datasourceId;
 	/**
-	 * Authorization code
+	 * 授权码
 	 */
-	@Schema(description = "Authorization code")
+	@Schema(description = "授权码")
 	private String licenseKey;
 
 

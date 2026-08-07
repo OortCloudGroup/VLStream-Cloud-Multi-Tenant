@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * MQTTConfiguration
+ * MQTT配置
  */
 @Data
 @Component
@@ -13,82 +13,82 @@ import org.springframework.stereotype.Component;
 public class VlsMqttProperties {
 
 	/**
-	 * MQTTService address
+	 * MQTT服务地址
 	 */
 	private String host;
 
 	/**
-	 * MQTTservice port
+	 * MQTT服务端口
 	 */
 	private Integer port;
 
 	/**
-	 * MQTTusername
+	 * MQTT用户名
 	 */
 	private String username;
 
 	/**
-	 * MQTTpassword
+	 * MQTT密码
 	 */
 	private String password;
 
 	/**
-	 * Common theme prefix
+	 * 通用主题前缀
 	 */
 	private String topicPrefix = "oortcloud";
 
 	/**
-	 * Camera display settings message topic
+	 * 摄像机显示设置消息主题
 	 */
 	private String vlsCameraDisplaySettingTopic = "oortcloud/vlsCameraDisplaySetting";
 
 	/**
-	 * cameraOSDSet message topic
+	 * 摄像机OSD设置消息主题
 	 */
 	private String vlsCameraOsdSettingTopic = "oortcloud/vlsCameraOsdSetting";
 
 	/**
-	 * Audio anomaly detection setting message theme
+	 * 音频异常侦测设置消息主题
 	 */
 	private String vlsAudioAnomalyDetectionSettingTopic = "oortcloud/vlsAudioAnomalyDetectionSetting";
 
 	/**
-	 * Audio arming time setting message theme
+	 * 音频布防时间设置消息主题
 	 */
 	private String vlsAudioDefenseTimeSettingTopic = "oortcloud/vlsAudioDefenseTimeSetting";
 
 	/**
-	 * Audio linkage method to set message theme
+	 * 音频联动方式设置消息主题
 	 */
 	private String vlsAudioLinkageModeSettingTopic = "oortcloud/vlsAudioLinkageModeSetting";
 
 	/**
-	 * Time policy message topic
+	 * 时间策略消息主题
 	 */
 	private String vlsTimeStrategyTopic = "oortcloud/vlsTimeStrategy";
 
 	/**
-	 * Recording event policy message topic
+	 * 录像事件策略消息主题
 	 */
 	private String vlsRecordEventStrategyTopic = "oortcloud/vlsRecordEventStrategy";
 
 	/**
-	 * MQTTclientIDprefix
+	 * MQTT客户端ID前缀
 	 */
 	private String clientIdPrefix = "vls-dispatch";
 
 	/**
-	 * MQTTMessage quality level
+	 * MQTT消息质量等级
 	 */
 	private Integer qos = 1;
 
 	/**
-	 * MQTTheartbeat duration(Second)
+	 * MQTT心跳保持时长（秒）
 	 */
 	private Integer keepAliveSeconds = 60;
 
 	/**
-	 * MQTTConnection timeout(Second)
+	 * MQTT连接超时（秒）
 	 */
 	private Integer connectionTimeoutSeconds = 10;
 

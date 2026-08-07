@@ -12,25 +12,25 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * event management table Service category
+ * 事件管理表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsEventManagementService extends BaseService<EventManagement> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsEventManagement query parameters
+	 * @param page 分页参数
+	 * @param queryWrapper 查询条件
 	 * @return IPage<VlsEventManagementVO>
 	 */
-	IPage<EventManagementVO> selectVlsEventManagementPage(IPage<EventManagementVO> page, EventManagementVO vlsEventManagement);
+	IPage<EventManagementVO> selectVlsEventManagementPage(IPage<EventManagementVO> page, Wrapper<EventManagement> queryWrapper);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsEventManagementExcel>
 	 */
 	List<VlsEventManagementExcel> exportVlsEventManagement(Wrapper<EventManagement> queryWrapper);
@@ -55,6 +55,14 @@ public interface IVlsEventManagementService extends BaseService<EventManagement>
 	 * Create a new event.
 	 */
 	boolean createEvent(EventManagement eventManagement);
+
+	/**
+	 * 根据上报设备归属租户创建事件。
+	 *
+	 * @param eventManagement 事件信息
+	 * @return 是否创建成功
+	 */
+	boolean createReportedEvent(EventManagement eventManagement);
 
 	/**
 	 * Update an existing event.

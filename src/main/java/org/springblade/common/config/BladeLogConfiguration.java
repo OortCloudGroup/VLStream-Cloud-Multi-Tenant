@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Log tool automatic configuration
+ * 日志工具自动配置
  *
  * @author Chill
  */

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * Device pose estimation task manager: Periodically scan device configurations and maintain attitude estimation sessions. 
+ * 设备姿态估计任务管理器：定时扫描设备配置并维护姿态估计会话。
  */
 @Slf4j
 @Component
@@ -30,14 +30,14 @@ public class DevicePoseDetectionManager extends AbstractDeviceDetectionManager<D
         }
         String streamUrl = resolveStreamUrl(deviceInfo);
         if (StringUtils.isBlank(streamUrl)) {
-            log.warn("equipment {} No flow address configured, Skip pose estimation", deviceInfo.getDeviceName());
+            log.warn("设备 {} 未配置流地址，跳过姿态估计", deviceInfo.getDeviceName());
             return null;
         }
 
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.pose,
-            "pose estimation",
+            "姿态估计",
             this::resolveDefaultModelSourcePath,
             null
         );
@@ -74,22 +74,22 @@ public class DevicePoseDetectionManager extends AbstractDeviceDetectionManager<D
 
     @Override
     protected String getMissingConfigReason() {
-        return "The device is not configured with the attitude estimation algorithm or the configuration is incomplete.";
+        return "设备未配置姿态估计算法或配置不完整";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "Device pose estimation configuration changed";
+        return "设备姿态估计配置发生变化";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "Refresh device attitude estimation task failed";
+        return "刷新设备姿态估计任务失败";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "Stopping device pose estimation failed: deviceId={}, reason={}";
+        return "停止设备姿态估计失败: deviceId={}, reason={}";
     }
 
 }

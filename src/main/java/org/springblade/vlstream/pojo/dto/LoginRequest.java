@@ -3,13 +3,13 @@ package org.springblade.vlstream.pojo.dto;
 import lombok.Data;
 
 /**
- * Login requestDTO
+ * 登录请求DTO
  */
 @Data
 public class LoginRequest {
 
     /**
-     * Encrypted user information string
+     * 加密后的用户信息字符串
      */
     private String userInfo;
 

@@ -1,7 +1,7 @@
 package org.springblade.common.constant;
 
 /**
- * Dictionary constants.
+ * 字典常量.
  *
  * @author zhuangqian
  */

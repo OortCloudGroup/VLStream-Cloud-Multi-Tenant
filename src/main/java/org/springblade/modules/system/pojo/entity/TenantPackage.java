@@ -9,33 +9,33 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * Tenant product table entity class
+ * 租户产品表实体类
  *
  * @author Oort
  */
 @Data
 @TableName("blade_tenant_package")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "Tenant product table")
+@Schema(description = "租户产品表")
 public class TenantPackage extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Product package name
+	 * 产品包名称
 	 */
-	@Schema(description = "Product package name")
+	@Schema(description = "产品包名称")
 	private String packageName;
 	/**
-	 * menuID
+	 * 菜单ID
 	 */
-	@Schema(description = "menuID")
+	@Schema(description = "菜单ID")
 	private String menuId;
 	/**
-	 * Remark
+	 * 备注
 	 */
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 
 

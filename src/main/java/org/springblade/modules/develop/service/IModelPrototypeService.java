@@ -34,50 +34,50 @@ import org.springblade.modules.develop.pojo.entity.ModelPrototype;
 import java.util.List;
 
 /**
- * Data prototype table Service category
+ * 数据原型表 服务类
  *
  * @author Chill
  */
 public interface IModelPrototypeService extends BaseService<ModelPrototype> {
 
 	/**
-	 * Bulk submission
+	 * 批量提交
 	 *
-	 * @param modelPrototypes prototype collection
+	 * @param modelPrototypes 原型集合
 	 * @return boolean
 	 */
 	boolean submitList(List<ModelPrototype> modelPrototypes);
 
 	/**
-	 * Prototype list
+	 * 原型列表
 	 *
-	 * @param modelId ModelID
+	 * @param modelId 模型ID
 	 * @return List<ModelPrototype>
 	 */
 	List<ModelPrototype> prototypeList(Long modelId);
 
 	/**
-	 * Get table information
+	 * 获取表信息
 	 *
-	 * @param tableName    table name
-	 * @param datasourceId Data source primary key
+	 * @param tableName    表名
+	 * @param datasourceId 数据源主键
 	 */
 	TableInfo getTableInfo(String tableName, Long datasourceId);
 
 	/**
-	 * Get table configuration information
+	 * 获取表配置信息
 	 *
-	 * @param datasource Data source information
+	 * @param datasource 数据源信息
 	 */
 	default ConfigBuilder getConfigBuilder(Datasource datasource) {
 		return getConfigBuilder(datasource, null);
 	}
 
 	/**
-	 * Get table configuration information
+	 * 获取表配置信息
 	 *
-	 * @param datasource Data source information
-	 * @param tableName  table name
+	 * @param datasource 数据源信息
+	 * @param tableName  表名
 	 */
 	ConfigBuilder getConfigBuilder(Datasource datasource, String tableName);
 

@@ -34,58 +34,58 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * Data source configuration table entity class
+ * 数据源配置表实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_datasource")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "Data source configuration table")
+@Schema(description = "数据源配置表")
 public class Datasource extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Data source type
+	 * 数据源类型
 	 */
-	@Schema(description = "Data source type")
+	@Schema(description = "数据源类型")
 	private Integer category;
 	/**
-	 * name
+	 * 名称
 	 */
-	@Schema(description = "name")
+	@Schema(description = "名称")
 	private String name;
 	/**
-	 * Driver class
+	 * 驱动类
 	 */
-	@Schema(description = "Driver class")
+	@Schema(description = "驱动类")
 	private String driverClass;
 	/**
-	 * connection address
+	 * 连接地址
 	 */
-	@Schema(description = "connection address")
+	@Schema(description = "连接地址")
 	private String url;
 	/**
-	 * username
+	 * 用户名
 	 */
-	@Schema(description = "username")
+	@Schema(description = "用户名")
 	private String username;
 	/**
-	 * password
+	 * 密码
 	 */
-	@Schema(description = "password")
+	@Schema(description = "密码")
 	private String password;
 	/**
-	 * Sub-database and sub-table configuration
+	 * 分库分表配置
 	 */
-	@Schema(description = "Sub-database and sub-table configuration")
+	@Schema(description = "分库分表配置")
 	private String shardingConfig;
 	/**
-	 * Remark
+	 * 备注
 	 */
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 
 

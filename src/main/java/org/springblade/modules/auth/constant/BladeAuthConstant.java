@@ -8,15 +8,15 @@ package org.springblade.modules.auth.constant;
 public interface BladeAuthConstant {
 
 	/**
-	 * Whether to enable registration parameterskey
+	 * 是否开启注册参数key
 	 */
 	String REGISTER_USER_VALUE = "account.registerUser";
 	/**
-	 * Account lock error count parameterkey
+	 * 账号锁定错误次数参数key
 	 */
 	String FAIL_COUNT_VALUE = "account.failCount";
 	/**
-	 * Default number of account lockout errors
+	 * 账号锁定默认错误次数
 	 */
 	Integer FAIL_COUNT = 5;
 }

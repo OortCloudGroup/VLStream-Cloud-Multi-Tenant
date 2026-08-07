@@ -12,177 +12,177 @@ import java.io.Serial;
 import java.math.BigDecimal;
 
 /**
- * Task information sheet Entity class
+ * 任务信息表 实体类
  *
  * @author Oort
  */
 @Data
 @TableName("blade_job_info")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "Task information sheet")
+@Schema(description = "任务信息表")
 public class JobInfo extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * businessID
+	 * 业务ID
 	 */
-	@Schema(description = "businessID")
+	@Schema(description = "业务ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long businessId;
 
 	/**
-	 * Task serviceID
+	 * 任务服务ID
 	 */
-	@Schema(description = "Task serviceID")
+	@Schema(description = "任务服务ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long jobServerId;
 	/**
-	 * Task ID, Optional, null Create tasks on behalf of, Otherwise, fill in the tasks that need to be modified ID
+	 * 任务 ID，可选，null 代表创建任务，否则填写需要修改的任务 ID
 	 */
-	@Schema(description = "Task ID, Optional, null Create tasks on behalf of, Otherwise, fill in the tasks that need to be modified ID")
+	@Schema(description = "任务 ID，可选，null 代表创建任务，否则填写需要修改的任务 ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long jobId;
 	/**
-	 * Task name
+	 * 任务名称
 	 */
-	@Schema(description = "Task name")
+	@Schema(description = "任务名称")
 	private String jobName;
 	/**
-	 * Task description
+	 * 任务描述
 	 */
-	@Schema(description = "Task description")
+	@Schema(description = "任务描述")
 	private String jobDescription;
 	/**
-	 * Task parameters, Processor#process Method input parameters TaskContext Object jobParams Field
+	 * 任务参数，Processor#process 方法入参 TaskContext 对象的 jobParams 字段
 	 */
-	@Schema(description = "Task parameters, Processor#process Method input parameters TaskContext Object jobParams Field")
+	@Schema(description = "任务参数，Processor#process 方法入参 TaskContext 对象的 jobParams 字段")
 	private String jobParams;
 	/**
-	 * time expression type, enumeration value
+	 * 时间表达式类型，枚举值
 	 */
-	@Schema(description = "time expression type, enumeration value")
+	@Schema(description = "时间表达式类型，枚举值")
 	private Integer timeExpressionType;
 	/**
-	 * time expression, Fill in the type by timeExpressionType Decide, for example CRON 需要填写 CRON expression
+	 * 时间表达式，填写类型由 timeExpressionType 决定，比如 CRON 需要填写 CRON 表达式
 	 */
-	@Schema(description = "time expression, Fill in the type by timeExpressionType Decide, for example CRON 需要填写 CRON expression")
+	@Schema(description = "时间表达式，填写类型由 timeExpressionType 决定，比如 CRON 需要填写 CRON 表达式")
 	private String timeExpression;
 	/**
-	 * execution type, enumeration value
+	 * 执行类型，枚举值
 	 */
-	@Schema(description = "execution type, enumeration value")
+	@Schema(description = "执行类型，枚举值")
 	private Integer executeType;
 	/**
-	 * Processor type, enumeration value
+	 * 处理器类型，枚举值
 	 */
-	@Schema(description = "Processor type, enumeration value")
+	@Schema(description = "处理器类型，枚举值")
 	private Integer processorType;
 	/**
-	 * Processor parameters, Fill in the type by processorType Decide, likeJava The processor needs to fill in the fully qualified class name, like: com.github.kfcfans.oms.processors.demo.MapReduceProcessorDemo
+	 * 处理器参数，填写类型由 processorType 决定，如Java 处理器需要填写全限定类名，如：com.github.kfcfans.oms.processors.demo.MapReduceProcessorDemo
 	 */
-	@Schema(description = "Processor parameters, Fill in the type by processorType Decide, likeJava The processor needs to fill in the fully qualified class name, like: com.github.kfcfans.oms.processors.demo.MapReduceProcessorDemo")
+	@Schema(description = "处理器参数，填写类型由 processorType 决定，如Java 处理器需要填写全限定类名，如：com.github.kfcfans.oms.processors.demo.MapReduceProcessorDemo")
 	private String processorInfo;
 	/**
-	 * Maximum number of instances, The number of simultaneous executions of this task(Tasks and instances are like the relationship between classes and objects, Tasks are called instances after they are scheduled for execution.)
+	 * 最大实例数，该任务同时执行的数量（任务和实例就像是类和对象的关系，任务被调度执行后被称为实例）
 	 */
-	@Schema(description = "Maximum number of instances, The number of simultaneous executions of this task(Tasks and instances are like the relationship between classes and objects, Tasks are called instances after they are scheduled for execution.)")
+	@Schema(description = "最大实例数，该任务同时执行的数量（任务和实例就像是类和对象的关系，任务被调度执行后被称为实例）")
 	private Integer maxInstanceNum;
 	/**
-	 * Number of concurrent threads on a single machine, Indicates that during the execution of this instance, eachWorker Number of threads used
+	 * 单机线程并发数，表示该实例执行过程中每个Worker 使用的线程数量
 	 */
-	@Schema(description = "Number of concurrent threads on a single machine, Indicates that during the execution of this instance, eachWorker Number of threads used")
+	@Schema(description = "单机线程并发数，表示该实例执行过程中每个Worker 使用的线程数量")
 	private Integer concurrency;
 	/**
-	 * Task instance running time limit, 0 Represents no restrictions, Timeout will be interrupted and judged as execution failure.
+	 * 任务实例运行时间限制，0 代表无任何限制，超时会被打断并判定为执行失败
 	 */
-	@Schema(description = "Task instance running time limit, 0 Represents no restrictions, Timeout will be interrupted and judged as execution failure.")
+	@Schema(description = "任务实例运行时间限制，0 代表无任何限制，超时会被打断并判定为执行失败")
 	private Long instanceTimeLimit;
 	/**
-	 * instanceRetryNum	Number of task instance retries, Retry if entire task fails, costly, Not recommended
+	 * instanceRetryNum	任务实例重试次数，整个任务失败时重试，代价大，不推荐使用
 	 */
-	@Schema(description = "instanceRetryNum	Number of task instance retries, Retry if entire task fails, costly, Not recommended")
+	@Schema(description = "instanceRetryNum	任务实例重试次数，整个任务失败时重试，代价大，不推荐使用")
 	private Integer instanceRetryNum;
 	/**
-	 * taskRetryNum	Task Number of retries, each child Task Retry alone after failure, The price is small, Recommended
+	 * taskRetryNum	Task 重试次数，每个子 Task 失败后单独重试，代价小，推荐使用
 	 */
-	@Schema(description = "taskRetryNum	Task Number of retries, each child Task Retry alone after failure, The price is small, Recommended")
+	@Schema(description = "taskRetryNum	Task 重试次数，每个子 Task 失败后单独重试，代价小，推荐使用")
 	private Integer taskRetryNum;
 	/**
-	 * minCpuCores	Minimum available CPU Number of cores, CPU The number of available cores is less than this value Worker The task will not be executed, 0 Represents no restrictions
+	 * minCpuCores	最小可用 CPU 核心数，CPU 可用核心数小于该值的 Worker 将不会执行该任务，0 代表无任何限制
 	 */
-	@Schema(description = "minCpuCores	Minimum available CPU Number of cores, CPU The number of available cores is less than this value Worker The task will not be executed, 0 Represents no restrictions")
+	@Schema(description = "minCpuCores	最小可用 CPU 核心数，CPU 可用核心数小于该值的 Worker 将不会执行该任务，0 代表无任何限制")
 	private BigDecimal minCpuCores;
 	/**
-	 * Minimum memory size(GB), Available memory is less than this valueWorker The task will not be executed, 0 Represents no restrictions
+	 * 最小内存大小（GB），可用内存小于该值的Worker 将不会执行该任务，0 代表无任何限制
 	 */
-	@Schema(description = "Minimum memory size(GB), Available memory is less than this valueWorker The task will not be executed, 0 Represents no restrictions")
+	@Schema(description = "最小内存大小（GB），可用内存小于该值的Worker 将不会执行该任务，0 代表无任何限制")
 	private BigDecimal minMemorySpace;
 	/**
-	 * Minimum disk size(GB), Available disk space is less than this valueWorker The task will not be executed, 0 Represents no restrictions
+	 * 最小磁盘大小（GB），可用磁盘空间小于该值的Worker 将不会执行该任务，0 代表无任何限制
 	 */
-	@Schema(description = "Minimum disk size(GB), Available disk space is less than this valueWorker The task will not be executed, 0 Represents no restrictions")
+	@Schema(description = "最小磁盘大小（GB），可用磁盘空间小于该值的Worker 将不会执行该任务，0 代表无任何限制")
 	private BigDecimal minDiskSpace;
 	/**
-	 * Specify machine to execute, After setting this parameter, only the machines in the list are allowed to perform the task., Empty means no machine is specified.
+	 * 指定机器执行，设置该参数后只有列表中的机器允许执行该任务，空代表不指定机器
 	 */
-	@Schema(description = "Specify machine to execute, After setting this parameter, only the machines in the list are allowed to perform the task., Empty means no machine is specified.")
+	@Schema(description = "指定机器执行，设置该参数后只有列表中的机器允许执行该任务，空代表不指定机器")
 	private String designatedWorkers;
 	/**
-	 * Maximum number of execution machines, Limit the number of machines to be mobilized for execution, 0Represents unlimited
+	 * 最大执行机器数量，限定调动执行的机器数量，0代表无限制
 	 */
-	@Schema(description = "Maximum number of execution machines, Limit the number of machines to be mobilized for execution, 0Represents unlimited")
+	@Schema(description = "最大执行机器数量，限定调动执行的机器数量，0代表无限制")
 	private Integer maxWorkerCount;
 	/**
-	 * Users who receive alerts ID list
+	 * 接收报警的用户 ID 列表
 	 */
-	@Schema(description = "Users who receive alerts ID list")
+	@Schema(description = "接收报警的用户 ID 列表")
 	private String notifyUserIds;
 	/**
-	 * Whether to enable this task, Unenabled tasks will not be scheduled
+	 * 是否启用该任务，未启用的任务不会被调度
 	 */
-	@Schema(description = "Whether to enable this task, Unenabled tasks will not be scheduled")
+	@Schema(description = "是否启用该任务，未启用的任务不会被调度")
 	private Integer enable;
 	/**
-	 * Scheduling strategy, enumerate, Currently supports random(RANDOM)and Health first(HEALTH_FIRST)
+	 * 调度策略，枚举，目前支持随机（RANDOM）和 健康度优先（HEALTH_FIRST）
 	 */
-	@Schema(description = "Scheduling strategy, enumerate, Currently supports random(RANDOM)and Health first(HEALTH_FIRST)")
+	@Schema(description = "调度策略，枚举，目前支持随机（RANDOM）和 健康度优先（HEALTH_FIRST）")
 	private Integer dispatchStrategy;
 	/**
-	 * lifecycle	life cycle(reserved, Used to specify the effective time range of scheduled tasks)
+	 * lifecycle	生命周期（预留，用于指定定时调度任务的生效时间范围）
 	 */
-	@Schema(description = "lifecycle	life cycle(reserved, Used to specify the effective time range of scheduled tasks)")
+	@Schema(description = "lifecycle	生命周期（预留，用于指定定时调度任务的生效时间范围）")
 	private String lifecycle;
 	/**
-	 * error threshold, 0Represents no limit
+	 * 错误阈值，0代表不限制
 	 */
-	@Schema(description = "error threshold, 0Represents no limit")
+	@Schema(description = "错误阈值，0代表不限制")
 	private Integer alertThreshold;
 	/**
-	 * Statistics window length(s), 0Represents no limit
+	 * 统计的窗口长度(s)，0代表不限制
 	 */
-	@Schema(description = "Statistics window length(s), 0Represents no limit")
+	@Schema(description = "统计的窗口长度(s)，0代表不限制")
 	private Integer statisticWindowLen;
 	/**
-	 * Silent time window(s), 0Represents no limit
+	 * 沉默时间窗口(s)，0代表不限制
 	 */
-	@Schema(description = "Silent time window(s), 0Represents no limit")
+	@Schema(description = "沉默时间窗口(s)，0代表不限制")
 	private Integer silenceWindowLen;
 	/**
-	 * Log configuration
+	 * 日志配置
 	 */
-	@Schema(description = "Log configuration")
+	@Schema(description = "日志配置")
 	private Integer logType;
 	/**
-	 * Log configuration
+	 * 日志配置
 	 */
-	@Schema(description = "Log level")
+	@Schema(description = "日志级别")
 	private Integer logLevel;
 	/**
-	 * extension fields(for developers, for function expansion, powerjob This field will not be used by itself)
+	 * 扩展字段（供开发者使用，用于功能扩展，powerjob 自身不会使用该字段）
 	 */
-	@Schema(description = "extension fields(for developers, for function expansion, powerjob This field will not be used by itself)")
+	@Schema(description = "扩展字段（供开发者使用，用于功能扩展，powerjob 自身不会使用该字段）")
 	private String extra;
 
 }

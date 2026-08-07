@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Algorithm warehouse table View entity class
+ * 算法仓库表 视图实体类
  *
  * @author Oort
  * @since 2025-12-23

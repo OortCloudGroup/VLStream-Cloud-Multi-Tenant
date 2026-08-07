@@ -14,7 +14,7 @@ import java.io.Serial;
 
 
 /**
- * Algorithm training task list ExcelEntity class
+ * 算法训练任务表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -29,136 +29,136 @@ public class VlsAlgorithmTrainingExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Task name
+	 * 任务名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Task name")
+	@ExcelProperty("任务名称")
 	private String taskName;
 	/**
-	 * algorithmID
+	 * 算法ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("algorithmID")
+	@ExcelProperty("算法ID")
 	private Long algorithmId;
 	/**
-	 * DatasetID
+	 * 数据集ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("DatasetID")
+	@ExcelProperty("数据集ID")
 	private Long datasetId;
 	/**
-	 * training status: pending-wait,training-in training,completed-Finish,failed-fail
+	 * 训练状态：pending-等待,training-训练中,completed-完成,failed-失败
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("training status: pending-wait,training-in training,completed-Finish,failed-fail")
+	@ExcelProperty("训练状态：pending-等待,training-训练中,completed-完成,failed-失败")
 	private String trainStatus;
 	/**
-	 * Training progress percentage
+	 * 训练进度百分比
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Training progress percentage")
+	@ExcelProperty("训练进度百分比")
 	private Integer progress;
 	/**
-	 * current round
+	 * 当前轮次
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("current round")
+	@ExcelProperty("当前轮次")
 	private Integer epochCurrent;
 	/**
-	 * total rounds
+	 * 总轮次
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("total rounds")
+	@ExcelProperty("总轮次")
 	private Integer epochTotal;
 	/**
-	 * Accuracy
+	 * 准确率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Accuracy")
+	@ExcelProperty("准确率")
 	private BigDecimal accuracy;
 	/**
-	 * Accuracy
+	 * 精确率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Accuracy")
+	@ExcelProperty("精确率")
 	private BigDecimal precisionValue;
 	/**
-	 * Recall
+	 * 召回率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Recall")
+	@ExcelProperty("召回率")
 	private BigDecimal recallValue;
 	/**
-	 * mAPvalue
+	 * mAP值
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("mAPvalue")
+	@ExcelProperty("mAP值")
 	private BigDecimal mapValue;
 	/**
-	 * loss value
+	 * 损失值
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("loss value")
+	@ExcelProperty("损失值")
 	private BigDecimal lossValue;
 	/**
-	 * GPUUsage rate
+	 * GPU使用率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("GPUUsage rate")
+	@ExcelProperty("GPU使用率")
 	private String gpuUsage;
 	/**
-	 * start time
+	 * 开始时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("start time")
+	@ExcelProperty("开始时间")
 	private LocalDateTime startTime;
 	/**
-	 * end time
+	 * 结束时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("end time")
+	@ExcelProperty("结束时间")
 	private LocalDateTime endTime;
 	/**
-	 * Estimated time
+	 * 预计时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Estimated time")
+	@ExcelProperty("预计时间")
 	private String estimatedTime;
 	/**
-	 * Model output path
+	 * 模型输出路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Model output path")
+	@ExcelProperty("模型输出路径")
 	private String modelOutputPath;
 	/**
-	 * Log path
+	 * 日志路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Log path")
+	@ExcelProperty("日志路径")
 	private String logPath;
 	/**
-	 * training parameters
+	 * 训练参数
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("training parameters")
+	@ExcelProperty("训练参数")
 	private String configParams;
 	/**
-	 * error message
+	 * 错误信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("error message")
+	@ExcelProperty("错误信息")
 	private String errorMessage;
 	/**
-	 * Model file path
+	 * 模型文件路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Model file path")
+	@ExcelProperty("模型文件路径")
 	private String modelPath;
 	/**
-	 * completion time
+	 * 完成时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("completion time")
+	@ExcelProperty("完成时间")
 	private String completedAt;
 
 }

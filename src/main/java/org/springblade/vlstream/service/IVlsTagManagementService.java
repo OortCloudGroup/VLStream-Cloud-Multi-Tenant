@@ -11,139 +11,139 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * Tag management table Service category
+ * 标签管理表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsTagManagementService extends BaseService<TagManagement> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsTagManagement query parameters
+	 * @param page 分页参数
+	 * @param vlsTagManagement 查询参数
 	 * @return IPage<VlsTagManagementVO>
 	 */
 	IPage<TagManagementVO> selectVlsTagManagementPage(IPage<TagManagementVO> page, TagManagementVO vlsTagManagement);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsTagManagementExcel>
 	 */
 	List<VlsTagManagementExcel> exportVlsTagManagement(Wrapper<TagManagement> queryWrapper);
 
 	/**
-	 * Get tag tree structure
+	 * 获取标签树形结构
 	 *
-	 * @return tag tree
+	 * @return 标签树
 	 */
 	List<TagManagementDTO> getTagTree();
 
 	/**
-	 * Get tag tree based on type
+	 * 根据类型获取标签树
 	 *
-	 * @param tagType Tag type(own-own, public-public)
-	 * @return tag tree
+	 * @param tagType 标签类型(own-自有, public-公共)
+	 * @return 标签树
 	 */
 	List<TagManagementDTO> getTagTreeByType(String tagType);
 
 	/**
-	 * Create tags
+	 * 创建标签
 	 *
-	 * @param tagManagement Label information
-	 * @return Created successful label
+	 * @param tagManagement 标签信息
+	 * @return 创建成功的标签
 	 */
 	TagManagement createTag(TagManagement tagManagement);
 
 	/**
-	 * renewLabel
+	 * 更新标签
 	 *
-	 * @param tagManagement Label information
-	 * @return Tags updated successfully
+	 * @param tagManagement 标签信息
+	 * @return 更新成功的标签
 	 */
 	TagManagement updateTag(TagManagement tagManagement);
 
 	/**
-	 * Delete tag(Cascading subtag deletion)
+	 * 删除标签（级联删除子标签）
 	 *
-	 * @param tagId LabelID
-	 * @return Is deletion successful?
+	 * @param tagId 标签ID
+	 * @return 是否删除成功
 	 */
 	boolean deleteTag(Long tagId);
 
 	/**
-	 * Delete tags in batches
+	 * 批量删除标签
 	 *
-	 * @param tagIds LabelIDlist
-	 * @return Is deletion successful?
+	 * @param tagIds 标签ID列表
+	 * @return 是否删除成功
 	 */
 	boolean deleteTags(List<Long> tagIds);
 
 	/**
-	 * Move label(Adjust parent or sort)
+	 * 移动标签（调整父级或排序）
 	 *
-	 * @param tagId LabelID
-	 * @param targetParentId target parentID
-	 * @param targetPosition Target location
-	 * @return Whether the move was successful
+	 * @param tagId 标签ID
+	 * @param targetParentId 目标父级ID
+	 * @param targetPosition 目标位置
+	 * @return 是否移动成功
 	 */
 	boolean moveTag(Long tagId, Long targetParentId, Integer targetPosition);
 
 	/**
-	 * Update label usage count
+	 * 更新标签使用次数
 	 *
-	 * @param tagId LabelID
-	 * @param increment increased times
+	 * @param tagId 标签ID
+	 * @param increment 增加的次数
 	 */
 	void updateUsageCount(Long tagId, Integer increment);
 
 	/**
-	 * Check if tag name is duplicated(Under the same level)
+	 * 检查标签名称是否重复（同级别下）
 	 *
-	 * @param tagName Tag name
-	 * @param parentId parentID
-	 * @param excludeId excludedID(Used for validation while editing)
-	 * @return Whether to repeat
+	 * @param tagName 标签名称
+	 * @param parentId 父级ID
+	 * @param excludeId 排除的ID（用于编辑时验证）
+	 * @return 是否重复
 	 */
 	boolean isTagNameDuplicate(String tagName, Long parentId, Long excludeId);
 
 	/**
-	 * enable/Disable tag
+	 * 启用/禁用标签
 	 *
-	 * @param tagId LabelID
-	 * @param isActive Whether to enable
-	 * @return Whether the operation was successful
+	 * @param tagId 标签ID
+	 * @param isActive 是否启用
+	 * @return 是否操作成功
 	 */
 	boolean toggleTagStatus(Long tagId, boolean isActive);
 
 	/**
-	 * Get tag usage statistics
+	 * 获取标签的使用统计
 	 *
-	 * @param tagId LabelID
-	 * @return usage statistics
+	 * @param tagId 标签ID
+	 * @return 使用统计信息
 	 */
 	TagManagement getTagUsageStats(Long tagId);
 
 	/**
-	 * Get tags based on classification type
+	 * 根据分类类型获取标签
 	 *
-	 * @param categoryType Classification type(own-own, public-public)
-	 * @return tag list
+	 * @param categoryType 分类类型(own-自有, public-公共)
+	 * @return 标签列表
 	 */
 	List<TagManagement> getTagsByCategory(String categoryType);
 
 	/**
-	 * Paginated query tag management
+	 * 分页查询标签管理
 	 *
-	 * @param page Paging parameters
-	 * @param keyword Search keywords
-	 * @param categoryType Tag categories
-	 * @param level Tag hierarchy
-	 * @param parentId parentID
-	 * @param tagId LabelID
-	 * @return Paginated results
+	 * @param page 分页参数
+	 * @param keyword 搜索关键字
+	 * @param categoryType 标签大类
+	 * @param level 标签层级
+	 * @param parentId 父级ID
+	 * @param tagId 标签ID
+	 * @return 分页结果
 	 */
 	IPage<TagManagement> getTagManagementPage(Page<TagManagement> page, String keyword, String categoryType, Integer level, Long parentId, Long tagId);
 

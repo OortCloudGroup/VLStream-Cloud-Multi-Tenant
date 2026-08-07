@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Code generator configuration table Service implementation class
+ * 代码生成器配置表 服务实现类
  *
  * @author Oort
  */
@@ -45,9 +45,9 @@ public class CodeSettingServiceImpl extends ServiceImpl<CodeSettingMapper, CodeS
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean enable(Long id) {
-		// Disable first
+		// 先禁用
 		boolean temp1 = this.update(Wrappers.<CodeSetting>update().lambda().set(CodeSetting::getStatus, BladeConstant.DB_STATUS_1));
-		// Enable
+		// 在启用
 		boolean temp2 = this.update(Wrappers.<CodeSetting>update().lambda().set(CodeSetting::getStatus, BladeConstant.DB_STATUS_2).eq(CodeSetting::getId, id));
 		return temp1 && temp2;
 	}

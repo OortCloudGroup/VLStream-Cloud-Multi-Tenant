@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * time strategy table Data transfer object entity class
+ * 时间策略表 数据传输对象实体类
  *
  * @author Oort
  * @since 2025-12-23

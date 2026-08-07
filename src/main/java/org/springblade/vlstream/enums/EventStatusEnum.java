@@ -4,17 +4,17 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * event status enum
+ * 事件状态枚举
  *
  * @author Administrator
  */
 @Getter
 public enum EventStatusEnum {
 
-	pending("pending", "Pending"),
-	processing("processing", "Processing"),
-	completed("completed", "Completed"),
-	closed("closed", "Closed");
+	pending("pending", "待处理"),
+	processing("processing", "处理中"),
+	completed("completed", "已完成"),
+	closed("closed", "已关闭");
 
 	@EnumValue
 	private final String code;
@@ -26,10 +26,10 @@ public enum EventStatusEnum {
 	}
 
 	/**
-	 * according tocodeGet enumeration
+	 * 根据code获取枚举
 	 *
-	 * @param code status code
-	 * @return enumeration object
+	 * @param code 状态码
+	 * @return 枚举对象
 	 */
 	public static EventStatusEnum of(String code) {
 		if (code == null) {

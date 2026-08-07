@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 /**
- * Human detection start trigger: Trigger a human detection task refresh when the application starts. 
+ * 人体检测启动触发器：应用启动时触发一次人体检测任务刷新。
  */
 @Component
 @ConditionalOnProperty(value = "vlstream.person-detection.enabled", havingValue = "true", matchIfMissing = true)

@@ -11,39 +11,39 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * Audio anomaly detection setting table Entity class
+ * 音频异常侦测设置表 实体类
  */
 @Data
 @TableName("vls_audio_anomaly_detection_setting")
-@Schema(description = "AudioAnomalyDetectionSettingobject")
+@Schema(description = "AudioAnomalyDetectionSetting对象")
 @EqualsAndHashCode(callSuper = true)
 public class AudioAnomalyDetectionSetting extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "Device primary keyID")
+	@Schema(description = "设备主键ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long deviceId;
 
-	@Schema(description = "Audio input abnormality:0no1yes")
+	@Schema(description = "音频输入异常:0否1是")
 	private Integer audioInputAnomalyEnabled;
 
-	@Schema(description = "Sound intensity rises sharply:0no1yes")
+	@Schema(description = "声强陡升:0否1是")
 	private Integer soundRiseEnabled;
 
-	@Schema(description = "Sound intensity sudden rise sensitivity")
+	@Schema(description = "声强陡升灵敏度")
 	private Integer soundRiseSensitivity;
 
-	@Schema(description = "sound intensity threshold")
+	@Schema(description = "声音强度阈值")
 	private Integer soundIntensityThreshold;
 
-	@Schema(description = "Sound intensity drops sharply:0no1yes")
+	@Schema(description = "声强陡降:0否1是")
 	private Integer soundDropEnabled;
 
-	@Schema(description = "Sound intensity drop sensitivity")
+	@Schema(description = "声强陡降灵敏度")
 	private Integer soundDropSensitivity;
 
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 }

@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Scenario management table controller
+ * 场景治理表 控制器
  *
  * @author Oort
  * @since 2025-12-23
@@ -37,28 +37,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsSceneGovernance")
-@Tag(name = "Scenario management table", description = "Scenario management table interface")
+@Tag(name = "场景治理表", description = "场景治理表接口")
 public class VlsSceneGovernanceController extends BladeController {
 
 	private final IVlsSceneGovernanceService vlsSceneGovernanceService;
 
 	/**
-	 * Scenario management table Details
+	 * 场景治理表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingvlsSceneGovernance")
+	@Operation(summary = "详情", description = "传入vlsSceneGovernance")
 	public R<SceneGovernanceVO> detail(SceneGovernance vlsSceneGovernance) {
 		SceneGovernance detail = vlsSceneGovernanceService.getOne(Condition.getQueryWrapper(vlsSceneGovernance));
 		return R.data(VlsSceneGovernanceWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * Scenario management table Pagination
+	 * 场景治理表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingvlsSceneGovernance")
+	@Operation(summary = "分页", description = "传入vlsSceneGovernance")
 	public R<IPage<SceneGovernanceVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsSceneGovernance, Query query) {
 		IPage<SceneGovernance> pages = vlsSceneGovernanceService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsSceneGovernance, SceneGovernance.class));
 		return R.data(VlsSceneGovernanceWrapper.build().pageVO(pages));
@@ -66,63 +66,63 @@ public class VlsSceneGovernanceController extends BladeController {
 
 
 	/**
-	 * Scenario management table Custom paging
+	 * 场景治理表 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description = "incomingvlsSceneGovernance")
+	@Operation(summary = "分页", description = "传入vlsSceneGovernance")
 	public R<IPage<SceneGovernanceVO>> page(SceneGovernanceVO vlsSceneGovernance, Query query) {
 		IPage<SceneGovernanceVO> pages = vlsSceneGovernanceService.selectVlsSceneGovernancePage(Condition.getPage(query), vlsSceneGovernance);
 		return R.data(pages);
 	}
 
 	/**
-	 * Scenario management table New
+	 * 场景治理表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingvlsSceneGovernance")
+	@Operation(summary = "新增", description = "传入vlsSceneGovernance")
 	public R save(@Valid @RequestBody SceneGovernance vlsSceneGovernance) {
 		return R.status(vlsSceneGovernanceService.saveAndSchedule(vlsSceneGovernance));
 	}
 
 	/**
-	 * Scenario management table Revise
+	 * 场景治理表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingvlsSceneGovernance")
+	@Operation(summary = "修改", description = "传入vlsSceneGovernance")
 	public R update(@Valid @RequestBody SceneGovernance vlsSceneGovernance) {
 		return R.status(vlsSceneGovernanceService.updateAndSchedule(vlsSceneGovernance));
 	}
 
 	/**
-	 * Scenario management table Add or modify
+	 * 场景治理表 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingvlsSceneGovernance")
+	@Operation(summary = "新增或修改", description = "传入vlsSceneGovernance")
 	public R submit(@Valid @RequestBody SceneGovernance vlsSceneGovernance) {
 		return R.status(vlsSceneGovernanceService.submitAndSchedule(vlsSceneGovernance));
 	}
 
 	/**
-	 * Scenario management table delete
+	 * 场景治理表 删除
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(vlsSceneGovernanceService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Export data
+	 * 导出数据
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsSceneGovernance")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Export data", description = "incomingvlsSceneGovernance")
+	@Operation(summary = "导出数据", description = "传入vlsSceneGovernance")
 	public void exportVlsSceneGovernance(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsSceneGovernance, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<SceneGovernance> queryWrapper = Condition.getQueryWrapper(vlsSceneGovernance, SceneGovernance.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -130,7 +130,7 @@ public class VlsSceneGovernanceController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsSceneGovernanceEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsSceneGovernanceExcel> list = vlsSceneGovernanceService.exportVlsSceneGovernance(queryWrapper);
-		ExcelUtil.export(response, "Scenario management table data" + DateUtil.time(), "Scenario management table data table", list, VlsSceneGovernanceExcel.class);
+		ExcelUtil.export(response, "场景治理表数据" + DateUtil.time(), "场景治理表数据表", list, VlsSceneGovernanceExcel.class);
 	}
 
 }

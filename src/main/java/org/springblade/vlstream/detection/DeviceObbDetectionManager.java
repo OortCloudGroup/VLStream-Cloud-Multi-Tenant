@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 /**
- * Device spinner(OBB)Detect task manager: Regularly scan device configurations and maintain spinning box detection sessions. 
+ * 设备旋转框（OBB）检测任务管理器：定时扫描设备配置并维护旋转框检测会话。
  */
 @Slf4j
 @Component
@@ -30,14 +30,14 @@ public class DeviceObbDetectionManager extends AbstractDeviceDetectionManager<De
         }
         String streamUrl = resolveStreamUrl(deviceInfo);
         if (StringUtils.isBlank(streamUrl)) {
-            log.warn("equipment {} No flow address configured, Skip rotating box detection", deviceInfo.getDeviceName());
+            log.warn("设备 {} 未配置流地址，跳过旋转框检测", deviceInfo.getDeviceName());
             return null;
         }
 
         AlgorithmSelection algorithmSelection = selectAlgorithmByCategory(
             deviceInfo,
             AlgorithmCategoryEnum.obb,
-            "Rotating box detection",
+            "旋转框检测",
             this::resolveDefaultModelSourcePath,
             null
         );
@@ -74,22 +74,22 @@ public class DeviceObbDetectionManager extends AbstractDeviceDetectionManager<De
 
     @Override
     protected String getMissingConfigReason() {
-        return "The device is not configured with the rotating frame detection algorithm or the configuration is incomplete.";
+        return "设备未配置旋转框检测算法或配置不完整";
     }
 
     @Override
     protected String getConfigChangedReason() {
-        return "Device spin box detection configuration changed";
+        return "设备旋转框检测配置发生变化";
     }
 
     @Override
     protected String getRefreshErrorMessage() {
-        return "Refresh device spin box detection task failed";
+        return "刷新设备旋转框检测任务失败";
     }
 
     @Override
     protected String getStopErrorMessage() {
-        return "Stop device spin box detection failed: deviceId={}, reason={}";
+        return "停止设备旋转框检测失败: deviceId={}, reason={}";
     }
 
 }

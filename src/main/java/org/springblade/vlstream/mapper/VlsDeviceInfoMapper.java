@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * Equipment information table Mapper interface
+ * 设备信息表 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-23
@@ -23,30 +23,30 @@ import java.util.List;
 public interface VlsDeviceInfoMapper extends BaseMapper<DeviceInfo> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page          Paging parameters
-	 * @param vlsDeviceInfo query parameters
+	 * @param page          分页参数
+	 * @param vlsDeviceInfo 查询参数
 	 * @return List<VlsDeviceInfoVO>
 	 */
 	List<DeviceInfoVO> selectVlsDeviceInfoPage(IPage page, DeviceInfoVO vlsDeviceInfo);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsDeviceInfoExcel>
 	 */
 	List<VlsDeviceInfoExcel> exportVlsDeviceInfo(@Param("ew") Wrapper<DeviceInfo> queryWrapper);
 
 	/**
-	 * Query device information by page
+	 * 分页查询设备信息
 	 *
-	 * @param page       Pagination object
-	 * @param deviceName device name or deviceID
-	 * @param tag        device tag(Actual correspondencedevice_typeField)
-	 * @param status     Device status
-	 * @return Device information paginated list
+	 * @param page       分页对象
+	 * @param deviceName 设备名称或设备ID
+	 * @param tag        设备标签（实际对应device_type字段）
+	 * @param status     设备状态
+	 * @return 设备信息分页列表
 	 */
 	@Select("<script>" +
 		"SELECT * FROM vls_device_info " +
@@ -68,47 +68,47 @@ public interface VlsDeviceInfoMapper extends BaseMapper<DeviceInfo> {
 									   @Param("status") String status);
 
 	/**
-	 * Query device information based on device number
+	 * 根据设备编号查询设备信息
 	 *
-	 * @param deviceId Device number
-	 * @return Device information
+	 * @param deviceId 设备编号
+	 * @return 设备信息
 	 */
 	@Select("SELECT * FROM vls_device_info WHERE device_id = #{deviceId} AND is_deleted = 0")
 	DeviceInfo selectByDeviceId(@Param("deviceId") String deviceId);
 
 	/**
-	 * Query device list based on status
+	 * 根据状态查询设备列表
 	 *
-	 * @param status Device status
-	 * @return Device list
+	 * @param status 设备状态
+	 * @return 设备列表
 	 */
 	@Select("SELECT * FROM vls_device_info WHERE status = #{status} AND is_deleted = 0")
 	List<DeviceInfo> selectByStatus(@Param("status") String status);
 
 	/**
-	 * Query the device list based on device type
+	 * 根据设备类型查询设备列表
 	 *
-	 * @param deviceType Device type
-	 * @return Device list
+	 * @param deviceType 设备类型
+	 * @return 设备列表
 	 */
 	@Select("SELECT * FROM vls_device_info WHERE device_type = #{deviceType} AND is_deleted = 0")
 	List<DeviceInfo> selectByDeviceType(@Param("deviceType") String deviceType);
 
 	/**
-	 * Query device list based on label(actual querydevice_typeField)
+	 * 根据标签查询设备列表（实际查询device_type字段）
 	 *
-	 * @param tag Label
-	 * @return Device list
+	 * @param tag 标签
+	 * @return 设备列表
 	 */
 	@Select("SELECT * FROM vls_device_info WHERE device_type = #{tag} AND is_deleted = 0")
 	List<DeviceInfo> selectByTag(@Param("tag") String tag);
 
 	/**
-	 * Update device status in batches
+	 * 批量更新设备状态
 	 *
-	 * @param deviceIds equipmentIDlist
-	 * @param status    state
-	 * @return Update quantity
+	 * @param deviceIds 设备ID列表
+	 * @param status    状态
+	 * @return 更新数量
 	 */
 	@Update("<script>" +
 		"UPDATE vls_device_info SET status = #{status}, update_time = NOW() " +
@@ -121,74 +121,74 @@ public interface VlsDeviceInfoMapper extends BaseMapper<DeviceInfo> {
 						  @Param("status") String status);
 
 	/**
-	 * Get device status statistics
+	 * 获取设备状态统计
 	 *
-	 * @return Statistical results
+	 * @return 统计结果
 	 */
 	@Select("SELECT status, COUNT(*) as count FROM vls_device_info WHERE is_deleted = 0 GROUP BY status")
 	List<StatusStatistics> getStatusStatistics();
 
 	/**
-	 * Get device type statistics
+	 * 获取设备类型统计
 	 *
-	 * @return Statistical results
+	 * @return 统计结果
 	 */
 	@Select("SELECT device_type as type, COUNT(*) as count FROM vls_device_info WHERE is_deleted = 0 GROUP BY device_type")
 	List<TypeStatistics> getTypeStatistics();
 
 	/**
-	 * Get equipment brand statistics
+	 * 获取设备品牌统计
 	 *
-	 * @return Statistical results
+	 * @return 统计结果
 	 */
 	@Select("SELECT brand, COUNT(*) as count FROM vls_device_info WHERE is_deleted = 0 GROUP BY brand")
 	List<BrandStatistics> getBrandStatistics();
 
 	/**
-	 * Get a list of all device types(for tag list)
+	 * 获取所有设备类型列表（用于标签列表）
 	 *
-	 * @return Device type list
+	 * @return 设备类型列表
 	 */
 	@Select("SELECT DISTINCT device_type FROM vls_device_info WHERE device_type IS NOT NULL AND device_type != '' AND is_deleted = 0")
 	List<String> getAllTags();
 
 	/**
-	 * Get a list of all device brands
+	 * 获取所有设备品牌列表
 	 *
-	 * @return Brand list
+	 * @return 品牌列表
 	 */
 	@Select("SELECT DISTINCT brand FROM vls_device_info WHERE brand IS NOT NULL AND brand != '' AND is_deleted = 0")
 	List<String> getAllBrands();
 
 	/**
-	 * according toIPAddress query equipment
+	 * 根据IP地址查询设备
 	 *
-	 * @param ipAddress IPaddress
-	 * @return Device list
+	 * @param ipAddress IP地址
+	 * @return 设备列表
 	 */
 	@Select("SELECT * FROM vls_device_info WHERE ip_address = #{ipAddress} AND is_deleted = 0")
 	List<DeviceInfo> selectByIpAddress(@Param("ipAddress") String ipAddress);
 
 	/**
-	 * Query devices based on location
+	 * 根据位置查询设备
 	 *
-	 * @param position Location
-	 * @return Device list
+	 * @param position 位置
+	 * @return 设备列表
 	 */
 	@Select("SELECT * FROM vls_device_info WHERE position LIKE CONCAT('%', #{position}, '%') AND is_deleted = 0")
 	List<DeviceInfo> selectByPosition(@Param("position") String position);
 
 	/**
-	 * Check if the device number exists
+	 * 检查设备编号是否存在
 	 *
-	 * @param deviceId Device number
-	 * @return quantity
+	 * @param deviceId 设备编号
+	 * @return 数量
 	 */
 	@Select("SELECT COUNT(*) FROM vls_device_info WHERE device_id = #{deviceId} AND is_deleted = 0")
 	int countByDeviceId(@Param("deviceId") String deviceId);
 
 	/**
-	 * Status statistics inner class
+	 * 状态统计内部类
 	 */
 	@Data
 	class StatusStatistics {
@@ -197,7 +197,7 @@ public interface VlsDeviceInfoMapper extends BaseMapper<DeviceInfo> {
 	}
 
 	/**
-	 * Type statistics inner class
+	 * 类型统计内部类
 	 */
 	@Data
 	class TypeStatistics {
@@ -206,7 +206,7 @@ public interface VlsDeviceInfoMapper extends BaseMapper<DeviceInfo> {
 	}
 
 	/**
-	 * Brand statistics internal class
+	 * 品牌统计内部类
 	 */
 	@Data
 	class BrandStatistics {
@@ -215,7 +215,7 @@ public interface VlsDeviceInfoMapper extends BaseMapper<DeviceInfo> {
 	}
 
 	/**
-	 * Device statistics internal class
+	 * 设备统计信息内部类
 	 */
 	@Data
 	class DeviceStatistics {

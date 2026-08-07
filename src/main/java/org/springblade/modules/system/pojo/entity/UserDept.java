@@ -13,51 +13,51 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_user_dept")
-@Schema(description = "UserDeptobject")
+@Schema(description = "UserDept对象")
 public class UserDept implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary key
+	 * 主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "primary key")
+	@Schema(description = "主键")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * userID
+	 * 用户ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "userID")
+	@Schema(description = "用户ID")
 	private Long userId;
 
 	/**
-	 * departmentID
+	 * 部门ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "departmentID")
+	@Schema(description = "部门ID")
 	private Long deptId;
 
 	/**
-	 * business status
+	 * 业务状态
 	 */
-	@Schema(description = "business status")
+	@Schema(description = "业务状态")
 	private Integer status;
 
 	/**
-	 * Has it been deleted?
+	 * 是否已删除
 	 */
 	@TableLogic
-	@Schema(description = "Has it been deleted?")
+	@Schema(description = "是否已删除")
 	private Integer isDeleted;
 
 }

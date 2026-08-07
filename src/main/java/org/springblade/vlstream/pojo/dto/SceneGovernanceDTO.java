@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Scenario management table Data transfer object entity class
+ * 场景治理表 数据传输对象实体类
  *
  * @author Oort
  * @since 2025-12-23

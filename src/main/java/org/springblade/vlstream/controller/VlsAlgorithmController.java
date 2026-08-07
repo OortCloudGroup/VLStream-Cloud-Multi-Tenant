@@ -16,6 +16,7 @@ import org.springblade.core.excel.util.ExcelUtil;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.BladeUser;
+import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.DateUtil;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Algorithm table controller
+ * 算法表 控制器
  *
  * @author Oort
  * @since 2025-12-23
@@ -40,40 +41,44 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAlgorithm")
-@Tag(name = "Algorithm table", description = "Algorithm table interface")
+@Tag(name = "算法表", description = "算法表接口")
 public class VlsAlgorithmController extends BladeController {
 
 	private final IVlsAlgorithmService vlsAlgorithmService;
 
 	/**
-	 * Algorithm table Details
+	 * 算法表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingvlsAlgorithm")
+	@Operation(summary = "详情", description = "传入vlsAlgorithm")
 	public R<AlgorithmVO> detail(Algorithm vlsAlgorithm) {
-		Algorithm detail = vlsAlgorithmService.getOne(Condition.getQueryWrapper(vlsAlgorithm));
+		QueryWrapper<Algorithm> queryWrapper = Condition.getQueryWrapper(vlsAlgorithm);
+		queryWrapper.eq("tenant_id", AuthUtil.getTenantId());
+		Algorithm detail = vlsAlgorithmService.getOne(queryWrapper);
 		return R.data(VlsAlgorithmWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * Algorithm table Pagination
+	 * 算法表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingvlsAlgorithm")
+	@Operation(summary = "分页", description = "传入vlsAlgorithm")
 	public R<IPage<AlgorithmVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithm, Query query) {
-		IPage<Algorithm> pages = vlsAlgorithmService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAlgorithm, Algorithm.class));
+		QueryWrapper<Algorithm> queryWrapper = Condition.getQueryWrapper(vlsAlgorithm, Algorithm.class);
+		queryWrapper.eq("tenant_id", AuthUtil.getTenantId());
+		IPage<Algorithm> pages = vlsAlgorithmService.page(Condition.getPage(query), queryWrapper);
 		return R.data(VlsAlgorithmWrapper.build().pageVO(pages));
 	}
 
 
 	/**
-	 * Algorithm table Custom paging
+	 * 算法表 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description = "incomingvlsAlgorithm")
+	@Operation(summary = "分页", description = "传入vlsAlgorithm")
 	public R<IPage<AlgorithmVO>> page(AlgorithmVO vlsAlgorithm, Query query) {
 		IPage<AlgorithmVO> pages = vlsAlgorithmService.selectVlsAlgorithmPage(Condition.getPage(query), vlsAlgorithm);
 		for (AlgorithmVO algorithm : pages.getRecords()) {
@@ -83,310 +88,312 @@ public class VlsAlgorithmController extends BladeController {
 	}
 
 	/**
-	 * Algorithm table New
+	 * 算法表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingvlsAlgorithm")
+	@Operation(summary = "新增", description = "传入vlsAlgorithm")
 	public R save(@Valid @RequestBody Algorithm vlsAlgorithm) {
-		return R.status(vlsAlgorithmService.save(vlsAlgorithm));
+		return R.status(vlsAlgorithmService.createAlgorithm(vlsAlgorithm));
 	}
 
 	/**
-	 * Algorithm table Revise
+	 * 算法表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingvlsAlgorithm")
+	@Operation(summary = "修改", description = "传入vlsAlgorithm")
 	public R update(@Valid @RequestBody Algorithm vlsAlgorithm) {
-		return R.status(vlsAlgorithmService.updateById(vlsAlgorithm));
+		return R.status(vlsAlgorithmService.updateAlgorithm(vlsAlgorithm));
 	}
 
 	/**
-	 * Algorithm table Add or modify
+	 * 算法表 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingvlsAlgorithm")
+	@Operation(summary = "新增或修改", description = "传入vlsAlgorithm")
 	public R submit(@Valid @RequestBody Algorithm vlsAlgorithm) {
-		return R.status(vlsAlgorithmService.saveOrUpdate(vlsAlgorithm));
+		return R.status(vlsAlgorithm.getId() == null
+			? vlsAlgorithmService.createAlgorithm(vlsAlgorithm)
+			: vlsAlgorithmService.updateAlgorithm(vlsAlgorithm));
 	}
 
 	/**
-	 * Algorithm table delete
+	 * 算法表 删除
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
-		return R.status(vlsAlgorithmService.deleteLogic(Func.toLongList(ids)));
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+		return R.status(vlsAlgorithmService.batchDeleteAlgorithms(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Export data
+	 * 导出数据
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAlgorithm")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Export data", description = "incomingvlsAlgorithm")
+	@Operation(summary = "导出数据", description = "传入vlsAlgorithm")
 	public void exportVlsAlgorithm(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAlgorithm, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<Algorithm> queryWrapper = Condition.getQueryWrapper(vlsAlgorithm, Algorithm.class);
-		//if (!AuthUtil.isAdministrator()) {
-		//	queryWrapper.lambda().eq(VlsAlgorithmEntity::getTenantId, bladeUser.getTenantId());
-		//}
+		queryWrapper.eq("tenant_id", AuthUtil.getTenantId());
 		//queryWrapper.lambda().eq(VlsAlgorithmEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAlgorithmExcel> list = vlsAlgorithmService.exportVlsAlgorithm(queryWrapper);
-		ExcelUtil.export(response, "Algorithm table data" + DateUtil.time(), "Algorithm table data table", list, VlsAlgorithmExcel.class);
+		ExcelUtil.export(response, "算法表数据" + DateUtil.time(), "算法表数据表", list, VlsAlgorithmExcel.class);
 	}
 
 	/**
-	 * According to warehouseIDQuery algorithm list
+	 * 根据仓库ID查询算法列表
 	 */
 	@GetMapping("/repository/{repositoryId}")
-	@Operation(summary = "According to warehouseIDQuery algorithm list", description = "Get all algorithms under the specified warehouse")
+	@Operation(summary = "根据仓库ID查询算法列表", description = "获取指定仓库下的所有算法")
 	public R<List<Algorithm>> getAlgorithmsByRepositoryId(
-		@Parameter(description = "storehouseID", example = "1") @PathVariable @NotNull Long repositoryId) {
+		@Parameter(description = "仓库ID", example = "1") @PathVariable @NotNull Long repositoryId) {
 
-		log.info("According to warehouseIDQuery algorithm list: {}", repositoryId);
+		log.info("根据仓库ID查询算法列表：{}", repositoryId);
 
 		List<Algorithm> algorithms = vlsAlgorithmService.getByRepositoryId(repositoryId);
 		return R.data(algorithms);
 	}
 
 	/**
-	 * Query algorithm list according to classification
+	 * 根据分类查询算法列表
 	 */
 	@GetMapping("/category/{category}")
-	@Operation(summary = "Query algorithm list according to classification", description = "Get all algorithms for a specified category")
+	@Operation(summary = "根据分类查询算法列表", description = "获取指定分类的所有算法")
 	public R<List<Algorithm>> getAlgorithmsByCategory(
-		@Parameter(description = "Algorithm type", example = "person-detection") @PathVariable String category) {
+		@Parameter(description = "算法类型", example = "person-detection") @PathVariable String category) {
 
-		log.info("Query algorithm list according to classification: {}", category);
+		log.info("根据分类查询算法列表：{}", category);
 
 		List<Algorithm> algorithms = vlsAlgorithmService.getByCategory(category);
 		return R.data(algorithms);
 	}
 
 	/**
-	 * according toIDQuery algorithm details
+	 * 根据ID查询算法详情
 	 */
 	@GetMapping("/{id}")
-	@Operation(summary = "Query algorithm details", description = "according toIDGet algorithm details")
+	@Operation(summary = "查询算法详情", description = "根据ID获取算法详细信息")
 	public R<Algorithm> getAlgorithmById(
-		@Parameter(description = "algorithmID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "算法ID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("Query algorithm details: ID={}", id);
+		log.info("查询算法详情：ID={}", id);
 
-		Algorithm algorithm = vlsAlgorithmService.getById(id);
+		QueryWrapper<Algorithm> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("id", id).eq("tenant_id", AuthUtil.getTenantId()).eq("is_deleted", 0);
+		Algorithm algorithm = vlsAlgorithmService.getOne(queryWrapper);
 		if (algorithm == null) {
-			return R.fail("Algorithm does not exist");
+			return R.fail("算法不存在");
 		}
 
 		return R.data(algorithm);
 	}
 
 	/**
-	 * Create algorithm
+	 * 创建算法
 	 */
 	@PostMapping
-	@Operation(summary = "Create algorithm", description = "New algorithm")
+	@Operation(summary = "创建算法", description = "新增算法")
 	public R<String> createAlgorithm(@Valid @RequestBody Algorithm algorithm) {
-		log.info("Create algorithm: {}", algorithm.getName());
+		log.info("创建算法：{}", algorithm.getName());
 
 		boolean success = vlsAlgorithmService.createAlgorithm(algorithm);
 		if (success) {
-			return R.success("Algorithm created successfully");
+			return R.success("算法创建成功");
 		} else {
-			return R.fail("Algorithm creation failed, The name may already exist in the same warehouse");
+			return R.fail("算法创建失败，同一仓库下名称可能已存在");
 		}
 	}
 
 	/**
-	 * Update algorithm
+	 * 更新算法
 	 */
 	@PutMapping("/{id}")
-	@Operation(summary = "Update algorithm", description = "according toIDUpdate algorithm information")
+	@Operation(summary = "更新算法", description = "根据ID更新算法信息")
 	public R<String> updateAlgorithm(
-		@Parameter(description = "algorithmID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "算法ID", example = "1") @PathVariable @NotNull Long id,
 		@Valid @RequestBody Algorithm algorithm) {
 
-		log.info("Update algorithm: ID={}", id);
+		log.info("更新算法：ID={}", id);
 
 		algorithm.setId(id);
 		boolean success = vlsAlgorithmService.updateAlgorithm(algorithm);
 
 		if (success) {
-			return R.success("Algorithm update successful");
+			return R.success("算法更新成功");
 		} else {
-			return R.fail("Algorithm update failed");
+			return R.fail("算法更新失败");
 		}
 	}
 
 	/**
-	 * Delete algorithm
+	 * 删除算法
 	 */
 	@DeleteMapping("/{id}")
-	@Operation(summary = "Delete algorithm", description = "according toIDDelete algorithm(soft delete)")
+	@Operation(summary = "删除算法", description = "根据ID删除算法（软删除）")
 	public R<String> deleteAlgorithm(
-		@Parameter(description = "algorithmID", example = "1") @PathVariable @NotNull Long id) {
+		@Parameter(description = "算法ID", example = "1") @PathVariable @NotNull Long id) {
 
-		log.info("Delete algorithm: ID={}", id);
+		log.info("删除算法：ID={}", id);
 
 		boolean success = vlsAlgorithmService.deleteAlgorithm(id);
 		if (success) {
-			return R.success("Algorithm deletion successful");
+			return R.success("算法删除成功");
 		} else {
-			return R.fail("Algorithm deletion failed");
+			return R.fail("算法删除失败");
 		}
 	}
 
 	/**
-	 * Batch deletion algorithm
+	 * 批量删除算法
 	 */
 	@DeleteMapping("/batch")
-	@Operation(summary = "Batch deletion algorithm", description = "according toIDList batch deletion algorithm")
+	@Operation(summary = "批量删除算法", description = "根据ID列表批量删除算法")
 	public R<String> batchDeleteAlgorithms(@RequestBody List<Long> ids) {
-		log.info("Batch deletion algorithm: IDs={}", ids);
+		log.info("批量删除算法：IDs={}", ids);
 
 		if (ids == null || ids.isEmpty()) {
-			return R.fail("Please select the algorithm to delete");
+			return R.fail("请选择要删除的算法");
 		}
 
 		boolean success = vlsAlgorithmService.batchDeleteAlgorithms(ids);
 		if (success) {
-			return R.success("Algorithm batch deletion successful");
+			return R.success("算法批量删除成功");
 		} else {
-			return R.fail("Algorithm batch deletion failed");
+			return R.fail("算法批量删除失败");
 		}
 	}
 
 	/**
-	 * Update deployment status
+	 * 更新部署状态
 	 */
 	@PutMapping("/{id}/deploy-status")
-	@Operation(summary = "Update deployment status", description = "Update the deployment status of the algorithm")
+	@Operation(summary = "更新部署状态", description = "更新算法的部署状态")
 	public R<String> updateDeployStatus(
-		@Parameter(description = "algorithmID", example = "1") @PathVariable @NotNull Long id,
-		@Parameter(description = "Deployment status", example = "deployed") @RequestParam @NotNull String deployStatus) {
+		@Parameter(description = "算法ID", example = "1") @PathVariable @NotNull Long id,
+		@Parameter(description = "部署状态", example = "deployed") @RequestParam @NotNull String deployStatus) {
 
-		log.info("Update algorithm deployment status: ID={}, Status={}", id, deployStatus);
+		log.info("更新算法部署状态：ID={}, Status={}", id, deployStatus);
 
 		boolean success = vlsAlgorithmService.updateDeployStatus(id, deployStatus);
 		if (success) {
-			return R.success("Deployment status updated successfully");
+			return R.success("部署状态更新成功");
 		} else {
-			return R.fail("Deployment status update failed");
+			return R.fail("部署状态更新失败");
 		}
 	}
 
 	/**
-	 * Update deployment status in batches
+	 * 批量更新部署状态
 	 */
 	@PutMapping("/batch/deploy-status")
-	@Operation(summary = "Update deployment status in batches", description = "Batch update algorithm deployment status")
+	@Operation(summary = "批量更新部署状态", description = "批量更新算法的部署状态")
 	public R<String> batchUpdateDeployStatus(
 		@RequestBody List<Long> ids,
-		@Parameter(description = "Deployment status", example = "deployed") @RequestParam @NotNull String deployStatus) {
+		@Parameter(description = "部署状态", example = "deployed") @RequestParam @NotNull String deployStatus) {
 
-		log.info("Batch update algorithm deployment status: IDs={}, Status={}", ids, deployStatus);
+		log.info("批量更新算法部署状态：IDs={}, Status={}", ids, deployStatus);
 
 		if (ids == null || ids.isEmpty()) {
-			return R.fail("Please select the algorithm to update");
+			return R.fail("请选择要更新的算法");
 		}
 
 		boolean success = vlsAlgorithmService.batchUpdateDeployStatus(ids, deployStatus);
 		if (success) {
-			return R.success("Deployment status batch update successful");
+			return R.success("部署状态批量更新成功");
 		} else {
-			return R.fail("Deployment status batch update failed");
+			return R.fail("部署状态批量更新失败");
 		}
 	}
 
 	/**
-	 * Deploy algorithm to device
+	 * 部署算法到设备
 	 */
 	@PostMapping("/{id}/deploy")
-	@Operation(summary = "Deploy algorithm to device", description = "Deploy the algorithm to the specified device")
+	@Operation(summary = "部署算法到设备", description = "将算法部署到指定设备")
 	public R<String> deployAlgorithmToDevices(
-		@Parameter(description = "algorithmID", example = "1") @PathVariable @NotNull Long algorithmId,
+		@Parameter(description = "算法ID", example = "1") @PathVariable @NotNull Long algorithmId,
 		@RequestBody List<Long> deviceIds) {
 
-		log.info("Deploy algorithm to device: AlgorithmId={}, DeviceIds={}", algorithmId, deviceIds);
+		log.info("部署算法到设备：AlgorithmId={}, DeviceIds={}", algorithmId, deviceIds);
 
 		if (deviceIds == null || deviceIds.isEmpty()) {
-			return R.fail("Please select a device to deploy");
+			return R.fail("请选择要部署的设备");
 		}
 
 		boolean success = vlsAlgorithmService.deployAlgorithmToDevices(algorithmId, deviceIds);
 		if (success) {
-			return R.success("Algorithm deployment successful");
+			return R.success("算法部署成功");
 		} else {
-			return R.fail("Algorithm deployment failed");
+			return R.fail("算法部署失败");
 		}
 	}
 
 	/**
-	 * Algorithm evaluation
+	 * 算法评估
 	 */
 	@PostMapping("/{algorithmId}/evaluate")
-	@Operation(summary = "Algorithm evaluation", description = "Performance evaluation of algorithms")
-	public R<Map<String, Object>> evaluateAlgorithm(@Parameter(description = "algorithmID", example = "1") @PathVariable @NotNull Long algorithmId) {
+	@Operation(summary = "算法评估", description = "对算法进行性能评估")
+	public R<Map<String, Object>> evaluateAlgorithm(@Parameter(description = "算法ID", example = "1") @PathVariable @NotNull Long algorithmId) {
 
-		log.info("Algorithm evaluation: AlgorithmId={}", algorithmId);
+		log.info("算法评估：AlgorithmId={}", algorithmId);
 
 		Map<String, Object> result = vlsAlgorithmService.evaluateAlgorithm(algorithmId);
 		if (result != null) {
 			return R.data(result);
 		} else {
-			return R.fail("Algorithm evaluation failed, Algorithm does not exist");
+			return R.fail("算法评估失败，算法不存在");
 		}
 	}
 
 	/**
-	 * Get algorithm classification statistics
+	 * 获取算法分类统计
 	 */
 	@GetMapping("/statistics/category")
-	@Operation(summary = "Get algorithm classification statistics", description = "Get statistics on the number of algorithms in each category")
+	@Operation(summary = "获取算法分类统计", description = "获取各分类的算法数量统计")
 	public R<List<Map<String, Object>>> getCategoryStatistics() {
-		log.info("Get algorithm classification statistics");
+		log.info("获取算法分类统计");
 
 		List<Map<String, Object>> statistics = vlsAlgorithmService.getCategoryStatistics();
 		return R.data(statistics);
 	}
 
 	/**
-	 * Get algorithm type statistics
+	 * 获取算法类型统计
 	 */
 	@GetMapping("/statistics/type")
-	@Operation(summary = "Get algorithm type statistics", description = "Get statistics on the number of algorithms of various types")
+	@Operation(summary = "获取算法类型统计", description = "获取各类型的算法数量统计")
 	public R<List<Map<String, Object>>> getTypeStatistics() {
-		log.info("Get algorithm type statistics");
+		log.info("获取算法类型统计");
 
 		List<Map<String, Object>> statistics = vlsAlgorithmService.getTypeStatistics();
 		return R.data(statistics);
 	}
 
 	/**
-	 * Get deployment status statistics
+	 * 获取部署状态统计
 	 */
 	@GetMapping("/statistics/deploy-status")
-	@Operation(summary = "Get deployment status statistics", description = "Obtain statistics on the number of algorithms in each deployment status")
+	@Operation(summary = "获取部署状态统计", description = "获取各部署状态的算法数量统计")
 	public R<List<Map<String, Object>>> getDeployStatusStatistics() {
-		log.info("Get deployment status statistics");
+		log.info("获取部署状态统计");
 
 		List<Map<String, Object>> statistics = vlsAlgorithmService.getDeployStatusStatistics();
 		return R.data(statistics);
 	}
 
 	/**
-	 * Count the number of algorithms under a certain warehouse
+	 * 统计某仓库下的算法数量
 	 */
 	@GetMapping("/count/repository/{repositoryId}")
-	@Operation(summary = "Count the number of algorithms under a certain warehouse", description = "Get the number of algorithms in the specified warehouse")
+	@Operation(summary = "统计某仓库下的算法数量", description = "获取指定仓库的算法数量")
 	public R<Long> countByRepositoryId(
-		@Parameter(description = "storehouseID", example = "1") @PathVariable @NotNull Long repositoryId) {
+		@Parameter(description = "仓库ID", example = "1") @PathVariable @NotNull Long repositoryId) {
 
-		log.info("Count the number of algorithms under a certain warehouse: RepositoryId={}", repositoryId);
+		log.info("统计某仓库下的算法数量：RepositoryId={}", repositoryId);
 
 		Long count = vlsAlgorithmService.countByRepositoryId(repositoryId);
 		return R.data(count);

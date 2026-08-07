@@ -3,7 +3,7 @@ package org.springblade.common.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
 /**
- * Map data type enumeration
+ * 地图数据类型枚举
  *
  * @author Oort
  * @since 2025-07-28
@@ -11,34 +11,34 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 public enum MapDataTypeEnum {
 
 	/**
-	 * WMSmap service
+	 * WMS地图服务
 	 */
-	WMS("WMS", "WMSmap service"),
+	WMS("WMS", "WMS地图服务"),
 
 	/**
-	 * Tile map service
+	 * 瓦片地图服务
 	 */
-	TILE("TILE", "Tile map service"),
+	TILE("TILE", "瓦片地图服务"),
 
 	/**
-	 * WFSmap service
+	 * WFS地图服务
 	 */
-	WFS("WFS", "WFSmap service"),
+	WFS("WFS", "WFS地图服务"),
 
 	/**
-	 * WCSmap service
+	 * WCS地图服务
 	 */
-	WCS("WCS", "WCSmap service"),
+	WCS("WCS", "WCS地图服务"),
 
 	/**
-	 * WMTSmap service
+	 * WMTS地图服务
 	 */
-	WMTS("WMTS", "WMTSmap service"),
+	WMTS("WMTS", "WMTS地图服务"),
 
 	/**
-	 * Custom map service
+	 * 自定义地图服务
 	 */
-	CUSTOM("CUSTOM", "Custom map service");
+	CUSTOM("CUSTOM", "自定义地图服务");
 
 	@EnumValue
 	private final String value;
@@ -63,10 +63,10 @@ public enum MapDataTypeEnum {
 	}
 
 	/**
-	 * Get enumeration object based on value
+	 * 根据值获取枚举对象
 	 *
-	 * @param value enumeration value
-	 * @return enumeration object
+	 * @param value 枚举值
+	 * @return 枚举对象
 	 */
 	public static MapDataTypeEnum fromValue(String value) {
 		for (MapDataTypeEnum dataType : MapDataTypeEnum.values()) {
@@ -74,6 +74,6 @@ public enum MapDataTypeEnum {
 				return dataType;
 			}
 		}
-		throw new IllegalArgumentException("Unknown map data type: " + value);
+		throw new IllegalArgumentException("未知的地图数据类型: " + value);
 	}
 }

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * Intelligent analysis request form Mapper interface
+ * 智能分析请求表 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-23
@@ -18,18 +18,18 @@ import java.util.List;
 public interface VlsAnalysisRequestMapper extends BaseMapper<AnalysisRequest> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAnalysisRequest query parameters
+	 * @param page 分页参数
+	 * @param vlsAnalysisRequest 查询参数
 	 * @return List<VlsAnalysisRequestVO>
 	 */
 	List<AnalysisRequestVO> selectVlsAnalysisRequestPage(IPage page, AnalysisRequestVO vlsAnalysisRequest);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAnalysisRequestExcel>
 	 */
 	List<VlsAnalysisRequestExcel> exportVlsAnalysisRequest(@Param("ew") Wrapper<AnalysisRequest> queryWrapper);

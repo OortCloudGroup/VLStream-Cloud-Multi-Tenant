@@ -20,20 +20,20 @@ import static org.springblade.common.constant.TenantConstant.MENU_CODES;
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_ROLE_MENU_RULE;
 
 /**
- * Tenant role menu construction
+ * 租户角色菜单构建
  *
  * @author Chill
  */
-@LiteRuleComponent(id = TENANT_ROLE_MENU_RULE, name = "Tenant role menu construction")
+@LiteRuleComponent(id = TENANT_ROLE_MENU_RULE, name = "租户角色菜单构建")
 public class TenantRoleMenuRule extends RuleComponent {
 	@Override
 	public void process() {
-		// Get context
+		// 获取上下文
 		TenantContext contextBean = this.getContextBean(TenantContext.class);
 		IMenuService menuService = contextBean.getMenuService();
-		// Role menu permissions corresponding to the new tenant
+		// 新建租户对应的角色菜单权限
 		LinkedList<Menu> userMenus = new LinkedList<>();
-		// Get the default menu collection of parameter configuration, comma separated
+		// 获取参数配置的默认菜单集合，逗号隔开
 		List<String> menuCodes = Func.toStrList(ParamCache.getValue(ACCOUNT_MENU_CODE_KEY));
 		List<Menu> menus = getMenus(menuService, (!menuCodes.isEmpty() ? menuCodes : MENU_CODES), userMenus);
 		List<RoleMenu> roleMenuList = new ArrayList<>();
@@ -42,7 +42,7 @@ public class TenantRoleMenuRule extends RuleComponent {
 			roleMenu.setMenuId(menu.getId());
 			roleMenuList.add(roleMenu);
 		});
-		// Set context
+		// 设置上下文
 		contextBean.setRoleMenuList(roleMenuList);
 	}
 

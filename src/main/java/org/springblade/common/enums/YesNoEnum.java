@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * Whether the enumeration class is universal
- * 1-yes, 0-no
+ * 通用是否枚举类
+ * 1-是，0-否
  *
  * @author Administrator
  */
@@ -13,14 +13,14 @@ import lombok.Getter;
 public enum YesNoEnum {
 
 	/**
-	 * no
+	 * 否
 	 */
-	NO(0, "no"),
+	NO(0, "否"),
 
 	/**
-	 * yes
+	 * 是
 	 */
-	YES(1, "yes");
+	YES(1, "是");
 
 	@EnumValue
 	private final Integer code;
@@ -32,10 +32,10 @@ public enum YesNoEnum {
 	}
 
 	/**
-	 * according tocodeGet enumeration
+	 * 根据code获取枚举
 	 *
-	 * @param code status code
-	 * @return enumeration object
+	 * @param code 状态码
+	 * @return 枚举对象
 	 */
 	public static YesNoEnum of(Integer code) {
 		if (code == null) {
@@ -50,20 +50,20 @@ public enum YesNoEnum {
 	}
 
 	/**
-	 * Determine whether it is"yes"
+	 * 判断是否为"是"
 	 *
-	 * @param code status code
-	 * @return Is it"yes"
+	 * @param code 状态码
+	 * @return 是否为"是"
 	 */
 	public static boolean isYes(Integer code) {
 		return YES.getCode().equals(code);
 	}
 
 	/**
-	 * Determine whether it is"no"
+	 * 判断是否为"否"
 	 *
-	 * @param code status code
-	 * @return Is it"no"
+	 * @param code 状态码
+	 * @return 是否为"否"
 	 */
 	public static boolean isNo(Integer code) {
 		return NO.getCode().equals(code);

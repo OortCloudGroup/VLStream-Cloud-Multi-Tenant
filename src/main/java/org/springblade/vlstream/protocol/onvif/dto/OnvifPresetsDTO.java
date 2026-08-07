@@ -4,16 +4,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@Schema(description = "ONVIF Preset point parameters")
+@Schema(description = "ONVIF 预置点参数")
 public class OnvifPresetsDTO {
 
-	@Schema(description = "equipmentIP")
+	@Schema(description = "设备IP")
 	private String ip;
 
-	@Schema(description = "username")
+	@Schema(description = "用户名")
 	private String username;
 
-	@Schema(description = "password")
+	@Schema(description = "密码")
 	private String password;
 
 	@Schema(description = "ProfileToken")

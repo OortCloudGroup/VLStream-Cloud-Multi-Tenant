@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Data source type enumeration
+ * 数据源类型枚举
  *
  * @author
  * @since 2025-07-28
@@ -15,34 +15,34 @@ import lombok.Getter;
 public enum DatasourceCategoryEnum {
 
 	/**
-	 * main table
+	 * 主表
 	 */
-	MAIN_TABLE("MAIN_TABLE", "main table"),
+	MAIN_TABLE("MAIN_TABLE", "主表"),
 
 	/**
-	 * Middle office service
+	 * 中台服务
 	 */
-	SERVICE("SERVICE", "Serve"),
+	SERVICE("SERVICE", "服务"),
 
 	/**
-	 * Library table
+	 * 库表
 	 */
-	DATABASE("DATABASE", "Library table"),
+	DATABASE("DATABASE", "库表"),
 
 	/**
-	 * interface
+	 * 接口
 	 */
-	INTERFACE("INTERFACE", "interface");
+	INTERFACE("INTERFACE", "接口");
 
 	@EnumValue
 	private final String code;
 	private final String name;
 
 	/**
-	 * Get enumeration based on code
+	 * 根据代码获取枚举
 	 *
-	 * @param code code
-	 * @return enumerate
+	 * @param code 代码
+	 * @return 枚举
 	 */
 	public static DatasourceCategoryEnum fromCode(String code) {
 		for (DatasourceCategoryEnum category : DatasourceCategoryEnum.values()) {

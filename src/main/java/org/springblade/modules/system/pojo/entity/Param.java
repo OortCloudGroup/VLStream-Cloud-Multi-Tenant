@@ -9,41 +9,41 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.io.Serial;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_param")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "Paramobject")
+@Schema(description = "Param对象")
 public class Param extends BaseEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Parameter name
+	 * 参数名
 	 */
-	@Schema(description = "Parameter name")
+	@Schema(description = "参数名")
 	private String paramName;
 
 	/**
-	 * parameter key
+	 * 参数键
 	 */
-	@Schema(description = "parameter key")
+	@Schema(description = "参数键")
 	private String paramKey;
 
 	/**
-	 * Parameter value
+	 * 参数值
 	 */
-	@Schema(description = "Parameter value")
+	@Schema(description = "参数值")
 	private String paramValue;
 
 	/**
-	 * Remark
+	 * 备注
 	 */
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 
 

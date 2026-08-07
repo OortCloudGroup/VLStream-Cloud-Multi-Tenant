@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.vlstream.pojo.entity.RecordEventStrategy;
 
 /**
- * Camera incident policy Service category
+ * 摄像头事件策略 服务类
  */
 public interface IVlsRecordEventStrategyService extends BaseService<RecordEventStrategy> {
 

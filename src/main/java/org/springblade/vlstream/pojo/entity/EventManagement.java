@@ -15,14 +15,14 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * event management table Entity class
+ * 事件管理表 实体类
  *
  * @author Oort
  * @since 2025-12-23
  */
 @Data
 @TableName("vls_event_management")
-@Schema(description = "VlsEventManagementEntityobject")
+@Schema(description = "VlsEventManagementEntity对象")
 @EqualsAndHashCode(callSuper = true)
 public class EventManagement extends TenantEntity {
 
@@ -30,77 +30,77 @@ public class EventManagement extends TenantEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * event description
+	 * 事件描述
 	 */
-	@Schema(description = "event description")
+	@Schema(description = "事件描述")
 	private String eventDesc;
 	/**
-	 * event type
+	 * 事件类型
 	 */
-	@Schema(description = "event type")
+	@Schema(description = "事件类型")
 	private String eventType;
 	/**
-	 * Report location
+	 * 上报位置
 	 */
-	@Schema(description = "Report location")
+	@Schema(description = "上报位置")
 	private String reportLocation;
 	/**
-	 * Reporting equipment
+	 * 上报设备
 	 */
-	@Schema(description = "Reporting equipment")
+	@Schema(description = "上报设备")
 	private String reportDevice;
 	/**
-	 * Report pictures
+	 * 上报图片
 	 */
-	@Schema(description = "Report pictures")
+	@Schema(description = "上报图片")
 	private String reportImg;
 	/**
-	 * Reporting time
+	 * 上报时间
 	 */
-	@Schema(description = "Reporting time")
+	@Schema(description = "上报时间")
 	@DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
 	@JsonFormat(pattern = DateUtil.PATTERN_DATETIME)
 	private Date reportTime;
 	/**
-	 * event level
+	 * 事件级别
 	 */
-	@Schema(description = "event level")
+	@Schema(description = "事件级别")
 	private EventLevelEnum eventLevel;
 	/**
-	 * event status
+	 * 事件状态
 	 */
-	@Schema(description = "event status")
+	@Schema(description = "事件状态")
 	private EventStatusEnum eventStatus;
 	/**
-	 * event data
+	 * 事件数据
 	 */
-	@Schema(description = "event data")
+	@Schema(description = "事件数据")
 	private String eventData;
 	/**
-	 * Processing results
+	 * 处理结果
 	 */
-	@Schema(description = "Processing results")
+	@Schema(description = "处理结果")
 	private String handleResult;
 	/**
-	 * feedback information
+	 * 反馈信息
 	 */
-	@Schema(description = "feedback information")
+	@Schema(description = "反馈信息")
 	private String feedbackInfo;
 	/**
-	 * Feedback picture
+	 * 反馈图片
 	 */
-	@Schema(description = "Feedback picture")
+	@Schema(description = "反馈图片")
 	private String feedbackImg;
 	/**
-	 * feedback status
+	 * 反馈状态
 	 */
-	@Schema(description = "feedback status")
+	@Schema(description = "反馈状态")
 	private Integer feedbackStatus;
 
 	/**
-	 * Has it been reported?
+	 * 是否已上报
 	 */
-	@Schema(description = "Has it been reported?")
+	@Schema(description = "是否已上报")
 	private Integer isReport;
 
 }

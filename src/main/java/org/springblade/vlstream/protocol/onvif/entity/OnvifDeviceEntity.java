@@ -11,49 +11,49 @@ import java.math.BigDecimal;
 
 @Data
 @TableName("vls_onvif_device")
-@Schema(description = "ONVIFEquipment table")
+@Schema(description = "ONVIF设备表")
 @EqualsAndHashCode(callSuper = true)
 public class OnvifDeviceEntity extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "departmentID")
+	@Schema(description = "部门ID")
 	private Long deptId;
 
-	@Schema(description = "equipmentIP")
+	@Schema(description = "设备IP")
 	private String ip;
 
-	@Schema(description = "Device name")
+	@Schema(description = "设备名称")
 	private String name;
 
-	@Schema(description = "username")
+	@Schema(description = "用户名")
 	private String userName;
 
-	@Schema(description = "password")
+	@Schema(description = "密码")
 	private String password;
 
-	@Schema(description = "Default playback address")
+	@Schema(description = "默认播放地址")
 	private String url;
 
-	@Schema(description = "Equipment manufacturer")
+	@Schema(description = "设备厂商")
 	private String firm;
 
-	@Schema(description = "Device model")
+	@Schema(description = "设备型号")
 	private String model;
 
-	@Schema(description = "Firmware version")
+	@Schema(description = "固件版本")
 	private String firmwareVersion;
 
-	@Schema(description = "Play address collection(JSON)")
+	@Schema(description = "播放地址集合(JSON)")
 	private String streamUris;
 
-	@Schema(description = "latitude")
+	@Schema(description = "纬度")
 	private BigDecimal lat;
 
-	@Schema(description = "longitude")
+	@Schema(description = "经度")
 	private BigDecimal lng;
 
-	@Schema(description = "Map location address")
+	@Schema(description = "地图定位地址")
 	private String addressMap;
 }

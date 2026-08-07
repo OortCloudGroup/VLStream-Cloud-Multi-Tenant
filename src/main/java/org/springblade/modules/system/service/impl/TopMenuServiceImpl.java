@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * top menu table Service implementation class
+ * 顶部菜单表 服务实现类
  *
  * @author Oort
  */
@@ -30,9 +30,9 @@ public class TopMenuServiceImpl extends BaseServiceImpl<TopMenuMapper, TopMenu> 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean grant(@NotEmpty List<Long> topMenuIds, @NotEmpty List<Long> menuIds) {
-		// Delete the menu collection of the top menu configuration
+		// 删除顶部菜单配置的菜单集合
 		topMenuSettingService.remove(Wrappers.<TopMenuSetting>update().lambda().in(TopMenuSetting::getTopMenuId, topMenuIds));
-		// Assembly configuration
+		// 组装配置
 		List<TopMenuSetting> menuSettings = new ArrayList<>();
 		topMenuIds.forEach(topMenuId -> menuIds.forEach(menuId -> {
 			TopMenuSetting menuSetting = new TopMenuSetting();
@@ -40,7 +40,7 @@ public class TopMenuServiceImpl extends BaseServiceImpl<TopMenuMapper, TopMenu> 
 			menuSetting.setMenuId(menuId);
 			menuSettings.add(menuSetting);
 		}));
-		// New configuration
+		// 新增配置
 		topMenuSettingService.saveBatch(menuSettings);
 		return true;
 	}

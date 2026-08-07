@@ -10,26 +10,26 @@ import org.springblade.modules.system.rule.context.TenantContext;
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_ROLE_RULE;
 
 /**
- * Tenant role building
+ * 租户角色构建
  *
  * @author Chill
  */
-@LiteRuleComponent(id = TENANT_ROLE_RULE, name = "Tenant role building")
+@LiteRuleComponent(id = TENANT_ROLE_RULE, name = "租户角色构建")
 public class TenantRoleRule extends RuleComponent {
 	@Override
 	public void process() {
-		// Get context
+		// 获取上下文
 		TenantContext contextBean = this.getContextBean(TenantContext.class);
 		Tenant tenant = contextBean.getTenant();
-		// Default roles corresponding to new tenants
+		// 新建租户对应的默认角色
 		Role role = new Role();
 		role.setTenantId(tenant.getTenantId());
 		role.setParentId(BladeConstant.TOP_PARENT_ID);
-		role.setRoleName("administrator");
+		role.setRoleName("管理员");
 		role.setRoleAlias("admin");
 		role.setSort(2);
 		role.setIsDeleted(BladeConstant.DB_NOT_DELETED);
-		// Set context
+		// 设置上下文
 		contextBean.setRole(role);
 	}
 }

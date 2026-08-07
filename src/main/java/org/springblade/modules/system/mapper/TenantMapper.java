@@ -7,14 +7,14 @@ import org.springblade.modules.system.pojo.entity.Tenant;
 import java.util.List;
 
 /**
- *  Mapper interface
+ *  Mapper 接口
  *
  * @author Chill
  */
 public interface TenantMapper extends BaseMapper<Tenant> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
 	 * @param page
 	 * @param tenant

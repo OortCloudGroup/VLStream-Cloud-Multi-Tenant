@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 
 /**
- * Organization chart ExcelEntity class
+ * 组织机构表 Excel实体类
  *
  * @author Oort
  * @since 2025-08-09
@@ -28,100 +28,100 @@ public class ApDeptExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Organizational structureID
+	 * 组织机构ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Organizational structureID")
+	@ExcelProperty("组织机构ID")
 	private String deptId;
 	/**
-	 * Organization code
+	 * 组织机构编码
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Organization code")
+	@ExcelProperty("组织机构编码")
 	private String deptCode;
 	/**
-	 * Parent OrganizationID
+	 * 父组织机构ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Parent OrganizationID")
+	@ExcelProperty("父组织机构ID")
 	private String parentDeptId;
 	/**
-	 * Organization type 1:group 2:company 3:department 4:project 0:unknown
+	 * 组织机构类型 1:集团 2:公司 3:部门 4:项目 0:未知
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Organization type 1:group 2:company 3:department 4:project 0:unknown")
+	@ExcelProperty("组织机构类型 1:集团 2:公司 3:部门 4:项目 0:未知")
 	private Integer deptType;
 	/**
-	 * Organization name
+	 * 组织机构名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Organization name")
+	@ExcelProperty("组织机构名称")
 	private String deptName;
 	/**
-	 * Organization code hierarchy path
+	 * 组织机构编码层级路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Organization code hierarchy path")
+	@ExcelProperty("组织机构编码层级路径")
 	private String deptCodePath;
 	/**
-	 * Organization name hierarchical path
+	 * 组织机构名称层级路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Organization name hierarchical path")
+	@ExcelProperty("组织机构名称层级路径")
 	private String deptNamePath;
 	/**
-	 * organizational level
+	 * 组织机构层级
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("organizational level")
+	@ExcelProperty("组织机构层级")
 	private Long deptLevel;
 	/**
-	 * Department sorting The smaller it is, the closer it is to the front
+	 * 部门排序 越小越靠前
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Department sorting The smaller it is, the closer it is to the front")
+	@ExcelProperty("部门排序 越小越靠前")
 	private Integer sort;
 	/**
-	 * extra data
+	 * 额外数据
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("extra data")
+	@ExcelProperty("额外数据")
 	private String data;
 	/**
-	 * creation time
+	 * 创建时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("creation time")
+	@ExcelProperty("创建时间")
 	private LocalDateTime createdAt;
 	/**
-	 * Update time
+	 * 更新时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Update time")
+	@ExcelProperty("更新时间")
 	private LocalDateTime updatedAt;
 	/**
-	 * Remove timestamp
+	 * 删除时间戳
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Remove timestamp")
+	@ExcelProperty("删除时间戳")
 	private Long deletedAt;
 	/**
-	 * Creator's ID
+	 * 创建者的标识
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Creator's ID")
+	@ExcelProperty("创建者的标识")
 	private String createdBy;
 	/**
-	 * ID of the last updater
+	 * 最后更新者的标识
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("ID of the last updater")
+	@ExcelProperty("最后更新者的标识")
 	private String updatedBy;
 	/**
-	 * Audit table associationid
+	 * 审核表关联id
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Audit table associationid")
+	@ExcelProperty("审核表关联id")
 	private Integer checkId;
 
 }

@@ -4,7 +4,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.vlstream.pojo.entity.AudioDefenseTimeSetting;
 
 /**
- * Audio arming time setting table Service category
+ * 音频布防时间设置表 服务类
  */
 public interface IVlsAudioDefenseTimeSettingService extends BaseService<AudioDefenseTimeSetting> {
 }

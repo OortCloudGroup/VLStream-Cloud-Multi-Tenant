@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Data transfer object entity class
+ * 数据传输对象实体类
  *
  * @author Chill
  */

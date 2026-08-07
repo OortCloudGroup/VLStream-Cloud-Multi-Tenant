@@ -10,74 +10,74 @@ import org.springblade.vlstream.pojo.vo.RemoteServersVO;
 import java.util.List;
 
 /**
- * Remote server configuration table Service category
+ * 远程服务器配置表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsRemoteServersService extends BaseService<RemoteServers> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsRemoteServers query parameters
+	 * @param page 分页参数
+	 * @param vlsRemoteServers 查询参数
 	 * @return IPage<VlsRemoteServersVO>
 	 */
 	IPage<RemoteServersVO> selectVlsRemoteServersPage(IPage<RemoteServersVO> page, RemoteServersVO vlsRemoteServers);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsRemoteServersExcel>
 	 */
 	List<VlsRemoteServersExcel> exportVlsRemoteServers(Wrapper<RemoteServers> queryWrapper);
 
 	/**
-	 * Query remote server configuration
+	 * 查询远程服务器配置
 	 *
-	 * @param id Remote server configuration primary key
-	 * @return Remote server configuration
+	 * @param id 远程服务器配置主键
+	 * @return 远程服务器配置
 	 */
 	public RemoteServers selectRemoteServerById(Long id);
 
 	/**
-	 * Query the remote server configuration list
+	 * 查询远程服务器配置列表
 	 *
-	 * @param remoteServer Remote server configuration
-	 * @return Remote server configuration collection
+	 * @param remoteServer 远程服务器配置
+	 * @return 远程服务器配置集合
 	 */
 	public List<RemoteServers> selectRemoteServerList(RemoteServers remoteServer);
 
 	/**
-	 * Add remote server configuration
+	 * 新增远程服务器配置
 	 *
-	 * @param remoteServer Remote server configuration
-	 * @return result
+	 * @param remoteServer 远程服务器配置
+	 * @return 结果
 	 */
 	public int insertRemoteServer(RemoteServers remoteServer);
 
 	/**
-	 * Modify remote server configuration
+	 * 修改远程服务器配置
 	 *
-	 * @param remoteServer Remote server configuration
-	 * @return result
+	 * @param remoteServer 远程服务器配置
+	 * @return 结果
 	 */
 	public int updateRemoteServer(RemoteServers remoteServer);
 
 	/**
-	 * Delete remote server configurations in batches
+	 * 批量删除远程服务器配置
 	 *
-	 * @param ids Remote server configuration primary key set that needs to be deleted
-	 * @return result
+	 * @param ids 需要删除的远程服务器配置主键集合
+	 * @return 结果
 	 */
 	public int deleteRemoteServerByIds(Long[] ids);
 
 	/**
-	 * Delete remote server configuration information
+	 * 删除远程服务器配置信息
 	 *
-	 * @param id Remote server configuration primary key
-	 * @return result
+	 * @param id 远程服务器配置主键
+	 * @return 结果
 	 */
 	public int deleteRemoteServerById(Long id);
 

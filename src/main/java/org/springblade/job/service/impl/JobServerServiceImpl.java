@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import tech.powerjob.common.response.ResultDTO;
 
 /**
- * task service table Service implementation class
+ * 任务服务表 服务实现类
  *
  * @author Oort
  */

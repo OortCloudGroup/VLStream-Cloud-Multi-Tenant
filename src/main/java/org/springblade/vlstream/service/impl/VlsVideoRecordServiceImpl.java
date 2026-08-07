@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Video recording record sheet Service implementation class
+ * 视频录制记录表 服务实现类
  *
  * @author Oort
  * @since 2025-12-25

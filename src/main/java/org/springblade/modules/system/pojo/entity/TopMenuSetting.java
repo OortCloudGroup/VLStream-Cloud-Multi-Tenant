@@ -17,20 +17,20 @@ import lombok.Data;
 public class TopMenuSetting {
 
 	/**
-	 * primary keyid
+	 * 主键id
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * top menuid
+	 * 顶部菜单id
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long topMenuId;
 
 	/**
-	 * menuid
+	 * 菜单id
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long menuId;

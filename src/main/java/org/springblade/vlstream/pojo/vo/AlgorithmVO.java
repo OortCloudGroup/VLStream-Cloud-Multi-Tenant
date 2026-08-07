@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Algorithm table View entity class
+ * 算法表 视图实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -19,8 +19,8 @@ public class AlgorithmVO extends Algorithm {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Algorithm type name
+	 * 算法类型名称
 	 */
-	@Schema(description = "Category name")
+	@Schema(description = "分类名称")
 	private String categoryName;
 }

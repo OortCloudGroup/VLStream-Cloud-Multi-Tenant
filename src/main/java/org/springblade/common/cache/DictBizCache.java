@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springblade.core.cache.constant.CacheConstant.DICT_CACHE;
 
 /**
- * Business dictionary cache tool class
+ * 业务字典缓存工具类
  *
  * @author Chill
  */
@@ -30,9 +30,9 @@ public class DictBizCache {
 	}
 
 	/**
-	 * Get dictionary entity
+	 * 获取字典实体
 	 *
-	 * @param id primary key
+	 * @param id 主键
 	 * @return DictBiz
 	 */
 	public static DictBiz getById(Long id) {
@@ -41,10 +41,10 @@ public class DictBizCache {
 	}
 
 	/**
-	 * Get dictionary value
+	 * 获取字典值
 	 *
-	 * @param code    dictionary number enum
-	 * @param dictKey Integertype dictionary key
+	 * @param code    字典编号枚举
+	 * @param dictKey Integer型字典键
 	 * @return String
 	 */
 	public static String getValue(DictBizEnum code, Integer dictKey) {
@@ -52,10 +52,10 @@ public class DictBizCache {
 	}
 
 	/**
-	 * Get dictionary value
+	 * 获取字典值
 	 *
-	 * @param code    dictionary number
-	 * @param dictKey Integertype dictionary key
+	 * @param code    字典编号
+	 * @param dictKey Integer型字典键
 	 * @return String
 	 */
 	public static String getValue(String code, Integer dictKey) {
@@ -64,10 +64,10 @@ public class DictBizCache {
 	}
 
 	/**
-	 * Get dictionary value
+	 * 获取字典值
 	 *
-	 * @param code    dictionary number enum
-	 * @param dictKey Stringtype dictionary key
+	 * @param code    字典编号枚举
+	 * @param dictKey String型字典键
 	 * @return String
 	 */
 	public static String getValue(DictBizEnum code, String dictKey) {
@@ -75,10 +75,10 @@ public class DictBizCache {
 	}
 
 	/**
-	 * Get dictionary value
+	 * 获取字典值
 	 *
-	 * @param code    dictionary number
-	 * @param dictKey Stringtype dictionary key
+	 * @param code    字典编号
+	 * @param dictKey String型字典键
 	 * @return String
 	 */
 	public static String getValue(String code, String dictKey) {
@@ -87,9 +87,9 @@ public class DictBizCache {
 	}
 
 	/**
-	 * Get dictionary collection
+	 * 获取字典集合
 	 *
-	 * @param code dictionary number
+	 * @param code 字典编号
 	 * @return List<DictBiz>
 	 */
 	public static List<DictBiz> getList(String code) {

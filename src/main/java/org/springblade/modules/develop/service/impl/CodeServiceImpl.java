@@ -33,7 +33,7 @@ import org.springblade.modules.develop.service.ICodeService;
 import org.springframework.stereotype.Service;
 
 /**
- * Service implementation class
+ * 服务实现类
  *
  * @author Chill
  */

@@ -8,14 +8,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
 
 /**
- * Job list Service category
+ * 岗位表 服务类
  *
  * @author Chill
  */
 public interface IPostService extends BaseService<Post> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
 	 * @param page
 	 * @param post
@@ -24,7 +24,7 @@ public interface IPostService extends BaseService<Post> {
 	IPage<PostVO> selectPostPage(IPage<PostVO> page, PostVO post);
 
 	/**
-	 * Get a jobID
+	 * 获取岗位ID
 	 *
 	 * @param tenantId
 	 * @param postNames
@@ -33,7 +33,7 @@ public interface IPostService extends BaseService<Post> {
 	String getPostIds(String tenantId, String postNames);
 
 	/**
-	 * Get a jobID
+	 * 获取岗位ID
 	 *
 	 * @param tenantId
 	 * @param postNames
@@ -42,7 +42,7 @@ public interface IPostService extends BaseService<Post> {
 	String getPostIdsByFuzzy(String tenantId, String postNames);
 
 	/**
-	 * Get job title
+	 * 获取岗位名
 	 *
 	 * @param postIds
 	 * @return

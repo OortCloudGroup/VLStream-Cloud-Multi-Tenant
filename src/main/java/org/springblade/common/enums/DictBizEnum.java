@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Business dictionary enumeration class
+ * 业务字典枚举类
  *
  * @author Chill
  */
@@ -13,7 +13,7 @@ import lombok.Getter;
 public enum DictBizEnum {
 
 	/**
-	 * test
+	 * 测试
 	 */
 	TEST("test"),
 	;

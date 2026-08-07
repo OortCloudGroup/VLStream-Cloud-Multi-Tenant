@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * event management table controller
+ * 事件管理表 控制器
  *
  * @author Oort
  * @since 2025-12-23
@@ -44,7 +44,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsEventManagement")
-@Tag(name = "event management table", description = "Event management table interface")
+@Tag(name = "事件管理表", description = "事件管理表接口")
 public class VlsEventManagementController extends BladeController {
 
 	private final IVlsEventManagementService vlsEventManagementService;
@@ -54,22 +54,22 @@ public class VlsEventManagementController extends BladeController {
 	private static final String FILE_UPLOAD_SECRET_KEY = "5f0de11687d744bc95e84e207d319493";
 
 	/**
-	 * event management table Details
+	 * 事件管理表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingvlsEventManagement")
+	@Operation(summary = "详情", description = "传入vlsEventManagement")
 	public R<EventManagementVO> detail(EventManagement vlsEventManagement) {
 		EventManagement detail = vlsEventManagementService.getOne(Condition.getQueryWrapper(vlsEventManagement));
 		return R.data(VlsEventManagementWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * event management table Pagination
+	 * 事件管理表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingvlsEventManagement")
+	@Operation(summary = "分页", description = "传入vlsEventManagement")
 	public R<IPage<EventManagementVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsEventManagement, Query query) {
 		IPage<EventManagement> pages = vlsEventManagementService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsEventManagement, EventManagement.class));
 		return R.data(VlsEventManagementWrapper.build().pageVO(pages));
@@ -77,63 +77,63 @@ public class VlsEventManagementController extends BladeController {
 
 
 	/**
-	 * event management table Custom paging
+	 * 事件管理表 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description = "incomingvlsEventManagement")
-	public R<IPage<EventManagementVO>> page(EventManagementVO vlsEventManagement, Query query) {
-		IPage<EventManagementVO> pages = vlsEventManagementService.selectVlsEventManagementPage(Condition.getPage(query), vlsEventManagement);
+	@Operation(summary = "分页", description = "传入vlsEventManagement")
+	public R<IPage<EventManagementVO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsEventManagement, Query query) {
+		IPage<EventManagementVO> pages = vlsEventManagementService.selectVlsEventManagementPage(Condition.getPage(query), Condition.getQueryWrapper(vlsEventManagement, EventManagement.class));
 		return R.data(pages);
 	}
 
 	/**
-	 * event management table New
+	 * 事件管理表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingvlsEventManagement")
+	@Operation(summary = "新增", description = "传入vlsEventManagement")
 	public R save(@Valid @RequestBody EventManagement vlsEventManagement) {
 		return R.status(vlsEventManagementService.save(vlsEventManagement));
 	}
 
 	/**
-	 * event management table Revise
+	 * 事件管理表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingvlsEventManagement")
+	@Operation(summary = "修改", description = "传入vlsEventManagement")
 	public R update(@Valid @RequestBody EventManagement vlsEventManagement) {
 		return R.status(vlsEventManagementService.updateById(vlsEventManagement));
 	}
 
 	/**
-	 * event management table Add or modify
+	 * 事件管理表 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingvlsEventManagement")
+	@Operation(summary = "新增或修改", description = "传入vlsEventManagement")
 	public R submit(@Valid @RequestBody EventManagement vlsEventManagement) {
 		return R.status(vlsEventManagementService.saveOrUpdate(vlsEventManagement));
 	}
 
 	/**
-	 * event management table delete
+	 * 事件管理表 删除
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(vlsEventManagementService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Export data
+	 * 导出数据
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsEventManagement")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Export data", description = "incomingvlsEventManagement")
+	@Operation(summary = "导出数据", description = "传入vlsEventManagement")
 	public void exportVlsEventManagement(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsEventManagement, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<EventManagement> queryWrapper = Condition.getQueryWrapper(vlsEventManagement, EventManagement.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -141,11 +141,11 @@ public class VlsEventManagementController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsEventManagementEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsEventManagementExcel> list = vlsEventManagementService.exportVlsEventManagement(queryWrapper);
-		ExcelUtil.export(response, "Event management table data" + DateUtil.time(), "Event management table data table", list, VlsEventManagementExcel.class);
+		ExcelUtil.export(response, "事件管理表数据" + DateUtil.time(), "事件管理表数据表", list, VlsEventManagementExcel.class);
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation("according toidQuery details")
+	@ApiOperation("根据id查询详情")
 	public R<EventManagement> getEvent(@ApiParam("Primary id") @PathVariable Long id) {
 		EventManagement event = vlsEventManagementService.getEventById(id);
 		if (event == null) {
@@ -155,7 +155,7 @@ public class VlsEventManagementController extends BladeController {
 	}
 
 	@PostMapping
-	@ApiOperation("Create event")
+	@ApiOperation("创建事件")
 	public R<Boolean> createEvent(@RequestBody EventManagement eventManagement) {
 		boolean created = vlsEventManagementService.createEvent(eventManagement);
 		if (created) {
@@ -165,7 +165,7 @@ public class VlsEventManagementController extends BladeController {
 	}
 
 	@PostMapping(value = "/report", consumes = "multipart/form-data")
-	@Operation(summary = "Report an incident", description = "Upload image or video and set reportImg")
+	@Operation(summary = "上报事件", description = "Upload image or video and set reportImg")
 	public R<Boolean> reportEvent(@Parameter(description = "Event data") @RequestPart("event") EventManagement eventManagement, @Parameter(description = "Image or video file") @RequestPart("file") MultipartFile file) {
 
 		if (eventManagement == null) {
@@ -183,7 +183,7 @@ public class VlsEventManagementController extends BladeController {
 			return R.fail("File upload failed");
 		}
 		eventManagement.setReportImg(fileResponseDto.getUrl());
-		boolean created = vlsEventManagementService.createEvent(eventManagement);
+		boolean created = vlsEventManagementService.createReportedEvent(eventManagement);
 		if (created) {
 			return R.data(true);
 		}

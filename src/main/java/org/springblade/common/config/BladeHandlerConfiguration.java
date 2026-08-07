@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
- * BladeProcessor auto-configuration
+ * Blade处理器自动配置
  *
  * @author Chill
  */

@@ -10,7 +10,7 @@ import org.springblade.modules.system.pojo.vo.RecordDataVO;
 import java.util.Objects;
 
 /**
- * Data audit table Packaging,Returns the fields required by the view layer
+ * 数据审计表 包装类,返回视图层所需的字段
  *
  * @author Oort
  */

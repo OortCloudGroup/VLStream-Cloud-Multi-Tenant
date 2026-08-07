@@ -13,92 +13,92 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_dept")
-@Schema(description = "Deptobject")
+@Schema(description = "Dept对象")
 public class Dept implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary key
+	 * 主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "primary key")
+	@Schema(description = "主键")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * tenantID
+	 * 租户ID
 	 */
-	@Schema(description = "tenantID")
+	@Schema(description = "租户ID")
 	private String tenantId;
 
 	/**
-	 * Parent primary key
+	 * 父主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "Parent primary key")
+	@Schema(description = "父主键")
 	private Long parentId;
 
 	/**
-	 * Full name of organization
+	 * 机构全称
 	 */
-	@Schema(description = "Full name of organization")
+	@Schema(description = "机构全称")
 	private String fullName;
 
 	/**
-	 * Organization name
+	 * 机构名
 	 */
-	@Schema(description = "Organization name")
+	@Schema(description = "机构名")
 	private String deptName;
 
 	/**
-	 * Ancestor Organization Primary Key
+	 * 祖级机构主键
 	 */
-	@Schema(description = "Ancestor Organization Primary Key")
+	@Schema(description = "祖级机构主键")
 	private String ancestors;
 
 	/**
-	 * department headid
+	 * 部门主管id
 	 */
-	@Schema(description = "department headid")
+	@Schema(description = "部门主管id")
 	private String leaderId;
 
 	/**
-	 * Institution type
+	 * 机构类型
 	 */
-	@Schema(description = "Institution type")
+	@Schema(description = "机构类型")
 	private Integer deptCategory;
 
 	/**
-	 * sort
+	 * 排序
 	 */
-	@Schema(description = "sort")
+	@Schema(description = "排序")
 	private Integer sort;
 
 	/**
-	 * Remark
+	 * 备注
 	 */
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 
 	/**
-	 * business status
+	 * 业务状态
 	 */
-	@Schema(description = "business status")
+	@Schema(description = "业务状态")
 	private Integer status;
 
 	/**
-	 * Has it been deleted?
+	 * 是否已删除
 	 */
 	@TableLogic
-	@Schema(description = "Has it been deleted?")
+	@Schema(description = "是否已删除")
 	private Integer isDeleted;
 
 

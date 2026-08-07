@@ -7,7 +7,7 @@ import org.springblade.modules.system.service.IDataScopeService;
 import org.springframework.stereotype.Service;
 
 /**
- *  Service implementation class
+ *  服务实现类
  *
  * @author Oort
  */

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * Task information sheet controller
+ * 任务信息表 控制器
  *
  * @author Oort
  */
@@ -30,111 +30,111 @@ import java.util.Map;
 @AllArgsConstructor
 @IsAdmin
 @RequestMapping(AppConstant.APPLICATION_JOB_NAME + "/job-info")
-@Tag(name = "Task information sheet", description = "Task information table interface")
+@Tag(name = "任务信息表", description = "任务信息表接口")
 public class JobInfoController extends BladeController {
 
 	private final IJobInfoService jobInfoService;
 
 	/**
-	 * Task information sheet Details
+	 * 任务信息表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingjobInfo")
+	@Operation(summary = "详情", description = "传入jobInfo")
 	public R<JobInfo> detail(JobInfo jobInfo) {
 		JobInfo detail = jobInfoService.getOne(Condition.getQueryWrapper(jobInfo));
 		return R.data(detail);
 	}
 
 	/**
-	 * Task information sheet Pagination
+	 * 任务信息表 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingjobInfo")
+	@Operation(summary = "分页", description = "传入jobInfo")
 	public R<IPage<JobInfo>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> jobInfo, Query query) {
 		IPage<JobInfo> pages = jobInfoService.page(Condition.getPage(query), Condition.getQueryWrapper(jobInfo, JobInfo.class));
 		return R.data(pages);
 	}
 
 	/**
-	 * Task information sheet Custom paging
+	 * 任务信息表 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description = "incomingjobInfo")
+	@Operation(summary = "分页", description = "传入jobInfo")
 	public R<IPage<JobInfoVO>> page(JobInfoVO jobInfo, Query query) {
 		IPage<JobInfoVO> pages = jobInfoService.selectJobInfoPage(Condition.getPage(query), jobInfo);
 		return R.data(pages);
 	}
 
 	/**
-	 * Task information sheet New
+	 * 任务信息表 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingjobInfo")
+	@Operation(summary = "新增", description = "传入jobInfo")
 	public R save(@Valid @RequestBody JobInfo jobInfo) {
 		return R.status(jobInfoService.save(jobInfo));
 	}
 
 	/**
-	 * Task information sheet Revise
+	 * 任务信息表 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingjobInfo")
+	@Operation(summary = "修改", description = "传入jobInfo")
 	public R update(@Valid @RequestBody JobInfo jobInfo) {
 		return R.status(jobInfoService.updateById(jobInfo));
 	}
 
 	/**
-	 * Task information sheet Add or modify
+	 * 任务信息表 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingjobInfo")
+	@Operation(summary = "新增或修改", description = "传入jobInfo")
 	public R submit(@Valid @RequestBody JobInfo jobInfo) {
 		return R.status(jobInfoService.submitAndSync(jobInfo));
 	}
 
 	/**
-	 * Task information sheet delete
+	 * 任务信息表 删除
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "delete", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(jobInfoService.removeAndSync(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Task information sheet changestate
+	 * 任务信息表 变更状态
 	 */
 	@PostMapping("/change")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "changestate", description = "incomingidandstatus")
-	public R change(@Parameter(description = "primary key", required = true) @RequestParam Long id, @Parameter(description = "Whether to enable", required = true) @RequestParam Integer enable) {
+	@Operation(summary = "变更状态", description = "传入id与status")
+	public R change(@Parameter(description = "主键", required = true) @RequestParam Long id, @Parameter(description = "是否启用", required = true) @RequestParam Integer enable) {
 		return R.status(jobInfoService.changeServerJob(id, enable));
 	}
 
 	/**
-	 * Run service
+	 * 运行服务
 	 */
 	@PostMapping("run")
 	@ApiOperationSupport(order = 9)
-	@Operation(summary = "Run service", description = "incomingjobInfoId")
-	public R run(@Parameter(description = "primary key", required = true) @RequestParam Long id) {
+	@Operation(summary = "运行服务", description = "传入jobInfoId")
+	public R run(@Parameter(description = "主键", required = true) @RequestParam Long id) {
 		return R.status(jobInfoService.runServerJob(id));
 	}
 
 
 	/**
-	 * Task information data synchronization
+	 * 任务信息数据同步
 	 */
 	@PostMapping("sync")
 	@ApiOperationSupport(order = 10)
-	@Operation(summary = "Task information data synchronization", description = "Task information data synchronization")
+	@Operation(summary = "任务信息数据同步", description = "任务信息数据同步")
 	public R sync() {
 		return R.status(jobInfoService.sync());
 	}

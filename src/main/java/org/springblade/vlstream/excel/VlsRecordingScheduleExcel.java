@@ -14,7 +14,7 @@ import java.io.Serial;
 
 
 /**
- * Recording schedule ExcelEntity class
+ * 录制计划表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -29,112 +29,112 @@ public class VlsRecordingScheduleExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * equipmentID
+	 * 设备ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("equipmentID")
+	@ExcelProperty("设备ID")
 	private Long deviceId;
 	/**
-	 * Device name
+	 * 设备名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device name")
+	@ExcelProperty("设备名称")
 	private String deviceName;
 	/**
-	 * Plan name
+	 * 计划名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Plan name")
+	@ExcelProperty("计划名称")
 	private String scheduleName;
 	/**
-	 * Whether to enable: 0-Disable, 1-enable
+	 * 是否启用：0-禁用，1-启用
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Whether to enable: 0-Disable, 1-enable")
+	@ExcelProperty("是否启用：0-禁用，1-启用")
 	private Byte isEnabled;
 	/**
-	 * Single recording duration(Second, default10minute)
+	 * 单次录制时长(秒，默认10分钟)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Single recording duration(Second, default10minute)")
+	@ExcelProperty("单次录制时长(秒，默认10分钟)")
 	private Integer recordDuration;
 	/**
-	 * Recording quality
+	 * 录制质量
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Recording quality")
+	@ExcelProperty("录制质量")
 	private String recordQuality;
 	/**
-	 * Recording format
+	 * 录制格式
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Recording format")
+	@ExcelProperty("录制格式")
 	private String recordFormat;
 	/**
-	 * storage path
+	 * 存储路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("storage path")
+	@ExcelProperty("存储路径")
 	private String storagePath;
 	/**
-	 * retention days(0Indicates permanent retention)
+	 * 保留天数(0表示永久保留)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("retention days(0Indicates permanent retention)")
+	@ExcelProperty("保留天数(0表示永久保留)")
 	private Integer retentionDays;
 	/**
-	 * plan type
+	 * 计划类型
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("plan type")
+	@ExcelProperty("计划类型")
 	private String scheduleType;
 	/**
-	 * time strategyID(whenschedule_typefortime_strategyhour)
+	 * 时间策略ID(当schedule_type为time_strategy时)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("time strategyID(whenschedule_typefortime_strategyhour)")
+	@ExcelProperty("时间策略ID(当schedule_type为time_strategy时)")
 	private Long timeStrategyId;
 	/**
-	 * start time(whenschedule_typefortime_rangehour)
+	 * 开始时间(当schedule_type为time_range时)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("start time(whenschedule_typefortime_rangehour)")
+	@ExcelProperty("开始时间(当schedule_type为time_range时)")
 	private LocalTime startTime;
 	/**
-	 * end time(whenschedule_typefortime_rangehour)
+	 * 结束时间(当schedule_type为time_range时)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("end time(whenschedule_typefortime_rangehour)")
+	@ExcelProperty("结束时间(当schedule_type为time_range时)")
 	private LocalTime endTime;
 	/**
-	 * Day of the week recording(1-7,comma separated)
+	 * 星期几录制(1-7,逗号分隔)
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Day of the week recording(1-7,comma separated)")
+	@ExcelProperty("星期几录制(1-7,逗号分隔)")
 	private String weekdays;
 	/**
-	 * Last recording time
+	 * 最后录制时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Last recording time")
+	@ExcelProperty("最后录制时间")
 	private LocalDateTime lastRecordTime;
 	/**
-	 * Next recording time
+	 * 下次录制时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Next recording time")
+	@ExcelProperty("下次录制时间")
 	private LocalDateTime nextRecordTime;
 	/**
-	 * Total number of recordings
+	 * 总录制次数
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Total number of recordings")
+	@ExcelProperty("总录制次数")
 	private Integer totalRecords;
 	/**
-	 * Number of failed recordings
+	 * 失败录制次数
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Number of failed recordings")
+	@ExcelProperty("失败录制次数")
 	private Integer failedRecords;
 
 }

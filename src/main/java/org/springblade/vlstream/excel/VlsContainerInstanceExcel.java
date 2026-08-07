@@ -14,7 +14,7 @@ import java.io.Serial;
 
 
 /**
- * Container instance table ExcelEntity class
+ * 容器实例表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -29,130 +29,130 @@ public class VlsContainerInstanceExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instance name
+	 * 实例名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Instance name")
+	@ExcelProperty("实例名称")
 	private String instanceName;
 	/**
-	 * containerID
+	 * 容器ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("containerID")
+	@ExcelProperty("容器ID")
 	private String containerId;
 	/**
-	 * Image name
+	 * 镜像名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Image name")
+	@ExcelProperty("镜像名称")
 	private String imageName;
 	/**
-	 * Mirror tag
+	 * 镜像标签
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Mirror tag")
+	@ExcelProperty("镜像标签")
 	private String imageTag;
 	/**
-	 * algorithmID
+	 * 算法ID
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("algorithmID")
+	@ExcelProperty("算法ID")
 	private Long algorithmId;
 	/**
-	 * Instance type
+	 * 实例类型
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Instance type")
+	@ExcelProperty("实例类型")
 	private String instanceType;
 	/**
-	 * CPUlimit
+	 * CPU限制
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("CPUlimit")
+	@ExcelProperty("CPU限制")
 	private String cpuLimit;
 	/**
-	 * memory limit
+	 * 内存限制
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("memory limit")
+	@ExcelProperty("内存限制")
 	private String memoryLimit;
 	/**
-	 * GPUlimit
+	 * GPU限制
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("GPUlimit")
+	@ExcelProperty("GPU限制")
 	private String gpuLimit;
 	/**
-	 * Port configuration
+	 * 端口配置
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Port configuration")
+	@ExcelProperty("端口配置")
 	private String portConfig;
 	/**
-	 * Environment variable configuration
+	 * 环境变量配置
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Environment variable configuration")
+	@ExcelProperty("环境变量配置")
 	private String envConfig;
 	/**
-	 * Storage volume configuration
+	 * 存储卷配置
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Storage volume configuration")
+	@ExcelProperty("存储卷配置")
 	private String volumeConfig;
 	/**
-	 * Instance status: running-Running,stopped-Stopped,error-mistake,starting-Starting,stopping-Stopping
+	 * 实例状态：running-运行中,stopped-已停止,error-错误,starting-启动中,stopping-停止中
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Instance status: running-Running,stopped-Stopped,error-mistake,starting-Starting,stopping-Stopping")
+	@ExcelProperty("实例状态：running-运行中,stopped-已停止,error-错误,starting-启动中,stopping-停止中")
 	private String instanceStatus;
 	/**
-	 * health status: healthy-healthy,unhealthy-unhealthy,unknown-unknown
+	 * 健康状态：healthy-健康,unhealthy-不健康,unknown-未知
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("health status: healthy-healthy,unhealthy-unhealthy,unknown-unknown")
+	@ExcelProperty("健康状态：healthy-健康,unhealthy-不健康,unknown-未知")
 	private String healthStatus;
 	/**
-	 * Start time
+	 * 启动时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Start time")
+	@ExcelProperty("启动时间")
 	private LocalDateTime startTime;
 	/**
-	 * stop time
+	 * 停止时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("stop time")
+	@ExcelProperty("停止时间")
 	private LocalDateTime stopTime;
 	/**
-	 * Number of restarts
+	 * 重启次数
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Number of restarts")
+	@ExcelProperty("重启次数")
 	private Integer restartCount;
 	/**
-	 * CPUUsage rate
+	 * CPU使用率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("CPUUsage rate")
+	@ExcelProperty("CPU使用率")
 	private BigDecimal cpuUsage;
 	/**
-	 * memory usage
+	 * 内存使用率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("memory usage")
+	@ExcelProperty("内存使用率")
 	private BigDecimal memoryUsage;
 	/**
-	 * GPUUsage rate
+	 * GPU使用率
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("GPUUsage rate")
+	@ExcelProperty("GPU使用率")
 	private BigDecimal gpuUsage;
 	/**
-	 * Log path
+	 * 日志路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Log path")
+	@ExcelProperty("日志路径")
 	private String logsPath;
 
 }

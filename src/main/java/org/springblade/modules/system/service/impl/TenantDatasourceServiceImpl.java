@@ -7,7 +7,7 @@ import org.springblade.modules.system.service.ITenantDatasourceService;
 import org.springframework.stereotype.Service;
 
 /**
- * Data source configuration table Service implementation class
+ * 数据源配置表 服务实现类
  *
  * @author Chill
  */

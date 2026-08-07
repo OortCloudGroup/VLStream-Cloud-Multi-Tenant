@@ -14,13 +14,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import static org.springblade.core.datarecord.constant.DataRecordConstant.RECORD_INSERT_SQL;
 
 /**
- * Log data audit processor
+ * 日志数据审计处理器
  * <p>
- * Output data audit to log
+ * 将数据审计输出到日志
  *
  * @author Oort
  */
-//If the dynamic data source function is enabled, then add@MasterAnnotate the specified permission database as the main database
+//若开启动态数据源功能，则加上@Master注解指定权限数据库为主库
 //@Master
 @Slf4j
 @RequiredArgsConstructor
@@ -30,71 +30,71 @@ public class BladeRecordHandler implements DataRecordHandler {
 
 	@Override
 	public void handle(DataRecordInfo recordInfo, DataRecord dataRecord) {
-		// Get formatted record information
+		// 获取格式化的记录信息
 		String recordMessage = formatRecordInfo(recordInfo);
-		// Get data audit level
+		// 获取数据审计级别
 		DataRecordLevel level = dataRecord.level();
 
-		// Data audit and warehousing processing
+		// 数据审计入库处理
 		int affectedRows = saveRecordData(recordInfo, level.name(), recordMessage);
 		if (affectedRows > 0) {
-			// Output according to the configured log level
+			// 根据配置的日志级别输出
 			switch (level) {
 				case DEBUG:
-					log.debug("Data audit[{}]: {}", recordInfo.getModule(), recordMessage);
+					log.debug("数据审计[{}]: {}", recordInfo.getModule(), recordMessage);
 					break;
 				case INFO:
-					log.info("Data audit[{}]: {}", recordInfo.getModule(), recordMessage);
+					log.info("数据审计[{}]: {}", recordInfo.getModule(), recordMessage);
 					break;
 				case WARN:
-					log.warn("Data audit[{}]: {}", recordInfo.getModule(), recordMessage);
+					log.warn("数据审计[{}]: {}", recordInfo.getModule(), recordMessage);
 					break;
 				case ERROR:
-					log.error("Data audit[{}]: {}", recordInfo.getModule(), recordMessage);
+					log.error("数据审计[{}]: {}", recordInfo.getModule(), recordMessage);
 					break;
 			}
 		} else {
-			// If storage fails, Record error log
-			log.error("Data audit[{}] Failed to save into database", recordInfo.getTableName());
+			// 如果入库失败，记录错误日志
+			log.error("数据审计[{}] 保存入库失败", recordInfo.getTableName());
 		}
 
 	}
 
 	/**
-	 * Format record information
+	 * 格式化记录信息
 	 *
-	 * @param recordInfo Record information
-	 * @return Formatted string
+	 * @param recordInfo 记录信息
+	 * @return 格式化后的字符串
 	 */
 	private String formatRecordInfo(DataRecordInfo recordInfo) {
 		StringBuilder sb = new StringBuilder();
-		// Add module information
-		sb.append("\n").append("[table name]: ").append(recordInfo.getTableName()).append("\n");
-		sb.append("[operate]: ").append(recordInfo.getOperation()).append("\n");
+		// 添加模块信息
+		sb.append("\n").append("[表名]: ").append(recordInfo.getTableName()).append("\n");
+		sb.append("[操作]: ").append(recordInfo.getOperation()).append("\n");
 		if (recordInfo.getPrimaryKeyValue() != null) {
-			sb.append("[primary key]: ").append(recordInfo.getPrimaryKeyValue()).append("\n");
+			sb.append("[主键]: ").append(recordInfo.getPrimaryKeyValue()).append("\n");
 		}
-		// Add user information
+		// 添加用户信息
 		if (recordInfo.getUserName() != null) {
-			sb.append("[user]: ").append(recordInfo.getUserName()).append("\n");
+			sb.append("[用户]: ").append(recordInfo.getUserName()).append("\n");
 		}
-		// Add toIPinformation
+		// 添加IP信息
 		if (recordInfo.getRemoteIp() != null) {
 			sb.append("[IP]: ").append(recordInfo.getRemoteIp()).append("\n");
 		}
-		// Add requestURI
+		// 添加请求URI
 		if (recordInfo.getRequestUri() != null) {
 			sb.append("[URI]: ").append(recordInfo.getRequestUri()).append("\n");
 		}
 		if (recordInfo.getChangedFields() != null && !recordInfo.getChangedFields().isEmpty()) {
-			sb.append("[change]: ").append(recordInfo.getChangedFields()).append("\n");
+			sb.append("[变更]: ").append(recordInfo.getChangedFields()).append("\n");
 		}
 		if (recordInfo.getCost() != null) {
-			sb.append("[time consuming]: ").append(recordInfo.getCost()).append("ms").append("\n");
+			sb.append("[耗时]: ").append(recordInfo.getCost()).append("ms").append("\n");
 		}
-		// If you need details, Add change details
+		// 如果需要详细信息，添加变更详情
 		if (recordInfo.getChangeData() != null && !recordInfo.getChangeData().isEmpty()) {
-			sb.append("[Details]: {");
+			sb.append("[详情]: {");
 			recordInfo.getChangeData().forEach((field, change) -> sb.append(change.getChangeDescription()).append(", "));
 			if (sb.toString().endsWith(", ")) {
 				sb.setLength(sb.length() - 2);
@@ -105,48 +105,48 @@ public class BladeRecordHandler implements DataRecordHandler {
 	}
 
 	/**
-	 * use JdbcTemplate Keep data audit records
+	 * 使用 JdbcTemplate 保存数据审计记录
 	 *
-	 * @param recordInfo    Record information
-	 * @param recordLevel   Logging level
-	 * @param recordMessage Log message
-	 * @return number of rows affected
+	 * @param recordInfo    记录信息
+	 * @param recordLevel   记录级别
+	 * @param recordMessage 记录消息
+	 * @return 影响的行数
 	 */
 	private int saveRecordData(DataRecordInfo recordInfo, String recordLevel, String recordMessage) {
 		return jdbcTemplate.update(RECORD_INSERT_SQL,
-			// primary key
+			// 主键
 			recordInfo.getRecordId(),
-			// Basic service information
+			// 基础服务信息
 			recordInfo.getServiceId(),
 			recordInfo.getServerHost(),
 			recordInfo.getServerIp(),
 			recordInfo.getEnv(),
-			// Audit level
+			// 审计级别
 			recordLevel,
-			// request information
+			// 请求信息
 			recordInfo.getMethod(),
 			recordInfo.getRequestUri(),
 			recordInfo.getUserAgent(),
 			recordInfo.getRemoteIp(),
-			// Operation information
+			// 操作信息
 			recordInfo.getOperation(),
 			recordInfo.getTableName(),
-			// data conversion: Will Map Convert to JSON string
+			// 数据转换：将 Map 转换为 JSON 字符串
 			JsonUtil.toJson(recordInfo.getOldData()),
 			JsonUtil.toJson(recordInfo.getNewData()),
-			// audit message
+			// 审计消息
 			recordMessage,
-			// Audit results
+			// 审计结果
 			recordInfo.getRecordResult(),
-			// Recording time
+			// 记录耗时
 			Func.toStr(recordInfo.getCost()),
-			// Record time
+			// 记录时间
 			recordInfo.getRecordTime(),
-			// Recorder
+			// 记录人
 			Func.toLong(recordInfo.getUserId()),
-			// business status: Default is normal state
+			// 业务状态：默认为正常状态
 			BladeConstant.DB_STATUS_NORMAL,
-			// Tombstone status: The default is not deleted
+			// 逻辑删除状态：默认为未删除状态
 			BladeConstant.DB_NOT_DELETED
 		);
 	}

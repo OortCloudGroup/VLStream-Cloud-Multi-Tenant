@@ -7,7 +7,7 @@ import org.springblade.job.pojo.entity.JobInfo;
 import java.io.Serial;
 
 /**
- * Task information sheet View entity class
+ * 任务信息表 视图实体类
  *
  * @author Oort
  */

@@ -14,7 +14,7 @@ import java.io.OutputStream;
 import java.util.*;
 
 /**
- * Dataset service implementation class
+ * 数据集服务实现类
  *
  * @author VLStream Team
  * @since 1.0.0
@@ -32,27 +32,27 @@ public class DatasetServiceImpl implements DatasetService {
 		Session session = null;
 
 		try {
-			log.info("Try to connect to the server: {}@{}", username, host);
+			log.info("尝试连接服务器：{}@{}", username, host);
 
-			// createSSHsession
+			// 创建SSH会话
 			session = jsch.getSession(username, host, sshProperties.getPort());
 			session.setPassword(password);
 			session.setConfig("StrictHostKeyChecking", "no");
-			session.connect(30000); // 30seconds timeout
+			session.connect(30000); // 30秒超时
 
-			log.info("SSHConnection successful: {}@{}", username, host);
+			log.info("SSH连接成功：{}@{}", username, host);
 
-			// testSFTPconnect
+			// 测试SFTP连接
 			Channel channel = session.openChannel("sftp");
 			channel.connect(30000);
 			ChannelSftp sftp = (ChannelSftp) channel;
 
-			// Try to access the specified path
+			// 尝试访问指定路径
 			try {
 				sftp.cd(path);
-				log.info("Path access successful: {}", path);
+				log.info("路径访问成功：{}", path);
 			} catch (SftpException e) {
-				log.warn("path does not exist, try to create: {}", path);
+				log.warn("路径不存在，尝试创建：{}", path);
 				createRemoteDirectory(sftp, path);
 			}
 
@@ -60,7 +60,7 @@ public class DatasetServiceImpl implements DatasetService {
 			return true;
 
 		} catch (Exception e) {
-			log.error("Failed to connect to server: {}", e.getMessage());
+			log.error("连接服务器失败：{}", e.getMessage());
 			return false;
 		} finally {
 			if (session != null && session.isConnected()) {
@@ -76,21 +76,21 @@ public class DatasetServiceImpl implements DatasetService {
 		ChannelSftp sftp = null;
 
 		try {
-			// createSSHsession
+			// 创建SSH会话
 			session = jsch.getSession(sshProperties.getUsername(), host, sshProperties.getPort());
 			session.setPassword(sshProperties.getPassword());
 			session.setConfig("StrictHostKeyChecking", "no");
 			session.connect(30000);
 
-			// createSFTPaisle
+			// 创建SFTP通道
 			Channel channel = session.openChannel("sftp");
 			channel.connect(30000);
 			sftp = (ChannelSftp) channel;
 
-			// Switch to the specified path
+			// 切换到指定路径
 			sftp.cd(path);
 
-			// Get file list
+			// 获取文件列表
 			Vector<ChannelSftp.LsEntry> files = sftp.ls("*");
 			List<Map<String, Object>> fileList = new ArrayList<>();
 
@@ -105,12 +105,12 @@ public class DatasetServiceImpl implements DatasetService {
 				}
 			}
 
-			log.info("Get {} files", fileList.size());
+			log.info("获取到 {} 个文件", fileList.size());
 			return fileList;
 
 		} catch (Exception e) {
-			log.error("Failed to get file list: {}", e.getMessage());
-			throw new RuntimeException("Failed to get file list: " + e.getMessage());
+			log.error("获取文件列表失败：{}", e.getMessage());
+			throw new RuntimeException("获取文件列表失败：" + e.getMessage());
 		} finally {
 			if (sftp != null && sftp.isConnected()) {
 				sftp.disconnect();
@@ -128,21 +128,21 @@ public class DatasetServiceImpl implements DatasetService {
 		ChannelSftp sftp = null;
 
 		try {
-			// createSSHsession
+			// 创建SSH会话
 			session = jsch.getSession(sshProperties.getUsername(), host, sshProperties.getPort());
 			session.setPassword(sshProperties.getPassword());
 			session.setConfig("StrictHostKeyChecking", "no");
 			session.connect(30000);
 
-			// createSFTPaisle
+			// 创建SFTP通道
 			Channel channel = session.openChannel("sftp");
 			channel.connect(30000);
 			sftp = (ChannelSftp) channel;
 
-			// Switch to the specified path
+			// 切换到指定路径
 			sftp.cd(path);
 
-			// Read file contents
+			// 读取文件内容
 			InputStream inputStream = sftp.get(filename);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -156,12 +156,12 @@ public class DatasetServiceImpl implements DatasetService {
 			inputStream.close();
 			outputStream.close();
 
-			log.info("Successfully read file contents: {}", filename);
+			log.info("成功读取文件内容：{}", filename);
 			return content;
 
 		} catch (Exception e) {
-			log.error("Failed to read file contents: {}", e.getMessage());
-			throw new RuntimeException("Failed to read file contents: " + e.getMessage());
+			log.error("读取文件内容失败：{}", e.getMessage());
+			throw new RuntimeException("读取文件内容失败：" + e.getMessage());
 		} finally {
 			if (sftp != null && sftp.isConnected()) {
 				sftp.disconnect();
@@ -179,25 +179,25 @@ public class DatasetServiceImpl implements DatasetService {
 		ChannelSftp sftp = null;
 
 		try {
-			// createSSHsession
+			// 创建SSH会话
 			session = jsch.getSession(sshProperties.getUsername(), host, sshProperties.getPort());
 			session.setPassword(sshProperties.getPassword());
 			session.setConfig("StrictHostKeyChecking", "no");
 			session.connect(30000);
 
-			// createSFTPaisle
+			// 创建SFTP通道
 			Channel channel = session.openChannel("sftp");
 			channel.connect(30000);
 			sftp = (ChannelSftp) channel;
 
-			// Switch to the specified path
+			// 切换到指定路径
 			sftp.cd(path);
 
-			// Set response headers
+			// 设置响应头
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
-			// Download file
+			// 下载文件
 			InputStream inputStream = sftp.get(filename);
 			OutputStream outputStream = response.getOutputStream();
 
@@ -210,11 +210,11 @@ public class DatasetServiceImpl implements DatasetService {
 			inputStream.close();
 			outputStream.flush();
 
-			log.info("File download successful: {}", filename);
+			log.info("文件下载成功：{}", filename);
 
 		} catch (Exception e) {
-			log.error("File download failed: {}", e.getMessage());
-			throw new RuntimeException("File download failed: " + e.getMessage());
+			log.error("文件下载失败：{}", e.getMessage());
+			throw new RuntimeException("文件下载失败：" + e.getMessage());
 		} finally {
 			if (sftp != null && sftp.isConnected()) {
 				sftp.disconnect();
@@ -226,10 +226,10 @@ public class DatasetServiceImpl implements DatasetService {
 	}
 
 	/**
-	 * Create remote directory
+	 * 创建远程目录
 	 *
-	 * @param sftp SFTPaisle
-	 * @param path directory path
+	 * @param sftp SFTP通道
+	 * @param path 目录路径
 	 */
 	private void createRemoteDirectory(ChannelSftp sftp, String path) throws SftpException {
 		String[] dirs = path.split("/");
@@ -244,20 +244,20 @@ public class DatasetServiceImpl implements DatasetService {
 
 			try {
 				sftp.cd(currentPath);
-				log.debug("Directory already exists: {}", currentPath);
+				log.debug("目录已存在：{}", currentPath);
 			} catch (SftpException e) {
-				// Directory does not exist, create it
+				// 目录不存在，创建它
 				sftp.mkdir(currentPath);
-				log.info("Create remote directory: {}", currentPath);
+				log.info("创建远程目录：{}", currentPath);
 			}
 		}
 	}
 
 	/**
-	 * Format file size
+	 * 格式化文件大小
 	 *
-	 * @param size file size(byte)
-	 * @return Formatted file size
+	 * @param size 文件大小（字节）
+	 * @return 格式化后的文件大小
 	 */
 	private String formatFileSize(long size) {
 		if (size < 1024) {

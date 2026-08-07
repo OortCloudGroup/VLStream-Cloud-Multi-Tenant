@@ -29,7 +29,7 @@ import java.util.List;
 import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 
 /**
- * Job list controller
+ * 岗位表 控制器
  *
  * @author Chill
  */
@@ -38,28 +38,28 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @AllArgsConstructor
 @PreAuth(menu = "post")
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/post")
-@Tag(name = "post", description = "post")
+@Tag(name = "岗位", description = "岗位")
 public class PostController extends BladeController {
 
 	private final IPostService postService;
 
 	/**
-	 * Details
+	 * 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingpost")
+	@Operation(summary = "详情", description = "传入post")
 	public R<PostVO> detail(Post post) {
 		Post detail = postService.getOne(Condition.getQueryWrapper(post));
 		return R.data(PostWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * Pagination Job list
+	 * 分页 岗位表
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingpost")
+	@Operation(summary = "分页", description = "传入post")
 	public R<IPage<PostVO>> list(Post post, Query query) {
 		IPage<Post> pages = postService.page(Condition.getPage(query), Condition.getQueryWrapper(post));
 		return R.data(PostWrapper.build().pageVO(pages));
@@ -67,44 +67,44 @@ public class PostController extends BladeController {
 
 
 	/**
-	 * Custom paging Job list
+	 * 自定义分页 岗位表
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description = "incomingpost")
+	@Operation(summary = "分页", description = "传入post")
 	public R<IPage<PostVO>> page(PostVO post, Query query) {
 		IPage<PostVO> pages = postService.selectPostPage(Condition.getPage(query), post);
 		return R.data(pages);
 	}
 
 	/**
-	 * New Job list
+	 * 新增 岗位表
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingpost")
+	@Operation(summary = "新增", description = "传入post")
 	public R save(@Valid @RequestBody Post post) {
 		CacheUtil.clear(SYS_CACHE);
 		return R.status(postService.save(post));
 	}
 
 	/**
-	 * Revise Job list
+	 * 修改 岗位表
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingpost")
+	@Operation(summary = "修改", description = "传入post")
 	public R update(@Valid @RequestBody Post post) {
 		CacheUtil.clear(SYS_CACHE);
 		return R.status(postService.updateById(post));
 	}
 
 	/**
-	 * Add or modify Job list
+	 * 新增或修改 岗位表
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingpost")
+	@Operation(summary = "新增或修改", description = "传入post")
 	public R submit(@Valid @RequestBody Post post) {
 		CacheUtil.clear(SYS_CACHE);
 		return R.status(postService.saveOrUpdate(post));
@@ -112,22 +112,22 @@ public class PostController extends BladeController {
 
 
 	/**
-	 * delete Job list
+	 * 删除 岗位表
 	 */
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		CacheUtil.clear(SYS_CACHE);
 		return R.status(postService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Drop down data source
+	 * 下拉数据源
 	 */
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Drop down data source", description = "incomingpost")
+	@Operation(summary = "下拉数据源", description = "传入post")
 	public R<List<Post>> select(String tenantId, BladeUser bladeUser) {
 		List<Post> list = postService.list(Wrappers.<Post>query().lambda().eq(Post::getTenantId, Func.toStrWithEmpty(tenantId, bladeUser.getTenantId())));
 		return R.data(list);

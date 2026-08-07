@@ -9,25 +9,25 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * Algorithm layout table Service category
+ * 算法编排表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAlgorithmOrchestrationService extends BaseService<AlgorithmOrchestration> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAlgorithmOrchestration query parameters
+	 * @param page 分页参数
+	 * @param vlsAlgorithmOrchestration 查询参数
 	 * @return IPage<VlsAlgorithmOrchestrationVO>
 	 */
 	IPage<AlgorithmOrchestrationVO> selectVlsAlgorithmOrchestrationPage(IPage<AlgorithmOrchestrationVO> page, AlgorithmOrchestrationVO vlsAlgorithmOrchestration);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAlgorithmOrchestrationExcel>
 	 */
 	List<VlsAlgorithmOrchestrationExcel> exportVlsAlgorithmOrchestration(Wrapper<AlgorithmOrchestration> queryWrapper);

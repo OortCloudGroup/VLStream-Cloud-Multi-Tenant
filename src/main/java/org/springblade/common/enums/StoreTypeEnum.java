@@ -4,32 +4,32 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * Storage type enum
+ * 存储类型枚举
  *
  * @author zhonghuixiong
  */
-@Schema(description = "storage type")
+@Schema(description = "存储类型")
 public enum StoreTypeEnum {
 
 	/**
-	 * MySQL Geometrytype
+	 * MySQL Geometry类型
 	 */
-	MySQLGeometry("MySQLGeometry", "MySQL Geometrytype"),
+	MySQLGeometry("MySQLGeometry", "MySQL Geometry类型"),
 
 	/**
-	 * point type(Point)
+	 * 点类型(Point)
 	 */
-	Point("Point", "point type"),
+	Point("Point", "点类型"),
 
 	/**
-	 * Geometry type(Geometry)
+	 * 几何类型(Geometry)
 	 */
-	Geometry("Geometry", "Geometry type"),
+	Geometry("Geometry", "几何类型"),
 
 	/**
-	 * Coordinate type(Coordinates)
+	 * 坐标类型(Coordinates)
 	 */
-	Coordinates("Coordinates", "Coordinate type");
+	Coordinates("Coordinates", "坐标类型");
 
 	@EnumValue
 	private final String value;

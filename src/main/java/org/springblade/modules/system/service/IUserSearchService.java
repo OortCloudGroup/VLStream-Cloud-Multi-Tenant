@@ -7,58 +7,58 @@ import org.springblade.modules.system.pojo.entity.User;
 import java.util.List;
 
 /**
- * User query service class
+ * 用户查询服务类
  *
  * @author Chill
  */
 public interface IUserSearchService extends BaseService<User> {
 
 	/**
-	 * According to userIDQuery user list
+	 * 根据用户ID查询用户列表
 	 *
-	 * @param userId userID
-	 * @return User list
+	 * @param userId 用户ID
+	 * @return 用户列表
 	 */
 	List<User> listByUser(List<Long> userId);
 
 	/**
-	 * According to departmentIDQuery user list
+	 * 根据部门ID查询用户列表
 	 *
-	 * @param deptId departmentID
-	 * @return User list
+	 * @param deptId 部门ID
+	 * @return 用户列表
 	 */
 	List<User> listByDept(List<Long> deptId);
 
 	/**
-	 * According to positionIDQuery user list
+	 * 根据岗位ID查询用户列表
 	 *
-	 * @param postId postID
-	 * @return User list
+	 * @param postId 岗位ID
+	 * @return 用户列表
 	 */
 	List<User> listByPost(List<Long> postId);
 
 	/**
-	 * According to roleIDQuery user list
+	 * 根据角色ID查询用户列表
 	 *
-	 * @param roleId RoleID
-	 * @return User list
+	 * @param roleId 角色ID
+	 * @return 用户列表
 	 */
 	List<User> listByRole(List<Long> roleId);
 
 	/**
-	 * Query supervisor list
+	 * 查询主管列表
 	 *
-	 * @param tenantId tenantID
-	 * @param realName real name
-	 * @return User list
+	 * @param tenantId 租户ID
+	 * @param realName 真实姓名
+	 * @return 用户列表
 	 */
 	List<User> listLeader(String tenantId, String realName);
 
 	/**
-	 * Query the user's supervisor list
+	 * 查询用户的主管列表
 	 *
-	 * @param userId userID
-	 * @return User information
+	 * @param userId 用户ID
+	 * @return 用户信息
 	 */
 	List<User> getLeader(List<Long> userId);
 

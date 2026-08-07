@@ -29,7 +29,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.develop.pojo.entity.ModelPrototype;
 
 /**
- * Data prototype table Mapper interface
+ * 数据原型表 Mapper 接口
  *
  * @author Chill
  */

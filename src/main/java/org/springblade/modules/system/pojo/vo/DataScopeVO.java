@@ -8,19 +8,19 @@ import org.springblade.modules.system.pojo.entity.DataScope;
 import java.io.Serial;
 
 /**
- * View entity class
+ * 视图实体类
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "DataScopeVOobject")
+@Schema(description = "DataScopeVO对象")
 public class DataScopeVO extends DataScope {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Rule type name
+	 * 规则类型名
 	 */
 	private String scopeTypeName;
 }

@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Algorithm model table Data transfer object entity class
+ * 算法模型表 数据传输对象实体类
  *
  * @author Oort
  * @since 2025-12-23

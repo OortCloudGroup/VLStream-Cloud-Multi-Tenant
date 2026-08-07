@@ -7,7 +7,7 @@ import org.springblade.vlstream.pojo.entity.VideoRecord;
 import java.io.Serial;
 
 /**
- * Video recording record sheet Data transfer object entity class
+ * 视频录制记录表 数据传输对象实体类
  *
  * @author Oort
  * @since 2025-12-25

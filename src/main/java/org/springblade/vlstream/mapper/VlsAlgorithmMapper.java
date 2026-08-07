@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Algorithm table Mapper interface
+ * 算法表 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-23
@@ -21,29 +21,31 @@ import java.util.Map;
 public interface VlsAlgorithmMapper extends BaseMapper<Algorithm> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAlgorithm query parameters
+	 * @param page 分页参数
+	 * @param vlsAlgorithm 查询参数
 	 * @return List<VlsAlgorithmVO>
 	 */
-	List<AlgorithmVO> selectVlsAlgorithmPage(IPage page, AlgorithmVO vlsAlgorithm);
+	List<AlgorithmVO> selectVlsAlgorithmPage(IPage page, @Param("vlsAlgorithm") AlgorithmVO vlsAlgorithm,
+																 @Param("tenantId") String tenantId);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAlgorithmExcel>
 	 */
 	List<VlsAlgorithmExcel> exportVlsAlgorithm(@Param("ew") Wrapper<Algorithm> queryWrapper);
 
 	/**
-	 * Paging query algorithm list
+	 * 分页查询算法列表
 	 */
 	@Select("SELECT a.*, r.name as repository_name " +
 		"FROM vls_algorithm a " +
-		"LEFT JOIN vls_algorithm_repository r ON a.repository_id = r.id " +
+		"LEFT JOIN vls_algorithm_repository r ON a.repository_id = r.id AND r.tenant_id = #{tenantId} AND r.is_deleted = 0 " +
 		"WHERE a.is_deleted = 0 " +
+		"AND a.tenant_id = #{tenantId} " +
 		"AND (#{repositoryId} IS NULL OR a.repository_id = #{repositoryId}) " +
 		"AND (#{name} IS NULL OR a.name LIKE CONCAT('%', #{name}, '%')) " +
 		"AND (#{category} IS NULL OR a.category = #{category}) " +
@@ -52,42 +54,67 @@ public interface VlsAlgorithmMapper extends BaseMapper<Algorithm> {
 										 @Param("repositoryId") Long repositoryId,
 										 @Param("name") String name,
 										 @Param("category") String category,
-										 @Param("deployStatus") String deployStatus);
+										 @Param("deployStatus") String deployStatus,
+										 @Param("tenantId") String tenantId);
 
 	/**
-	 * According to warehouseIDQuery algorithm list
+	 * 根据仓库ID查询算法列表
 	 */
-	@Select("SELECT * FROM vls_algorithm WHERE is_deleted = 0 AND repository_id = #{repositoryId} ORDER BY create_time DESC")
-	List<Algorithm> selectByRepositoryId(@Param("repositoryId") Long repositoryId);
+	@Select("SELECT a.* FROM vls_algorithm a " +
+		"INNER JOIN vls_algorithm_repository r ON r.id = a.repository_id " +
+		"AND r.tenant_id = #{tenantId} AND r.is_deleted = 0 " +
+		"WHERE a.is_deleted = 0 AND a.tenant_id = #{tenantId} " +
+		"AND a.repository_id = #{repositoryId} ORDER BY a.create_time DESC")
+	List<Algorithm> selectByRepositoryId(@Param("repositoryId") Long repositoryId, @Param("tenantId") String tenantId);
 
 	/**
-	 * Query algorithm list according to classification
+	 * 根据分类查询算法列表
 	 */
-	@Select("SELECT * FROM vls_algorithm WHERE is_deleted = 0 AND category = #{category} ORDER BY create_time DESC")
-	List<Algorithm> selectByCategory(@Param("category") String category);
+	@Select("SELECT * FROM vls_algorithm WHERE is_deleted = 0 AND tenant_id = #{tenantId} " +
+		"AND category = #{category} ORDER BY create_time DESC")
+	List<Algorithm> selectByCategory(@Param("category") String category, @Param("tenantId") String tenantId);
 
 	/**
-	 * Count the number of algorithms under a certain warehouse
+	 * 统计某仓库下的算法数量
 	 */
-	@Select("SELECT COUNT(*) FROM vls_algorithm WHERE is_deleted = 0 AND repository_id = #{repositoryId}")
-	Long countByRepositoryId(@Param("repositoryId") Long repositoryId);
+	@Select("SELECT COUNT(*) FROM vls_algorithm a " +
+		"INNER JOIN vls_algorithm_repository r ON r.id = a.repository_id " +
+		"AND r.tenant_id = #{tenantId} AND r.is_deleted = 0 " +
+		"WHERE a.is_deleted = 0 AND a.tenant_id = #{tenantId} " +
+		"AND a.repository_id = #{repositoryId}")
+	Long countByRepositoryId(@Param("repositoryId") Long repositoryId, @Param("tenantId") String tenantId);
 
 	/**
-	 * Query algorithm classification statistics
+	 * 查询算法分类统计
 	 */
-	@Select("SELECT category, COUNT(*) as count FROM vls_algorithm WHERE is_deleted = 0 GROUP BY category")
-	List<Map<String, Object>> selectCategoryStatistics();
+	@Select("SELECT category, COUNT(*) as count FROM vls_algorithm " +
+		"WHERE is_deleted = 0 AND tenant_id = #{tenantId} GROUP BY category")
+	List<Map<String, Object>> selectCategoryStatistics(@Param("tenantId") String tenantId);
 
 	/**
-	 * Query algorithm type statistics
+	 * 查询算法类型统计
 	 */
-	@Select("SELECT type, COUNT(*) as count FROM vls_algorithm WHERE is_deleted = 0 GROUP BY type")
-	List<Map<String, Object>> selectTypeStatistics();
+	@Select("SELECT type, COUNT(*) as count FROM vls_algorithm " +
+		"WHERE is_deleted = 0 AND tenant_id = #{tenantId} GROUP BY type")
+	List<Map<String, Object>> selectTypeStatistics(@Param("tenantId") String tenantId);
 
 	/**
-	 * Query deployment status statistics
+	 * 查询部署状态统计
 	 */
-	@Select("SELECT deploy_status, COUNT(*) as count FROM vls_algorithm WHERE is_deleted = 0 GROUP BY deploy_status")
-	List<Map<String, Object>> selectDeployStatusStatistics();
+	@Select("SELECT deploy_status, COUNT(*) as count FROM vls_algorithm " +
+		"WHERE is_deleted = 0 AND tenant_id = #{tenantId} GROUP BY deploy_status")
+	List<Map<String, Object>> selectDeployStatusStatistics(@Param("tenantId") String tenantId);
+
+	/**
+	 * 查询当前租户下的算法详情。
+	 */
+	@Select("SELECT * FROM vls_algorithm WHERE is_deleted = 0 AND id = #{algorithmId} AND tenant_id = #{tenantId}")
+	Algorithm selectByIdAndTenantId(@Param("algorithmId") Long algorithmId, @Param("tenantId") String tenantId);
+
+	/**
+	 * 查询当前租户下的算法集合。
+	 */
+	List<Algorithm> selectByIdsAndTenantId(@Param("algorithmIds") List<Long> algorithmIds,
+																			 @Param("tenantId") String tenantId);
 
 }

@@ -8,14 +8,14 @@ import org.springblade.job.pojo.vo.JobServerVO;
 import java.util.List;
 
 /**
- * task service table Mapper interface
+ * 任务服务表 Mapper 接口
  *
  * @author Oort
  */
 public interface JobServerMapper extends BaseMapper<JobServer> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
 	 * @param page
 	 * @param jobServer

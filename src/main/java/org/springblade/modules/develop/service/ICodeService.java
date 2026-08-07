@@ -30,14 +30,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springblade.modules.develop.pojo.entity.Code;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface ICodeService extends IService<Code> {
 
 	/**
-	 * submit
+	 * 提交
 	 *
 	 * @param code
 	 * @return

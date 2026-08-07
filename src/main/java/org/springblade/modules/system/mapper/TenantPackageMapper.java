@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.system.pojo.entity.TenantPackage;
 
 /**
- * Tenant product table Mapper interface
+ * 租户产品表 Mapper 接口
  *
  * @author Oort
  */

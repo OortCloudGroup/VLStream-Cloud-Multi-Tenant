@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Label instance entity class View entity class
+ * 标注实例实体类 视图实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -18,7 +18,7 @@ public class AnnotationInstanceVO extends AnnotationInstance {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "Picture name")
+	@Schema(description = "图片名称")
 	private String imageName;
 
 }

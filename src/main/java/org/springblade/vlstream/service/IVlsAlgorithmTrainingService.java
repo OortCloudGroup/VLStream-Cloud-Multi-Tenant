@@ -9,74 +9,74 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * Algorithm training task list Service category
+ * 算法训练任务表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAlgorithmTrainingService extends BaseService<AlgorithmTraining> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAlgorithmTraining query parameters
+	 * @param page 分页参数
+	 * @param vlsAlgorithmTraining 查询参数
 	 * @return IPage<VlsAlgorithmTrainingVO>
 	 */
 	IPage<AlgorithmTrainingVO> selectVlsAlgorithmTrainingPage(IPage<AlgorithmTrainingVO> page, AlgorithmTrainingVO vlsAlgorithmTraining);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAlgorithmTrainingExcel>
 	 */
 	List<VlsAlgorithmTrainingExcel> exportVlsAlgorithmTraining(Wrapper<AlgorithmTraining> queryWrapper);
 
 	/**
-	 * Query algorithm training tasks
+	 * 查询算法训练任务
 	 *
-	 * @param id Algorithm training task primary key
-	 * @return Algorithm training tasks
+	 * @param id 算法训练任务主键
+	 * @return 算法训练任务
 	 */
 	public AlgorithmTraining selectAlgorithmTrainingById(Long id);
 
 	/**
-	 * Query algorithm training task list
+	 * 查询算法训练任务列表
 	 *
-	 * @param algorithmTraining Algorithm training tasks
-	 * @return Algorithm training task set
+	 * @param algorithmTraining 算法训练任务
+	 * @return 算法训练任务集合
 	 */
 	public List<AlgorithmTraining> selectAlgorithmTrainingList(AlgorithmTraining algorithmTraining);
 
 	/**
-	 * Added algorithm training tasks
+	 * 新增算法训练任务
 	 *
-	 * @param algorithmTraining Algorithm training tasks
-	 * @return result
+	 * @param algorithmTraining 算法训练任务
+	 * @return 结果
 	 */
 	public int insertAlgorithmTraining(AlgorithmTraining algorithmTraining);
 
 	/**
-	 * Modify algorithm training tasks
+	 * 修改算法训练任务
 	 *
-	 * @param algorithmTraining Algorithm training tasks
-	 * @return result
+	 * @param algorithmTraining 算法训练任务
+	 * @return 结果
 	 */
 	public int updateAlgorithmTraining(AlgorithmTraining algorithmTraining);
 
 	/**
-	 * Batch deletion of algorithm training tasks
+	 * 批量删除算法训练任务
 	 *
-	 * @param ids Algorithm training task primary key set that needs to be deleted
-	 * @return result
+	 * @param ids 需要删除的算法训练任务主键集合
+	 * @return 结果
 	 */
 	public int deleteAlgorithmTrainingByIds(Long[] ids);
 
 	/**
-	 * Delete algorithm training task information
+	 * 删除算法训练任务信息
 	 *
-	 * @param id Algorithm training task primary key
-	 * @return result
+	 * @param id 算法训练任务主键
+	 * @return 结果
 	 */
 	public int deleteAlgorithmTrainingById(Long id);
 

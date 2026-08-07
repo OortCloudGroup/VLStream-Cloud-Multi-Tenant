@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * Algorithm warehouse table Mapper interface
+ * 算法仓库表 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-23
@@ -20,29 +20,32 @@ import java.util.List;
 public interface VlsAlgorithmRepositoryMapper extends BaseMapper<AlgorithmRepository> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAlgorithmRepository query parameters
+	 * @param page 分页参数
+	 * @param vlsAlgorithmRepository 查询参数
 	 * @return List<VlsAlgorithmRepositoryVO>
 	 */
-	List<AlgorithmRepositoryVO> selectVlsAlgorithmRepositoryPage(IPage page, AlgorithmRepositoryVO vlsAlgorithmRepository);
+	List<AlgorithmRepositoryVO> selectVlsAlgorithmRepositoryPage(IPage page,
+																			 @Param("vlsAlgorithmRepository") AlgorithmRepositoryVO vlsAlgorithmRepository,
+																			 @Param("tenantId") String tenantId);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAlgorithmRepositoryExcel>
 	 */
 	List<VlsAlgorithmRepositoryExcel> exportVlsAlgorithmRepository(@Param("ew") Wrapper<AlgorithmRepository> queryWrapper);
 
 	/**
-	 * Paging query algorithm warehouse list
+	 * 分页查询算法仓库列表
 	 */
 	@Select("SELECT r.*, " +
-		"(SELECT COUNT(*) FROM algorithm a WHERE a.repository_id = r.id AND a.is_deleted = 0) as algorithm_count " +
+		"(SELECT COUNT(*) FROM vls_algorithm a WHERE a.repository_id = r.id " +
+		"AND a.tenant_id = r.tenant_id AND a.is_deleted = 0) as algorithm_count " +
 		"FROM vls_algorithm_repository r " +
-		"WHERE r.is_deleted = 0 " +
+		"WHERE r.is_deleted = 0 AND r.tenant_id = #{tenantId} " +
 		"AND (#{name} IS NULL OR r.name LIKE CONCAT('%', #{name}, '%')) " +
 		"AND (#{repositoryType} IS NULL OR r.repository_type = #{repositoryType}) " +
 		"AND (#{status} IS NULL OR r.status = #{status}) " +
@@ -50,24 +53,36 @@ public interface VlsAlgorithmRepositoryMapper extends BaseMapper<AlgorithmReposi
 	IPage<AlgorithmRepository> selectRepositoryPage(Page<AlgorithmRepository> page,
 													@Param("name") String name,
 													@Param("repositoryType") String repositoryType,
-													@Param("status") String status);
+																 @Param("status") String status,
+																 @Param("tenantId") String tenantId);
 
 	/**
-	 * Query所有enablealgorithmstorehouse
+	 * 查询所有启用的算法仓库
 	 */
-	@Select("SELECT * FROM vls_algorithm_repository WHERE is_deleted = 0 AND status = 'enabled' ORDER BY id")
-	List<AlgorithmRepository> selectEnabledRepositories();
+	@Select("SELECT * FROM vls_algorithm_repository WHERE is_deleted = 0 " +
+		"AND tenant_id = #{tenantId} AND status = 1 ORDER BY id")
+	List<AlgorithmRepository> selectEnabledRepositories(@Param("tenantId") String tenantId);
 
 	/**
-	 * Query algorithm warehouse based on type
+	 * 根据类型查询算法仓库
 	 */
-	@Select("SELECT * FROM vls_algorithm_repository WHERE is_deleted = 0 AND repository_type = #{repositoryType} ORDER BY id")
-	List<AlgorithmRepository> selectByRepositoryType(@Param("repositoryType") String repositoryType);
+	@Select("SELECT * FROM vls_algorithm_repository WHERE is_deleted = 0 " +
+		"AND tenant_id = #{tenantId} AND repository_type = #{repositoryType} ORDER BY id")
+	List<AlgorithmRepository> selectByRepositoryType(@Param("repositoryType") String repositoryType,
+																									 @Param("tenantId") String tenantId);
 
 	/**
-	 * Statistical algorithm warehouse quantity
+	 * 统计算法仓库数量
 	 */
-	@Select("SELECT COUNT(*) FROM vls_algorithm_repository WHERE is_deleted = 0")
-	Long countRepositories();
+	@Select("SELECT COUNT(*) FROM vls_algorithm_repository WHERE is_deleted = 0 AND tenant_id = #{tenantId}")
+	Long countRepositories(@Param("tenantId") String tenantId);
+
+	/**
+	 * 查询指定租户下的算法仓库。
+	 */
+	@Select("SELECT * FROM vls_algorithm_repository WHERE is_deleted = 0 " +
+		"AND id = #{repositoryId} AND tenant_id = #{tenantId}")
+	AlgorithmRepository selectByIdAndTenantId(@Param("repositoryId") Long repositoryId,
+																				 @Param("tenantId") String tenantId);
 
 }

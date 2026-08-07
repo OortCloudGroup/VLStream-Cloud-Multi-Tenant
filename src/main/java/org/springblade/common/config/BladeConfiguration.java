@@ -7,15 +7,22 @@ import org.springblade.core.oauth2.endpoint.OAuth2TokenEndPoint;
 import org.springblade.core.secure.provider.HttpMethod;
 import org.springblade.core.secure.registry.SecureRegistry;
 import org.springblade.core.tool.utils.StringPool;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 /**
- * BladeConfiguration
+ * Blade配置
  *
  * @author Chill
  */
@@ -23,18 +30,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class BladeConfiguration implements WebMvcConfigurer {
 
 	/**
-	 * Security framework configuration
+	 * 安全框架配置
 	 */
 	@Bean
 	public SecureRegistry secureRegistry() {
 		return new SecureRegistry()
-			// Enable authentication configuration
+			// 开启认证配置
 			.enabled()
-			// Token strict mode configuration
+			// 令牌严格模式配置
 			.strictTokenDisabled()
-			// Request header strict mode configuration
+			// 请求头严格模式配置
 			.strictHeaderDisabled()
-			// Authentication release configuration
+			// 认证放行配置
 			.skipUrls(
 				"/blade-auth/**",
 				"/blade-system/tenant/info",
@@ -52,21 +59,21 @@ public class BladeConfiguration implements WebMvcConfigurer {
 				"/druid/**",
 				"/favicon.ico"
 			)
-			// Authentication configuration
+			// 认证鉴权配置
 			.authDisabled()
 			.addAuthPattern(HttpMethod.ALL, "/blade-chat/message/**", "hasAuth()")
 			.addAuthPattern(HttpMethod.POST, "/blade-desk/dashboard/upload", "hasTimeAuth(9, 17)")
 			.addAuthPattern(HttpMethod.POST, "/blade-desk/dashboard/submit", "hasAnyRole('administrator', 'admin', 'user')")
-			// Basic authentication configuration
+			// 基础认证配置
 			.basicDisabled()
 			.addBasicPattern(HttpMethod.POST, "/blade-desk/dashboard/info", "blade", "blade")
-			// Signature authentication configuration
+			// 签名认证配置
 			.signDisabled()
 			.addSignPattern(HttpMethod.POST, "/blade-desk/dashboard/sign", "sha1");
 	}
 
 	/**
-	 * Cross-domain configuration
+	 * 跨域配置
 	 */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -79,7 +86,27 @@ public class BladeConfiguration implements WebMvcConfigurer {
 	}
 
 	/**
-	 * GiveOAuth2Add prefix on server side
+	 * 全局跨域预检过滤器
+	 */
+	@Bean
+	public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+		corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+		corsConfiguration.setAllowedHeaders(List.of("*"));
+		corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.setMaxAge(3600L);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfiguration);
+
+		FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>(new CorsFilter(source));
+		registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		return registrationBean;
+	}
+
+	/**
+	 * 给OAuth2服务端添加前缀
 	 */
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {

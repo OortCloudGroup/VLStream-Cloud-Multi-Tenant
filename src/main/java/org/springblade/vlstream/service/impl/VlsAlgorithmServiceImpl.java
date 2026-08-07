@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.vlstream.excel.VlsAlgorithmExcel;
 import org.springblade.vlstream.mapper.VlsAlgorithmMapper;
 import org.springblade.vlstream.pojo.entity.Algorithm;
@@ -16,14 +17,16 @@ import org.springblade.vlstream.service.IVlsAlgorithmRepositoryService;
 import org.springblade.vlstream.service.IVlsAlgorithmService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Algorithm table Service implementation class
+ * 算法表 服务实现类
  *
  * @author Oort
  * @since 2025-12-23
@@ -38,7 +41,12 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 
 	@Override
 	public IPage<AlgorithmVO> selectVlsAlgorithmPage(IPage<AlgorithmVO> page, AlgorithmVO vlsAlgorithm) {
-		return page.setRecords(baseMapper.selectVlsAlgorithmPage(page, vlsAlgorithm));
+		String tenantId = currentTenantId();
+		if (!StringUtils.hasText(tenantId) || (vlsAlgorithm.getRepositoryId() != null
+			&& algorithmRepositoryService.getCurrentTenantRepository(vlsAlgorithm.getRepositoryId()) == null)) {
+			return page.setRecords(Collections.emptyList()).setTotal(0);
+		}
+		return page.setRecords(algorithmMapper.selectVlsAlgorithmPage(page, vlsAlgorithm, tenantId));
 	}
 
 	@Override
@@ -52,42 +60,63 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 
 	@Override
 	public IPage<Algorithm> selectAlgorithmPage(Page<Algorithm> page, Long repositoryId, String name, String category, String deployStatus) {
-		log.info("Paging query algorithm list, parameter: repositoryId={}, name={}, category={}, deployStatus={}", repositoryId, name, category, deployStatus);
-		return algorithmMapper.selectAlgorithmPage(page, repositoryId, name, category, deployStatus);
+		log.info("分页查询算法列表，参数：repositoryId={}, name={}, category={}, deployStatus={}", repositoryId, name, category, deployStatus);
+		String tenantId = currentTenantId();
+		if (!StringUtils.hasText(tenantId) || (repositoryId != null
+			&& algorithmRepositoryService.getCurrentTenantRepository(repositoryId) == null)) {
+			return page.setRecords(Collections.emptyList()).setTotal(0);
+		}
+		return algorithmMapper.selectAlgorithmPage(page, repositoryId, name, category, deployStatus, tenantId);
 	}
 
 	@Override
 	public List<Algorithm> getByRepositoryId(Long repositoryId) {
-		log.info("According to warehouseIDQuery algorithm list: {}", repositoryId);
-		return algorithmMapper.selectByRepositoryId(repositoryId);
+		log.info("根据仓库ID查询算法列表：{}", repositoryId);
+		String tenantId = currentTenantId();
+		if (!StringUtils.hasText(tenantId) || algorithmRepositoryService.getCurrentTenantRepository(repositoryId) == null) {
+			return Collections.emptyList();
+		}
+		return algorithmMapper.selectByRepositoryId(repositoryId, tenantId);
 	}
 
 	@Override
 	public List<Algorithm> getByCategory(String category) {
-		log.info("Query algorithm list according to classification: {}", category);
-		return algorithmMapper.selectByCategory(category);
+		log.info("根据分类查询算法列表：{}", category);
+		String tenantId = currentTenantId();
+		return StringUtils.hasText(tenantId)
+			? algorithmMapper.selectByCategory(category, tenantId)
+			: Collections.emptyList();
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean createAlgorithm(Algorithm algorithm) {
-		log.info("Create algorithm: {}", algorithm.getName());
+		log.info("创建算法：{}", algorithm.getName());
+		String tenantId = currentTenantId();
+		if (!StringUtils.hasText(tenantId) || algorithm.getRepositoryId() == null
+			|| algorithmRepositoryService.getCurrentTenantRepository(algorithm.getRepositoryId()) == null) {
+			return false;
+		}
+		algorithm.setTenantId(tenantId);
 
-		// Check whether the names are duplicated in the same warehouse
+		// 检查同一仓库下名称是否重复
 		QueryWrapper<Algorithm> queryWrapper = new QueryWrapper<>();
-		queryWrapper.eq("repository_id", algorithm.getRepositoryId()).eq("name", algorithm.getName()).eq("is_deleted", 0);
+		queryWrapper.eq("repository_id", algorithm.getRepositoryId())
+			.eq("name", algorithm.getName())
+			.eq("tenant_id", tenantId)
+			.eq("is_deleted", 0);
 		if (count(queryWrapper) > 0) {
-			log.warn("The algorithm name already exists in the same warehouse: {}", algorithm.getName());
+			log.warn("同一仓库下算法名称已存在：{}", algorithm.getName());
 			return false;
 		}
 
-		// Set default value
+		// 设置默认值
 		if (algorithm.getGpuRequired() == null) {
 			algorithm.setGpuRequired(0);
 		}
 		boolean result = save(algorithm);
 
-		// Update the number of algorithms in the warehouse
+		// 更新仓库的算法数量
 		if (result) {
 			algorithmRepositoryService.updateAlgorithmCount(algorithm.getRepositoryId());
 		}
@@ -98,21 +127,29 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean updateAlgorithm(Algorithm algorithm) {
-		log.info("Update algorithm: ID={}, Name={}", algorithm.getId(), algorithm.getName());
+		log.info("更新算法：ID={}, Name={}", algorithm.getId(), algorithm.getName());
 
-		// Get original algorithm information
-		Algorithm existing = getById(algorithm.getId());
-		if (existing == null) {
-			log.warn("Algorithm does not exist: ID={}", algorithm.getId());
+		// 获取原算法信息
+		String tenantId = currentTenantId();
+		Algorithm existing = getCurrentTenantAlgorithm(algorithm.getId());
+		if (!StringUtils.hasText(tenantId) || existing == null) {
+			log.warn("算法不存在：ID={}", algorithm.getId());
 			return false;
 		}
 
-		// If the warehouse changes, The number of algorithms that need to be updated in both warehouses
+		// 如果仓库发生变化，需要更新两个仓库的算法数量
 		Long oldRepositoryId = existing.getRepositoryId();
-		Long newRepositoryId = algorithm.getRepositoryId();
+		Long newRepositoryId = algorithm.getRepositoryId() == null ? oldRepositoryId : algorithm.getRepositoryId();
+		if (algorithm.getRepositoryId() != null
+			&& algorithmRepositoryService.getCurrentTenantRepository(newRepositoryId) == null) {
+			log.warn("算法所属仓库无权限：AlgorithmId={}, RepositoryId={}", algorithm.getId(), newRepositoryId);
+			return false;
+		}
+		algorithm.setRepositoryId(newRepositoryId);
+		algorithm.setTenantId(tenantId);
 		boolean result = updateById(algorithm);
 
-		// Update algorithm number
+		// 更新算法数量
 		if (result && !oldRepositoryId.equals(newRepositoryId)) {
 			algorithmRepositoryService.updateAlgorithmCount(oldRepositoryId);
 			algorithmRepositoryService.updateAlgorithmCount(newRepositoryId);
@@ -124,17 +161,19 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteAlgorithm(Long id) {
-		log.info("Delete algorithm: ID={}", id);
+		log.info("删除算法：ID={}", id);
 
-		Algorithm algorithm = getById(id);
+		String tenantId = currentTenantId();
+		Algorithm algorithm = getCurrentTenantAlgorithm(id);
 		if (algorithm == null) {
-			log.warn("Algorithm does not exist: ID={}", id);
+			log.warn("算法不存在：ID={}", id);
 			return false;
 		}
 
-		boolean result = removeById(id);
+		boolean result = StringUtils.hasText(tenantId)
+			&& remove(new QueryWrapper<Algorithm>().eq("id", id).eq("tenant_id", tenantId));
 
-		// Update the number of algorithms in the warehouse
+		// 更新仓库的算法数量
 		if (result) {
 			algorithmRepositoryService.updateAlgorithmCount(algorithm.getRepositoryId());
 		}
@@ -145,16 +184,22 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean batchDeleteAlgorithms(List<Long> ids) {
-		log.info("Batch deletion algorithm: IDs={}", ids);
+		log.info("批量删除算法：IDs={}", ids);
 
-		// Get the warehouse information of the algorithm to be deleted
-		List<Algorithm> algorithms = listByIds(ids);
+		// 获取待删除算法的仓库信息
+		String tenantId = currentTenantId();
+		if (!StringUtils.hasText(tenantId)) {
+			return false;
+		}
+		List<Algorithm> algorithms = baseMapper.selectByIdsAndTenantId(ids, tenantId);
 		Map<Long, Boolean> repositoryMap = new HashMap<>();
 		algorithms.forEach(algo -> repositoryMap.put(algo.getRepositoryId(), true));
 
-		boolean result = removeByIds(ids);
+		List<Long> accessibleIds = algorithms.stream().map(Algorithm::getId).toList();
+		boolean result = !accessibleIds.isEmpty()
+			&& remove(new QueryWrapper<Algorithm>().eq("tenant_id", tenantId).in("id", accessibleIds));
 
-		// Update the number of algorithms for related warehouses
+		// 更新相关仓库的算法数量
 		if (result) {
 			repositoryMap.keySet().forEach(algorithmRepositoryService::updateAlgorithmCount);
 		}
@@ -164,57 +209,59 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 
 	@Override
 	public boolean updateDeployStatus(Long id, String deployStatus) {
-		log.info("Update algorithm deployment status: ID={}, Status={}", id, deployStatus);
+		log.info("更新算法部署状态：ID={}, Status={}", id, deployStatus);
 
 		UpdateWrapper<Algorithm> updateWrapper = new UpdateWrapper<>();
-		updateWrapper.eq("id", id).set("deploy_status", deployStatus);
+		String tenantId = currentTenantId();
+		updateWrapper.eq("id", id).eq("tenant_id", tenantId).set("deploy_status", deployStatus);
 
-		// If the deployment is successful, Increase deployment times and update deployment time
+		// 如果是部署成功，增加部署次数和更新部署时间
 		if ("deployed".equals(deployStatus)) {
 			updateWrapper.setSql("deploy_count = deploy_count + 1").set("last_deploy_time", LocalDateTime.now());
 		}
 
-		return update(updateWrapper);
+		return StringUtils.hasText(tenantId) && getCurrentTenantAlgorithm(id) != null && update(updateWrapper);
 	}
 
 	@Override
 	public boolean batchUpdateDeployStatus(List<Long> ids, String deployStatus) {
-		log.info("Batch update algorithm deployment status: IDs={}, Status={}", ids, deployStatus);
+		log.info("批量更新算法部署状态：IDs={}, Status={}", ids, deployStatus);
 
 		UpdateWrapper<Algorithm> updateWrapper = new UpdateWrapper<>();
-		updateWrapper.in("id", ids).set("deploy_status", deployStatus);
+		String tenantId = currentTenantId();
+		updateWrapper.in("id", ids).eq("tenant_id", tenantId).set("deploy_status", deployStatus);
 
-		// If the deployment is successful, Increase deployment times and update deployment time
+		// 如果是部署成功，增加部署次数和更新部署时间
 		if ("deployed".equals(deployStatus)) {
 			updateWrapper.setSql("deploy_count = deploy_count + 1").set("last_deploy_time", LocalDateTime.now());
 		}
 
-		return update(updateWrapper);
+		return StringUtils.hasText(tenantId) && update(updateWrapper);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deployAlgorithmToDevices(Long algorithmId, List<Long> deviceIds) {
-		log.info("Deploy algorithm to device: AlgorithmId={}, DeviceIds={}", algorithmId, deviceIds);
+		log.info("部署算法到设备：AlgorithmId={}, DeviceIds={}", algorithmId, deviceIds);
 
-		// Update algorithm deployment status to Deployment
+		// 更新算法部署状态为部署中
 		updateDeployStatus(algorithmId, "deploying");
 
 		try {
-			// The actual deployment service should be called here
-			// Simulate the deployment process
+			// 这里应该调用实际的部署服务
+			// 模拟部署过程
 			Thread.sleep(1000);
 
-			// Deployment successful, update status
+			// 部署成功，更新状态
 			updateDeployStatus(algorithmId, "deployed");
 
-			log.info("Algorithm deployment successful: AlgorithmId={}", algorithmId);
+			log.info("算法部署成功：AlgorithmId={}", algorithmId);
 			return true;
 
 		} catch (Exception e) {
-			log.error("Algorithm deployment failed: AlgorithmId={}", algorithmId, e);
+			log.error("算法部署失败：AlgorithmId={}", algorithmId, e);
 
-			// Deployment failed, update status
+			// 部署失败，更新状态
 			updateDeployStatus(algorithmId, "failed");
 			return false;
 		}
@@ -222,39 +269,45 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 
 	@Override
 	public Long countByRepositoryId(Long repositoryId) {
-		log.info("Count the number of algorithms under a certain warehouse: RepositoryId={}", repositoryId);
-		return algorithmMapper.countByRepositoryId(repositoryId);
+		log.info("统计某仓库下的算法数量：RepositoryId={}", repositoryId);
+		String tenantId = currentTenantId();
+		return StringUtils.hasText(tenantId) && algorithmRepositoryService.getCurrentTenantRepository(repositoryId) != null
+			? algorithmMapper.countByRepositoryId(repositoryId, tenantId)
+			: 0L;
 	}
 
 	@Override
 	public List<Map<String, Object>> getCategoryStatistics() {
-		log.info("Get algorithm classification statistics");
-		return algorithmMapper.selectCategoryStatistics();
+		log.info("获取算法分类统计");
+		String tenantId = currentTenantId();
+		return StringUtils.hasText(tenantId) ? algorithmMapper.selectCategoryStatistics(tenantId) : Collections.emptyList();
 	}
 
 	@Override
 	public List<Map<String, Object>> getTypeStatistics() {
-		log.info("Get algorithm type statistics");
-		return algorithmMapper.selectTypeStatistics();
+		log.info("获取算法类型统计");
+		String tenantId = currentTenantId();
+		return StringUtils.hasText(tenantId) ? algorithmMapper.selectTypeStatistics(tenantId) : Collections.emptyList();
 	}
 
 	@Override
 	public List<Map<String, Object>> getDeployStatusStatistics() {
-		log.info("Get deployment status statistics");
-		return algorithmMapper.selectDeployStatusStatistics();
+		log.info("获取部署状态统计");
+		String tenantId = currentTenantId();
+		return StringUtils.hasText(tenantId) ? algorithmMapper.selectDeployStatusStatistics(tenantId) : Collections.emptyList();
 	}
 
 	@Override
 	public Map<String, Object> evaluateAlgorithm(Long algorithmId) {
-		log.info("Algorithm evaluation: AlgorithmId={}", algorithmId);
+		log.info("算法评估：AlgorithmId={}", algorithmId);
 
-		Algorithm algorithm = getById(algorithmId);
+		Algorithm algorithm = getCurrentTenantAlgorithm(algorithmId);
 		if (algorithm == null) {
-			log.warn("Algorithm does not exist: ID={}", algorithmId);
+			log.warn("算法不存在：ID={}", algorithmId);
 			return null;
 		}
 
-		// Simulation Algorithm Evaluation Process
+		// 模拟算法评估过程
 		Map<String, Object> result = new HashMap<>();
 		result.put("algorithmId", algorithmId);
 		result.put("algorithmName", algorithm.getName());
@@ -265,8 +318,19 @@ public class VlsAlgorithmServiceImpl extends BaseServiceImpl<VlsAlgorithmMapper,
 		result.put("evaluationTime", LocalDateTime.now());
 		result.put("status", "completed");
 
-		log.info("Algorithm evaluation completed: AlgorithmId={}, Result={}", algorithmId, result);
+		log.info("算法评估完成：AlgorithmId={}, Result={}", algorithmId, result);
 		return result;
+	}
+
+	private Algorithm getCurrentTenantAlgorithm(Long algorithmId) {
+		String tenantId = currentTenantId();
+		return StringUtils.hasText(tenantId)
+			? algorithmMapper.selectByIdAndTenantId(algorithmId, tenantId)
+			: null;
+	}
+
+	protected String currentTenantId() {
+		return AuthUtil.getTenantId();
 	}
 
 }

@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Tag management table View entity class
+ * 标签管理表 视图实体类
  *
  * @author Oort
  * @since 2025-12-23

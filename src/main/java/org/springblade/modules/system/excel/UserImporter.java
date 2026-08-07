@@ -7,7 +7,7 @@ import org.springblade.modules.system.service.IUserService;
 import java.util.List;
 
 /**
- * User data import class
+ * 用户数据导入类
  *
  * @author Chill
  */

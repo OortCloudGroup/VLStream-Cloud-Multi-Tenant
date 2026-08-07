@@ -29,7 +29,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.develop.pojo.entity.Datasource;
 
 /**
- * Data source configuration table Service category
+ * 数据源配置表 服务类
  *
  * @author Chill
  */

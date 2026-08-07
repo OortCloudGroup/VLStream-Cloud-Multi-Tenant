@@ -23,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Audio anomaly detection setting table controller
+ * 音频异常侦测设置表 控制器
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAudioAnomalyDetectionSetting")
-@Tag(name = "Audio anomaly detection settings", description = "Audio anomaly detection setting interface")
+@Tag(name = "音频异常侦测设置", description = "音频异常侦测设置接口")
 public class VlsAudioAnomalyDetectionSettingController extends BladeController {
 
 	private final IVlsAudioAnomalyDetectionSettingService vlsAudioAnomalyDetectionSettingService;
@@ -37,9 +37,9 @@ public class VlsAudioAnomalyDetectionSettingController extends BladeController {
 
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "by deviceIDQuery audio anomaly detection settings")
+	@Operation(summary = "详情", description = "按设备ID查询音频异常侦测设置")
 	public R<AudioAnomalyDetectionSettingVO> detail(@RequestParam Long deviceId) {
-		Assert.notNull(deviceId, "Device primary keyIDcannot be empty");
+		Assert.notNull(deviceId, "设备主键ID不能为空");
 		AudioAnomalyDetectionSetting detail = vlsAudioAnomalyDetectionSettingService.getOne(Wrappers.<AudioAnomalyDetectionSetting>lambdaQuery()
 			.eq(AudioAnomalyDetectionSetting::getDeviceId, deviceId)
 			.last("limit 1"));
@@ -48,9 +48,9 @@ public class VlsAudioAnomalyDetectionSettingController extends BladeController {
 
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Add or modify", description = "by deviceIDSave audio anomaly detection settings")
+	@Operation(summary = "新增或修改", description = "按设备ID保存音频异常侦测设置")
 	public R submit(@Valid @RequestBody AudioAnomalyDetectionSetting audioAnomalyDetectionSetting) {
-		Assert.notNull(audioAnomalyDetectionSetting.getDeviceId(), "Device primary keyIDcannot be empty");
+		Assert.notNull(audioAnomalyDetectionSetting.getDeviceId(), "设备主键ID不能为空");
 		AudioAnomalyDetectionSetting existed = vlsAudioAnomalyDetectionSettingService.getOne(Wrappers.<AudioAnomalyDetectionSetting>lambdaQuery()
 			.eq(AudioAnomalyDetectionSetting::getDeviceId, audioAnomalyDetectionSetting.getDeviceId())
 			.last("limit 1"));
@@ -63,7 +63,7 @@ public class VlsAudioAnomalyDetectionSettingController extends BladeController {
 		}
 		boolean publishSuccess = vlsMqttPublishService.publish(vlsMqttProperties.getVlsAudioAnomalyDetectionSettingTopic(), audioAnomalyDetectionSetting);
 		if (!publishSuccess) {
-			return R.fail("Saved successfully, butMQTTMessage sending failed");
+			return R.fail("保存成功，但MQTT消息发送失败");
 		}
 		return R.status(true);
 	}

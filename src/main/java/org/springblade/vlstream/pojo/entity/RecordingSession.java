@@ -10,53 +10,53 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 
 /**
- * Recording session persistence record
+ * 录制会话持久化记录
  */
 @Data
 @TableName("vls_recording_session")
-@Schema(description = "RecordingSessionobject")
+@Schema(description = "RecordingSession对象")
 @EqualsAndHashCode(callSuper = true)
 public class RecordingSession extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "time strategyID")
+	@Schema(description = "时间策略ID")
 	private Long timeStrategyId;
 
-	@Schema(description = "equipmentID")
+	@Schema(description = "设备ID")
 	private Long deviceId;
 
-	@Schema(description = "Device name")
+	@Schema(description = "设备名称")
 	private String deviceName;
 
-	@Schema(description = "stream address")
+	@Schema(description = "流地址")
 	private String streamUrl;
 
-	@Schema(description = "Recording output directory")
+	@Schema(description = "录制输出目录")
 	private String outputDirectory;
 
-	@Schema(description = "Record outputpattern")
+	@Schema(description = "录制输出pattern")
 	private String outputPattern;
 
-	@Schema(description = "shard seconds")
+	@Schema(description = "分片秒数")
 	private Integer segmentSeconds;
 
-	@Schema(description = "session signature")
+	@Schema(description = "会话签名")
 	private String sessionSignature;
 
-	@Schema(description = "session state running/stopped")
+	@Schema(description = "会话状态 running/stopped")
 	private String sessionStatus;
 
-	@Schema(description = "Last sync time")
+	@Schema(description = "最后同步时间")
 	private LocalDateTime lastSyncTime;
 
-	@Schema(description = "Session start time")
+	@Schema(description = "会话开始时间")
 	private LocalDateTime sessionStartTime;
 
-	@Schema(description = "session end time")
+	@Schema(description = "会话结束时间")
 	private LocalDateTime sessionStopTime;
 
-	@Schema(description = "Stop reason")
+	@Schema(description = "停止原因")
 	private String stopReason;
 }

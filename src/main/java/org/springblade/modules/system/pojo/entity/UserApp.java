@@ -14,51 +14,51 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Entity class
+ * 实体类
  *
  * @author Chill
  */
 @Data
 @TableName("blade_user_app")
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "UserAppobject")
+@Schema(description = "UserApp对象")
 public class UserApp extends Model<UserApp> {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary key
+	 * 主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "primary key")
+	@Schema(description = "主键")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * userID
+	 * 用户ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "userID")
+	@Schema(description = "用户ID")
 	private Long userId;
 
 	/**
-	 * User development information
+	 * 用户拓展信息
 	 */
-	@Schema(description = "User development information")
+	@Schema(description = "用户拓展信息")
 	private String userExt;
 
 	/**
-	 * business status
+	 * 业务状态
 	 */
-	@Schema(description = "business status")
+	@Schema(description = "业务状态")
 	private Integer status;
 
 	/**
-	 * Has it been deleted?
+	 * 是否已删除
 	 */
 	@TableLogic
-	@Schema(description = "Has it been deleted?")
+	@Schema(description = "是否已删除")
 	private Integer isDeleted;
 
 }

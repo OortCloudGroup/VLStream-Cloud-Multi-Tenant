@@ -11,62 +11,62 @@ import org.springblade.modules.system.pojo.entity.User;
 import java.io.Serial;
 
 /**
- * View entity class
+ * 视图实体类
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "UserVOobject")
+@Schema(description = "UserVO对象")
 public class UserVO extends User {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary keyID
+	 * 主键ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 
 	/**
-	 * password
+	 * 密码
 	 */
 	@JsonIgnore
 	private String password;
 
 	/**
-	 * Tenant name
+	 * 租户名
 	 */
 	private String tenantName;
 
 	/**
-	 * User platform name
+	 * 用户平台名
 	 */
 	private String userTypeName;
 
 	/**
-	 * Character name
+	 * 角色名
 	 */
 	private String roleName;
 
 	/**
-	 * Department name
+	 * 部门名
 	 */
 	private String deptName;
 
 	/**
-	 * Position name
+	 * 岗位名
 	 */
 	private String postName;
 
 	/**
-	 * gender
+	 * 性别
 	 */
 	private String sexName;
 
 	/**
-	 * Expand information
+	 * 拓展信息
 	 */
 	private String userExt;
 }

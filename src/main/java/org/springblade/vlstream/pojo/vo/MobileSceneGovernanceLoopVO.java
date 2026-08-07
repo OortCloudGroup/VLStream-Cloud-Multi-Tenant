@@ -10,7 +10,7 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * Mobile terminal cycle management view object
+ * 移动端循环治理视图对象
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -19,6 +19,6 @@ public class MobileSceneGovernanceLoopVO extends MobileSceneGovernance {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "Subcycle task list")
+	@Schema(description = "子循环任务列表")
 	private List<MobileSceneGovernanceSubTask> subTaskList;
 }

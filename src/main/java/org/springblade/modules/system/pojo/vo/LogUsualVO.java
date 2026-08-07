@@ -20,13 +20,13 @@ public class LogUsualVO extends LogUsual {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Operate submitted data
+	 * 操作提交的数据
 	 */
 	@JsonIgnore
 	private String params;
 
 	/**
-	 * Log data
+	 * 日志数据
 	 */
 	@JsonIgnore
 	private String logData;

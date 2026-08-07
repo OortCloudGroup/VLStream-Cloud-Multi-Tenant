@@ -8,7 +8,7 @@ import org.springblade.modules.system.service.IParamService;
 import static org.springblade.core.cache.constant.CacheConstant.PARAM_CACHE;
 
 /**
- * Parameter cache tool class
+ * 参数缓存工具类
  *
  * @author Chill
  */
@@ -24,9 +24,9 @@ public class ParamCache {
 	}
 
 	/**
-	 * Get parameter entity
+	 * 获取参数实体
 	 *
-	 * @param id primary key
+	 * @param id 主键
 	 * @return Param
 	 */
 	public static Param getById(Long id) {
@@ -34,9 +34,9 @@ public class ParamCache {
 	}
 
 	/**
-	 * Get parameter configuration
+	 * 获取参数配置
 	 *
-	 * @param paramKey Parameter value
+	 * @param paramKey 参数值
 	 * @return String
 	 */
 	public static String getValue(String paramKey) {

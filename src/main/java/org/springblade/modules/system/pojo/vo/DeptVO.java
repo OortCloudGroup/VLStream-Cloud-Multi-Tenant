@@ -14,37 +14,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * View entity class
+ * 视图实体类
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "DeptVOobject")
+@Schema(description = "DeptVO对象")
 public class DeptVO extends Dept implements INode<DeptVO> {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary keyID
+	 * 主键ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 
 	/**
-	 * parent nodeID
+	 * 父节点ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long parentId;
 
 	/**
-	 * descendant node
+	 * 子孙节点
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<DeptVO> children;
 
 	/**
-	 * Whether there are descendant nodes
+	 * 是否有子孙节点
 	 */
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Boolean hasChildren;
@@ -58,12 +58,12 @@ public class DeptVO extends Dept implements INode<DeptVO> {
 	}
 
 	/**
-	 * parent organization
+	 * 上级机构
 	 */
 	private String parentName;
 
 	/**
-	 * Organization type name
+	 * 机构类型名称
 	 */
 	private String deptCategoryName;
 

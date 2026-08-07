@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Remote server configuration table Data transfer object entity class
+ * 远程服务器配置表 数据传输对象实体类
  *
  * @author Oort
  * @since 2025-12-23

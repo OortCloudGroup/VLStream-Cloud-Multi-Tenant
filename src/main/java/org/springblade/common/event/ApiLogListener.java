@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 /**
- * Asynchronously listen to log events
+ * 异步监听日志事件
  *
  * @author Chill
  */

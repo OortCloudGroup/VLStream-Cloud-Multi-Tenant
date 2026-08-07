@@ -12,7 +12,7 @@ import org.springblade.core.mp.base.BaseServiceImpl;
 import java.util.List;
 
 /**
- * Algorithm layout table Service implementation class
+ * 算法编排表 服务实现类
  *
  * @author Oort
  * @since 2025-12-23

@@ -13,7 +13,7 @@ import java.io.Serial;
 
 
 /**
- * Intelligent analysis request form ExcelEntity class
+ * 智能分析请求表 Excel实体类
  *
  * @author Oort
  * @since 2025-12-23
@@ -28,100 +28,100 @@ public class VlsAnalysisRequestExcel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Analysis name
+	 * 分析名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Analysis name")
+	@ExcelProperty("分析名称")
 	private String analysisName;
 	/**
-	 * Analysis type
+	 * 分析类型
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Analysis type")
+	@ExcelProperty("分析类型")
 	private String analysisType;
 	/**
-	 * scene name
+	 * 场景名称
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("scene name")
+	@ExcelProperty("场景名称")
 	private String sceneName;
 	/**
-	 * equipmentIDlist, comma separated
+	 * 设备ID列表，逗号分隔
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("equipmentIDlist, comma separated")
+	@ExcelProperty("设备ID列表，逗号分隔")
 	private String deviceIds;
 	/**
-	 * Device information
+	 * 设备信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Device information")
+	@ExcelProperty("设备信息")
 	private String deviceInfo;
 	/**
-	 * algorithmIDlist, comma separated
+	 * 算法ID列表，逗号分隔
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("algorithmIDlist, comma separated")
+	@ExcelProperty("算法ID列表，逗号分隔")
 	private String algorithmIds;
 	/**
-	 * Area information
+	 * 区域信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Area information")
+	@ExcelProperty("区域信息")
 	private String regionInfo;
 	/**
-	 * time range
+	 * 时间范围
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("time range")
+	@ExcelProperty("时间范围")
 	private String timeRange;
 	/**
-	 * Screenshot information
+	 * 截图信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Screenshot information")
+	@ExcelProperty("截图信息")
 	private String screenshots;
 	/**
-	 * Request status: pending-Pending,processing-Processing,completed-Completed,failed-Processing failed
+	 * 请求状态：pending-待处理,processing-处理中,completed-已完成,failed-处理失败
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Request status: pending-Pending,processing-Processing,completed-Completed,failed-Processing failed")
+	@ExcelProperty("请求状态：pending-待处理,processing-处理中,completed-已完成,failed-处理失败")
 	private String requestStatus;
 	/**
-	 * Processing progress percentage
+	 * 处理进度百分比
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Processing progress percentage")
+	@ExcelProperty("处理进度百分比")
 	private Integer progress;
 	/**
-	 * Result file path
+	 * 结果文件路径
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Result file path")
+	@ExcelProperty("结果文件路径")
 	private String resultPath;
 	/**
-	 * Start processing time
+	 * 开始处理时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Start processing time")
+	@ExcelProperty("开始处理时间")
 	private LocalDateTime startTime;
 	/**
-	 * completion time
+	 * 完成时间
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("completion time")
+	@ExcelProperty("完成时间")
 	private LocalDateTime completeTime;
 	/**
-	 * error message
+	 * 错误信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("error message")
+	@ExcelProperty("错误信息")
 	private String errorMessage;
 	/**
-	 * Description information
+	 * 描述信息
 	 */
 	@ColumnWidth(20)
-	@ExcelProperty("Description information")
+	@ExcelProperty("描述信息")
 	private String description;
 
 }

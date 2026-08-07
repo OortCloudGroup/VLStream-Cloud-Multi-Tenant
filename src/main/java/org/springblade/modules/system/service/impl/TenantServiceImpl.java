@@ -57,7 +57,7 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 import static org.springblade.modules.system.rule.constant.TenantRuleConstant.TENANT_CHAIN_ID;
 
 /**
- * Service implementation class
+ * 服务实现类
  *
  * @author Chill
  */
@@ -126,7 +126,7 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 				user.setPostId(String.valueOf(post.getId()));
 				userService.submit(user);
 			} else {
-				throw new ServiceException("Tenant business data construction exception");
+				throw new ServiceException("租户业务数据构建异常");
 			}
 		}
 		CacheUtil.clear(SYS_CACHE, tenant.getTenantId());
@@ -140,29 +140,29 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 		List<String> tenantIds = this.list(Wrappers.<Tenant>query().lambda().in(Tenant::getId, ids))
 			.stream().map(tenant -> Func.toStr(tenant.getTenantId())).distinct().collect(Collectors.toList());
 		if (tenantIds.contains(BladeConstant.ADMIN_TENANT_ID)) {
-			throw new ServiceException("Management tenant cannot be deleted!");
+			throw new ServiceException("不可删除管理租户!");
 		}
 		int disabledType = StatusType.DISABLED.getType();
 		int activeType = StatusType.ACTIVE.getType();
 		boolean temp = this.changeStatus(ids, disabledType);
 		if (temp) {
-			// Delete character to recycle bin
+			// 删除角色至回收站
 			roleService.update(Wrappers.<Role>update().lambda().set(Role::getStatus, disabledType).eq(Role::getStatus, activeType).in(Role::getTenantId, tenantIds));
-			// Delete department to recycle bin
+			// 删除部门至回收站
 			deptService.update(Wrappers.<Dept>update().lambda().set(Dept::getStatus, disabledType).eq(Dept::getStatus, activeType).in(Dept::getTenantId, tenantIds));
-			// Delete post to recycle bin
+			// 删除岗位至回收站
 			postService.update(Wrappers.<Post>update().lambda().set(Post::getStatus, disabledType).eq(Post::getStatus, activeType).in(Post::getTenantId, tenantIds));
-			// Delete business dictionary to recycle bin
+			// 删除业务字典至回收站
 			dictBizService.update(Wrappers.<DictBiz>update().lambda().set(DictBiz::getStatus, disabledType).eq(DictBiz::getStatus, activeType).in(DictBiz::getTenantId, tenantIds));
-			// Get the user primary key set that needs to be deleted
+			// 获取需要删除的用户主键集合
 			List<Long> userIds = userService.list(Wrappers.<User>query().lambda().eq(User::getStatus, activeType).in(User::getTenantId, tenantIds)
 				.select(User::getId)).stream().map(User::getId).collect(Collectors.toList());
-			// If the user data is not empty, then the associated data
+			// 用户数据不为空则关联数据
 			if (!userIds.isEmpty()) {
-				// Delete user sections and extensions to the recycle bin
+				// 删除用户部门及拓展部分至回收站
 				userService.update(Wrappers.<User>update().lambda().set(User::getStatus, disabledType).in(User::getId, userIds));
 				userDeptService.update(Wrappers.<UserDept>update().lambda().set(UserDept::getStatus, disabledType).in(UserDept::getUserId, userIds));
-				// Delete user-defined parts to the recycle bin
+				// 删除用户自定义部分至回收站
 				new UserOauth().update(Wrappers.<UserOauth>update().lambda().set(UserOauth::getStatus, disabledType).in(UserOauth::getUserId, userIds));
 				new UserWeb().update(Wrappers.<UserWeb>update().lambda().set(UserWeb::getStatus, disabledType).in(UserWeb::getUserId, userIds));
 				new UserApp().update(Wrappers.<UserApp>update().lambda().set(UserApp::getStatus, disabledType).in(UserApp::getUserId, userIds));
@@ -171,7 +171,7 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 			CacheUtil.clear(SYS_CACHE, tenantIds);
 			return true;
 		} else {
-			throw new ServiceException("Failed to delete tenant!");
+			throw new ServiceException("删除租户失败!");
 		}
 	}
 
@@ -184,23 +184,23 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 		int activeType = StatusType.ACTIVE.getType();
 		boolean temp = this.changeStatus(ids, activeType);
 		if (temp) {
-			// Restore character to normal state
+			// 恢复角色至正常状态
 			roleService.update(Wrappers.<Role>update().lambda().set(Role::getStatus, activeType).eq(Role::getStatus, disabledType).in(Role::getTenantId, tenantIds));
-			// Restore department to normal state
+			// 恢复部门至正常状态
 			deptService.update(Wrappers.<Dept>update().lambda().set(Dept::getStatus, activeType).eq(Dept::getStatus, disabledType).in(Dept::getTenantId, tenantIds));
-			// Return to normal status
+			// 恢复岗位至正常状态
 			postService.update(Wrappers.<Post>update().lambda().set(Post::getStatus, activeType).eq(Post::getStatus, disabledType).in(Post::getTenantId, tenantIds));
-			// Restore the business dictionary to normal state
+			// 恢复业务字典至正常状态
 			dictBizService.update(Wrappers.<DictBiz>update().lambda().set(DictBiz::getStatus, activeType).eq(DictBiz::getStatus, disabledType).in(DictBiz::getTenantId, tenantIds));
-			// Get the user primary key set that needs to be restored
+			// 获取需要恢复的用户主键集合
 			List<Long> userIds = userService.list(Wrappers.<User>query().lambda().eq(User::getStatus, disabledType).in(User::getTenantId, tenantIds)
 				.select(User::getId)).stream().map(User::getId).collect(Collectors.toList());
-			// If the user data is not empty, then the associated data
+			// 用户数据不为空则关联数据
 			if (!userIds.isEmpty()) {
-				// Restore user departments and extensions to normal state
+				// 恢复用户部门及拓展部分至正常状态
 				userService.update(Wrappers.<User>update().lambda().set(User::getStatus, activeType).in(User::getId, userIds));
 				userDeptService.update(Wrappers.<UserDept>update().lambda().set(UserDept::getStatus, activeType).in(UserDept::getUserId, userIds));
-				// Restore user-defined parts to normal state
+				// 恢复用户自定义部分至正常状态
 				new UserOauth().update(Wrappers.<UserOauth>update().lambda().set(UserOauth::getStatus, activeType).in(UserOauth::getUserId, userIds));
 				new UserWeb().update(Wrappers.<UserWeb>update().lambda().set(UserWeb::getStatus, activeType).in(UserWeb::getUserId, userIds));
 				new UserApp().update(Wrappers.<UserApp>update().lambda().set(UserApp::getStatus, activeType).in(UserApp::getUserId, userIds));
@@ -209,7 +209,7 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 			CacheUtil.clear(SYS_CACHE, tenantIds);
 			return true;
 		} else {
-			throw new ServiceException("Failed to restore tenant!");
+			throw new ServiceException("恢复租户失败!");
 		}
 	}
 
@@ -219,27 +219,27 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 		List<String> tenantIds = this.list(Wrappers.<Tenant>query().lambda().in(Tenant::getId, ids))
 			.stream().map(tenant -> Func.toStr(tenant.getTenantId())).distinct().collect(Collectors.toList());
 		if (tenantIds.contains(BladeConstant.ADMIN_TENANT_ID)) {
-			throw new ServiceException("Management tenant cannot be deleted!");
+			throw new ServiceException("不可删除管理租户!");
 		}
 		boolean temp = this.deleteLogic(ids);
 		if (temp) {
-			// Deleted roles cannot be restored
+			// 删除角色不可再恢复
 			roleService.remove(Wrappers.<Role>query().lambda().in(Role::getTenantId, tenantIds));
-			// Deleted departments cannot be restored
+			// 删除部门不可再恢复
 			deptService.remove(Wrappers.<Dept>query().lambda().in(Dept::getTenantId, tenantIds));
-			// Deleted positions cannot be restored
+			// 删除岗位不可再恢复
 			postService.remove(Wrappers.<Post>query().lambda().in(Post::getTenantId, tenantIds));
-			// deletebusiness字典不可再恢复
+			// 删除业务字典不可再恢复
 			dictBizService.remove(Wrappers.<DictBiz>query().lambda().in(DictBiz::getTenantId, tenantIds));
-			// Get the user primary key set that needs to be deleted
+			// 获取需要删除的用户主键集合
 			List<Long> userIds = userService.list(Wrappers.<User>query().lambda().in(User::getTenantId, tenantIds)
 				.select(User::getId)).stream().map(User::getId).collect(Collectors.toList());
-			// If the user data is not empty, then the associated data
+			// 用户数据不为空则关联数据
 			if (!userIds.isEmpty()) {
-				// Deleted user departments and extensions cannot be restored.
+				// 删除用户部门及拓展部分不可再恢复
 				userService.removeByIds(userIds);
 				userDeptService.remove(Wrappers.<UserDept>query().lambda().in(UserDept::getUserId, userIds));
-				// Deleting user-defined parts cannot be restored
+				// 删除用户自定义部分不可再恢复
 				new UserOauth().delete(Wrappers.<UserOauth>query().lambda().in(UserOauth::getUserId, userIds));
 				new UserWeb().delete(Wrappers.<UserWeb>query().lambda().in(UserWeb::getUserId, userIds));
 				new UserApp().delete(Wrappers.<UserApp>query().lambda().in(UserApp::getUserId, userIds));
@@ -248,7 +248,7 @@ public class TenantServiceImpl extends BaseServiceImpl<TenantMapper, Tenant> imp
 			CacheUtil.clear(SYS_CACHE, tenantIds);
 			return true;
 		} else {
-			throw new ServiceException("Failed to delete tenant!");
+			throw new ServiceException("删除租户失败!");
 		}
 	}
 

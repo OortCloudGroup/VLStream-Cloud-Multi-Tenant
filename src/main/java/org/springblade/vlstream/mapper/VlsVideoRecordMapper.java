@@ -11,7 +11,7 @@ import org.springblade.vlstream.pojo.vo.VideoRecordVO;
 import java.util.List;
 
 /**
- * Video recording record sheet Mapper interface
+ * 视频录制记录表 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-25
@@ -19,18 +19,18 @@ import java.util.List;
 public interface VlsVideoRecordMapper extends BaseMapper<VideoRecord> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsVideoRecord query parameters
+	 * @param page 分页参数
+	 * @param vlsVideoRecord 查询参数
 	 * @return List<VlsVideoRecordVO>
 	 */
 	List<VideoRecordVO> selectVlsVideoRecordPage(IPage page, VideoRecordVO vlsVideoRecord);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsVideoRecordExcel>
 	 */
 	List<VlsVideoRecordExcel> exportVlsVideoRecord(@Param("ew") Wrapper<VideoRecord> queryWrapper);

@@ -14,129 +14,129 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Data audit table Entity class
+ * 数据审计表 实体类
  *
  * @author Oort
  */
 @Data
 @TableName("blade_record_data")
-@Schema(description = "RecordDataobject")
+@Schema(description = "RecordData对象")
 public class RecordData implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * primary key
+	 * 主键
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@Schema(description = "primary key")
+	@Schema(description = "主键")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
 	/**
-	 * ServeID
+	 * 服务ID
 	 */
-	@Schema(description = "ServeID")
+	@Schema(description = "服务ID")
 	private String serviceId;
 	/**
-	 * Server name
+	 * 服务器名
 	 */
-	@Schema(description = "Server name")
+	@Schema(description = "服务器名")
 	private String serverHost;
 	/**
-	 * serverIPaddress
+	 * 服务器IP地址
 	 */
-	@Schema(description = "serverIPaddress")
+	@Schema(description = "服务器IP地址")
 	private String serverIp;
 	/**
-	 * Server environment
+	 * 服务器环境
 	 */
-	@Schema(description = "Server environment")
+	@Schema(description = "服务器环境")
 	private String env;
 	/**
-	 * Audit level
+	 * 审计级别
 	 */
-	@Schema(description = "Audit level")
+	@Schema(description = "审计级别")
 	private String recordLevel;
 	/**
-	 * Operation mode
+	 * 操作方式
 	 */
-	@Schema(description = "Operation mode")
+	@Schema(description = "操作方式")
 	private String method;
 	/**
-	 * askURI
+	 * 请求URI
 	 */
-	@Schema(description = "askURI")
+	@Schema(description = "请求URI")
 	private String requestUri;
 	/**
-	 * user agent
+	 * 用户代理
 	 */
-	@Schema(description = "user agent")
+	@Schema(description = "用户代理")
 	private String userAgent;
 	/**
-	 * operateIPaddress
+	 * 操作IP地址
 	 */
-	@Schema(description = "operateIPaddress")
+	@Schema(description = "操作IP地址")
 	private String remoteIp;
 	/**
-	 * Operation type
+	 * 操作类型
 	 */
-	@Schema(description = "Operation type")
+	@Schema(description = "操作类型")
 	private String operation;
 	/**
-	 * Data table name
+	 * 数据表名
 	 */
-	@Schema(description = "Data table name")
+	@Schema(description = "数据表名")
 	private String tableName;
 	/**
-	 * Pre-operation parameters
+	 * 操作前参数
 	 */
-	@Schema(description = "Pre-operation parameters")
+	@Schema(description = "操作前参数")
 	private String oldData;
 	/**
-	 * Parameters after operation
+	 * 操作后参数
 	 */
-	@Schema(description = "Parameters after operation")
+	@Schema(description = "操作后参数")
 	private String newData;
 	/**
-	 * audit message
+	 * 审计消息
 	 */
-	@Schema(description = "audit message")
+	@Schema(description = "审计消息")
 	private String recordMessage;
 	/**
-	 * Audit results
+	 * 审计结果
 	 */
-	@Schema(description = "Audit results")
+	@Schema(description = "审计结果")
 	private String recordResult;
 	/**
-	 * Recording time
+	 * 记录耗时
 	 */
-	@Schema(description = "Recording time")
+	@Schema(description = "记录耗时")
 	private String recordCost;
 	/**
-	 * Record time
+	 * 记录时间
 	 */
-	@Schema(description = "Record time")
+	@Schema(description = "记录时间")
 	private LocalDateTime recordTime;
 	/**
-	 * Recorder
+	 * 记录人
 	 */
-	@Schema(description = "Recorder")
+	@Schema(description = "记录人")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long recordUser;
 
 	/**
-	 * business status
+	 * 业务状态
 	 */
-	@Schema(description = "business status")
+	@Schema(description = "业务状态")
 	private Integer status;
 
 	/**
-	 * Has it been deleted?
+	 * 是否已删除
 	 */
 	@TableLogic
-	@Schema(description = "Has it been deleted?")
+	@Schema(description = "是否已删除")
 	private Integer isDeleted;
 
 }

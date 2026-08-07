@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springblade.modules.system.pojo.entity.UserOauth;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */

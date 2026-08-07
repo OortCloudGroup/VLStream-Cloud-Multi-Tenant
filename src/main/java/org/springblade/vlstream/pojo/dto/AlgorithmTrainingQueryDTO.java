@@ -9,59 +9,59 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * Algorithm training task queryDTO
+ * 算法训练任务查询DTO
  *
  * @author VLStream Team
  * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "AlgorithmTrainingQueryDTO", description = "Algorithm training task query parameters")
+@ApiModel(value = "AlgorithmTrainingQueryDTO", description = "算法训练任务查询参数")
 public class AlgorithmTrainingQueryDTO {
 
-    @ApiModelProperty(value = "Current page number", example = "1")
+    @ApiModelProperty(value = "当前页码", example = "1")
     private Integer current = 1;
 
-    @ApiModelProperty(value = "page size", example = "10")
+    @ApiModelProperty(value = "每页大小", example = "10")
     private Integer size = 10;
 
-    @ApiModelProperty(value = "Task name(fuzzy search)")
+    @ApiModelProperty(value = "任务名称（模糊搜索）")
     private String taskName;
 
-    @ApiModelProperty(value = "algorithmID")
+    @ApiModelProperty(value = "算法ID")
     private Long algorithmId;
 
-    @ApiModelProperty(value = "DatasetID")
+    @ApiModelProperty(value = "数据集ID")
     private Long datasetId;
 
-    @ApiModelProperty(value = "training type")
+    @ApiModelProperty(value = "训练类型")
     private String trainType;
 
-    @ApiModelProperty(value = "training status")
+    @ApiModelProperty(value = "训练状态")
     private String trainStatus;
 
-    @ApiModelProperty(value = "Creator")
+    @ApiModelProperty(value = "创建人")
     private Long createdBy;
 
-    @ApiModelProperty(value = "start time-start range")
+    @ApiModelProperty(value = "开始时间-开始范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime startTimeBegin;
 
-    @ApiModelProperty(value = "start time-end range")
+    @ApiModelProperty(value = "开始时间-结束范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime startTimeEnd;
 
-    @ApiModelProperty(value = "creation time-start range")
+    @ApiModelProperty(value = "创建时间-开始范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createdTimeBegin;
 
-    @ApiModelProperty(value = "creation time-end range")
+    @ApiModelProperty(value = "创建时间-结束范围")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createdTimeEnd;
 
-    @ApiModelProperty(value = "sort field", example = "created_time")
+    @ApiModelProperty(value = "排序字段", example = "created_time")
     private String orderBy = "created_time";
 
-    @ApiModelProperty(value = "sort by", example = "desc")
+    @ApiModelProperty(value = "排序方式", example = "desc")
     private String order = "desc";
 }

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Annotation label entity class controller
+ * 标注标签实体类 控制器
  *
  * @author Oort
  * @since 2025-12-23
@@ -39,28 +39,28 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vlsAnnotationLabel")
-@Tag(name = "Annotation label entity class", description = "Annotation label entity class interface")
+@Tag(name = "标注标签实体类", description = "标注标签实体类接口")
 public class VlsAnnotationLabelController extends BladeController {
 
 	private final IVlsAnnotationLabelService vlsAnnotationLabelService;
 
 	/**
-	 * Annotation label entity class Details
+	 * 标注标签实体类 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
-	@Operation(summary = "Details", description = "incomingvlsAnnotationLabel")
+	@Operation(summary = "详情", description = "传入vlsAnnotationLabel")
 	public R<AnnotationLabelVO> detail(AnnotationLabel vlsAnnotationLabel) {
 		AnnotationLabel detail = vlsAnnotationLabelService.getOne(Condition.getQueryWrapper(vlsAnnotationLabel));
 		return R.data(VlsAnnotationLabelWrapper.build().entityVO(detail));
 	}
 
 	/**
-	 * Annotation label entity class Pagination
+	 * 标注标签实体类 分页
 	 */
 	@GetMapping("/list")
 	@ApiOperationSupport(order = 2)
-	@Operation(summary = "Pagination", description = "incomingvlsAnnotationLabel")
+	@Operation(summary = "分页", description = "传入vlsAnnotationLabel")
 	public R<IPage<AnnotationLabelVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAnnotationLabel, Query query) {
 		IPage<AnnotationLabel> pages = vlsAnnotationLabelService.page(Condition.getPage(query), Condition.getQueryWrapper(vlsAnnotationLabel, AnnotationLabel.class));
 		return R.data(VlsAnnotationLabelWrapper.build().pageVO(pages));
@@ -68,63 +68,63 @@ public class VlsAnnotationLabelController extends BladeController {
 
 
 	/**
-	 * Annotation label entity class Custom paging
+	 * 标注标签实体类 自定义分页
 	 */
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
-	@Operation(summary = "Pagination", description = "incomingvlsAnnotationLabel")
+	@Operation(summary = "分页", description = "传入vlsAnnotationLabel")
 	public R<IPage<AnnotationLabelVO>> page(AnnotationLabelVO vlsAnnotationLabel, Query query) {
 		IPage<AnnotationLabelVO> pages = vlsAnnotationLabelService.selectVlsAnnotationLabelPage(Condition.getPage(query), vlsAnnotationLabel);
 		return R.data(pages);
 	}
 
 	/**
-	 * Annotation label entity class New
+	 * 标注标签实体类 新增
 	 */
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
-	@Operation(summary = "New", description = "incomingvlsAnnotationLabel")
+	@Operation(summary = "新增", description = "传入vlsAnnotationLabel")
 	public R save(@Valid @RequestBody AnnotationLabel vlsAnnotationLabel) {
 		return R.status(vlsAnnotationLabelService.save(vlsAnnotationLabel));
 	}
 
 	/**
-	 * Annotation label entity class Revise
+	 * 标注标签实体类 修改
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
-	@Operation(summary = "Revise", description = "incomingvlsAnnotationLabel")
+	@Operation(summary = "修改", description = "传入vlsAnnotationLabel")
 	public R update(@Valid @RequestBody AnnotationLabel vlsAnnotationLabel) {
 		return R.status(vlsAnnotationLabelService.updateById(vlsAnnotationLabel));
 	}
 
 	/**
-	 * Annotation label entity class Add or modify
+	 * 标注标签实体类 新增或修改
 	 */
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
-	@Operation(summary = "Add or modify", description = "incomingvlsAnnotationLabel")
+	@Operation(summary = "新增或修改", description = "传入vlsAnnotationLabel")
 	public R submit(@Valid @RequestBody AnnotationLabel vlsAnnotationLabel) {
 		return R.status(vlsAnnotationLabelService.saveOrUpdate(vlsAnnotationLabel));
 	}
 
 	/**
-	 * Annotation label entity class delete
+	 * 标注标签实体类 删除
 	 */
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
-	@Operation(summary = "tombstone", description = "incomingids")
-	public R remove(@Parameter(description = "primary key set", required = true) @RequestParam String ids) {
+	@Operation(summary = "逻辑删除", description = "传入ids")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(vlsAnnotationLabelService.deleteLogic(Func.toLongList(ids)));
 	}
 
 	/**
-	 * Export data
+	 * 导出数据
 	 */
 	@IsAdmin
 	@GetMapping("/export-vlsAnnotationLabel")
 	@ApiOperationSupport(order = 8)
-	@Operation(summary = "Export data", description = "incomingvlsAnnotationLabel")
+	@Operation(summary = "导出数据", description = "传入vlsAnnotationLabel")
 	public void exportVlsAnnotationLabel(@Parameter(hidden = true) @RequestParam Map<String, Object> vlsAnnotationLabel, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<AnnotationLabel> queryWrapper = Condition.getQueryWrapper(vlsAnnotationLabel, AnnotationLabel.class);
 		//if (!AuthUtil.isAdministrator()) {
@@ -132,15 +132,15 @@ public class VlsAnnotationLabelController extends BladeController {
 		//}
 		//queryWrapper.lambda().eq(VlsAnnotationLabelEntity::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 		List<VlsAnnotationLabelExcel> list = vlsAnnotationLabelService.exportVlsAnnotationLabel(queryWrapper);
-		ExcelUtil.export(response, "Annotate label entity class data" + DateUtil.time(), "Annotation label entity class data table", list, VlsAnnotationLabelExcel.class);
+		ExcelUtil.export(response, "标注标签实体类数据" + DateUtil.time(), "标注标签实体类数据表", list, VlsAnnotationLabelExcel.class);
 	}
 
 	/**
-	 * Get the label list of annotated items
+	 * 获取标注项目的标签列表
 	 *
-	 * @param annotationId Label itemsID
-	 * @param keyword      Search keywords(Optional)
-	 * @return tag list
+	 * @param annotationId 标注项目ID
+	 * @param keyword      搜索关键词（可选）
+	 * @return 标签列表
 	 */
 	@GetMapping("/{annotationId}/labels")
 	public R<List<AnnotationLabel>> getLabels(@PathVariable Long annotationId,
@@ -154,17 +154,17 @@ public class VlsAnnotationLabelController extends BladeController {
 			}
 			return R.data(labels);
 		} catch (Exception e) {
-			log.error("Failed to get tag list", e);
-			return R.fail("Failed to get tag list: " + e.getMessage());
+			log.error("获取标签列表失败", e);
+			return R.fail("获取标签列表失败: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * Create tags
+	 * 创建标签
 	 *
-	 * @param annotationId Label itemsID
-	 * @param requestBody  Request body
-	 * @return Tags created
+	 * @param annotationId 标注项目ID
+	 * @param requestBody  请求体
+	 * @return 创建的标签
 	 */
 	@PostMapping("/{annotationId}/labels")
 	public R<AnnotationLabel> createLabel(@PathVariable Long annotationId,
@@ -175,26 +175,26 @@ public class VlsAnnotationLabelController extends BladeController {
 			String description = (String) requestBody.get("description");
 
 			if (name == null || name.trim().isEmpty()) {
-				return R.fail("Tag name cannot be empty");
+				return R.fail("标签名称不能为空");
 			}
 			if (color == null || color.trim().isEmpty()) {
-				return R.fail("Label color cannot be empty");
+				return R.fail("标签颜色不能为空");
 			}
 
 			AnnotationLabel label = vlsAnnotationLabelService.createLabel(annotationId, name.trim(), color.trim(), description);
 			return R.data(label);
 		} catch (Exception e) {
-			log.error("Failed to create label", e);
-			return R.fail("Failed to create label: " + e.getMessage());
+			log.error("创建标签失败", e);
+			return R.fail("创建标签失败: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * renewLabel
+	 * 更新标签
 	 *
-	 * @param labelId     LabelID
-	 * @param requestBody Request body
-	 * @return Updated label
+	 * @param labelId     标签ID
+	 * @param requestBody 请求体
+	 * @return 更新后的标签
 	 */
 	@PutMapping("/labels/{labelId}")
 	public R<AnnotationLabel> updateLabel(@PathVariable Long labelId,
@@ -205,25 +205,25 @@ public class VlsAnnotationLabelController extends BladeController {
 			String description = (String) requestBody.get("description");
 
 			if (name == null || name.trim().isEmpty()) {
-				return R.fail("Tag name cannot be empty");
+				return R.fail("标签名称不能为空");
 			}
 			if (color == null || color.trim().isEmpty()) {
-				return R.fail("Label color cannot be empty");
+				return R.fail("标签颜色不能为空");
 			}
 
 			AnnotationLabel label = vlsAnnotationLabelService.updateLabel(labelId, name.trim(), color.trim(), description);
 			return R.data(label);
 		} catch (Exception e) {
-			log.error("Failed to update label", e);
-			return R.fail("Failed to update label: " + e.getMessage());
+			log.error("更新标签失败", e);
+			return R.fail("更新标签失败: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * Delete tag
+	 * 删除标签
 	 *
-	 * @param labelId LabelID
-	 * @return Delete results
+	 * @param labelId 标签ID
+	 * @return 删除结果
 	 */
 	@DeleteMapping("/labels/{labelId}")
 	public R<Boolean> deleteLabel(@PathVariable Long labelId) {
@@ -231,17 +231,17 @@ public class VlsAnnotationLabelController extends BladeController {
 			boolean success = vlsAnnotationLabelService.deleteLabel(labelId);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("Failed to delete tag", e);
-			return R.fail("Failed to delete tag: " + e.getMessage());
+			log.error("删除标签失败", e);
+			return R.fail("删除标签失败: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * Batch update tag sorting
+	 * 批量更新标签排序
 	 *
-	 * @param annotationId Label itemsID
-	 * @param requestBody  Request body(IncludelabelIdsarray)
-	 * @return Update results
+	 * @param annotationId 标注项目ID
+	 * @param requestBody  请求体（包含labelIds数组）
+	 * @return 更新结果
 	 */
 	@PutMapping("/{annotationId}/labels/sort")
 	public R<Boolean> updateLabelSort(@PathVariable Long annotationId,
@@ -251,14 +251,14 @@ public class VlsAnnotationLabelController extends BladeController {
 			List<Long> labelIds = (List<Long>) requestBody.get("labelIds");
 
 			if (labelIds == null || labelIds.isEmpty()) {
-				return R.fail("LabelIDList cannot be empty");
+				return R.fail("标签ID列表不能为空");
 			}
 
 			boolean success = vlsAnnotationLabelService.updateSortOrder(annotationId, labelIds);
 			return R.data(success);
 		} catch (Exception e) {
-			log.error("Failed to update label sorting", e);
-			return R.fail("Failed to update label sorting: " + e.getMessage());
+			log.error("更新标签排序失败", e);
+			return R.fail("更新标签排序失败: " + e.getMessage());
 		}
 	}
 

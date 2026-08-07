@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.AllArgsConstructor;
 
 /**
- * Classification interface design template type enumeration
+ * 分类界面设计模板类型枚举
  *
  * @author Oort
  * @since 2025-10-21
@@ -16,52 +16,52 @@ import lombok.AllArgsConstructor;
 public enum CategoryTemplateTypeEnum {
 
 	/**
-	 * Browse interface
+	 * 浏览界面
 	 */
-	BROWSE(1, "Browse interface"),
+	BROWSE(1, "浏览界面"),
 
 	/**
-	 * Search interface
+	 * 检索界面
 	 */
-	SEARCH(2, "Search interface"),
+	SEARCH(2, "检索界面"),
 
 	/**
-	 * Input interface
+	 * 录入界面
 	 */
-	INPUT(3, "Input interface"),
+	INPUT(3, "录入界面"),
 
 	/**
-	 * Details interface
+	 * 详情界面
 	 */
-	DETAIL(4, "Details interface"),
+	DETAIL(4, "详情界面"),
 
 	/**
-	 * Statistics interface
+	 * 统计界面
 	 */
-	STATISTICS(5, "Statistics interface"),
+	STATISTICS(5, "统计界面"),
 
 	/**
-	 * Supplementary description interface
+	 * 补充著录界面
 	 */
-	SUPPLEMENT_INSERT(6, "Supplementary description interface");
+	SUPPLEMENT_INSERT(6, "补充著录界面");
 
 	/**
-	 * type value
+	 * 类型值
 	 */
 	@EnumValue
 	@JsonValue
 	private final Integer value;
 
 	/**
-	 * Type description
+	 * 类型描述
 	 */
 	private final String description;
 
 	/**
-	 * Get enum based on value
+	 * 根据值获取枚举
 	 *
-	 * @param value type value
-	 * @return enumeration object, Not found returnnull
+	 * @param value 类型值
+	 * @return 枚举对象，未找到返回null
 	 */
 	public static CategoryTemplateTypeEnum getByValue(Integer value) {
 		if (value == null) {
@@ -76,20 +76,20 @@ public enum CategoryTemplateTypeEnum {
 	}
 
 	/**
-	 * Determine whether the value is valid
+	 * 判断值是否有效
 	 *
-	 * @param value type value
-	 * @return Is it valid?
+	 * @param value 类型值
+	 * @return 是否有效
 	 */
 	public static boolean isValid(Integer value) {
 		return getByValue(value) != null;
 	}
 
 	/**
-	 * Get description
+	 * 获取描述
 	 *
-	 * @param value type value
-	 * @return Description information
+	 * @param value 类型值
+	 * @return 描述信息
 	 */
 	public static String getDescriptionByValue(Integer value) {
 		CategoryTemplateTypeEnum type = getByValue(value);

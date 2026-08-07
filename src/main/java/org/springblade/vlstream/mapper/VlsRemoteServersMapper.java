@@ -11,7 +11,7 @@ import org.springblade.vlstream.pojo.vo.RemoteServersVO;
 import java.util.List;
 
 /**
- * Remote server configuration table Mapper interface
+ * 远程服务器配置表 Mapper 接口
  *
  * @author Oort
  * @since 2025-12-23
@@ -19,64 +19,64 @@ import java.util.List;
 public interface VlsRemoteServersMapper extends BaseMapper<RemoteServers> {
 
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsRemoteServers query parameters
+	 * @param page 分页参数
+	 * @param vlsRemoteServers 查询参数
 	 * @return List<VlsRemoteServersVO>
 	 */
 	List<RemoteServersVO> selectVlsRemoteServersPage(IPage page, RemoteServersVO vlsRemoteServers);
 
 	/**
-	 * Get export data
+	 * 获取导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsRemoteServersExcel>
 	 */
 	List<VlsRemoteServersExcel> exportVlsRemoteServers(@Param("ew") Wrapper<RemoteServers> queryWrapper);
 
 	/**
-	 * Query the remote server configuration list
+	 * 查询远程服务器配置列表
 	 */
 	List<RemoteServers> selectRemoteServerList(RemoteServers remoteServer);
 
 	/**
-	 * Query remote server configuration details
+	 * 查询远程服务器配置详细
 	 */
 	RemoteServers selectRemoteServerById(Long id);
 
 	/**
-	 * Add remote server configuration
+	 * 新增远程服务器配置
 	 */
 	int insertRemoteServer(RemoteServers remoteServer);
 
 	/**
-	 * Modify remote server configuration
+	 * 修改远程服务器配置
 	 */
 	int updateRemoteServer(RemoteServers remoteServer);
 
 	/**
-	 * Delete remote server configuration
+	 * 删除远程服务器配置
 	 */
 	int deleteRemoteServerById(Long id);
 
 	/**
-	 * Delete remote server configurations in batches
+	 * 批量删除远程服务器配置
 	 */
 	int deleteRemoteServerByIds(Long[] ids);
 
 	/**
-	 * Query enabled server configuration
+	 * 查询启用的服务器配置
 	 */
 	RemoteServers selectActiveServer();
 
 	/**
-	 * Count the number of servers
+	 * 统计服务器数量
 	 */
 	int count();
 
 	/**
-	 * Create table(if does not exist)
+	 * 创建表（如果不存在）
 	 */
 	void createTableIfNotExists();
 

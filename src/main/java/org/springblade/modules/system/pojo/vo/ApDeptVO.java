@@ -7,7 +7,7 @@ import org.springblade.modules.system.pojo.entity.ApDeptEntity;
 import java.io.Serial;
 
 /**
- * Organization chart View entity class
+ * 组织机构表 视图实体类
  *
  * @author BladeX
  * @since 2025-08-09

@@ -10,64 +10,64 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Service category
+ * 服务类
  *
  * @author Chill
  */
 public interface IDictBizService extends IService<DictBiz> {
 
 	/**
-	 * tree structure
+	 * 树形结构
 	 *
 	 * @return
 	 */
 	List<DictBizVO> tree();
 
 	/**
-	 * tree structure
+	 * 树形结构
 	 *
 	 * @return
 	 */
 	List<DictBizVO> parentTree();
 
 	/**
-	 * Get the dictionary table corresponding to Chinese
+	 * 获取字典表对应中文
 	 *
-	 * @param code    dictionary number
-	 * @param dictKey Dictionary number
+	 * @param code    字典编号
+	 * @param dictKey 字典序号
 	 * @return
 	 */
 	String getValue(String code, String dictKey);
 
 	/**
-	 * Get dictionary table
+	 * 获取字典表
 	 *
-	 * @param code dictionary number
+	 * @param code 字典编号
 	 * @return
 	 */
 	List<DictBiz> getList(String code);
 
 	/**
-	 * Get the dictionary table corresponding to Chinese
+	 * 获取字典表对应中文
 	 *
-	 * @param tenantId tenantID
-	 * @param code     dictionary number
-	 * @param dictKey  Dictionary number
+	 * @param tenantId 租户ID
+	 * @param code     字典编号
+	 * @param dictKey  字典序号
 	 * @return
 	 */
 	String getValue(String tenantId, String code, String dictKey);
 
 	/**
-	 * Get dictionary table
+	 * 获取字典表
 	 *
-	 * @param tenantId tenantID
-	 * @param code     dictionary number
+	 * @param tenantId 租户ID
+	 * @param code     字典编号
 	 * @return
 	 */
 	List<DictBiz> getList(String tenantId, String code);
 
 	/**
-	 * Add or modify
+	 * 新增或修改
 	 *
 	 * @param dict
 	 * @return
@@ -75,7 +75,7 @@ public interface IDictBizService extends IService<DictBiz> {
 	boolean submit(DictBiz dict);
 
 	/**
-	 * delete dictionary
+	 * 删除字典
 	 *
 	 * @param ids
 	 * @return
@@ -83,7 +83,7 @@ public interface IDictBizService extends IService<DictBiz> {
 	boolean removeDict(String ids);
 
 	/**
-	 * top list
+	 * 顶级列表
 	 *
 	 * @param dict
 	 * @param query
@@ -92,7 +92,7 @@ public interface IDictBizService extends IService<DictBiz> {
 	IPage<DictBizVO> parentList(Map<String, Object> dict, Query query);
 
 	/**
-	 * sublist
+	 * 子列表
 	 *
 	 * @param dict
 	 * @param parentId

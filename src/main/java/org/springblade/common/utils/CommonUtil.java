@@ -1,7 +1,7 @@
 package org.springblade.common.utils;
 
 /**
- * General tools
+ * 通用工具类
  *
  * @author Chill
  */

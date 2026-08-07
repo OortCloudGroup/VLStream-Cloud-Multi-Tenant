@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 /**
  * <p>
- * File upload service implementation class
+ * 文件上传服务实现类
  * </p>
  *
  * @author OORT
@@ -26,7 +26,7 @@ import java.util.HashMap;
 @Service
 public class FileUploadServiceImpl implements IFileUploadService {
 
-	//File upload method path
+	//文件上传方法路径
 	@Value("${apaas.fileUpload}")
 	private String fileUpload;
 
@@ -60,15 +60,15 @@ public class FileUploadServiceImpl implements IFileUploadService {
 	@Override
 	public FileResponseDto uploadFile(String appId, String secretKey, File file) {
 		if (file == null) {
-			log.error("File is empty");
+			log.error("文件为空");
 			return null;
 		}
 
 		try {
 
-			log.info("Start uploading files: {}", file.getName());
+			log.info("开始上传文件: {}", file.getName());
 			HashMap<String, Object> paramMap = new HashMap<>();
-			//To upload a file, just specify the key in the parameter(defaultfile), Just set the value to a file object, For users, File upload is no different from ordinary form submission
+			//文件上传只需将参数中的键指定（默认file），值设为文件对象即可，对于使用者来说，文件上传与普通表单提交并无区别
 			paramMap.put("file", file);
 
 			String responseString = HttpRequest.post(fileUpload)
@@ -76,16 +76,16 @@ public class FileUploadServiceImpl implements IFileUploadService {
 				.header("appId", appId)
 				.header("secretKey", secretKey)
 				.form(paramMap).timeout(5000).execute().body();
-			log.info("File storage gets response: {}", responseString);
+			log.info("文件存储获取响应: {}", responseString);
 
-			// Parse response
+			// 解析响应
 			JSONObject jsonResponse = new JSONObject(responseString);
 			if (jsonResponse.getInt("code") != 200) {
 				String errorMsg = jsonResponse.getStr("msg");
 				log.error("Upload failed: {}", errorMsg);
 				return null;
 			}
-			// Get file path
+			// 获取文件路径
 			String data = jsonResponse.getStr("data");
 			JSONObject dataObj = new JSONObject(data);
 			FileResponseDto fileResponseDto = new FileResponseDto();
@@ -103,8 +103,8 @@ public class FileUploadServiceImpl implements IFileUploadService {
 			fileResponseDto.setDuration(dataObj.getInt("duration"));
 			return fileResponseDto;
 		} catch (Exception e) {
-			log.error("File upload failed:{}", file.getName());
-			throw new RuntimeException("File upload failed: " + e.getMessage());
+			log.error("文件上传失败:{}", file.getName());
+			throw new RuntimeException("文件上传失败: " + e.getMessage());
 		}
 	}
 

@@ -11,69 +11,69 @@ import org.springblade.core.tenant.mp.TenantEntity;
 import java.io.Serial;
 
 /**
- * cameraOSDSetting table Entity class
+ * 摄像机OSD设置表 实体类
  */
 @Data
 @TableName("vls_camera_osd_setting")
-@Schema(description = "CameraOsdSettingobject")
+@Schema(description = "CameraOsdSetting对象")
 @EqualsAndHashCode(callSuper = true)
 public class CameraOsdSetting extends TenantEntity {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "Device primary keyID")
+	@Schema(description = "设备主键ID")
 	@JsonSerialize(using = ToStringSerializer.class)
 	private Long deviceId;
 
-	@Schema(description = "display name:0no1yes")
+	@Schema(description = "显示名称:0否1是")
 	private Integer showName;
 
-	@Schema(description = "Show date:0no1yes")
+	@Schema(description = "显示日期:0否1是")
 	private Integer showDate;
 
-	@Schema(description = "Show day of the week:0no1yes")
+	@Schema(description = "显示星期:0否1是")
 	private Integer showWeek;
 
-	@Schema(description = "Channel name")
+	@Schema(description = "通道名称")
 	private String channelName;
 
-	@Schema(description = "time format")
+	@Schema(description = "时间格式")
 	private String timeFormat;
 
-	@Schema(description = "date format")
+	@Schema(description = "日期格式")
 	private String dateFormat;
 
-	@Schema(description = "character overlay1enable:0no1yes")
+	@Schema(description = "字符叠加1启用:0否1是")
 	private Integer overlay1Enabled;
 
-	@Schema(description = "character overlay1content")
+	@Schema(description = "字符叠加1内容")
 	private String overlay1Text;
 
-	@Schema(description = "character overlay2enable:0no1yes")
+	@Schema(description = "字符叠加2启用:0否1是")
 	private Integer overlay2Enabled;
 
-	@Schema(description = "character overlay2content")
+	@Schema(description = "字符叠加2内容")
 	private String overlay2Text;
 
-	@Schema(description = "character overlay3enable:0no1yes")
+	@Schema(description = "字符叠加3启用:0否1是")
 	private Integer overlay3Enabled;
 
-	@Schema(description = "character overlay3content")
+	@Schema(description = "字符叠加3内容")
 	private String overlay3Text;
 
-	@Schema(description = "OSDproperty")
+	@Schema(description = "OSD属性")
 	private String osdProperty;
 
-	@Schema(description = "OSDfont")
+	@Schema(description = "OSD字体")
 	private String osdFont;
 
-	@Schema(description = "OSDcolor")
+	@Schema(description = "OSD颜色")
 	private String osdColor;
 
-	@Schema(description = "Alignment")
+	@Schema(description = "对齐方式")
 	private String alignMode;
 
-	@Schema(description = "Remark")
+	@Schema(description = "备注")
 	private String remark;
 }

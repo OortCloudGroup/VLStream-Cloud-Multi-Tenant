@@ -9,47 +9,47 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * time strategy table Service category
+ * 时间策略表 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsTimeStrategyService extends BaseService<TimeStrategy> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsTimeStrategy query parameters
+	 * @param page 分页参数
+	 * @param vlsTimeStrategy 查询参数
 	 * @return IPage<VlsTimeStrategyVO>
 	 */
 	IPage<TimeStrategyVO> selectVlsTimeStrategyPage(IPage<TimeStrategyVO> page, TimeStrategyVO vlsTimeStrategy);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsTimeStrategyExcel>
 	 */
 	List<VlsTimeStrategyExcel> exportVlsTimeStrategy(Wrapper<TimeStrategy> queryWrapper);
 
 	/**
-	 * According to deviceIDGet time strategy
-	 * @param deviceId equipmentID
-	 * @return time strategy
+	 * 根据设备ID获取时间策略
+	 * @param deviceId 设备ID
+	 * @return 时间策略
 	 */
 	TimeStrategy getByDeviceId(String deviceId);
 
 	/**
-	 * Save or update time policy
-	 * @param timeStrategy time strategy
-	 * @return Is it successful?
+	 * 保存或更新时间策略
+	 * @param timeStrategy 时间策略
+	 * @return 是否成功
 	 */
 	boolean saveOrUpdateStrategy(TimeStrategy timeStrategy);
 
 	/**
-	 * According to deviceIDDelete time policy
-	 * @param deviceId equipmentID
-	 * @return Is it successful?
+	 * 根据设备ID删除时间策略
+	 * @param deviceId 设备ID
+	 * @return 是否成功
 	 */
 	boolean deleteByDeviceId(String deviceId);
 

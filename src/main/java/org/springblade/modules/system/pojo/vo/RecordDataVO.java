@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * Data audit table View entity class
+ * 数据审计表 视图实体类
  *
  * @author Oort
  */
@@ -19,9 +19,9 @@ public class RecordDataVO extends RecordData {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Record account number
+	 * 记录账号
 	 */
-	@Schema(description = "Record account number")
+	@Schema(description = "记录账号")
 	private String recordUserName;
 
 }

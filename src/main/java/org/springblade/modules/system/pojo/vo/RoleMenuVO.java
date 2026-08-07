@@ -8,13 +8,13 @@ import org.springblade.modules.system.pojo.entity.RoleMenu;
 import java.io.Serial;
 
 /**
- * View entity class
+ * 视图实体类
  *
  * @author Chill
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "RoleMenuVOobject")
+@Schema(description = "RoleMenuVO对象")
 public class RoleMenuVO extends RoleMenu {
 	@Serial
 	private static final long serialVersionUID = 1L;

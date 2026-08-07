@@ -10,103 +10,103 @@ import org.springblade.core.mp.base.BaseService;
 import java.util.List;
 
 /**
- * Label instance entity class Service category
+ * 标注实例实体类 服务类
  *
  * @author Oort
  * @since 2025-12-23
  */
 public interface IVlsAnnotationInstanceService extends BaseService<AnnotationInstance> {
 	/**
-	 * Custom paging
+	 * 自定义分页
 	 *
-	 * @param page Paging parameters
-	 * @param vlsAnnotationInstance query parameters
+	 * @param page 分页参数
+	 * @param vlsAnnotationInstance 查询参数
 	 * @return IPage<VlsAnnotationInstanceVO>
 	 */
 	IPage<AnnotationInstanceVO> selectVlsAnnotationInstancePage(IPage<AnnotationInstanceVO> page, AnnotationInstanceVO vlsAnnotationInstance);
 
 	/**
-	 * Export data
+	 * 导出数据
 	 *
-	 * @param queryWrapper Query conditions
+	 * @param queryWrapper 查询条件
 	 * @return List<VlsAnnotationInstanceExcel>
 	 */
 	List<VlsAnnotationInstanceExcel> exportVlsAnnotationInstance(Wrapper<AnnotationInstance> queryWrapper);
 
 	/**
-	 * According to the marked itemsIDand image name query annotation examples
+	 * 根据标注项目ID和图片名称查询标注实例
 	 *
-	 * @param annotationId Label itemsID
-	 * @param imageName Picture name
-	 * @return Label instance list
+	 * @param annotationId 标注项目ID
+	 * @param imageName 图片名称
+	 * @return 标注实例列表
 	 */
 	List<AnnotationInstance> getByAnnotationIdAndImageName(Long annotationId, String imageName);
 
 	/**
-	 * Save annotation instance
+	 * 保存标注实例
 	 *
-	 * @param annotationId Label itemsID
-	 * @param labelId LabelID
-	 * @param imageId pictureid
-	 * @param annotationType Dimension type
-	 * @param annotationData Label data(JSONFormat)
-	 * @return Saved callout instance
+	 * @param annotationId 标注项目ID
+	 * @param labelId 标签ID
+	 * @param imageId 图片id
+	 * @param annotationType 标注类型
+	 * @param annotationData 标注数据（JSON格式）
+	 * @return 保存的标注实例
 	 */
 	AnnotationInstance saveAnnotation(Long annotationId, Long labelId, Long imageId, AlgorithmAnnotationTypeEnum annotationType, String annotationData);
 
 	/**
-	 * Update callout instance
+	 * 更新标注实例
 	 *
-	 * @param instanceId ExampleID
-	 * @param labelId LabelID
-	 * @param annotationType Dimension type
-	 * @param annotationData Label data(JSONFormat)
-	 * @return Updated annotation example
+	 * @param instanceId 实例ID
+	 * @param labelId 标签ID
+	 * @param annotationType 标注类型
+	 * @param annotationData 标注数据（JSON格式）
+	 * @return 更新后的标注实例
 	 */
 	AnnotationInstance updateAnnotation(Long instanceId, Long labelId,
 										AlgorithmAnnotationTypeEnum annotationType, String annotationData);
 
 	/**
-	 * Delete annotation instance
+	 * 删除标注实例
 	 *
-	 * @param instanceId ExampleID
-	 * @return Is deletion successful?
+	 * @param instanceId 实例ID
+	 * @return 是否删除成功
 	 */
 	boolean deleteAnnotation(Long instanceId);
 
 	/**
-	 * Save labeling instances in batches
+	 * 批量保存标注实例
 	 *
-	 * @param annotationId Label itemsID
-	 * @param imageId pictureID
-	 * @param annotations Label instance list
-	 * @return Is the save successful?
+	 * @param annotationId 标注项目ID
+	 * @param imageId 图片ID
+	 * @param annotations 标注实例列表
+	 * @return 是否保存成功
 	 */
 	boolean batchSaveAnnotations(Long annotationId, Long imageId, List<AnnotationInstance> annotations);
 
 	/**
-	 * According to the marked itemsIDQuery all annotation instances
+	 * 根据标注项目ID查询所有标注实例
 	 *
-	 * @param annotationId Label itemsID
-	 * @return Label instance list
+	 * @param annotationId 标注项目ID
+	 * @return 标注实例列表
 	 */
 	List<AnnotationInstance> getByAnnotationId(Long annotationId);
 
 	/**
-	 * According to labelIDCount usage
+	 * 根据标签ID统计使用次数
 	 *
-	 * @param labelId LabelID
-	 * @return Number of uses
+	 * @param labelId 标签ID
+	 * @return 使用次数
 	 */
 	Integer countByLabelId(Long labelId);
 
 	/**
-	 * Delete the image and all data associated with it
-	 * include: annotation_image、annotation_instance、renewannotation_labelusage count
+	 * 删除图片及其相关的所有数据
+	 * 包括：annotation_image、annotation_instance、更新annotation_label的使用计数
 	 *
-	 * @param annotationId Label itemsID
-	 * @param imageId pictureID
-	 * @return Delete results
+	 * @param annotationId 标注项目ID
+	 * @param imageId 图片ID
+	 * @return 删除结果
 	 */
 	boolean deleteImageAndRelatedData(Long annotationId, Long imageId);
 
