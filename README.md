@@ -2,6 +2,10 @@
 
 [中文版](README-cn.md)
 
+## Live Demo
+
+[Open the online demo](https://workup.oortcloudsmart.com:2443/bus/apaas-web/desktopHome/index.html)
+
 ## Introduction
 
 VLStream Cloud Multi-Tenant is an intelligent video stream management system built with Spring Boot 3 + MyBatis-Plus + MySQL, supporting multi-tenant field isolation mode. This project is open-source, with some core services depending on the [OORT.sh](https://oort.sh) platform for deployment.

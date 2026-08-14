@@ -2,6 +2,10 @@
 
 [English Version](README.md)
 
+## 在线演示
+
+[打开在线演示](https://workup.oortcloudsmart.com:2443/bus/apaas-web/desktopHome/index.html)
+
 ## 项目简介
 
 VLStream Cloud 多租户版是基于 Spring Boot 3 + MyBatis-Plus + MySQL 技术栈开发的智能视频流管理系统，支持多租户字段隔离模式。本项目为开源项目，部分核心服务依赖 [OORT.sh](https://oort.sh) 平台进行部署。
